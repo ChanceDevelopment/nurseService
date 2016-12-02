@@ -468,7 +468,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		EAC2D4251D4B031500E282A8 /* 护士上门.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "护士上门.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAC2D4251D4B031500E282A8 /* 护士上门护士端.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "护士上门护士端.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAC2D4291D4B031500E282A8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EAC2D42B1D4B031500E282A8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EAC2D42C1D4B031500E282A8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1377,7 +1377,7 @@
 		EAC2D4261D4B031500E282A8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EAC2D4251D4B031500E282A8 /* 护士上门.app */,
+				EAC2D4251D4B031500E282A8 /* 护士上门护士端.app */,
 				EAC2D43E1D4B031500E282A8 /* nurseServiceTests.xctest */,
 				EAC2D4491D4B031500E282A8 /* nurseServiceUITests.xctest */,
 			);
@@ -3094,7 +3094,7 @@
 			);
 			name = nurseService;
 			productName = nurseService;
-			productReference = EAC2D4251D4B031500E282A8 /* 护士上门.app */;
+			productReference = EAC2D4251D4B031500E282A8 /* 护士上门护士端.app */;
 			productType = "com.apple.product-type.application";
 		};
 		EAC2D43D1D4B031500E282A8 /* nurseServiceTests */ = {
@@ -3772,7 +3772,7 @@
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/ZBarSDK",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.channce.nurseService;
-				PRODUCT_NAME = "护士上门";
+				PRODUCT_NAME = "护士上门护士端";
 				PROVISIONING_PROFILE = "ae73ee5a-9784-48cc-9c11-51c20c52e092";
 			};
 			name = Debug;
@@ -3806,7 +3806,7 @@
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/ZBarSDK",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.channce.nurseService;
-				PRODUCT_NAME = "护士上门";
+				PRODUCT_NAME = "护士上门护士端";
 				PROVISIONING_PROFILE = "d74590ab-05bf-4497-b115-75666df7c99f";
 			};
 			name = Release;
@@ -3923,7 +3923,7 @@
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/ZBarSDK",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.channce.nurseService;
-				PRODUCT_NAME = "护士上门";
+				PRODUCT_NAME = "护士上门护士端";
 				PROVISIONING_PROFILE = "97c75c13-57ee-47b9-bb8d-f75cbaae77b9";
 			};
 			name = Distribution;
