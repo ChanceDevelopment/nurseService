@@ -50,3 +50,21 @@
 #define ALog(...) NSLog(__VA_ARGS__)
 
 #endif /* nurseService_Prefix_pch */
+
+#define iOS7   ([UIDevice currentDevice].systemVersion.floatValue >= 6.9)
+#define iOS8   ([UIDevice currentDevice].systemVersion.floatValue >= 7.9)
+#define iOS9   ([UIDevice currentDevice].systemVersion.floatValue >= 8.9)
+#define iOS10   ([UIDevice currentDevice].systemVersion.floatValue >= 9.9)
+#define iOS7OFFSET 64
+
+#define TOPNAVIHEIGHT 44
+#define WINDOWHEIGHT ([UIApplication sharedApplication].keyWindow.frame.size.height)
+
+#define STATUSBAR_HEIGHT (iOS7 ? 20 : 0)  //状态栏高度
+
+#define SCREENWIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREENHEIGH [UIScreen mainScreen].bounds.size.height
+
+
+#define TOPNAVIBGCOLOR [UIColor purpleColor]
+
