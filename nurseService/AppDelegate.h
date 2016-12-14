@@ -11,7 +11,8 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate,RESideMenuDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
+@property (strong, nonatomic) UIViewController *viewController;
+@property (strong, nonatomic)NSOperationQueue *queue;
 
 @end
 

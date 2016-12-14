@@ -8,8 +8,15 @@
 
 #import "HeBaseViewController.h"
 #import "RDVTabBarController.h"
+#import "HomeViewController.h"
+#import "RankViewController.h"
+#import "MineViewController.h"
+#import "OrderViewController.h"
 
 @interface HeTabBarVC : RDVTabBarController<UIAlertViewDelegate>
-
+@property(strong,nonatomic)HomeViewController *homeVC;
+@property(strong,nonatomic)RankViewController *rankVC;
+@property(strong,nonatomic)OrderViewController *orderVC;
+@property(strong,nonatomic)MineViewController *userVC;
 
 @end

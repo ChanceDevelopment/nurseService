@@ -1,18 +1,18 @@
 //
-//  MineViewController.m
+//  HeEnrollVC.m
 //  nurseService
 //
 //  Created by Tony on 2016/12/14.
 //  Copyright © 2016年 iMac. All rights reserved.
 //
 
-#import "MineViewController.h"
+#import "HeEnrollVC.h"
 
-@interface MineViewController ()
+@interface HeEnrollVC ()
 
 @end
 
-@implementation MineViewController
+@implementation HeEnrollVC
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -25,9 +25,9 @@
         label.textColor = APPDEFAULTTITLECOLOR;
         label.textAlignment = NSTextAlignmentCenter;
         self.navigationItem.titleView = label;
-        label.text = @"我的";
+        label.text = @"注册";
         [label sizeToFit];
-        self.title = @"我的";
+        self.title = @"注册";
     }
     return self;
 }

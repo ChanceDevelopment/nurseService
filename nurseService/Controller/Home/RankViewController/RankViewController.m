@@ -2,7 +2,7 @@
 //  RankViewController.m
 //  nurseService
 //
-//  Created by 梅阳阳 on 16/12/11.
+//  Created by Tony on 2016/12/14.
 //  Copyright © 2016年 iMac. All rights reserved.
 //
 
@@ -14,23 +14,39 @@
 
 @implementation RankViewController
 
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+        label.backgroundColor = [UIColor clearColor];
+        label.font = [UIFont boldSystemFontOfSize:20.0];
+        label.textColor = APPDEFAULTTITLECOLOR;
+        label.textAlignment = NSTextAlignmentCenter;
+        self.navigationItem.titleView = label;
+        label.text = @"排行榜";
+        [label sizeToFit];
+        self.title = @"排行榜";
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    // Do any additional setup after loading the view from its nib.
+    [self initializaiton];
+    [self initView];
 }
 
-
-
-#pragma mark - Configuring the view’s layout behavior
-
-- (BOOL)prefersStatusBarHidden
+- (void)initializaiton
 {
-    return NO;
+    [super initializaiton];
 }
 
-- (UIStatusBarStyle)preferredStatusBarStyle
+- (void)initView
 {
-    return UIStatusBarStyleLightContent;
+    [super initView];
 }
 
 - (void)didReceiveMemoryWarning {

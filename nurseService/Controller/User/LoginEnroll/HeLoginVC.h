@@ -1,5 +1,5 @@
 //
-//  OrderViewController.h
+//  HeLoginVC.h
 //  nurseService
 //
 //  Created by Tony on 2016/12/14.
@@ -8,6 +8,6 @@
 
 #import "HeBaseViewController.h"
 
-@interface OrderViewController : HeBaseViewController
+@interface HeLoginVC : HeBaseViewController
 
 @end

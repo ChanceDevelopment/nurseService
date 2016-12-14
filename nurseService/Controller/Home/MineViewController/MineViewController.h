@@ -2,12 +2,12 @@
 //  MineViewController.h
 //  nurseService
 //
-//  Created by 梅阳阳 on 16/12/11.
+//  Created by Tony on 2016/12/14.
 //  Copyright © 2016年 iMac. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "HeBaseViewController.h"
 
-@interface MineViewController : UIViewController
+@interface MineViewController : HeBaseViewController
 
 @end

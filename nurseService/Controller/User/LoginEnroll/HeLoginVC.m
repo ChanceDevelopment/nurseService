@@ -1,18 +1,18 @@
 //
-//  MineViewController.m
+//  HeLoginVC.m
 //  nurseService
 //
 //  Created by Tony on 2016/12/14.
 //  Copyright © 2016年 iMac. All rights reserved.
 //
 
-#import "MineViewController.h"
+#import "HeLoginVC.h"
 
-@interface MineViewController ()
+@interface HeLoginVC ()
 
 @end
 
-@implementation MineViewController
+@implementation HeLoginVC
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -25,9 +25,9 @@
         label.textColor = APPDEFAULTTITLECOLOR;
         label.textAlignment = NSTextAlignmentCenter;
         self.navigationItem.titleView = label;
-        label.text = @"我的";
+        label.text = @"登录";
         [label sizeToFit];
-        self.title = @"我的";
+        self.title = @"登录";
     }
     return self;
 }
