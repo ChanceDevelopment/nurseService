@@ -21,7 +21,7 @@
         // Custom initialization
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
         label.backgroundColor = [UIColor clearColor];
-        label.font = [UIFont boldSystemFontOfSize:20.0];
+        label.font = APPDEFAULTTITLETEXTFONT;
         label.textColor = APPDEFAULTTITLECOLOR;
         label.textAlignment = NSTextAlignmentCenter;
         self.navigationItem.titleView = label;
@@ -47,6 +47,7 @@
 - (void)initView
 {
     [super initView];
+    self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
 }
 
 - (void)didReceiveMemoryWarning {

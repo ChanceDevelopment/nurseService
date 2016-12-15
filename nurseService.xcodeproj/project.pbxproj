@@ -65,6 +65,10 @@
 		EAA4F3231E012F3000EF9E14 /* tabar_rank_icon_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAA4F31B1E012F3000EF9E14 /* tabar_rank_icon_normal@2x.png */; };
 		EAA4F3241E012F3000EF9E14 /* tabar_user_icon_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAA4F31C1E012F3000EF9E14 /* tabar_user_icon_active@2x.png */; };
 		EAA4F3251E012F3000EF9E14 /* tabar_user_icon_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EAA4F31D1E012F3000EF9E14 /* tabar_user_icon_normal@2x.png */; };
+		EAA4F3361E024A9A00EF9E14 /* NavBarIOS7.png in Resources */ = {isa = PBXBuildFile; fileRef = EAA4F3351E024A9A00EF9E14 /* NavBarIOS7.png */; };
+		EAA4F3381E024CF300EF9E14 /* icon_openeyes.png in Resources */ = {isa = PBXBuildFile; fileRef = EAA4F3371E024CF300EF9E14 /* icon_openeyes.png */; };
+		EAA4F33A1E024D0600EF9E14 /* icon_look.png in Resources */ = {isa = PBXBuildFile; fileRef = EAA4F3391E024D0600EF9E14 /* icon_look.png */; };
+		EAA4F33C1E024D0F00EF9E14 /* icon_closeeyes.png in Resources */ = {isa = PBXBuildFile; fileRef = EAA4F33B1E024D0F00EF9E14 /* icon_closeeyes.png */; };
 		EAC2D42A1D4B031500E282A8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC2D4291D4B031500E282A8 /* main.m */; };
 		EAC2D42D1D4B031500E282A8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC2D42C1D4B031500E282A8 /* AppDelegate.m */; };
 		EAC2D4301D4B031500E282A8 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC2D42F1D4B031500E282A8 /* ViewController.m */; };
@@ -599,6 +603,10 @@
 		EAA4F31B1E012F3000EF9E14 /* tabar_rank_icon_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabar_rank_icon_normal@2x.png"; sourceTree = "<group>"; };
 		EAA4F31C1E012F3000EF9E14 /* tabar_user_icon_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabar_user_icon_active@2x.png"; sourceTree = "<group>"; };
 		EAA4F31D1E012F3000EF9E14 /* tabar_user_icon_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabar_user_icon_normal@2x.png"; sourceTree = "<group>"; };
+		EAA4F3351E024A9A00EF9E14 /* NavBarIOS7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NavBarIOS7.png; sourceTree = "<group>"; };
+		EAA4F3371E024CF300EF9E14 /* icon_openeyes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_openeyes.png; sourceTree = "<group>"; };
+		EAA4F3391E024D0600EF9E14 /* icon_look.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_look.png; sourceTree = "<group>"; };
+		EAA4F33B1E024D0F00EF9E14 /* icon_closeeyes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_closeeyes.png; sourceTree = "<group>"; };
 		EAC2D4251D4B031500E282A8 /* 护士端.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "护士端.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAC2D4291D4B031500E282A8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EAC2D42B1D4B031500E282A8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1580,6 +1588,7 @@
 		ADDBEB4B1DFCE26F000BDA95 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				EAA4F3341E024A9600EF9E14 /* Custom */,
 				AD3013741DFCF4F200D26E09 /* mineIcon */,
 				AD3013701DFCF4DC00D26E09 /* icon_scan.png */,
 				AD3013711DFCF4DC00D26E09 /* icon_search.png */,
@@ -1746,6 +1755,17 @@
 				EAA4F2FF1E011ED100EF9E14 /* HeEnrollVC.xib */,
 			);
 			path = LoginEnroll;
+			sourceTree = "<group>";
+		};
+		EAA4F3341E024A9600EF9E14 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				EAA4F33B1E024D0F00EF9E14 /* icon_closeeyes.png */,
+				EAA4F3391E024D0600EF9E14 /* icon_look.png */,
+				EAA4F3371E024CF300EF9E14 /* icon_openeyes.png */,
+				EAA4F3351E024A9A00EF9E14 /* NavBarIOS7.png */,
+			);
+			path = Custom;
 			sourceTree = "<group>";
 		};
 		EAC2D41C1D4B031500E282A8 = {
@@ -3541,11 +3561,13 @@
 				AD3013881DFCF4F300D26E09 /* icon_patient.png in Resources */,
 				ADDBEB9A1DFCE954000BDA95 /* index1.png in Resources */,
 				EAA4F3251E012F3000EF9E14 /* tabar_user_icon_normal@2x.png in Resources */,
+				EAA4F3361E024A9A00EF9E14 /* NavBarIOS7.png in Resources */,
 				EAC2D94E1D4B063B00E282A8 /* SVProgressHUD.bundle in Resources */,
 				EAA4F31E1E012F3000EF9E14 /* tabar_home_icon_active@2x.png in Resources */,
 				ADDBEB461DFCE267000BDA95 /* HeTabBarVC.xib in Resources */,
 				EAC2D8221D4B063B00E282A8 /* LICENSE in Resources */,
 				EAC2D9481D4B063B00E282A8 /* sr_refresh@2X.png in Resources */,
+				EAA4F33C1E024D0F00EF9E14 /* icon_closeeyes.png in Resources */,
 				EAC2D8741D4B063B00E282A8 /* blackArrow.png in Resources */,
 				EAC2D9921D4B063C00E282A8 /* ShareSDK.bundle in Resources */,
 				EAC2D8C61D4B063B00E282A8 /* arrow_down1.png in Resources */,
@@ -3598,6 +3620,7 @@
 				EAC2D8711D4B063B00E282A8 /* i2KEPCMultiComponentPickerView.xib in Resources */,
 				AD3013731DFCF4DC00D26E09 /* icon_search.png in Resources */,
 				AD3013871DFCF4F300D26E09 /* icon_mycomment.png in Resources */,
+				EAA4F3381E024CF300EF9E14 /* icon_openeyes.png in Resources */,
 				EAA4F3211E012F3000EF9E14 /* tabar_order_icon_normal@2x.png in Resources */,
 				EAC2D89B1D4B063B00E282A8 /* MJPhotoBrowser.bundle in Resources */,
 				EAC2D87D1D4B063B00E282A8 /* whiteArrow@2x.png in Resources */,
@@ -3621,6 +3644,7 @@
 				EAC2D9981D4B063C00E282A8 /* zbar-helpicons.png in Resources */,
 				EAC2D8371D4B063B00E282A8 /* BrowserView.xib in Resources */,
 				ADDBEB951DFCE87E000BDA95 /* index_banner4@2x.jpg in Resources */,
+				EAA4F33A1E024D0600EF9E14 /* icon_look.png in Resources */,
 				EAA4F30B1E012A8400EF9E14 /* MineViewController.xib in Resources */,
 				ADDBEB441DFCE267000BDA95 /* HeBaseViewController.xib in Resources */,
 				AD3013831DFCF4F200D26E09 /* icon_follow.png in Resources */,

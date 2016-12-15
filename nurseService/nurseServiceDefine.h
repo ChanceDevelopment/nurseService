@@ -102,7 +102,7 @@
 //默认标题颜色168
 #define APPDEFAULTTITLECOLOR ([UIColor colorWithRed:152.0 / 255.0 green:67.0 / 255.0 blue:141.0 / 255.0 alpha:1.0])
 //默认标题的字体
-#define APPDEFAULTTITLETEXTFONT ([UIFont fontWithName:@"Helvetica" size:20.0])
+#define APPDEFAULTTITLETEXTFONT ([UIFont systemFontOfSize:20.0])
 //默认table的背景颜色
 #define APPDEFAULTTABLEBACKGROUNDCOLOR ([UIColor colorWithWhite:245.0 / 255.0 alpha:1.0])
 //默认table的分割线颜色
