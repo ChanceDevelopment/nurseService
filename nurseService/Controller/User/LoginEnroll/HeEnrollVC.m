@@ -25,9 +25,9 @@
         label.textColor = APPDEFAULTTITLECOLOR;
         label.textAlignment = NSTextAlignmentCenter;
         self.navigationItem.titleView = label;
-        label.text = @"注册";
+        label.text = @"注册账号";
         [label sizeToFit];
-        self.title = @"注册";
+        self.title = @"注册账号";
     }
     return self;
 }
@@ -47,6 +47,7 @@
 - (void)initView
 {
     [super initView];
+    self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
 }
 
 - (void)didReceiveMemoryWarning {

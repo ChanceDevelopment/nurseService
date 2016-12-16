@@ -27,7 +27,7 @@
         self.navigationItem.titleView = label;
         label.text = @"学术圈";
         [label sizeToFit];
-        self.title = @"学术圈";
+        self.title = @"首页";
     }
     return self;
 }

@@ -45,6 +45,7 @@
 		ADDBEB971DFCE87E000BDA95 /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDBEB8E1DFCE87E000BDA95 /* UIViewExt.m */; };
 		ADDBEB9A1DFCE954000BDA95 /* index1.png in Resources */ = {isa = PBXBuildFile; fileRef = ADDBEB981DFCE954000BDA95 /* index1.png */; };
 		ADDBEB9B1DFCE954000BDA95 /* index2.png in Resources */ = {isa = PBXBuildFile; fileRef = ADDBEB991DFCE954000BDA95 /* index2.png */; };
+		EA4D13C01E03CCF900BBE450 /* navigationBar_back_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4D13BF1E03CCF900BBE450 /* navigationBar_back_icon.png */; };
 		EAA4F2FB1E011EC100EF9E14 /* HeLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA4F2F91E011EC100EF9E14 /* HeLoginVC.m */; };
 		EAA4F2FC1E011EC100EF9E14 /* HeLoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA4F2FA1E011EC100EF9E14 /* HeLoginVC.xib */; };
 		EAA4F3001E011ED100EF9E14 /* HeEnrollVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA4F2FE1E011ED100EF9E14 /* HeEnrollVC.m */; };
@@ -577,6 +578,7 @@
 		ADDBEB8E1DFCE87E000BDA95 /* UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewExt.m; sourceTree = "<group>"; };
 		ADDBEB981DFCE954000BDA95 /* index1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = index1.png; sourceTree = "<group>"; };
 		ADDBEB991DFCE954000BDA95 /* index2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = index2.png; sourceTree = "<group>"; };
+		EA4D13BF1E03CCF900BBE450 /* navigationBar_back_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationBar_back_icon.png; sourceTree = "<group>"; };
 		EAA4F2F81E011EC100EF9E14 /* HeLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeLoginVC.h; sourceTree = "<group>"; };
 		EAA4F2F91E011EC100EF9E14 /* HeLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeLoginVC.m; sourceTree = "<group>"; };
 		EAA4F2FA1E011EC100EF9E14 /* HeLoginVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeLoginVC.xib; sourceTree = "<group>"; };
@@ -1760,6 +1762,7 @@
 		EAA4F3341E024A9600EF9E14 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				EA4D13BF1E03CCF900BBE450 /* navigationBar_back_icon.png */,
 				EAA4F33B1E024D0F00EF9E14 /* icon_closeeyes.png */,
 				EAA4F3391E024D0600EF9E14 /* icon_look.png */,
 				EAA4F3371E024CF300EF9E14 /* icon_openeyes.png */,
@@ -3631,6 +3634,7 @@
 				EAC2D4331D4B031500E282A8 /* Main.storyboard in Resources */,
 				EAC2D87E1D4B063B00E282A8 /* LICENSE.txt in Resources */,
 				EAC2D9961D4B063C00E282A8 /* zbar-back.png in Resources */,
+				EA4D13C01E03CCF900BBE450 /* navigationBar_back_icon.png in Resources */,
 				EAA4F3221E012F3000EF9E14 /* tabar_rank_icon_active@2x.png in Resources */,
 				AD30138B1DFCF4F300D26E09 /* icon_service.png in Resources */,
 				EAC2D87C1D4B063B00E282A8 /* whiteArrow.png in Resources */,

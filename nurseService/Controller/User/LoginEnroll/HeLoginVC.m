@@ -7,12 +7,22 @@
 //
 
 #import "HeLoginVC.h"
+#import "HeEnrollVC.h"
 
-@interface HeLoginVC ()
+@interface HeLoginVC ()<UITextFieldDelegate>
+@property(strong,nonatomic)IBOutlet UITextField *accountField;
+@property(strong,nonatomic)IBOutlet UITextField *passwordField;
+@property(strong,nonatomic)IBOutlet UIButton *securirtyButton;
+@property(strong,nonatomic)IBOutlet UIButton *loginButton;
+@property(strong,nonatomic)IBOutlet UIButton *enrollButton;
 
 @end
 
 @implementation HeLoginVC
+@synthesize accountField;
+@synthesize passwordField;
+@synthesize securirtyButton;
+@synthesize enrollButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -48,6 +58,48 @@
 {
     [super initView];
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
+}
+
+- (IBAction)loginButtonClick:(id)sender
+{
+//    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
+    
+    NSString *account = [accountField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    NSString *password = passwordField.text;
+    if (account == nil || [account isEqualToString:@""]) {
+        [self showHint:@"请输入手机号码"];
+        return;
+    }
+    if (password == nil || [password isEqualToString:@""]) {
+        [self showHint:@"请输入登录密码"];
+        return;
+    }
+    if (![Tool isMobileNumber:account]) {
+        [self showHint:@"请输入正确的手机号码"];
+        return;
+    }
+    
+}
+
+- (IBAction)enrollButtonClick:(id)sender
+{
+    HeEnrollVC *enrollVC = [[HeEnrollVC alloc] init];
+    enrollVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:enrollVC animated:YES];
+}
+
+- (IBAction)securityButtonClick:(UIButton *)sender
+{
+    sender.selected = !sender.selected;
+    passwordField.secureTextEntry = sender.selected;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if ([textField isFirstResponder]) {
+        [textField resignFirstResponder];
+    }
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {
