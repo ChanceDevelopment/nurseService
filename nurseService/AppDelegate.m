@@ -11,6 +11,22 @@
 #import "RESideMenu.h"
 #import "HeLoginVC.h"
 #import "HeTabBarVC.h"
+#import <SMS_SDK/SMSSDK.h>
+#import "JPUSHService.h"
+#include <sys/xattr.h>
+#import "HeTabBarVC.h"
+#import <UMMobClick/MobClick.h>
+#import "HeInstructionView.h"
+#import "HeLoginVC.h"
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKConnector/ShareSDKConnector.h>
+#import <TencentOpenAPI/TencentOAuth.h>
+#import <TencentOpenAPI/QQApiInterface.h>
+#import "WXApi.h"
+#import "WeiboSDK.h"
+#import "BrowserView.h"
+#import "TOWebViewController.h"
+#import <SMS_SDK/SMSSDK.h>
 
 @interface AppDelegate ()
 
@@ -23,7 +39,7 @@
     // Override point for customization after application launch.
     
     [self initialization];
-    
+    [self umengTrack];
     self.window.rootViewController = self.viewController;
     //清除缓存
     NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(clearImg:) object:nil];
@@ -146,6 +162,39 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
+}
+
+//初始化友盟的SDK
+- (void)umengTrack
+{
+    [MobClick setLogEnabled:NO];  // 打开友盟sdk调试，注意Release发布时需要注释掉此行,减少io消耗
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [MobClick setAppVersion:version];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone){
+        [MobClick setLogEnabled:YES];
+        UMConfigInstance.appKey = UMANALYSISKEY;
+        UMConfigInstance.secret = @"secretstringaldfkals";
+        //    UMConfigInstance.eSType = E_UM_GAME;
+        [MobClick startWithConfigure:UMConfigInstance];
+        
+        //        [MobClick startWithAppkey:UMANALYSISKEY reportPolicy:(ReportPolicy) SEND_INTERVAL channelId:nil];
+    }
+    else{
+        [MobClick setLogEnabled:YES];
+        UMConfigInstance.appKey = UMANALYSISKEY_HD;
+        UMConfigInstance.secret = @"secretstringaldfkals";
+        //    UMConfigInstance.eSType = E_UM_GAME;
+        [MobClick startWithConfigure:UMConfigInstance];
+        
+        //        [MobClick startWithAppkey:UMANALYSISKEY_HD reportPolicy:(ReportPolicy) SEND_INTERVAL channelId:nil];
+    }
+    
+    [MobClick setCrashReportEnabled:YES]; // 如果不需要捕捉异常，注释掉此行
+    [MobClick setBackgroundTaskEnabled:YES];
+    [MobClick setLogSendInterval:90];//每隔两小时上传一次
+    //    [MobClick ];  //在线参数配置
+    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onlineConfigCallBack:) name:UMOnlineConfigDidFinishedNotification object:nil];
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

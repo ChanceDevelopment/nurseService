@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -24,18 +24,6 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nly-mk-VPa">
-                    <rect key="frame" x="330" y="105" width="30" height="25"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="25" id="Wlu-TW-X3p"/>
-                        <constraint firstAttribute="width" constant="30" id="wDT-bm-4Es"/>
-                    </constraints>
-                    <state key="normal" image="icon_closeeyes.png"/>
-                    <state key="selected" image="icon_openeyes.png"/>
-                    <connections>
-                        <action selector="securityButtonClick:" destination="-1" eventType="touchUpInside" id="gjy-wZ-Bol"/>
-                    </connections>
-                </button>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gES-eX-HD2">
                     <rect key="frame" x="20" y="45" width="335" height="40"/>
                     <constraints>
@@ -102,12 +90,24 @@
                         <action selector="enrollButtonClick:" destination="-1" eventType="touchUpInside" id="A9Y-sU-GMS"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nly-mk-VPa">
+                    <rect key="frame" x="325" y="98" width="30" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="Wlu-TW-X3p"/>
+                        <constraint firstAttribute="width" constant="30" id="wDT-bm-4Es"/>
+                    </constraints>
+                    <state key="normal" image="icon_closeeyes.png"/>
+                    <state key="selected" image="icon_openeyes.png"/>
+                    <connections>
+                        <action selector="securityButtonClick:" destination="-1" eventType="touchUpInside" id="gjy-wZ-Bol"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="gES-eX-HD2" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="2rn-zp-qeB"/>
                 <constraint firstItem="jqo-1n-sew" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="9Ph-Z2-dDz"/>
-                <constraint firstItem="Nly-mk-VPa" firstAttribute="top" secondItem="jqo-1n-sew" secondAttribute="bottom" constant="19" id="HHU-Og-iH1"/>
+                <constraint firstItem="Nly-mk-VPa" firstAttribute="top" secondItem="jqo-1n-sew" secondAttribute="bottom" constant="12" id="HHU-Og-iH1"/>
                 <constraint firstItem="gES-eX-HD2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="45" id="KfZ-mI-can"/>
                 <constraint firstAttribute="trailing" secondItem="jqo-1n-sew" secondAttribute="trailing" constant="20" id="LEh-HZ-3ta"/>
                 <constraint firstAttribute="trailing" secondItem="wRZ-tg-xmy" secondAttribute="trailing" constant="48" id="MKN-wX-fQr"/>
@@ -123,7 +123,7 @@
                 <constraint firstItem="wRZ-tg-xmy" firstAttribute="top" secondItem="jqo-1n-sew" secondAttribute="bottom" constant="9" id="s16-jW-2PK"/>
                 <constraint firstAttribute="trailing" secondItem="gES-eX-HD2" secondAttribute="trailing" constant="20" id="sxN-r2-6d9"/>
                 <constraint firstItem="OAr-qU-etH" firstAttribute="top" secondItem="mOQ-0s-FDG" secondAttribute="bottom" constant="34" id="vwZ-IV-1Qd"/>
-                <constraint firstAttribute="trailing" secondItem="Nly-mk-VPa" secondAttribute="trailing" constant="15" id="yNl-bm-kKx"/>
+                <constraint firstAttribute="trailing" secondItem="Nly-mk-VPa" secondAttribute="trailing" constant="20" id="yNl-bm-kKx"/>
             </constraints>
             <point key="canvasLocation" x="24.5" y="51.5"/>
         </view>
