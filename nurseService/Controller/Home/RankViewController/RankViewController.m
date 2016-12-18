@@ -7,8 +7,10 @@
 //
 
 #import "RankViewController.h"
+#import "DLNavigationTabBar.h"
 
 @interface RankViewController ()
+@property(nonatomic,strong)DLNavigationTabBar *navigationTabBar;
 
 @end
 
@@ -32,6 +34,23 @@
     return self;
 }
 
+-(DLNavigationTabBar *)navigationTabBar
+{
+    if (!_navigationTabBar) {
+        self.navigationTabBar = [[DLNavigationTabBar alloc] initWithTitles:@[@"总榜",@"近一个月",@"当日"]];
+        self.navigationTabBar.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
+        self.navigationTabBar.frame = CGRectMake(0, 0, SCREENWIDTH, 44);
+        self.navigationTabBar.sliderBackgroundColor = APPDEFAULTORANGE;
+        self.navigationTabBar.buttonNormalTitleColor = [UIColor grayColor];
+        self.navigationTabBar.buttonSelectedTileColor = APPDEFAULTORANGE;
+        __weak typeof(self) weakSelf = self;
+        [self.navigationTabBar setDidClickAtIndex:^(NSInteger index){
+            [weakSelf navigationDidSelectedControllerIndex:index];
+        }];
+    }
+    return _navigationTabBar;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -47,6 +66,12 @@
 - (void)initView
 {
     [super initView];
+    [self.view addSubview:self.navigationTabBar];
+}
+
+#pragma mark - PrivateMethod
+- (void)navigationDidSelectedControllerIndex:(NSInteger)index {
+    NSLog(@"index = %ld",index);
 }
 
 - (void)didReceiveMemoryWarning {

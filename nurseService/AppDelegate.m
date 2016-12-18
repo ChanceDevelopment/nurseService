@@ -66,7 +66,7 @@
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     BOOL haveLogin = (userAccount == nil) ? NO : YES;
     
-    if (0) {//登陆成功加载主窗口控制器
+    if (1) {//登陆成功加载主窗口控制器
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         
         [[UINavigationBar appearance] setTitleTextAttributes:

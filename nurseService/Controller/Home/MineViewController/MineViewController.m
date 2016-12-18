@@ -66,22 +66,12 @@
     myTableView.backgroundView = nil;
     myTableView.backgroundColor = [UIColor clearColor];
     [Tools setExtraCellLineHidden:myTableView];
-    
-    
-    //    self.navigationController.navigationBarHidden = YES;
-    
+
     CGFloat viewHeight = 200;
     
     UIView *headerView = [[UIView alloc] init];
     headerView.frame = CGRectMake(0, 0, SCREENWIDTH, viewHeight);
     headerView.backgroundColor = [UIColor purpleColor];
-    
-    UIView *footerview = myTableView.tableFooterView;
-    footerview.userInteractionEnabled = YES;
-    CGRect headFrame = footerview.frame;
-    headFrame.size.height = 100;
-    footerview.frame = headFrame;
-    myTableView.tableFooterView = footerview;
     
     //头像
     CGFloat imageDia = 70;              //直径
@@ -89,6 +79,8 @@
     CGFloat imageY = 40;
     portrait = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, imageY, imageDia, imageDia)];
     portrait.userInteractionEnabled = YES;
+    portrait.layer.masksToBounds = YES;
+    portrait.contentMode = UIViewContentModeScaleAspectFill;
     portrait.image = [UIImage imageNamed:@"index1"];
     portrait.layer.borderWidth = 0.0;
     portrait.layer.cornerRadius = imageDia / 2.0;
