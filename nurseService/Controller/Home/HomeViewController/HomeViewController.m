@@ -91,9 +91,11 @@
     LBBanner * banner = [[LBBanner alloc] initWithImageNames:imageNames andFrame:CGRectMake(0, 0, SCREENWIDTH, 180)];
     banner.delegate = self;
     
+    UIImageView *imageview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"index1"]];
+    imageview.frame = CGRectMake(0, 0, SCREENWIDTH, 180);
     UIView * tableviewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 180)];
     [tableviewHeader addSubview:banner];
-    self.tableview.tableHeaderView = tableviewHeader;
+    self.tableview.tableHeaderView = banner;
     
     self.tableview.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block,刷新

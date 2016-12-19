@@ -62,6 +62,8 @@
 
 - (IBAction)loginButtonClick:(id)sender
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@YES];
+    return;
 //    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
     
     NSString *account = [accountField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];

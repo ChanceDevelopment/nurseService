@@ -9,6 +9,6 @@
 #import "HeBaseViewController.h"
 #import "DFTimeLineViewController.h"
 
-@interface HomeViewController : DFTimeLineViewController<MyTableViewDelgate,UIAlertViewDelegate,UIWebViewDelegate>
+@interface HomeViewController : HeBaseViewController<MyTableViewDelgate,UIAlertViewDelegate,UIWebViewDelegate>
 
 @end
