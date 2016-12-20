@@ -20,7 +20,13 @@
 		AD30138A1DFCF4F300D26E09 /* icon_schedule.png in Resources */ = {isa = PBXBuildFile; fileRef = AD30137E1DFCF4F200D26E09 /* icon_schedule.png */; };
 		AD30138B1DFCF4F300D26E09 /* icon_service.png in Resources */ = {isa = PBXBuildFile; fileRef = AD30137F1DFCF4F200D26E09 /* icon_service.png */; };
 		AD30138C1DFCF4F300D26E09 /* icon_set.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3013801DFCF4F200D26E09 /* icon_set.png */; };
-		ADDBEB2D1DFCE25C000BDA95 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDBEB2C1DFCE25C000BDA95 /* Tools.m */; };
+		AD67795D1E081F5400D7A00F /* icon_health_authent.png in Resources */ = {isa = PBXBuildFile; fileRef = AD67795B1E081F5400D7A00F /* icon_health_authent.png */; };
+		AD67795E1E081F5400D7A00F /* icon_name_authent.png in Resources */ = {isa = PBXBuildFile; fileRef = AD67795C1E081F5400D7A00F /* icon_name_authent.png */; };
+		AD8BB1191E092857004064F9 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1181E092857004064F9 /* UIView+Toast.m */; };
+		AD8BB1241E09363B004064F9 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1221E09363B004064F9 /* SettingViewController.m */; };
+		AD8BB1251E09363B004064F9 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1231E09363B004064F9 /* SettingViewController.xib */; };
+		AD8BB12A1E09366E004064F9 /* MainInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1281E09366E004064F9 /* MainInfoViewController.m */; };
+		AD8BB12B1E09366E004064F9 /* MainInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1291E09366E004064F9 /* MainInfoViewController.xib */; };
 		ADDBEB421DFCE267000BDA95 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDBEB311DFCE267000BDA95 /* CustomNavigationController.m */; };
 		ADDBEB431DFCE267000BDA95 /* HeBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDBEB331DFCE267000BDA95 /* HeBaseViewController.m */; };
 		ADDBEB441DFCE267000BDA95 /* HeBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADDBEB341DFCE267000BDA95 /* HeBaseViewController.xib */; };
@@ -616,8 +622,16 @@
 		AD30137E1DFCF4F200D26E09 /* icon_schedule.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_schedule.png; sourceTree = "<group>"; };
 		AD30137F1DFCF4F200D26E09 /* icon_service.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_service.png; sourceTree = "<group>"; };
 		AD3013801DFCF4F200D26E09 /* icon_set.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_set.png; sourceTree = "<group>"; };
-		ADDBEB2B1DFCE25C000BDA95 /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
-		ADDBEB2C1DFCE25C000BDA95 /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
+		AD67795B1E081F5400D7A00F /* icon_health_authent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_health_authent.png; sourceTree = "<group>"; };
+		AD67795C1E081F5400D7A00F /* icon_name_authent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_name_authent.png; sourceTree = "<group>"; };
+		AD8BB1171E092857004064F9 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
+		AD8BB1181E092857004064F9 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
+		AD8BB1211E09363B004064F9 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		AD8BB1221E09363B004064F9 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		AD8BB1231E09363B004064F9 /* SettingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		AD8BB1271E09366E004064F9 /* MainInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainInfoViewController.h; sourceTree = "<group>"; };
+		AD8BB1281E09366E004064F9 /* MainInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainInfoViewController.m; sourceTree = "<group>"; };
+		AD8BB1291E09366E004064F9 /* MainInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainInfoViewController.xib; sourceTree = "<group>"; };
 		ADDBEB301DFCE267000BDA95 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		ADDBEB311DFCE267000BDA95 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		ADDBEB321DFCE267000BDA95 /* HeBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeBaseViewController.h; sourceTree = "<group>"; };
@@ -1735,6 +1749,35 @@
 			path = mineIcon;
 			sourceTree = "<group>";
 		};
+		AD8BB1161E092857004064F9 /* UIViewToast */ = {
+			isa = PBXGroup;
+			children = (
+				AD8BB1171E092857004064F9 /* UIView+Toast.h */,
+				AD8BB1181E092857004064F9 /* UIView+Toast.m */,
+			);
+			path = UIViewToast;
+			sourceTree = "<group>";
+		};
+		AD8BB1201E09363B004064F9 /* SettingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				AD8BB1211E09363B004064F9 /* SettingViewController.h */,
+				AD8BB1221E09363B004064F9 /* SettingViewController.m */,
+				AD8BB1231E09363B004064F9 /* SettingViewController.xib */,
+			);
+			path = SettingViewController;
+			sourceTree = "<group>";
+		};
+		AD8BB1261E09365A004064F9 /* MineInfoViewController */ = {
+			isa = PBXGroup;
+			children = (
+				AD8BB1271E09366E004064F9 /* MainInfoViewController.h */,
+				AD8BB1281E09366E004064F9 /* MainInfoViewController.m */,
+				AD8BB1291E09366E004064F9 /* MainInfoViewController.xib */,
+			);
+			path = MineInfoViewController;
+			sourceTree = "<group>";
+		};
 		ADDBEB281DFCE1E9000BDA95 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -1751,23 +1794,14 @@
 		ADDBEB291DFCE25C000BDA95 /* Untils */ = {
 			isa = PBXGroup;
 			children = (
-				ADDBEB2A1DFCE25C000BDA95 /* Tools */,
 			);
 			path = Untils;
-			sourceTree = "<group>";
-		};
-		ADDBEB2A1DFCE25C000BDA95 /* Tools */ = {
-			isa = PBXGroup;
-			children = (
-				ADDBEB2B1DFCE25C000BDA95 /* Tools.h */,
-				ADDBEB2C1DFCE25C000BDA95 /* Tools.m */,
-			);
-			path = Tools;
 			sourceTree = "<group>";
 		};
 		ADDBEB2E1DFCE267000BDA95 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				AD8BB1161E092857004064F9 /* UIViewToast */,
 				ADDBEB7A1DFCE87E000BDA95 /* LBBannerKit */,
 				ADDBEB4F1DFCE31B000BDA95 /* RESideMenu */,
 				ADDBEB2F1DFCE267000BDA95 /* Base */,
@@ -1817,6 +1851,8 @@
 		ADDBEB4B1DFCE26F000BDA95 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				AD67795B1E081F5400D7A00F /* icon_health_authent.png */,
+				AD67795C1E081F5400D7A00F /* icon_name_authent.png */,
 				EAA4F3341E024A9600EF9E14 /* Custom */,
 				AD3013741DFCF4F200D26E09 /* mineIcon */,
 				AD3013701DFCF4DC00D26E09 /* icon_scan.png */,
@@ -1869,6 +1905,8 @@
 		ADDBEB6B1DFCE41A000BDA95 /* MineViewController */ = {
 			isa = PBXGroup;
 			children = (
+				AD8BB1261E09365A004064F9 /* MineInfoViewController */,
+				AD8BB1201E09363B004064F9 /* SettingViewController */,
 				EAA4F3071E012A8400EF9E14 /* MineViewController.h */,
 				EAA4F3081E012A8400EF9E14 /* MineViewController.m */,
 				EAA4F3091E012A8400EF9E14 /* MineViewController.xib */,
@@ -2336,12 +2374,12 @@
 		EAC2D4271D4B031500E282A8 /* nurseService */ = {
 			isa = PBXGroup;
 			children = (
+				EAC2D4A51D4B063900E282A8 /* Controller */,
 				EAA6546C1E061F9300F424DD /* View */,
 				ADDBEB4B1DFCE26F000BDA95 /* Resource */,
 				ADDBEB2E1DFCE267000BDA95 /* Components */,
 				ADDBEB291DFCE25C000BDA95 /* Untils */,
 				EAC2D4961D4B063900E282A8 /* Category */,
-				EAC2D4A51D4B063900E282A8 /* Controller */,
 				EAC2D4B61D4B063900E282A8 /* Custom */,
 				EAC2D79B1D4B063B00E282A8 /* Helper */,
 				EAC2D7A41D4B063B00E282A8 /* Model */,
@@ -4141,6 +4179,7 @@
 				EAC2D8871D4B063B00E282A8 /* IQActionSheetPickerView.xib in Resources */,
 				EAC2D8761D4B063B00E282A8 /* blueArrow.png in Resources */,
 				EAC2D9571D4B063B00E282A8 /* ProvincesAndCities.plist in Resources */,
+				AD67795E1E081F5400D7A00F /* icon_name_authent.png in Resources */,
 				EAC2D9891D4B063B00E282A8 /* ShareSDKUI.bundle in Resources */,
 				EAC2D8D41D4B063B00E282A8 /* LICENSE.txt in Resources */,
 				EAC2D9651D4B063B00E282A8 /* FontAwesome.ttf in Resources */,
@@ -4172,12 +4211,14 @@
 				EAC2D87B1D4B063B00E282A8 /* grayArrow@2x.png in Resources */,
 				EAC2D9561D4B063B00E282A8 /* btn_021@2x.png in Resources */,
 				EAA655291E0627C300F424DD /* AlbumOperateMoreHL@3x.png in Resources */,
+				AD8BB1251E09363B004064F9 /* SettingViewController.xib in Resources */,
 				EAC2D9971D4B063C00E282A8 /* zbar-help.html in Resources */,
 				EAA4F3061E012A7000EF9E14 /* HomeViewController.xib in Resources */,
 				AD3013821DFCF4F200D26E09 /* icon_fans.png in Resources */,
 				EAC2D9361D4B063B00E282A8 /* sharemore_pic@3x.png in Resources */,
 				EAC2D8C71D4B063B00E282A8 /* arrow_down1@2x.png in Resources */,
 				EAC2D9521D4B063B00E282A8 /* btn_020.press@2x.png in Resources */,
+				AD67795D1E081F5400D7A00F /* icon_health_authent.png in Resources */,
 				ADDBEB931DFCE87E000BDA95 /* index_banner2@2x.jpg in Resources */,
 				EAC2D8751D4B063B00E282A8 /* blackArrow@2x.png in Resources */,
 				EAC2D9591D4B063B00E282A8 /* TSLocateView.xib in Resources */,
@@ -4224,6 +4265,7 @@
 				ADDBEB441DFCE267000BDA95 /* HeBaseViewController.xib in Resources */,
 				AD3013831DFCF4F200D26E09 /* icon_follow.png in Resources */,
 				ADDBEB921DFCE87E000BDA95 /* index_banner1@2x.jpg in Resources */,
+				AD8BB12B1E09366E004064F9 /* MainInfoViewController.xib in Resources */,
 				EAC2D8C51D4B063B00E282A8 /* arrow_down.png in Resources */,
 				EAA4F3201E012F3000EF9E14 /* tabar_order_icon_active@2x.png in Resources */,
 				EAA655241E0627C300F424DD /* AlbumLike@2x.png in Resources */,
@@ -4290,6 +4332,7 @@
 				EAC2D8191D4B063B00E282A8 /* AFHTTPRequestOperation.m in Sources */,
 				EAC2D9381D4B063B00E282A8 /* NSData+ImageContentType.m in Sources */,
 				EAC2D8FA1D4B063B00E282A8 /* RACEagerSequence.m in Sources */,
+				AD8BB12A1E09366E004064F9 /* MainInfoViewController.m in Sources */,
 				EAC2D9851D4B063B00E282A8 /* rscode.c in Sources */,
 				EAC2D8461D4B063B00E282A8 /* DFSectionIndexTabelViewController.m in Sources */,
 				EAC2D9491D4B063B00E282A8 /* SRRefreshView.m in Sources */,
@@ -4301,7 +4344,6 @@
 				EAA6553D1E0627C400F424DD /* DFUserNewsActivityDetailLineCell.m in Sources */,
 				ADDBEB491DFCE267000BDA95 /* RDVTabBarItem.m in Sources */,
 				EAC2D9421D4B063B00E282A8 /* UIImage+MultiFormat.m in Sources */,
-				ADDBEB2D1DFCE25C000BDA95 /* Tools.m in Sources */,
 				EAC2D82F1D4B063B00E282A8 /* ASIDataDecompressor.m in Sources */,
 				EAC2D8561D4B063B00E282A8 /* pinyin.m in Sources */,
 				EAC2D8821D4B063B00E282A8 /* FMDatabasePool.m in Sources */,
@@ -4423,6 +4465,7 @@
 				EAC2D93F1D4B063B00E282A8 /* SDWebImagePrefetcher.m in Sources */,
 				EAC2D8241D4B063B00E282A8 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				EAC2D8441D4B063B00E282A8 /* DFBaseTableViewController.m in Sources */,
+				AD8BB1241E09363B004064F9 /* SettingViewController.m in Sources */,
 				EAC2D9211D4B063B00E282A8 /* UIAlertView+RACSignalSupport.m in Sources */,
 				EAC2D8411D4B063B00E282A8 /* UITabBar+Badge.m in Sources */,
 				EAC2D8B81D4B063B00E282A8 /* MLLabel.m in Sources */,
@@ -4621,6 +4664,7 @@
 				EAC2D97B1D4B063B00E282A8 /* UIImageUploader.m in Sources */,
 				ADDBEB481DFCE267000BDA95 /* RDVTabBarController.m in Sources */,
 				EAC2D85C1D4B063B00E282A8 /* DFTableViewRefreshControl.m in Sources */,
+				AD8BB1191E092857004064F9 /* UIView+Toast.m in Sources */,
 				EAC2D8851D4B063B00E282A8 /* GTMBase64.m in Sources */,
 				EA472CD81E04E71B00E0316F /* TOWebViewController.m in Sources */,
 				EAC2D8701D4B063B00E282A8 /* i2KEPCMultiComponentPickerView.m in Sources */,

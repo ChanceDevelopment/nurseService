@@ -19,8 +19,19 @@
 //分享页面的地址
 #define SHAREPAGEWEBSITE @"http://huayoutong.com/mobilex/view/share"
 
+
+
+//------------------------------
+#define API_URL @"http://116.62.5.119:8088/nurseDoor/nurseAnduser/"
 //登录
-#define LOGINURL @"newapp_login"
+#define LOGINURL @"NurseLogin.action"
+//注册
+#define REGISTERURL @"NurseRegistered.action"
+
+
+
+
+
 //绑定角色
 #define BIND_PHONE_USER @"/bang_phone_user"
 //绑定角色的时候获取验证码
@@ -31,8 +42,7 @@
 #define SEND_RESETPWD @"/send_resetpwd_message"
 //重置密码接口
 #define RESET_PASSWORD @"/reset_password"
-//注册
-#define REGISTERURL @"/newapp_regist"
+
 //获取短信验证码
 //退出登录
 #define LOUOUT @"/new_app_logout"

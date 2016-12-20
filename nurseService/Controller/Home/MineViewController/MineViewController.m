@@ -7,8 +7,8 @@
 //
 
 #import "MineViewController.h"
-#import "Tools.h"
-
+#import "Tool.h"
+#import "SettingViewController.h"
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>
 {
     NSArray *iconArr;
@@ -29,15 +29,16 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
-        label.backgroundColor = [UIColor clearColor];
-        label.font = APPDEFAULTTITLETEXTFONT;
-        label.textColor = APPDEFAULTTITLECOLOR;
-        label.textAlignment = NSTextAlignmentCenter;
-        self.navigationItem.titleView = label;
-        label.text = @"我的";
-        [label sizeToFit];
-        self.title = @"我的";
+//        UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+//        label.backgroundColor = [UIColor clearColor];
+//        label.font = APPDEFAULTTITLETEXTFONT;
+//        label.textColor = APPDEFAULTTITLECOLOR;
+//        label.textAlignment = NSTextAlignmentCenter;
+//        self.navigationItem.titleView = label;
+//        label.text = @"我的";
+//        [label sizeToFit];
+//        self.title = @"我的";
+//        self.navigationItem.titleView.hidden = YES;
     }
     return self;
 }
@@ -58,14 +59,14 @@
 
 - (void)initView
 {
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
     
     myTableView.showsVerticalScrollIndicator = NO;
     myTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     myTableView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH-50);
     myTableView.backgroundView = nil;
     myTableView.backgroundColor = [UIColor clearColor];
-    [Tools setExtraCellLineHidden:myTableView];
+    [Tool setExtraCellLineHidden:myTableView];
 
     CGFloat viewHeight = 200;
     
@@ -86,7 +87,7 @@
     portrait.layer.cornerRadius = imageDia / 2.0;
     portrait.layer.masksToBounds = YES;
     [headerView addSubview:portrait];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openCamera)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToMineInfoView)];
     [portrait addGestureRecognizer:tap];
     
     //    [self setPortaitImg:nil];
@@ -227,8 +228,102 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.view makeToast:@"功能未完善" duration:1.2 position:@"center"];
+
     NSInteger index = indexPath.row;
-    NSLog(@"section:%ld,index:%ld",indexPath.section,index);
+    NSInteger sectionNum = indexPath.section;
+    NSLog(@"section:%ld,index:%ld",sectionNum,index);
+    switch (sectionNum) {
+        case 0:
+        {
+            switch (index) {
+                case 0:
+                {//我的收藏
+                }
+                    break;
+                case 1:
+                {//我的发表
+                }
+                    break;
+                case 2:
+                {//我的评论
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+            break;
+        case 1:
+        {
+            switch (index) {
+                case 0:
+                {//我的患者
+                }
+                    break;
+                case 1:
+                {//我的关注
+                }
+                    break;
+                case 2:
+                {//我的粉丝
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+            break;
+        case 2:
+        {
+            switch (index) {
+                case 0:
+                {//我的排班表
+                }
+                    break;
+                case 1:
+                {//我的服务
+                }
+                    break;
+                case 2:
+                {//我的常用地址
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+            break;
+        case 3:
+        {
+            switch (index) {
+                case 0:
+                {//邀请好友
+                }
+                    break;
+                case 1:
+                {//我的二维码
+                }
+                    break;
+                case 2:
+                {//设置
+                    SettingViewController *settingViewController = [[SettingViewController alloc] init];
+                    settingViewController.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:settingViewController animated:YES];
+                }
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -238,6 +333,15 @@
     }
     return 10;
 }
+
+
+- (void)goToMineInfoView{
+    
+}
+
+
+
+
 
 #pragma  mark camera
 //打开相机,获取照片

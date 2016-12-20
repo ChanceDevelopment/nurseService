@@ -126,6 +126,19 @@
 //完成
 - (IBAction)finishButtonClick:(id)sender
 {
+    NSDictionary * params  = @{@"NurseName": @"15098013781",@"NursePwd" : @"123456",@"NurseNick" : @"123456",@"NurseHeader" : @"123456"};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:REGISTERURL params:params success:^(AFHTTPRequestOperation* operation,id response){
+        BOOL isJson =  [NSJSONSerialization isValidJSONObject:response];
+        if (isJson) {
+            NSString *respondStr = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+            NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:[respondStr objectFromJSONString]];
+            
+        }
+        
+        
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+    }];
 
 }
 

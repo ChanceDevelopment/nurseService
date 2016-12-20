@@ -62,25 +62,40 @@
 
 - (IBAction)loginButtonClick:(id)sender
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@YES];
-    return;
+    
+//    return;
 //    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
     
     NSString *account = [accountField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSString *password = passwordField.text;
-    if (account == nil || [account isEqualToString:@""]) {
-        [self showHint:@"请输入手机号码"];
-        return;
-    }
-    if (password == nil || [password isEqualToString:@""]) {
-        [self showHint:@"请输入登录密码"];
-        return;
-    }
-    if (![Tool isMobileNumber:account]) {
-        [self showHint:@"请输入正确的手机号码"];
-        return;
-    }
+//    if (account == nil || [account isEqualToString:@""]) {
+//        [self showHint:@"请输入手机号码"];
+//        return;
+//    }
+//    if (password == nil || [password isEqualToString:@""]) {
+//        [self showHint:@"请输入登录密码"];
+//        return;
+//    }
+//    if (![Tool isMobileNumber:account]) {
+//        [self showHint:@"请输入正确的手机号码"];
+//        return;
+//    }
     
+    NSDictionary * params  = @{@"NurseName": @"15098013787",@"NursePwd" : @"123456"};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:LOGINURL params:params success:^(AFHTTPRequestOperation* operation,id response){
+        
+//        NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
+        NSDictionary *t = [NSDictionary dictionaryWithDictionary:response];
+        
+        NSString *respondStr = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
+        NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:[respondStr objectFromJSONString]];
+        
+        NSLog(@"%@",tempDic);
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@YES];
+        
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+    }];
 }
 
 - (IBAction)enrollButtonClick:(id)sender

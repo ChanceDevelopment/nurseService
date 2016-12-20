@@ -182,6 +182,32 @@
     return setxattr(fileSysPath, attrName, &attrValue, sizeof(attrValue), 0, 0);
 }
 
++ (NSString *)deleteErrorStringInString:(NSString *)inputString
+{
+    NSMutableString *mutablestring = [[NSMutableString alloc] initWithString:inputString];
+    BOOL haveError = YES;
+    //先记录mutablestring的长度，如果每次调用[mutablestring length]，会加长搜索时间
+    NSUInteger length = [mutablestring length] - 1;
+    NSRange searchRange = NSMakeRange(0, length);
+    
+    while (haveError && searchRange.length > 0 && searchRange.length + searchRange.location <= [mutablestring length]) {
+        NSRange range = [mutablestring rangeOfString:@"\n" options:NSCaseInsensitiveSearch range:searchRange]; //去除特殊字符
+        if (range.length != 0) {
+            range.location = range.location - 1;
+            range.length = 2;
+            length = length - range.length;
+            [mutablestring replaceCharactersInRange:range withString:@""];
+            searchRange.location = range.location;
+            searchRange.length = length - searchRange.location;
+        }
+        else{
+            haveError = NO;
+        }
+    }
+    NSString *outPutString = [[NSString alloc] initWithFormat:@"%@",mutablestring];
+    return outPutString;
+}
+
 + (NSData *)deleteErrorStringInData:(NSData *)inputData
 {
     NSString *temp = [[NSString alloc] initWithData:inputData encoding:NSUTF8StringEncoding];

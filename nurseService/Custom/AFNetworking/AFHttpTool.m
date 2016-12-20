@@ -14,7 +14,7 @@
 
 #define DEV_FAKE_SERVER @"http://huayoutong.com/mobile/" //Beijing SUN-QUAN  测试环境（北京）
 #define PRO_FAKE_SERVER @"http://huayoutong.com/mobile/" //Beijing Liu-Bei    线上环境（北京）、
-#define FAKE_SERVER @"http://huayoutong.com/mobile/"//@"http://119.254.110.241:80/" //Login 线下测试
+#define FAKE_SERVER @"http://116.62.5.119:8088/" //@"http://119.254.110.241:80/" //Login 线下测试
 
 //#define ContentType @"text/plain"
 #define ContentType @"application/json"
@@ -52,7 +52,7 @@
                 break;
             }
         }
-        ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:url]];
+        ASIFormDataRequest *request = [[ASIFormDataRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",API_URL,url]]];
         
         [request setRequestMethod:methodString];
         for (NSString *key in params.allKeys) {
@@ -97,7 +97,7 @@
         case RequestMethodTypeGet:
         {
             //GET请求
-            [mgr GET:url parameters:params
+            [mgr GET:[NSString stringWithFormat:@"%@%@",API_URL,url] parameters:params
              success:^(AFHTTPRequestOperation* operation, NSDictionary* responseObj) {
                  if (success) {
                      
@@ -114,18 +114,18 @@
         case RequestMethodTypePost:
         {
             //POST请求
-            [mgr POST:url parameters:params
+            [mgr POST:[NSString stringWithFormat:@"%@%@",API_URL,url] parameters:params
               success:^(AFHTTPRequestOperation* operation, NSDictionary* responseObj) {
                   if (success) {
                       NSString *cookieString = [[operation.response allHeaderFields] valueForKey:@"Set-Cookie"];
-                      NSData *data = [NSKeyedArchiver archivedDataWithRootObject:cookieString];
+//                      NSData *data = [NSKeyedArchiver archivedDataWithRootObject:cookieString];
                       [[NSUserDefaults standardUserDefaults] setObject:cookieString forKey:@"UserCookies"];
                       success(operation,responseObj);
                   }
               } failure:^(AFHTTPRequestOperation* operation, NSError* error) {
                   if (failure) {
                       NSLog(@"response = %@",operation.response);
-                      id respondObj = operation.response;
+//                      id respondObj = operation.response;
                       
                       failure(error);
                   }

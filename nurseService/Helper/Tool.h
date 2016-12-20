@@ -76,7 +76,11 @@
 + (BOOL)isMobileNumber:(NSString *)mobileNum;
 
 
-+ (NSData *)deleteErrorStringInData:(NSData *)inputData;
+
 + (NSString *)replaceUnicode:(NSString *)unicodeStr;
 
+//删除错误的字符串
++ (NSString *)deleteErrorStringInString:(NSString *)inputString;
+//删除错误的字符串
++ (NSString *)deleteErrorStringInData:(NSData *)inputData;
 @end

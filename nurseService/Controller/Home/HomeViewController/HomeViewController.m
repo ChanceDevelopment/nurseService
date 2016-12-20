@@ -49,6 +49,14 @@
         label.text = @"学术圈";
         [label sizeToFit];
         self.title = @"首页";
+        self.navigationItem.titleView.backgroundColor = [UIColor redColor];
+        UIButton *searchBt = [[UIButton alloc] initWithFrame:CGRectMake(SCREENWIDTH-100, 5+STATUSBAR_HEIGHT, 30, 30)];
+        [searchBt setBackgroundImage:[UIImage imageNamed:@"icon_search"] forState:UIControlStateNormal];
+        [searchBt addTarget:self action:@selector(searchAction) forControlEvents:UIControlEventTouchUpInside];
+        searchBt.backgroundColor = [UIColor clearColor];
+        [self.view addSubview:searchBt];
+        
+        
     }
     return self;
 }
@@ -183,6 +191,11 @@
     NSInteger section = indexPath.section;
     
     
+}
+
+
+- (void)searchAction{
+    NSLog(@"searchAction");
 }
 
 - (void)didReceiveMemoryWarning {
