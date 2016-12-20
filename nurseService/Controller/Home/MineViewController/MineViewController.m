@@ -9,6 +9,7 @@
 #import "MineViewController.h"
 #import "Tool.h"
 #import "SettingViewController.h"
+#import "MainInfoViewController.h"
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>
 {
     NSArray *iconArr;
@@ -52,6 +53,7 @@
 
 - (void)initializaiton
 {
+    [[UINavigationBar appearance] setTintColor:APPDEFAULTORANGE];
     [super initializaiton];
     iconArr = @[@[@"icon_mycollection",@"icon_publish",@"icon_mycomment"],@[@"icon_patient",@"icon_follow",@"icon_fans"],@[@"icon_schedule",@"icon_service",@"icon_myadd"],@[@"icon_invite",@"icon_set",@"icon_set"]];
     tableItemArr = @[@[@"        我的收藏",@"        我的发表",@"        我的评论"],@[@"        我的患者",@"        我的关注",@"        我的粉丝"],@[@"        我的排班表",@"        我的服务",@"        我的常用地址"],@[@"        邀请好友",@"        我的二维码",@"        设置"]];
@@ -336,7 +338,9 @@
 
 
 - (void)goToMineInfoView{
-    
+    MainInfoViewController *mainInfoViewController = [[MainInfoViewController alloc] init];
+    mainInfoViewController.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:mainInfoViewController animated:YES];
 }
 
 

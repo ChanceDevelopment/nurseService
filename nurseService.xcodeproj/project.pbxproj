@@ -20,13 +20,15 @@
 		AD30138A1DFCF4F300D26E09 /* icon_schedule.png in Resources */ = {isa = PBXBuildFile; fileRef = AD30137E1DFCF4F200D26E09 /* icon_schedule.png */; };
 		AD30138B1DFCF4F300D26E09 /* icon_service.png in Resources */ = {isa = PBXBuildFile; fileRef = AD30137F1DFCF4F200D26E09 /* icon_service.png */; };
 		AD30138C1DFCF4F300D26E09 /* icon_set.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3013801DFCF4F200D26E09 /* icon_set.png */; };
-		AD67795D1E081F5400D7A00F /* icon_health_authent.png in Resources */ = {isa = PBXBuildFile; fileRef = AD67795B1E081F5400D7A00F /* icon_health_authent.png */; };
-		AD67795E1E081F5400D7A00F /* icon_name_authent.png in Resources */ = {isa = PBXBuildFile; fileRef = AD67795C1E081F5400D7A00F /* icon_name_authent.png */; };
 		AD8BB1191E092857004064F9 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1181E092857004064F9 /* UIView+Toast.m */; };
 		AD8BB1241E09363B004064F9 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1221E09363B004064F9 /* SettingViewController.m */; };
 		AD8BB1251E09363B004064F9 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1231E09363B004064F9 /* SettingViewController.xib */; };
 		AD8BB12A1E09366E004064F9 /* MainInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1281E09366E004064F9 /* MainInfoViewController.m */; };
 		AD8BB12B1E09366E004064F9 /* MainInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1291E09366E004064F9 /* MainInfoViewController.xib */; };
+		AD8BB12E1E096E9B004064F9 /* icon_health_authent.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB12C1E096E9B004064F9 /* icon_health_authent.png */; };
+		AD8BB12F1E096E9B004064F9 /* icon_name_authent.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB12D1E096E9B004064F9 /* icon_name_authent.png */; };
+		AD8BB1321E096EA7004064F9 /* defalut_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1301E096EA7004064F9 /* defalut_icon.png */; };
+		AD8BB1331E096EA7004064F9 /* icon_into_right.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1311E096EA7004064F9 /* icon_into_right.png */; };
 		ADDBEB421DFCE267000BDA95 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDBEB311DFCE267000BDA95 /* CustomNavigationController.m */; };
 		ADDBEB431DFCE267000BDA95 /* HeBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDBEB331DFCE267000BDA95 /* HeBaseViewController.m */; };
 		ADDBEB441DFCE267000BDA95 /* HeBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADDBEB341DFCE267000BDA95 /* HeBaseViewController.xib */; };
@@ -622,8 +624,6 @@
 		AD30137E1DFCF4F200D26E09 /* icon_schedule.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_schedule.png; sourceTree = "<group>"; };
 		AD30137F1DFCF4F200D26E09 /* icon_service.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_service.png; sourceTree = "<group>"; };
 		AD3013801DFCF4F200D26E09 /* icon_set.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_set.png; sourceTree = "<group>"; };
-		AD67795B1E081F5400D7A00F /* icon_health_authent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_health_authent.png; sourceTree = "<group>"; };
-		AD67795C1E081F5400D7A00F /* icon_name_authent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_name_authent.png; sourceTree = "<group>"; };
 		AD8BB1171E092857004064F9 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		AD8BB1181E092857004064F9 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		AD8BB1211E09363B004064F9 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
@@ -632,6 +632,10 @@
 		AD8BB1271E09366E004064F9 /* MainInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainInfoViewController.h; sourceTree = "<group>"; };
 		AD8BB1281E09366E004064F9 /* MainInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainInfoViewController.m; sourceTree = "<group>"; };
 		AD8BB1291E09366E004064F9 /* MainInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainInfoViewController.xib; sourceTree = "<group>"; };
+		AD8BB12C1E096E9B004064F9 /* icon_health_authent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_health_authent.png; sourceTree = "<group>"; };
+		AD8BB12D1E096E9B004064F9 /* icon_name_authent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_name_authent.png; sourceTree = "<group>"; };
+		AD8BB1301E096EA7004064F9 /* defalut_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defalut_icon.png; sourceTree = "<group>"; };
+		AD8BB1311E096EA7004064F9 /* icon_into_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_into_right.png; sourceTree = "<group>"; };
 		ADDBEB301DFCE267000BDA95 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		ADDBEB311DFCE267000BDA95 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		ADDBEB321DFCE267000BDA95 /* HeBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeBaseViewController.h; sourceTree = "<group>"; };
@@ -1734,6 +1738,10 @@
 		AD3013741DFCF4F200D26E09 /* mineIcon */ = {
 			isa = PBXGroup;
 			children = (
+				AD8BB1301E096EA7004064F9 /* defalut_icon.png */,
+				AD8BB1311E096EA7004064F9 /* icon_into_right.png */,
+				AD8BB12C1E096E9B004064F9 /* icon_health_authent.png */,
+				AD8BB12D1E096E9B004064F9 /* icon_name_authent.png */,
 				AD3013761DFCF4F200D26E09 /* icon_fans.png */,
 				AD3013771DFCF4F200D26E09 /* icon_follow.png */,
 				AD3013781DFCF4F200D26E09 /* icon_invite.png */,
@@ -1851,8 +1859,6 @@
 		ADDBEB4B1DFCE26F000BDA95 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				AD67795B1E081F5400D7A00F /* icon_health_authent.png */,
-				AD67795C1E081F5400D7A00F /* icon_name_authent.png */,
 				EAA4F3341E024A9600EF9E14 /* Custom */,
 				AD3013741DFCF4F200D26E09 /* mineIcon */,
 				AD3013701DFCF4DC00D26E09 /* icon_scan.png */,
@@ -4162,6 +4168,7 @@
 				EAA4F3361E024A9A00EF9E14 /* NavBarIOS7.png in Resources */,
 				EAC2D94E1D4B063B00E282A8 /* SVProgressHUD.bundle in Resources */,
 				EAA4F31E1E012F3000EF9E14 /* tabar_home_icon_active@2x.png in Resources */,
+				AD8BB1331E096EA7004064F9 /* icon_into_right.png in Resources */,
 				ADDBEB461DFCE267000BDA95 /* HeTabBarVC.xib in Resources */,
 				EAC2D8221D4B063B00E282A8 /* LICENSE in Resources */,
 				EAC2D9481D4B063B00E282A8 /* sr_refresh@2X.png in Resources */,
@@ -4179,7 +4186,6 @@
 				EAC2D8871D4B063B00E282A8 /* IQActionSheetPickerView.xib in Resources */,
 				EAC2D8761D4B063B00E282A8 /* blueArrow.png in Resources */,
 				EAC2D9571D4B063B00E282A8 /* ProvincesAndCities.plist in Resources */,
-				AD67795E1E081F5400D7A00F /* icon_name_authent.png in Resources */,
 				EAC2D9891D4B063B00E282A8 /* ShareSDKUI.bundle in Resources */,
 				EAC2D8D41D4B063B00E282A8 /* LICENSE.txt in Resources */,
 				EAC2D9651D4B063B00E282A8 /* FontAwesome.ttf in Resources */,
@@ -4218,7 +4224,6 @@
 				EAC2D9361D4B063B00E282A8 /* sharemore_pic@3x.png in Resources */,
 				EAC2D8C71D4B063B00E282A8 /* arrow_down1@2x.png in Resources */,
 				EAC2D9521D4B063B00E282A8 /* btn_020.press@2x.png in Resources */,
-				AD67795D1E081F5400D7A00F /* icon_health_authent.png in Resources */,
 				ADDBEB931DFCE87E000BDA95 /* index_banner2@2x.jpg in Resources */,
 				EAC2D8751D4B063B00E282A8 /* blackArrow@2x.png in Resources */,
 				EAC2D9591D4B063B00E282A8 /* TSLocateView.xib in Resources */,
@@ -4245,6 +4250,7 @@
 				AD30138B1DFCF4F300D26E09 /* icon_service.png in Resources */,
 				EAA655231E0627C300F424DD /* AlbumComment@3x.png in Resources */,
 				EAC2D87C1D4B063B00E282A8 /* whiteArrow.png in Resources */,
+				AD8BB12F1E096E9B004064F9 /* icon_name_authent.png in Resources */,
 				EAC2D8A21D4B063B00E282A8 /* LICENSE in Resources */,
 				EAC2D8641D4B063B00E282A8 /* refresh@3x.png in Resources */,
 				EA472CB11E04DCF500E0316F /* icon_add_photo_violet.png in Resources */,
@@ -4282,8 +4288,10 @@
 				EAC2D9501D4B063B00E282A8 /* bg_023@2x.png in Resources */,
 				EAA655221E0627C300F424DD /* AlbumComment@2x.png in Resources */,
 				EA472CB51E04DE5500E0316F /* unselect_box.png in Resources */,
+				AD8BB12E1E096E9B004064F9 /* icon_health_authent.png in Resources */,
 				EAA4F3151E012AA800EF9E14 /* RankViewController.xib in Resources */,
 				EAC2D99A1D4B063C00E282A8 /* loading_anim1.png in Resources */,
+				AD8BB1321E096EA7004064F9 /* defalut_icon.png in Resources */,
 				AD3013891DFCF4F300D26E09 /* icon_publish.png in Resources */,
 				EAC2D8661D4B063B00E282A8 /* success@3x.png in Resources */,
 				EAC2D8C81D4B063B00E282A8 /* arrow_down@2x.png in Resources */,
