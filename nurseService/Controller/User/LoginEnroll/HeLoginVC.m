@@ -85,13 +85,9 @@
     NSDictionary * params  = @{@"NurseName": @"15098013787",@"NursePwd" : @"123456"};
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:LOGINURL params:params success:^(AFHTTPRequestOperation* operation,id response){
         
-//        NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:nil];
-        NSDictionary *t = [NSDictionary dictionaryWithDictionary:response];
-        
-        NSString *respondStr = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-        NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:[respondStr objectFromJSONString]];
-        
-        NSLog(@"%@",tempDic);
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSDictionary *respondDict = [respondString objectFromJSONString];
+        NSLog(@"%@",respondDict);
         [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@YES];
         
     } failure:^(NSError* err){
