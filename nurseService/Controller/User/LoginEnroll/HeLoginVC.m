@@ -38,6 +38,7 @@
         label.text = @"登录";
         [label sizeToFit];
         self.title = @"登录";
+        
     }
     return self;
 }
