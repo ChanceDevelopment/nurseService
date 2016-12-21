@@ -29,6 +29,11 @@
 		AD8BB12F1E096E9B004064F9 /* icon_name_authent.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB12D1E096E9B004064F9 /* icon_name_authent.png */; };
 		AD8BB1321E096EA7004064F9 /* defalut_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1301E096EA7004064F9 /* defalut_icon.png */; };
 		AD8BB1331E096EA7004064F9 /* icon_into_right.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1311E096EA7004064F9 /* icon_into_right.png */; };
+		AD8BB13B1E0A0F0E004064F9 /* icon_integral.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1371E0A0F0E004064F9 /* icon_integral.png */; };
+		AD8BB13C1E0A0F0E004064F9 /* icon_rank_first.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1381E0A0F0E004064F9 /* icon_rank_first.png */; };
+		AD8BB13D1E0A0F0E004064F9 /* icon_rank_second.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1391E0A0F0E004064F9 /* icon_rank_second.png */; };
+		AD8BB13E1E0A0F0E004064F9 /* icon_rank_third.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB13A1E0A0F0E004064F9 /* icon_rank_third.png */; };
+		AD8BB1431E0A3745004064F9 /* RankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1411E0A3745004064F9 /* RankTableViewCell.m */; };
 		ADDBEB421DFCE267000BDA95 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDBEB311DFCE267000BDA95 /* CustomNavigationController.m */; };
 		ADDBEB431DFCE267000BDA95 /* HeBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDBEB331DFCE267000BDA95 /* HeBaseViewController.m */; };
 		ADDBEB441DFCE267000BDA95 /* HeBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADDBEB341DFCE267000BDA95 /* HeBaseViewController.xib */; };
@@ -636,6 +641,12 @@
 		AD8BB12D1E096E9B004064F9 /* icon_name_authent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_name_authent.png; sourceTree = "<group>"; };
 		AD8BB1301E096EA7004064F9 /* defalut_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defalut_icon.png; sourceTree = "<group>"; };
 		AD8BB1311E096EA7004064F9 /* icon_into_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_into_right.png; sourceTree = "<group>"; };
+		AD8BB1371E0A0F0E004064F9 /* icon_integral.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_integral.png; sourceTree = "<group>"; };
+		AD8BB1381E0A0F0E004064F9 /* icon_rank_first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_rank_first.png; sourceTree = "<group>"; };
+		AD8BB1391E0A0F0E004064F9 /* icon_rank_second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_rank_second.png; sourceTree = "<group>"; };
+		AD8BB13A1E0A0F0E004064F9 /* icon_rank_third.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_rank_third.png; sourceTree = "<group>"; };
+		AD8BB1401E0A3745004064F9 /* RankTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankTableViewCell.h; sourceTree = "<group>"; };
+		AD8BB1411E0A3745004064F9 /* RankTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankTableViewCell.m; sourceTree = "<group>"; };
 		ADDBEB301DFCE267000BDA95 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		ADDBEB311DFCE267000BDA95 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		ADDBEB321DFCE267000BDA95 /* HeBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeBaseViewController.h; sourceTree = "<group>"; };
@@ -1786,6 +1797,26 @@
 			path = MineInfoViewController;
 			sourceTree = "<group>";
 		};
+		AD8BB1361E0A0F0E004064F9 /* rank */ = {
+			isa = PBXGroup;
+			children = (
+				AD8BB1371E0A0F0E004064F9 /* icon_integral.png */,
+				AD8BB1381E0A0F0E004064F9 /* icon_rank_first.png */,
+				AD8BB1391E0A0F0E004064F9 /* icon_rank_second.png */,
+				AD8BB13A1E0A0F0E004064F9 /* icon_rank_third.png */,
+			);
+			path = rank;
+			sourceTree = "<group>";
+		};
+		AD8BB13F1E0A3711004064F9 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				AD8BB1401E0A3745004064F9 /* RankTableViewCell.h */,
+				AD8BB1411E0A3745004064F9 /* RankTableViewCell.m */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		ADDBEB281DFCE1E9000BDA95 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -1859,6 +1890,7 @@
 		ADDBEB4B1DFCE26F000BDA95 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				AD8BB1361E0A0F0E004064F9 /* rank */,
 				EAA4F3341E024A9600EF9E14 /* Custom */,
 				AD3013741DFCF4F200D26E09 /* mineIcon */,
 				AD3013701DFCF4DC00D26E09 /* icon_scan.png */,
@@ -1933,6 +1965,7 @@
 		ADDBEB6D1DFCE41A000BDA95 /* RankViewController */ = {
 			isa = PBXGroup;
 			children = (
+				AD8BB13F1E0A3711004064F9 /* Cell */,
 				EAA4F3111E012AA800EF9E14 /* RankViewController.h */,
 				EAA4F3121E012AA800EF9E14 /* RankViewController.m */,
 				EAA4F3131E012AA800EF9E14 /* RankViewController.xib */,
@@ -4207,6 +4240,8 @@
 				EAA655271E0627C300F424DD /* AlbumOperateMore@3x.png in Resources */,
 				EAC2D8651D4B063B00E282A8 /* success@2x.png in Resources */,
 				ADDBEB941DFCE87E000BDA95 /* index_banner3@2x.jpg in Resources */,
+				AD8BB13E1E0A0F0E004064F9 /* icon_rank_third.png in Resources */,
+				AD8BB13C1E0A0F0E004064F9 /* icon_rank_first.png in Resources */,
 				EAC2D8771D4B063B00E282A8 /* blueArrow@2x.png in Resources */,
 				EAC2D4351D4B031500E282A8 /* Assets.xcassets in Resources */,
 				EAC2D9731D4B063B00E282A8 /* LICENSE in Resources */,
@@ -4224,6 +4259,7 @@
 				EAC2D9361D4B063B00E282A8 /* sharemore_pic@3x.png in Resources */,
 				EAC2D8C71D4B063B00E282A8 /* arrow_down1@2x.png in Resources */,
 				EAC2D9521D4B063B00E282A8 /* btn_020.press@2x.png in Resources */,
+				AD8BB13B1E0A0F0E004064F9 /* icon_integral.png in Resources */,
 				ADDBEB931DFCE87E000BDA95 /* index_banner2@2x.jpg in Resources */,
 				EAC2D8751D4B063B00E282A8 /* blackArrow@2x.png in Resources */,
 				EAC2D9591D4B063B00E282A8 /* TSLocateView.xib in Resources */,
@@ -4262,6 +4298,7 @@
 				EAA655281E0627C300F424DD /* AlbumOperateMoreHL@2x.png in Resources */,
 				EAC2D8631D4B063B00E282A8 /* refresh@2x.png in Resources */,
 				EAA4F3241E012F3000EF9E14 /* tabar_user_icon_active@2x.png in Resources */,
+				AD8BB13D1E0A0F0E004064F9 /* icon_rank_second.png in Resources */,
 				EAC2D8731D4B063B00E282A8 /* i2KEPCSingleComponentPickerView.xib in Resources */,
 				EAC2D9981D4B063C00E282A8 /* zbar-helpicons.png in Resources */,
 				EAC2D8371D4B063B00E282A8 /* BrowserView.xib in Resources */,
@@ -4580,6 +4617,7 @@
 				EAA4F3141E012AA800EF9E14 /* RankViewController.m in Sources */,
 				EAC2D88E1D4B063B00E282A8 /* NSArray+Sort.m in Sources */,
 				EAC2D8F51D4B063B00E282A8 /* RACCompoundDisposableProvider.d in Sources */,
+				AD8BB1431E0A3745004064F9 /* RankTableViewCell.m in Sources */,
 				EAC2D86E1D4B063B00E282A8 /* i2KEPCDatePickerView.m in Sources */,
 				EAC2D8E41D4B063B00E282A8 /* NSObject+RACLifting.m in Sources */,
 				EAC2D94C1D4B063B00E282A8 /* README.md in Sources */,

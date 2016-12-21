@@ -23,6 +23,10 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier cellSize:cellsize];
     if (self) {
         
+        
+        
+        
+        
     }
     return self;
 }

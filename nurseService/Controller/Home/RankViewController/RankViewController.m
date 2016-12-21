@@ -8,14 +8,18 @@
 
 #import "RankViewController.h"
 #import "DLNavigationTabBar.h"
-
+#import "HeStudyTableCell.h"
+#import "RankTableViewCell.h"
 @interface RankViewController ()
+{
+    NSMutableArray *dataArray;
+}
 @property(nonatomic,strong)DLNavigationTabBar *navigationTabBar;
-
 @end
 
 @implementation RankViewController
-
+@synthesize tabBarBg;
+@synthesize tableView;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -55,14 +59,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self initializaiton];
+    [self initData];
     [self initView];
 }
 
 - (void)initializaiton
 {
     [super initializaiton];
+
 }
 
+- (void)initData{
+    dataArray = [[NSMutableArray alloc] init];
+}
 - (void)initView
 {
     [super initView];
@@ -72,12 +81,80 @@
 #pragma mark - PrivateMethod
 - (void)navigationDidSelectedControllerIndex:(NSInteger)index {
     NSLog(@"index = %ld",index);
+    [self.tableView reloadData];
+    
 }
+
+
+
+ #pragma mark - TableView Delegate
+ 
+ -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+ {
+     return 5;
+ }
+ 
+ -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+ {
+     return 1;
+ }
+ 
+ -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+     NSInteger row = indexPath.row;
+     
+     static NSString *cellIndentifier = @"RankTableViewCell";
+     CGSize cellSize = [tableView rectForRowAtIndexPath:indexPath].size;
+     NSDictionary *dict = nil;
+     
+     RankTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+     if (!cell) {
+         cell = [[RankTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier cellSize:cellSize];
+         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+     }
+     cell.rankNum.text = @"111";
+     cell.rankImageView.image = [UIImage imageNamed:@""];
+     cell.headImageView.image = [UIImage imageNamed:@""];
+     cell.pickName.text = @"昵称";
+     cell.coinNum.text = @"1233";
+     cell.followBlock=^(){
+         NSLog(@"关注：%ld",row);
+     };
+     
+     
+     return cell;
+ }
+ 
+ 
+ - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+     NSInteger section = indexPath.section;
+     NSInteger row = indexPath.row;
+     
+     
+     return 44;
+ }
+ 
+ -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+     NSInteger row = indexPath.row;
+     NSInteger section = indexPath.section;
+     
+ 
+ }
+
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+
 
 /*
 #pragma mark - Navigation

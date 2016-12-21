@@ -135,7 +135,7 @@
     CGFloat buttonY = imageY+imageDia/2.0-10;
     UIButton *signBtn = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
     signBtn.backgroundColor = [UIColor clearColor];
-    signBtn.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:14.0];
+    signBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
     signBtn.layer.cornerRadius = 4.0;//2.0是圆角的弧度，根据需求自己更改
     signBtn.layer.borderWidth = 1.0f;//设置边框颜色
     signBtn.layer.borderColor = [[UIColor whiteColor] CGColor];

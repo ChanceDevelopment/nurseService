@@ -8,6 +8,10 @@
 
 #import "HeBaseViewController.h"
 
-@interface RankViewController : HeBaseViewController
+@interface RankViewController : HeBaseViewController<UITableViewDelegate,UITableViewDataSource>
+
+@property (strong, nonatomic) IBOutlet UIView *tabBarBg;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+
 
 @end
