@@ -8,6 +8,6 @@
 
 #import "HeBaseViewController.h"
 
-@interface HeEnrollVC : HeBaseViewController
+@interface HeEnrollVC : HeBaseViewController<UIActionSheetDelegate>
 
 @end

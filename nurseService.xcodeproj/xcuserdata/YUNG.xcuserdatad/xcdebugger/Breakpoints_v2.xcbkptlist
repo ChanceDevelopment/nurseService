@@ -25,14 +25,76 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "nurseService/Controller/User/LoginEnroll/HeEnrollVC.m"
-            timestampString = "504085960.65684"
+            filePath = "nurseService/Controller/User/LoginEnroll/HeLoginVC.m"
+            timestampString = "504102010.658274"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
-            landmarkName = "-finishButtonClick:"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
+            landmarkName = "-loginButtonClick:"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[HeLoginVC loginButtonClick:]"
+                  moduleName = "&#x62a4;&#x58eb;&#x7aef;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/YUNG/WorkSpace/nurseService/nurseService/Controller/User/LoginEnroll/HeLoginVC.m"
+                  timestampString = "504115832.740541"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "767">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__copy_helper_block_"
+                  moduleName = "&#x62a4;&#x58eb;&#x7aef;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/YUNG/WorkSpace/nurseService/nurseService/Controller/User/LoginEnroll/HeLoginVC.m"
+                  timestampString = "504115832.747559"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "51">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_"
+                  moduleName = "&#x62a4;&#x58eb;&#x7aef;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/YUNG/WorkSpace/nurseService/nurseService/Controller/User/LoginEnroll/HeLoginVC.m"
+                  timestampString = "504115832.751035"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "29">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__30-[HeLoginVC loginButtonClick:]_block_invoke.129"
+                  moduleName = "&#x62a4;&#x58eb;&#x7aef;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/YUNG/WorkSpace/nurseService/nurseService/Controller/User/LoginEnroll/HeLoginVC.m"
+                  timestampString = "504115832.753574"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "102"
+                  endingLineNumber = "102"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -41,13 +103,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "nurseService/Controller/User/LoginEnroll/HeLoginVC.m"
-            timestampString = "504085855.734572"
+            filePath = "nurseService/Controller/Home/MineViewController/MyEvaluateViewController/Cell/MyEvaluateTableViewCell.m"
+            timestampString = "504115667.872728"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
-            landmarkName = "-loginButtonClick:"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "-initWithStyle:reuseIdentifier:cellSize:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -10,6 +10,7 @@
 #import "Tool.h"
 #import "SettingViewController.h"
 #import "MainInfoViewController.h"
+#import "MyEvaluateViewController.h"
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>
 {
     NSArray *iconArr;
@@ -88,6 +89,24 @@
     headerView.frame = CGRectMake(0, 0, SCREENWIDTH, viewHeight);
     headerView.backgroundColor = [UIColor purpleColor];
     
+    myTableView.tableHeaderView = headerView;
+
+    
+    //签到按钮
+    CGFloat buttonW = 50;
+    CGFloat buttonH = 20;
+    CGFloat buttonX = SCREENWIDTH-60;
+    CGFloat buttonY = 20;
+    UIButton *signBtn = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
+    signBtn.backgroundColor = [UIColor clearColor];
+    signBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    signBtn.layer.cornerRadius = 4.0;//2.0是圆角的弧度，根据需求自己更改
+    signBtn.layer.borderWidth = 1.0f;//设置边框颜色
+    signBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
+    [signBtn setTitle:@"签到" forState:UIControlStateNormal];
+    [signBtn addTarget:self action:@selector(toSignInView) forControlEvents:UIControlEventTouchUpInside];
+    [headerView addSubview:signBtn];
+    
     //头像
     CGFloat imageDia = 70;              //直径
     CGFloat imageX = (SCREENWIDTH-imageDia)/2.0;
@@ -104,56 +123,97 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToMineInfoView)];
     [portrait addGestureRecognizer:tap];
     
-    //    [self setPortaitImg:nil];
-    myTableView.tableHeaderView = headerView;
-    
-    //登录按钮
-    //    loginBtn = [[UIButton alloc] initWithFrame:CGRectMake(imageY + imageW + 10, 37, 80, 30)];
-    //    loginBtn.center = profileBg.center;
-    //    CGRect loginFrame = loginBtn.frame;
-    //    loginFrame.origin.x = imageY + imageW + 10;
-    //    loginBtn.frame = loginFrame;
-    //
-    //    [profileBg addSubview:loginBtn];
-    //    [loginBtn.layer setMasksToBounds:YES];
-    //    [loginBtn.layer setCornerRadius:5];//设置矩形四个圆角半径
-    //    loginBtn.backgroundColor = [UIColor whiteColor];
-    //    [loginBtn setTitle:@"登录/注册" forState:UIControlStateNormal];
-    //    [loginBtn.titleLabel setFont:[UIFont fontWithName:@"Helvetica" size:15.0]];
-    //    [loginBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    //    [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
-    //    [loginBtn addTarget:self action:@selector(onClickLogin) forControlEvents:UIControlEventTouchUpInside];
-    
     //用户名
-    CGFloat labelX = imageX;
-    CGFloat labelY = imageY+imageDia;
+    CGFloat labelX = SCREENWIDTH/2.0-150;
+    CGFloat labelY = imageY+imageDia+5;
     CGFloat labelH = 25;
-    CGFloat labelW = imageDia;
+    CGFloat labelW = 150;
     
     userNameL = [[UILabel alloc] init];
-    userNameL.textAlignment = NSTextAlignmentCenter;
+    userNameL.textAlignment = NSTextAlignmentRight;
     userNameL.backgroundColor = [UIColor clearColor];
-    userNameL.font = [UIFont fontWithName:@"Helvetica" size:20.0];
+    userNameL.font = [UIFont systemFontOfSize:15.0];
     userNameL.textColor = [UIColor whiteColor];
     userNameL.frame = CGRectMake(labelX, labelY, labelW, labelH);
     [headerView addSubview:userNameL];
     userNameL.text = @"Amy";
-    //积分
     
-    //签到按钮
-    CGFloat buttonW = 50;
-    CGFloat buttonH = 20;
-    CGFloat buttonX = imageX+imageDia+30;
-    CGFloat buttonY = imageY+imageDia/2.0-10;
-    UIButton *signBtn = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
-    signBtn.backgroundColor = [UIColor clearColor];
-    signBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
-    signBtn.layer.cornerRadius = 4.0;//2.0是圆角的弧度，根据需求自己更改
-    signBtn.layer.borderWidth = 1.0f;//设置边框颜色
-    signBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
-    [signBtn setTitle:@"签到" forState:UIControlStateNormal];
-    [signBtn addTarget:self action:@selector(toSignInView) forControlEvents:UIControlEventTouchUpInside];
-    [headerView addSubview:signBtn];
+    CGFloat sexX = SCREENWIDTH/2.0+10;
+    CGFloat sexY = labelY;
+    CGFloat sexW = 50;
+    UILabel *sexL = [[UILabel alloc] init];
+    sexL.textAlignment = NSTextAlignmentLeft;
+    sexL.backgroundColor = [UIColor clearColor];
+    sexL.font = [UIFont systemFontOfSize:15.0];
+    sexL.textColor = [UIColor whiteColor];
+    sexL.frame = CGRectMake(sexX, sexY, sexW, labelH);
+    [headerView addSubview:sexL];
+    sexL.text = @"男";
+    
+    CGFloat healthX = 30;
+    CGFloat healthY = labelY +30;
+    CGFloat healthW = 15;
+    UIImageView *healthImageView = [[UIImageView alloc] initWithFrame:CGRectMake(healthX, healthY, healthW, healthW)];
+    healthImageView.backgroundColor = [UIColor clearColor];
+    healthImageView.image = [UIImage imageNamed:@"icon_health_authent"];
+    [headerView addSubview:healthImageView];
+
+    CGFloat healthL_X = healthX+20;
+    CGFloat healthL_Y = healthY-5;
+    CGFloat healthL_W = 120;
+    UILabel *healthL = [[UILabel alloc] init];
+    healthL.textAlignment = NSTextAlignmentLeft;
+    healthL.backgroundColor = [UIColor clearColor];
+    healthL.font = [UIFont systemFontOfSize:15.0];
+    healthL.textColor = [UIColor whiteColor];
+    healthL.frame = CGRectMake(healthL_X, healthL_Y, healthL_W, labelH);
+    [headerView addSubview:healthL];
+    healthL.text = @"国家卫计委认证";
+    
+    UIImageView *nameImageView = [[UIImageView alloc] initWithFrame:CGRectMake(healthL_X+healthL_W+10, healthY, healthW, healthW)];
+    nameImageView.backgroundColor = [UIColor clearColor];
+    nameImageView.image = [UIImage imageNamed:@"icon_name_authent"];
+    [headerView addSubview:nameImageView];
+    
+    CGFloat nameL_X = healthL_X+healthL_W+healthW+15;
+    CGFloat nameL_Y = healthL_Y;
+    CGFloat nameL_W = 90;
+    UILabel *nameL = [[UILabel alloc] init];
+    nameL.textAlignment = NSTextAlignmentLeft;
+    nameL.backgroundColor = [UIColor clearColor];
+    nameL.font = [UIFont systemFontOfSize:15.0];
+    nameL.textColor = [UIColor whiteColor];
+    nameL.frame = CGRectMake(nameL_X, nameL_Y, nameL_W, labelH);
+    [headerView addSubview:nameL];
+    nameL.text = @"实名认证";
+    
+//    viewHeight
+    NSArray *titleArr = @[@"我的账号",@"我的积分",@"我的信息"];
+    CGFloat titleX = 0;
+    CGFloat titleY = viewHeight-30;
+    CGFloat titleW = SCREENWIDTH/3.0;
+    CGFloat titleH = 30;
+    for (int i = 0; i<[titleArr count];i++) {
+        
+        UIButton *titleBt = [[UIButton alloc] initWithFrame:CGRectMake(titleX+i*titleW, titleY, titleW, titleH)];
+        [titleBt setTitle:titleArr[i] forState:UIControlStateNormal];
+        titleBt.titleLabel.font = [UIFont systemFontOfSize:18.0];
+        titleBt.backgroundColor = [UIColor clearColor];
+        titleBt.tag = 100+i;
+        [titleBt addTarget:self action:@selector(clickTitleBtAction:) forControlEvents:UIControlEventTouchUpInside];
+        [headerView addSubview:titleBt];
+        
+        if (i>0) {
+            UILabel *lineL = [[UILabel alloc] initWithFrame:CGRectMake(titleX+i*titleW, titleY, 1, titleH)];
+            [lineL setBackgroundColor:[UIColor whiteColor]];
+            [headerView addSubview:lineL];
+        }
+    }
+    
+}
+
+- (void)clickTitleBtAction:(UIButton*)sender{
+    NSLog(@"tag:%ld",sender.tag);
     
 }
 
@@ -261,6 +321,9 @@
                     break;
                 case 2:
                 {//我的评论
+                    MyEvaluateViewController *myEvaluateViewController = [[MyEvaluateViewController alloc] init];
+                    myEvaluateViewController.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:myEvaluateViewController animated:YES];
                 }
                     break;
                     
@@ -356,125 +419,6 @@
 }
 
 
-
-
-
-#pragma  mark camera
-//打开相机,获取照片
--(void)openCamera
-{
-    if (iOS8) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-        
-        // Create the actions.
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-            //取消
-        }];
-        
-        UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"打开照相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [self takePhoto];
-        }];
-        
-        UIAlertAction *libAction = [UIAlertAction actionWithTitle:@"从手机相册获取" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [self LocalPhoto];
-        }];
-        
-        // Add the actions.
-        [alertController addAction:cameraAction];
-        [alertController addAction:libAction];
-        [alertController addAction:cancelAction];
-        
-        [self presentViewController:alertController animated:YES completion:nil];
-    }else{
-        UIActionSheet *myActionSheet = [[UIActionSheet alloc]
-                                        initWithTitle:nil
-                                        delegate:self
-                                        cancelButtonTitle:@"取消"
-                                        destructiveButtonTitle:nil
-                                        otherButtonTitles: @"打开照相机", @"从手机相册获取",nil];
-        [myActionSheet showInView:[UIApplication sharedApplication].keyWindow];
-    }
-    
-    
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    //呼出的菜单按钮点击后的响应
-    if (buttonIndex == actionSheet.cancelButtonIndex){
-        
-        NSLog(@"取消");
-    }
-    switch (buttonIndex)
-    {
-        case 0:  //打开照相机拍照
-            [self takePhoto];
-            break;
-        case 1:  //打开本地相册
-            [self LocalPhoto];
-            break;
-    }
-}
-
-//开始拍照
--(void)takePhoto
-{
-    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
-    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera])
-    {
-        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-        picker.delegate = self;
-        //设置拍照后的图片可被编辑
-        
-        picker.allowsEditing = YES;
-        picker.sourceType = sourceType;
-        [self presentViewController:picker animated:YES completion:nil];
-    }else
-    {
-        NSLog(@"模拟其中无法打开照相机,请在真机中使用");
-    }
-}
-//打开本地相册
--(void)LocalPhoto
-{
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    picker.delegate = self;
-    //设置选择后的图片可被编辑
-    picker.allowsEditing = YES;
-    [self presentViewController:picker animated:YES completion:nil];
-}
-//当选择一张图片后进入这里
--(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
-    //当选择的类型是图片
-    if ([type isEqualToString:@"public.image"])
-    {
-        //先把图片转成NSData
-        UIImage* image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
-        NSData *data;
-        if (UIImagePNGRepresentation(image) == nil)
-        {
-            data = UIImageJPEGRepresentation(image, 1.0);
-        }
-        else
-        {
-            data = UIImagePNGRepresentation(image);
-        }
-        NSString * DocumentsPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        [fileManager createDirectoryAtPath:DocumentsPath withIntermediateDirectories:YES attributes:nil error:nil];
-        [fileManager createFileAtPath:[DocumentsPath stringByAppendingString:@"/image.png"] contents:data attributes:nil];
-        [picker dismissViewControllerAnimated:YES completion:nil];
-        portrait.image = image;
-    }
-}
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

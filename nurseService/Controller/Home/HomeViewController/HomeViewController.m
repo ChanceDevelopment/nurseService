@@ -140,6 +140,7 @@
     }];
 }
 
+
 #pragma mark LBBannerDelegate
 - (void)banner:(LBBanner *)banner didClickViewWithIndex:(NSInteger)index {
     NSLog(@"didClickViewWithIndex:%ld", index);

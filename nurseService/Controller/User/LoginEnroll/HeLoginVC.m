@@ -85,8 +85,6 @@
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
-        NSLog(@"%@",respondDict);
-        
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
             NSDictionary *userInfoDic = [NSDictionary dictionaryWithDictionary:[respondDict valueForKey:@"json"]];

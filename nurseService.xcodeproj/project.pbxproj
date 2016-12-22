@@ -34,6 +34,11 @@
 		AD8BB13D1E0A0F0E004064F9 /* icon_rank_second.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1391E0A0F0E004064F9 /* icon_rank_second.png */; };
 		AD8BB13E1E0A0F0E004064F9 /* icon_rank_third.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB13A1E0A0F0E004064F9 /* icon_rank_third.png */; };
 		AD8BB1431E0A3745004064F9 /* RankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1411E0A3745004064F9 /* RankTableViewCell.m */; };
+		ADCD25A61E0C0E9900FBCF26 /* MyEvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCD25A41E0C0E9900FBCF26 /* MyEvaluateViewController.m */; };
+		ADCD25AB1E0C19CD00FBCF26 /* MyEvaluateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCD25AA1E0C19CD00FBCF26 /* MyEvaluateTableViewCell.m */; };
+		ADCD25AD1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADCD25AC1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib */; };
+		ADCD25B01E0C2E7300FBCF26 /* icon_star_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = ADCD25AE1E0C2E7300FBCF26 /* icon_star_normal.png */; };
+		ADCD25B11E0C2E7300FBCF26 /* icon_star_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = ADCD25AF1E0C2E7300FBCF26 /* icon_star_yellow.png */; };
 		ADDBEB421DFCE267000BDA95 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDBEB311DFCE267000BDA95 /* CustomNavigationController.m */; };
 		ADDBEB431DFCE267000BDA95 /* HeBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDBEB331DFCE267000BDA95 /* HeBaseViewController.m */; };
 		ADDBEB441DFCE267000BDA95 /* HeBaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADDBEB341DFCE267000BDA95 /* HeBaseViewController.xib */; };
@@ -647,6 +652,13 @@
 		AD8BB13A1E0A0F0E004064F9 /* icon_rank_third.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_rank_third.png; sourceTree = "<group>"; };
 		AD8BB1401E0A3745004064F9 /* RankTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankTableViewCell.h; sourceTree = "<group>"; };
 		AD8BB1411E0A3745004064F9 /* RankTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankTableViewCell.m; sourceTree = "<group>"; };
+		ADCD25A31E0C0E9900FBCF26 /* MyEvaluateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEvaluateViewController.h; sourceTree = "<group>"; };
+		ADCD25A41E0C0E9900FBCF26 /* MyEvaluateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEvaluateViewController.m; sourceTree = "<group>"; };
+		ADCD25A91E0C19CD00FBCF26 /* MyEvaluateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEvaluateTableViewCell.h; sourceTree = "<group>"; };
+		ADCD25AA1E0C19CD00FBCF26 /* MyEvaluateTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEvaluateTableViewCell.m; sourceTree = "<group>"; };
+		ADCD25AC1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyEvaluateViewController.xib; sourceTree = "<group>"; };
+		ADCD25AE1E0C2E7300FBCF26 /* icon_star_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_star_normal.png; sourceTree = "<group>"; };
+		ADCD25AF1E0C2E7300FBCF26 /* icon_star_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_star_yellow.png; sourceTree = "<group>"; };
 		ADDBEB301DFCE267000BDA95 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		ADDBEB311DFCE267000BDA95 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
 		ADDBEB321DFCE267000BDA95 /* HeBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeBaseViewController.h; sourceTree = "<group>"; };
@@ -1749,6 +1761,8 @@
 		AD3013741DFCF4F200D26E09 /* mineIcon */ = {
 			isa = PBXGroup;
 			children = (
+				ADCD25AE1E0C2E7300FBCF26 /* icon_star_normal.png */,
+				ADCD25AF1E0C2E7300FBCF26 /* icon_star_yellow.png */,
 				AD8BB1301E096EA7004064F9 /* defalut_icon.png */,
 				AD8BB1311E096EA7004064F9 /* icon_into_right.png */,
 				AD8BB12C1E096E9B004064F9 /* icon_health_authent.png */,
@@ -1813,6 +1827,26 @@
 			children = (
 				AD8BB1401E0A3745004064F9 /* RankTableViewCell.h */,
 				AD8BB1411E0A3745004064F9 /* RankTableViewCell.m */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		ADCD25A21E0C0E5700FBCF26 /* MyEvaluateViewController */ = {
+			isa = PBXGroup;
+			children = (
+				ADCD25A81E0C193C00FBCF26 /* Cell */,
+				ADCD25A31E0C0E9900FBCF26 /* MyEvaluateViewController.h */,
+				ADCD25A41E0C0E9900FBCF26 /* MyEvaluateViewController.m */,
+				ADCD25AC1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib */,
+			);
+			path = MyEvaluateViewController;
+			sourceTree = "<group>";
+		};
+		ADCD25A81E0C193C00FBCF26 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				ADCD25A91E0C19CD00FBCF26 /* MyEvaluateTableViewCell.h */,
+				ADCD25AA1E0C19CD00FBCF26 /* MyEvaluateTableViewCell.m */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1943,6 +1977,7 @@
 		ADDBEB6B1DFCE41A000BDA95 /* MineViewController */ = {
 			isa = PBXGroup;
 			children = (
+				ADCD25A21E0C0E5700FBCF26 /* MyEvaluateViewController */,
 				AD8BB1261E09365A004064F9 /* MineInfoViewController */,
 				AD8BB1201E09363B004064F9 /* SettingViewController */,
 				EAA4F3071E012A8400EF9E14 /* MineViewController.h */,
@@ -4215,6 +4250,7 @@
 				EAC2D95E1D4B063B00E282A8 /* TZImagePickerController.bundle in Resources */,
 				AD30138C1DFCF4F300D26E09 /* icon_set.png in Resources */,
 				AD3013841DFCF4F200D26E09 /* icon_invite.png in Resources */,
+				ADCD25B11E0C2E7300FBCF26 /* icon_star_yellow.png in Resources */,
 				EAC2D99B1D4B063C00E282A8 /* loading_anim2.png in Resources */,
 				EAC2D8871D4B063B00E282A8 /* IQActionSheetPickerView.xib in Resources */,
 				EAC2D8761D4B063B00E282A8 /* blueArrow.png in Resources */,
@@ -4248,6 +4284,7 @@
 				EAC2D86B1D4B063B00E282A8 /* down_dark.png in Resources */,
 				EAC2D9901D4B063C00E282A8 /* README.txt in Resources */,
 				EA472CD51E04E71B00E0316F /* TOWebViewControllerLocalizable.strings in Resources */,
+				ADCD25AD1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib in Resources */,
 				EAC2D8971D4B063B00E282A8 /* MBProgressHUD.bundle in Resources */,
 				EAC2D87B1D4B063B00E282A8 /* grayArrow@2x.png in Resources */,
 				EAC2D9561D4B063B00E282A8 /* btn_021@2x.png in Resources */,
@@ -4323,6 +4360,7 @@
 				EAC2D85E1D4B063B00E282A8 /* back-arrow@3x.png in Resources */,
 				EAA6552A1E0627C300F424DD /* AlbumOperateMoreViewBkg@2x.png in Resources */,
 				EAC2D9501D4B063B00E282A8 /* bg_023@2x.png in Resources */,
+				ADCD25B01E0C2E7300FBCF26 /* icon_star_normal.png in Resources */,
 				EAA655221E0627C300F424DD /* AlbumComment@2x.png in Resources */,
 				EA472CB51E04DE5500E0316F /* unselect_box.png in Resources */,
 				AD8BB12E1E096E9B004064F9 /* icon_health_authent.png in Resources */,
@@ -4572,6 +4610,7 @@
 				EAC2D9291D4B063B00E282A8 /* UIImagePickerController+RACSignalSupport.m in Sources */,
 				EAC2D8691D4B063B00E282A8 /* DFUserDefaultStorageService.m in Sources */,
 				EAC2D91A1D4B063B00E282A8 /* RACTestScheduler.m in Sources */,
+				ADCD25AB1E0C19CD00FBCF26 /* MyEvaluateTableViewCell.m in Sources */,
 				EAC2D4301D4B031500E282A8 /* ViewController.m in Sources */,
 				EAC2D8781D4B063B00E282A8 /* EGORefreshTableFootView.m in Sources */,
 				EAC2D93E1D4B063B00E282A8 /* SDWebImageManager.m in Sources */,
@@ -4739,6 +4778,7 @@
 				EAC2D93C1D4B063B00E282A8 /* SDWebImageDownloader.m in Sources */,
 				EAC2D8901D4B063B00E282A8 /* UIView+IQKeyboardToolbar.m in Sources */,
 				EAC2D8B41D4B063B00E282A8 /* UIScrollView+MJRefresh.m in Sources */,
+				ADCD25A61E0C0E9900FBCF26 /* MyEvaluateViewController.m in Sources */,
 				EAC2D8E61D4B063B00E282A8 /* NSObject+RACSelectorSignal.m in Sources */,
 				EAC2D8D31D4B063B00E282A8 /* NYSegmentIndicator.m in Sources */,
 				EAC2D8A71D4B063B00E282A8 /* MJRefreshHeader.m in Sources */,

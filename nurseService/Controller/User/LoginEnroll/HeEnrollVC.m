@@ -130,11 +130,6 @@
     NSString *code = codeField.text;
     NSString *password = passwordField.text;
     NSString *nick = nickField.text;
-
-    
-    
-    
-    NSString *account = [accountField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     if ((userPhone == nil || [userPhone isEqualToString:@""])) {
         [self showHint:@"请输入手机号"];
@@ -160,10 +155,12 @@
         [self showHint:@"请阅读《护士上门用户协议》"];
         return;
     }
+//    if (userImage == nil) {
+//        [self showHint:@"请设置头像"];
+//        return;
+//    }
     
-    
-    
-    NSDictionary * params  = @{@"NurseName": @"15098013781",@"NursePwd" : @"123456",@"NurseNick" : @"123456",@"NurseHeader" : @"123456"};
+    NSDictionary * params  = @{@"NurseName": userPhone,@"NursePwd" : password,@"NurseNick" : nick,@"NurseHeader" : @"123456"};
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:REGISTERURL params:params success:^(AFHTTPRequestOperation* operation,id response){
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         
@@ -232,6 +229,26 @@
     }
     if ([inviteCodeField isFirstResponder]) {
         [inviteCodeField resignFirstResponder];
+    }
+}
+
+#pragma mark UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    //呼出的菜单按钮点击后的响应
+    if (buttonIndex == actionSheet.cancelButtonIndex){
+        
+        NSLog(@"取消");
+    }
+    switch (buttonIndex)
+    {
+        case 0:  //打开本地相册
+            [self pickerPhotoLibrary];
+            break;
+        case 1:  //打开照相机拍照
+            [self pickerCamer];
+            break;
+        
     }
 }
 
