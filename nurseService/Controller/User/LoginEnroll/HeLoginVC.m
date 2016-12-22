@@ -64,34 +64,46 @@
 - (IBAction)loginButtonClick:(id)sender
 {
     
-//    return;
-//    stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]
-    
     NSString *account = [accountField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSString *password = passwordField.text;
-//    if (account == nil || [account isEqualToString:@""]) {
-//        [self showHint:@"请输入手机号码"];
-//        return;
-//    }
-//    if (password == nil || [password isEqualToString:@""]) {
-//        [self showHint:@"请输入登录密码"];
-//        return;
-//    }
-//    if (![Tool isMobileNumber:account]) {
-//        [self showHint:@"请输入正确的手机号码"];
-//        return;
-//    }
+    if (account == nil || [account isEqualToString:@""]) {
+        [self showHint:@"请输入手机号码"];
+        return;
+    }
+    if (password == nil || [password isEqualToString:@""]) {
+        [self showHint:@"请输入登录密码"];
+        return;
+    }
+    if (![Tool isMobileNumber:account]) {
+        [self showHint:@"请输入正确的手机号码"];
+        return;
+    }
     
-    NSDictionary * params  = @{@"NurseName": @"15098013787",@"NursePwd" : @"123456"};
+    NSDictionary * params  = @{@"NurseName": account,@"NursePwd" : password};
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:LOGINURL params:params success:^(AFHTTPRequestOperation* operation,id response){
         
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
-        NSDictionary *respondDict = [respondString objectFromJSONString];
+        
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
         NSLog(@"%@",respondDict);
-        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@YES];
+        
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            NSDictionary *userInfoDic = [NSDictionary dictionaryWithDictionary:[respondDict valueForKey:@"json"]];
+            
+//            [[NSUserDefaults standardUserDefaults] setObject:userInfoDic forKey:@"userLoginInfo"];//本地存储
+//            [[NSUserDefaults standardUserDefaults] synchronize];//强制写入,保存数据
+            [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseId"]] forKey:USERIDKEY];
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@YES];
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
+        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        
         
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
+        [self.view makeToast:@"请检查网络连接是否正常" duration:2.0 position:@"center"];
     }];
 }
 

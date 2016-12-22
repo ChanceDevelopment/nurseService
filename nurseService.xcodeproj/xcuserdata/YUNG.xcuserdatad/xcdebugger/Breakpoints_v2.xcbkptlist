@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/User/LoginEnroll/HeLoginVC.m"
-            timestampString = "503898607.270423"
+            timestampString = "504081885.484085"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "-loginButtonClick:"
             landmarkType = "7">
          </BreakpointContent>
@@ -25,13 +25,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "nurseService/Custom/AFNetworking/AFHttpTool.m"
-            timestampString = "503912825.652491"
+            filePath = "nurseService/Controller/User/LoginEnroll/HeEnrollVC.m"
+            timestampString = "504085960.65684"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
-            landmarkName = "+requestWihtMethod:url:params:success:failure:"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "-finishButtonClick:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "nurseService/Controller/User/LoginEnroll/HeLoginVC.m"
+            timestampString = "504085855.734572"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "-loginButtonClick:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

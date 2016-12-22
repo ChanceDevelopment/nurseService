@@ -126,18 +126,62 @@
 //完成
 - (IBAction)finishButtonClick:(id)sender
 {
+    NSString *userPhone = accountField.text;
+    NSString *code = codeField.text;
+    NSString *password = passwordField.text;
+    NSString *nick = nickField.text;
+
+    
+    
+    
+    NSString *account = [accountField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    
+    if ((userPhone == nil || [userPhone isEqualToString:@""])) {
+        [self showHint:@"请输入手机号"];
+        return;
+    }
+    if (![Tool isMobileNumber:userPhone]) {
+        [self showHint:@"请输入正确的手机号"];
+        return;
+    }
+    if ((code == nil || [code isEqualToString:@""])) {
+        [self showHint:@"验证码"];
+        return;
+    }
+    if (password == nil || [password isEqualToString:@""]) {
+        [self showHint:@"请输入密码"];
+        return;
+    }
+    if (nick == nil || [nick isEqualToString:@""]) {
+        [self showHint:@"请输入昵称"];
+        return;
+    }
+    if (agreeButton.selected == NO) {
+        [self showHint:@"请阅读《护士上门用户协议》"];
+        return;
+    }
+    
+    
+    
     NSDictionary * params  = @{@"NurseName": @"15098013781",@"NursePwd" : @"123456",@"NurseNick" : @"123456",@"NurseHeader" : @"123456"};
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:REGISTERURL params:params success:^(AFHTTPRequestOperation* operation,id response){
-        BOOL isJson =  [NSJSONSerialization isValidJSONObject:response];
-        if (isJson) {
-            NSString *respondStr = [[NSString alloc] initWithData:response encoding:NSUTF8StringEncoding];
-            NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithDictionary:[respondStr objectFromJSONString]];
-            
-        }
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        
+        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
+
         
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
+        [self.view makeToast:@"请检查网络连接是否正常" duration:2.0 position:@"center"];
     }];
 
 }
