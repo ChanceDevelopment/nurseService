@@ -9,9 +9,8 @@
 #import "HeBaseTableViewCell.h"
 
 @interface MyEvaluateTableViewCell : HeBaseTableViewCell
-@property (nonatomic,strong)UIImageView *headImageView;
+@property (nonatomic,strong)AsynImageView *headImageView;
 @property (nonatomic,strong)UILabel *telephoneNum;
 @property (nonatomic,strong)UILabel *evaluateInfo;
 @property (nonatomic,strong)UILabel *time;
-@property (nonatomic,strong)NSNumber *startNum;
 @end

@@ -58,6 +58,27 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)logOffAction:(UIButton *)sender {
+    
+    NSDictionary * params  = @{@"nurseid ": [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY]};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:EVALUATEURL params:params success:^(AFHTTPRequestOperation* operation,id response){
+        
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            NSDictionary *userInfoDic = [NSDictionary dictionaryWithDictionary:[respondDict valueForKey:@"json"]];
+            
+            
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
+        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        
+        
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:@"请检查网络连接是否正常" duration:2.0 position:@"center"];
+    }];
 }
 - (IBAction)updateVersionAction:(UIButton *)sender {
 }

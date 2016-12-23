@@ -9,7 +9,12 @@
 #import "MyEvaluateViewController.h"
 #import "DLNavigationTabBar.h"
 #import "MyEvaluateTableViewCell.h"
-@interface MyEvaluateViewController ()
+#import "MJRefreshAutoNormalFooter.h"
+@interface MyEvaluateViewController (){
+    NSInteger currentPage;
+    NSInteger currentType;
+    NSMutableArray *dataArr;
+}
 @property(nonatomic,strong)DLNavigationTabBar *navigationTabBar;
 @end
 
@@ -57,6 +62,7 @@
     // Do any additional setup after loading the view from its nib.
     [self initializaiton];
     [self initView];
+
 }
 
 - (void)initializaiton
@@ -67,17 +73,79 @@
 - (void)initView
 {
     [super initView];
+    
+    currentPage = 0;
+    currentType = 0;
+    [self getDataWithType:currentType];
+    dataArr = [[NSMutableArray alloc] initWithCapacity:0];
+    
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
     [self.view addSubview:self.navigationTabBar];
     [myTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
+    self.myTableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        self.myTableView.footer.automaticallyHidden = YES;
+        self.myTableView.footer.hidden = NO;
+        // 进入刷新状态后会自动调用这个block，加载更多
+        [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
+    }];
     
 }
 
+- (void)endRefreshing
+{
+    [self.myTableView.footer endRefreshing];
+    self.myTableView.footer.hidden = YES;
+    self.myTableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        self.myTableView.footer.automaticallyHidden = YES;
+        self.myTableView.footer.hidden = NO;
+        // 进入刷新状态后会自动调用这个block，加载更多
+        [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
+    }];
+    
+    
+    //处理上拉后的逻辑
+    NSLog(@"endRefreshing");
+    [self getDataWithType:currentType];
+    
+    
+    
+}
+- (void)getDataWithType:(NSInteger)type{
+    
+    NSDictionary * params  = @{@"nurseid": [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY]],@"type" : [NSString stringWithFormat:@"%ld",type],@"pageNum" : [NSString stringWithFormat:@"%ld",currentPage]};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:EVALUATEURL params:params success:^(AFHTTPRequestOperation* operation,id response){
+        
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
+            if (tempArr.count > 0) {
+                currentPage++;
+            }else{
+                return ;
+            }
+            [dataArr addObjectsFromArray:tempArr];
+            
+            [myTableView reloadData];
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        }
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:@"请检查网络连接是否正常" duration:2.0 position:@"center"];
+    }];
+}
 #pragma mark - PrivateMethod
 - (void)navigationDidSelectedControllerIndex:(NSInteger)index {
     NSLog(@"index = %ld",index);
-    
+    currentType = index;
+    if (dataArr) {
+        [dataArr removeAllObjects];
+    }
+    [self getDataWithType:currentType];
 }
 
 
@@ -85,7 +153,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return dataArr.count;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -99,18 +167,39 @@
     
     static NSString *cellIndentifier = @"MyEvaluateTableViewCell";
     CGSize cellSize = [tableView rectForRowAtIndexPath:indexPath].size;
-    NSDictionary *dict = nil;
+    NSDictionary *dict = [NSDictionary dictionaryWithDictionary:[dataArr objectAtIndex:row]];
     
     MyEvaluateTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell) {
         cell = [[MyEvaluateTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier cellSize:cellSize];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.headImageView.image = [UIImage imageNamed:@"index1"];
-    cell.telephoneNum.text = @"12345678901";
-    cell.evaluateInfo.text  =@"lallallalal";
-    cell.time.text = @"2016/12/22 12:21";
-    cell.startNum = [NSNumber numberWithInteger:3];
+    cell.headImageView.imageURL = [NSString stringWithFormat:@"%@%@",PIC_URL,[dict valueForKey:@"userHeader"]];//
+    cell.telephoneNum.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"userPhone"]];
+    cell.evaluateInfo.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"evaluateContent"]];
+
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:@"yyyy/MM/dd HH:MM"];
+    NSDate *datea = [NSDate dateWithTimeIntervalSince1970:[[dict valueForKey:@"evaluateCreatetime"] longValue]];
+    NSString *dateString = [formatter stringFromDate:datea];
+    cell.time.text = dateString;
+    
+    NSInteger starNum = [[dict valueForKey:@"evaluateMark"] integerValue];
+    CGFloat starX = SCREENWIDTH-85;
+    CGFloat starW = 15;
+    for (int i = 0; i<starNum; i++) {
+        UIImageView *starImageView = [[UIImageView alloc] initWithFrame:CGRectMake(starX+starW*i, 10, starW, starW)];
+        starImageView.backgroundColor = [UIColor clearColor];
+        if (i < starNum) {
+            starImageView.image = [UIImage imageNamed:@"icon_star_yellow"];
+        }else{
+            starImageView.image = [UIImage imageNamed:@"icon_star_normal"];
+        }
+        [cell addSubview:starImageView];
+    }
+    
     return cell;
 }
 

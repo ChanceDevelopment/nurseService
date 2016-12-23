@@ -138,6 +138,7 @@
         // 进入刷新状态后会自动调用这个block，加载更多
         [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
     }];
+    NSLog(@"endRefreshing");
 }
 
 

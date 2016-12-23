@@ -75,7 +75,7 @@
 //用户的ID userid
 #define USERIDKEY @"userIDKey"
 #define USERTOKENKEY @"userTokenKey"
-#define USERACCOUNTKEY @"userAccountKey"
+#define USERACCOUNTKEY @"userAccountKey"     //账户信息
 #define USERPASSWORDKEY @"userPasswordKey"
 #define USERHAVELOGINKEY @"userHaveLogin"
 #define FRIENDLISTDOWNLOADSUCCEED @"friendDownloadSucceed"

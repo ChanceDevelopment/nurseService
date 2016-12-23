@@ -9,12 +9,5 @@
 #import "HeBaseViewController.h"
 
 @interface MainInfoViewController : HeBaseViewController
-@property (strong, nonatomic) IBOutlet UIImageView *headImage;
-@property (strong, nonatomic) IBOutlet UILabel *nickName;
-@property (strong, nonatomic) IBOutlet UILabel *telephoneNum;
-@property (strong, nonatomic) IBOutlet UILabel *idCardNum;
-@property (strong, nonatomic) IBOutlet UILabel *sexType;
-@property (strong, nonatomic) IBOutlet UILabel *advantageInfo;
-@property (strong, nonatomic) IBOutlet UILabel *addressInfo;
-
+@property (strong, nonatomic) IBOutlet UITableView *myTableView;
 @end

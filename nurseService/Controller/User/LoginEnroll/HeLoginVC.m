@@ -81,17 +81,31 @@
     
     NSDictionary * params  = @{@"NurseName": account,@"NursePwd" : password};
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:LOGINURL params:params success:^(AFHTTPRequestOperation* operation,id response){
-        
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
+
             NSDictionary *userInfoDic = [NSDictionary dictionaryWithDictionary:[respondDict valueForKey:@"json"]];
+            NSMutableDictionary *nurseDic = [NSMutableDictionary dictionaryWithCapacity:0];
             
-//            [[NSUserDefaults standardUserDefaults] setObject:userInfoDic forKey:@"userLoginInfo"];//本地存储
-//            [[NSUserDefaults standardUserDefaults] synchronize];//强制写入,保存数据
+            for (NSString *key in [userInfoDic allKeys]) {
+                
+                if ([[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:key]] isEqualToString:@"<null>"]) {
+                    NSLog(@"key:%@",key);
+                    
+//                    [userInfoDic setValue:@"" forKey:key];
+                    [nurseDic setValue:@"" forKey:key];
+                }else{
+                    [nurseDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:key]] forKey:key];
+                }
+            }
+            NSLog(@"%@",nurseDic);
+            [[NSUserDefaults standardUserDefaults] setObject:nurseDic forKey:USERACCOUNTKEY];//本地存储
             [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseId"]] forKey:USERIDKEY];
+            [[NSUserDefaults standardUserDefaults] synchronize];//强制写入,保存数据
+            
             [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@YES];
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");

@@ -11,7 +11,9 @@
 #import <SMS_SDK/SMSSDK.h>
 #import "BrowserView.h"
 
-@interface HeEnrollVC ()<UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>
+@interface HeEnrollVC ()<UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>{
+    NSString *encodedImageStr;
+}
 @property(strong,nonatomic)IBOutlet UITextField *accountField;
 @property(strong,nonatomic)IBOutlet UITextField *codeField;
 @property(strong,nonatomic)IBOutlet UITextField *passwordField;
@@ -72,6 +74,8 @@
 - (void)initView
 {
     [super initView];
+    
+    
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
     
     getCodeButton.layer.borderWidth = 1.0;
@@ -160,10 +164,15 @@
 //        return;
 //    }
     
-    NSDictionary * params  = @{@"NurseName": userPhone,@"NursePwd" : password,@"NurseNick" : nick,@"NurseHeader" : @"123456"};
+    NSString *headImageStr = @"";
+    if (userImage != nil) {
+        headImageStr = encodedImageStr;
+    }
+    
+    NSDictionary * params  = @{@"NurseName": userPhone,@"NursePwd" : password,@"NurseNick" : nick,@"NurseHeader" : headImageStr};
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:REGISTERURL params:params success:^(AFHTTPRequestOperation* operation,id response){
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
-        
+        NSLog(@"respondString:%@",respondString);
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
         
         [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
@@ -299,22 +308,37 @@
 //当拍完照或者选取好照片之后所要执行的方法
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    userImage = [info objectForKey:UIImagePickerControllerEditedImage];
-    
-    CGSize sizeImage = userImage.size;
-    float a = [self getSize:sizeImage];
-    if (a > 0) {
-        CGSize size = CGSizeMake(sizeImage.width/a, sizeImage.height/a);
-        userImage = [self scaleToSize:userImage size:size];
+    NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
+    //当选择的类型是图片
+    if ([type isEqualToString:@"public.image"])
+    {
+        //先把图片转成NSData
+        userImage = [info objectForKey:UIImagePickerControllerEditedImage];
+        CGSize sizeImage = userImage.size;
+        float a = [self getSize:sizeImage];
+        if (a > 0) {
+            CGSize size = CGSizeMake(sizeImage.width/a, sizeImage.height/a);
+            userImage = [self scaleToSize:userImage size:size];
+        }
+        
+        NSData *data;
+        if (UIImagePNGRepresentation(userImage) == nil)
+        {
+            data = UIImageJPEGRepresentation(userImage, 0.6);
+        }
+        else
+        {
+            data = UIImagePNGRepresentation(userImage);
+        }
+        
+        encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+
+        
+        [self dismissViewControllerAnimated:YES completion:^{
+            [uploadButton setBackgroundImage:userImage forState:UIControlStateNormal];
+            [uploadButton setBackgroundImage:userImage forState:UIControlStateHighlighted];
+        }];
     }
-    
-    UIImageJPEGRepresentation(userImage, 0.6);
-    
-    [self dismissViewControllerAnimated:YES completion:^{
-        [uploadButton setBackgroundImage:userImage forState:UIControlStateNormal];
-        [uploadButton setBackgroundImage:userImage forState:UIControlStateHighlighted];
-    }];
-    
 }
 
 -(float)getSize:(CGSize)size

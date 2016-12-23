@@ -9,107 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "nurseService/Controller/User/LoginEnroll/HeLoginVC.m"
-            timestampString = "504081885.484085"
+            filePath = "nurseService/Controller/Home/MineViewController/MyEvaluateViewController/MyEvaluateViewController.m"
+            timestampString = "504176959.430751"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "-loginButtonClick:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "nurseService/Controller/User/LoginEnroll/HeLoginVC.m"
-            timestampString = "504102010.658274"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "-loginButtonClick:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[HeLoginVC loginButtonClick:]"
-                  moduleName = "&#x62a4;&#x58eb;&#x7aef;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/YUNG/WorkSpace/nurseService/nurseService/Controller/User/LoginEnroll/HeLoginVC.m"
-                  timestampString = "504115832.740541"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "102"
-                  endingLineNumber = "102"
-                  offsetFromSymbolStart = "767">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__copy_helper_block_"
-                  moduleName = "&#x62a4;&#x58eb;&#x7aef;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/YUNG/WorkSpace/nurseService/nurseService/Controller/User/LoginEnroll/HeLoginVC.m"
-                  timestampString = "504115832.747559"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "102"
-                  endingLineNumber = "102"
-                  offsetFromSymbolStart = "51">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__destroy_helper_block_"
-                  moduleName = "&#x62a4;&#x58eb;&#x7aef;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/YUNG/WorkSpace/nurseService/nurseService/Controller/User/LoginEnroll/HeLoginVC.m"
-                  timestampString = "504115832.751035"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "102"
-                  endingLineNumber = "102"
-                  offsetFromSymbolStart = "29">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__30-[HeLoginVC loginButtonClick:]_block_invoke.129"
-                  moduleName = "&#x62a4;&#x58eb;&#x7aef;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/YUNG/WorkSpace/nurseService/nurseService/Controller/User/LoginEnroll/HeLoginVC.m"
-                  timestampString = "504115832.753574"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "102"
-                  endingLineNumber = "102"
-                  offsetFromSymbolStart = "16">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "nurseService/Controller/Home/MineViewController/MyEvaluateViewController/Cell/MyEvaluateTableViewCell.m"
-            timestampString = "504115667.872728"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "48"
-            endingLineNumber = "48"
-            landmarkName = "-initWithStyle:reuseIdentifier:cellSize:"
+            startingLineNumber = "185"
+            endingLineNumber = "185"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

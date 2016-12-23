@@ -22,12 +22,17 @@
 
 
 //------------------------------
+
+#define PIC_URL @"http://116.62.5.119:8088/"
 #define API_URL @"http://116.62.5.119:8088/nurseDoor/nurseAnduser/"
 //登录
 #define LOGINURL @"NurseLogin.action"
 //注册
 #define REGISTERURL @"NurseRegistered.action"
-
+//评价
+#define EVALUATEURL @"selectnurserated.action"
+//修改用户信息
+#define MODIFYUSERINFO @"NurseInfoAdd.action"
 
 
 
@@ -50,8 +55,7 @@
 #define GETUSERDATA @"/my/personal_info"
 //删除图片
 #define DELEPHOTO @"/album/delete"
-//修改用户信息
-#define MODIFYUSERINFO @"/my/modi_personal_info_new"
+
 //校园通知
 #define SCHOOLNOTIFICATION @"/my/my_school_notification"
 //将通知设置为已读

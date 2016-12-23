@@ -218,7 +218,7 @@
     temp = [temp stringByReplacingOccurrencesOfString:@"\t" withString:@""];
     temp = [temp stringByReplacingOccurrencesOfString:@"&" withString:@""];
     temp = [temp stringByReplacingOccurrencesOfString:@"•	" withString:@""];
-    
+    temp = [temp stringByReplacingOccurrencesOfString:@"<null>" withString:@""];
     return [temp dataUsingEncoding:NSUTF8StringEncoding];
 //    return temp;
 }
