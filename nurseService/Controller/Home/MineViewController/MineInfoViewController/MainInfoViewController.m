@@ -8,16 +8,23 @@
 
 #import "MainInfoViewController.h"
 #import "MyInfoTableViewCell.h"
-@interface MainInfoViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface MainInfoViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 {
     NSString *encodedImageStr;
     NSArray *dataArr;
-    NSMutableArray *dataSourceArr;
+    NSMutableDictionary *dataSourceDic;
+    UIView *windowView;
+    UILabel *wordNumL;
+    UITextField *addTextField;
+    NSInteger currentRow;
 }
+@property(strong,nonatomic)UIImage *userImage;
+
 @end
 
 @implementation MainInfoViewController
 @synthesize myTableView;
+@synthesize userImage;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -56,24 +63,28 @@
     NSDictionary *userInfoDic = [NSDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY]];
     
     NSLog(@"userInfoDic:%@",userInfoDic);
-    dataSourceArr = [NSMutableArray arrayWithCapacity:0];
-    
-    [dataSourceArr addObject:[NSString stringWithFormat:@"%@%@",PIC_URL,[userInfoDic valueForKey:@"nurseHeader"]]];
-    [dataSourceArr addObject:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseNick"]]];
-    [dataSourceArr addObject:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nursePhone"]]];
-    [dataSourceArr addObject:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseCard"]]];
+    dataSourceDic = [NSMutableDictionary dictionaryWithCapacity:8];
+    [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseHeader"]] forKey:@"nurseHeader"];
+    [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseNick"]] forKey:@"nurseNick"];
+    [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nursePhone"]] forKey:@"nursePhone"];
+    [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseCard"]] forKey:@"nurseCard"];
     NSString *sex = [[userInfoDic valueForKey:@"nurseSex"] integerValue]==1 ? @"男" : @"女";
-    [dataSourceArr addObject:sex];
-    [dataSourceArr addObject:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseNote"]]];
+    [dataSourceDic setValue:sex forKey:@"nurseSex"];
+    [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseNote"]] forKey:@"nurseNote"];
+    [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseJob"]] forKey:@"nurseJob"];
+    [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseAddress"]] forKey:@"nurseAddress"];
+    [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseGoodservice"]] forKey:@"nurseGoodservice"];
     
-    [dataSourceArr addObject:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseJob"]]];
-    [dataSourceArr addObject:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseAddress"]]];
-    [dataSourceArr addObject:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseGoodservice"]]];
-    
+    [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"NurseEmail"]] forKey:@"NurseEmail"];
+    [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"NurseCardpic"]] forKey:@"NurseCardpic"];
+
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
     [myTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
 
+}
+- (IBAction)saveAction:(UIButton *)sender {
+    [self sendDataToServe];
 }
 
 - (void)sendDataToServe{
@@ -81,37 +92,42 @@
     NSString *sexStr = @"1";
     if (encodedImageStr) {
         headerStr = encodedImageStr;
+    }else{
+        headerStr = [dataSourceDic valueForKey:@"nurseHeader"];
     }
-    if ([dataSourceArr[4] isEqualToString:@"女"]) {
+    if ([[dataSourceDic valueForKey:@"nurseSex"] isEqualToString:@"女"]) {
         sexStr = @"2";
     }
     NSDictionary * params  = @{@"NurseId": [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY]],
                                @"Nurseheader" : headerStr,
-                               @"nurseTruename" : dataSourceArr[1],
-                               @"NurseSex" : dataSourceArr[4],
-                               @"NurseCard" : dataSourceArr[3],
-                               @"NursePhone" : dataSourceArr[2],
-                               @"NurseAddress" : dataSourceArr[7],
-                               @"NurseLanguage" : dataSourceArr[5],
-                               @"NurseEmail" : @"",
-                               @"NurseCardpic" : @""};
+                               @"nurseTruename" : [dataSourceDic valueForKey:@"nurseNick"],
+                               @"NurseSex" : [dataSourceDic valueForKey:@"nurseSex"],
+                               @"NurseCard" : [dataSourceDic valueForKey:@"nurseCard"],
+                               @"NursePhone" : [dataSourceDic valueForKey:@"nursePhone"],
+                               @"NurseAddress" : [dataSourceDic valueForKey:@"nurseAddress"],
+                               @"NurseLanguage" : [dataSourceDic valueForKey:@"nurseNote"],
+                               @"NurseEmail" : [dataSourceDic valueForKey:@"NurseEmail"],
+                               @"NurseCardpic" : [dataSourceDic valueForKey:@"NurseCardpic"]};
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:MODIFYUSERINFO params:params success:^(AFHTTPRequestOperation* operation,id response){
         
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
-            
+            [self performSelector:@selector(backToRootView) withObject:nil afterDelay:1.2f];
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
-            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         }
+        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
         [self.view makeToast:@"请检查网络连接是否正常" duration:2.0 position:@"center"];
     }];
 }
 
+- (void)backToRootView{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 #pragma mark - TableView Delegate
 
@@ -131,7 +147,6 @@
     
     static NSString *cellIndentifier = @"MyInfoTableViewCell";
     CGSize cellSize = [tableView rectForRowAtIndexPath:indexPath].size;
-//    NSDictionary *dict = [NSDictionary dictionaryWithDictionary:[dataArr objectAtIndex:row]];
     
     MyInfoTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell) {
@@ -143,9 +158,27 @@
     if (row == 0) {
         cell.nameText.hidden = YES;
         cell.headImageView.hidden = NO;
-        cell.headImageView.imageURL = dataSourceArr[row];
+        if (userImage) {
+            cell.headImageView.image = userImage;
+        }else{
+            cell.headImageView.imageURL = [NSString stringWithFormat:@"%@%@",PIC_URL,[dataSourceDic valueForKey:@"nurseHeader"]];
+        }
     }else{
-        cell.nameText.text = dataSourceArr[row];
+        NSString *nameStr = @"";
+        if (row == 1) {
+            nameStr=[dataSourceDic valueForKey:@"nurseNick"];
+        }else if (row == 2){
+            nameStr=[dataSourceDic valueForKey:@"nursePhone"];
+        }else if (row == 3){
+            nameStr=[dataSourceDic valueForKey:@"nurseCard"];
+        }else if (row == 4){
+            nameStr=[dataSourceDic valueForKey:@"nurseSex"];
+        }else if (row == 5){
+            nameStr=[dataSourceDic valueForKey:@"nurseNote"];
+        }else if (row == 7){
+            nameStr=[dataSourceDic valueForKey:@"nurseAddress"];
+        }
+        cell.nameText.text = nameStr;
         cell.nameText.hidden = NO;
         cell.headImageView.hidden = YES;
     }
@@ -166,17 +199,27 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSInteger row = indexPath.row;
-    NSInteger section = indexPath.section;
-    
+//    NSInteger section = indexPath.section;
+    currentRow = row;
     switch (row) {
         case 0:
-            NSLog(@"%ld",row);
+        {
+            UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"来自相册",@"来自拍照", nil];
+            sheet.tag = 2;
+            [sheet showInView:self.view];
+        }
             break;
         case 1:
-            NSLog(@"%ld",row);
+        {
+            [self showAddView];
+            
+        }
             break;
         case 2:
-            NSLog(@"%ld",row);
+        {
+            [self showAddView];
+            
+        }
             break;
         case 3:
             NSLog(@"%ld",row);
@@ -185,14 +228,19 @@
             NSLog(@"%ld",row);
             break;
         case 5:
-            NSLog(@"%ld",row);
+        {
+            [self showAddView];
+            
+        }
             break;
         case 6:
             NSLog(@"%ld",row);
             
             break;
         case 7:
-            NSLog(@"%ld",row);
+        {
+            [self showAddView];
+        }
             break;
         case 8:
             NSLog(@"%ld",row);
@@ -200,17 +248,151 @@
         default:
             break;
     }
+}
+
+- (void)showAddView{
+    
+    
+    windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
+        windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
+    [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
+    
+    NSInteger addBgView_W = SCREENWIDTH -20;
+    NSInteger addBgView_H = 160;
+    NSInteger addBgView_Y = SCREENHEIGH/2.0-addBgView_H/2.0-40;
+    UIView *addBgView = [[UIView alloc] initWithFrame:CGRectMake(10, addBgView_Y, addBgView_W, addBgView_H)];
+    addBgView.backgroundColor = [UIColor whiteColor];
+    [addBgView.layer setMasksToBounds:YES];
+    [addBgView.layer setCornerRadius:4];
+    addBgView.alpha = 1.0;
+    [windowView addSubview:addBgView];
+
+    
+    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 40)];
+    titleL.textColor = [UIColor blackColor];
+    titleL.textAlignment = NSTextAlignmentLeft;
+    titleL.font = [UIFont systemFontOfSize:18.0];
+    titleL.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:titleL];
+    
+    NSInteger addTextField_H = 44;
+    NSInteger addTextField_Y = 50;
+    NSInteger addTextField_W =SCREENWIDTH-40;
+
+    addTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, addTextField_Y, addTextField_W, addTextField_H)];//高度--44
+    addTextField.delegate = self;
+    addTextField.font = [UIFont systemFontOfSize:15.0];
+    addTextField.backgroundColor = [UIColor clearColor];
+    addTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    //    addTextField.keyboardType = UIKeyboardTypeNamePhonePad;
+    addTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    addTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    addTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    
+    [addBgView addSubview:addTextField];
+    
+    if (currentRow == 1) {
+        titleL.text = @"昵称";
+        addTextField.text = [dataSourceDic valueForKey: @"nurseNick"];
+    }else if(currentRow == 2){
+        titleL.text = @"手机号";
+        addTextField.text = [dataSourceDic valueForKey: @"nursePhone"];
+    }else if(currentRow == 5){
+        titleL.text = @"我的优势";
+        addTextField.text = [dataSourceDic valueForKey: @"nurseNote"];
+    }else if(currentRow == 7){
+        titleL.text = @"常用地址";
+        addTextField.text = [dataSourceDic valueForKey: @"nurseAddress"];
+    }
+    //边线
+    UILabel *borderLine = [[UILabel alloc] initWithFrame:CGRectMake(10, addTextField_Y+44, addTextField_W, 0.5)];
+    [addBgView addSubview:borderLine];
+    borderLine.backgroundColor = [UIColor blueColor];
+    
+    NSInteger wordNum_Y = addTextField_Y+44;
+    if (currentRow == 1) {
+        wordNumL = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH-130, wordNum_Y, 100, 20)];
+        wordNumL.textColor = [UIColor grayColor];
+        wordNumL.textAlignment = NSTextAlignmentRight;
+        wordNumL.font = [UIFont systemFontOfSize:10.0];
+        wordNumL.backgroundColor = [UIColor clearColor];
+        wordNumL.text = [NSString stringWithFormat:@"%ld/16",[[dataSourceDic valueForKey: @"nurseNick"] length]];
+        [addBgView addSubview:wordNumL];
+    }
+
+    NSInteger cancleBt_X = SCREENWIDTH-20-10-90;
+    NSInteger cancleBt_Y = wordNum_Y+30;
+    NSInteger cancleBt_W = 40;
+    NSInteger cancleBt_H = 20;
+    
+    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
+    cancleBt.backgroundColor = [UIColor clearColor];
+    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    cancleBt.tag = 0;
+    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:cancleBt];
+
+    UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [okBt setTitle:@"确定" forState:UIControlStateNormal];
+    okBt.backgroundColor = [UIColor clearColor];
+        okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    okBt.tag = 1;
+    [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:okBt];
     
     
 }
 
-
-- (IBAction)clickHeadImageAction:(UIButton *)sender {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"来自相册",@"来自拍照", nil];
-    sheet.tag = 2;
-    [sheet showInView:sender];
+- (void)clickBtAction:(UIButton *)sender{
+    if (currentRow == 1 && sender.tag == 1) {
+        if (addTextField && addTextField.text.length>16) {
+            return;
+        }
+    }
+    if (sender.tag == 1) {
+        if (currentRow == 1) {
+            [dataSourceDic setValue:addTextField.text forKey:@"nurseNick"];
+        }else if(currentRow == 2){
+            [dataSourceDic setValue:addTextField.text forKey:@"nursePhone"];
+        }else if(currentRow == 5){
+            [dataSourceDic setValue:addTextField.text forKey:@"nurseNote"];;
+        }else if(currentRow == 7){
+            [dataSourceDic setValue:addTextField.text forKey:@"nurseAddress"];;
+        }
+        [myTableView reloadData];
+    }
+    if (windowView) {
+        [windowView removeFromSuperview];
+    }
+    NSLog(@"tag:%ld",sender.tag);
 }
 
+
+#pragma mark UITextFieldDelegate
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    NSLog(@"%@",textField.text);
+    // i0S6 UITextField的bug
+    if (!textField.window.isKeyWindow) {
+        [textField.window makeKeyAndVisible];
+    }
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (currentRow == 1) {
+        if (wordNumL) {
+            wordNumL.text = [NSString stringWithFormat:@"%ld/16",textField.text.length];
+        }
+    }
+        NSLog(@"textFieldDidEndEditing:%@",textField.text);
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
 #pragma mark UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -283,7 +465,7 @@
     if ([type isEqualToString:@"public.image"])
     {
         //先把图片转成NSData
-        UIImage *userImage = [info objectForKey:UIImagePickerControllerEditedImage];
+        userImage = [info objectForKey:UIImagePickerControllerEditedImage];
         CGSize sizeImage = userImage.size;
         float a = [self getSize:sizeImage];
         if (a > 0) {
@@ -305,7 +487,7 @@
         
         
         [self dismissViewControllerAnimated:YES completion:^{
-//            [headImage setImage:userImage];
+            [myTableView reloadData];
         }];
     }
 }
