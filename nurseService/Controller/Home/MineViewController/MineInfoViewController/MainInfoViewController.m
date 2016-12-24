@@ -17,6 +17,8 @@
     UILabel *wordNumL;
     UITextField *addTextField;
     NSInteger currentRow;
+    UIButton *girlBt;
+    UIButton *boyBt;
 }
 @property(strong,nonatomic)UIImage *userImage;
 
@@ -61,8 +63,11 @@
     [super initView];
     dataArr = @[@"头像",@"昵称",@"手机号",@"身份证号",@"性别",@"我的优势",@"医护信息",@"常用地址",@"可提供服务"];
     NSDictionary *userInfoDic = [NSDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY]];
+//    NSString* temp = [NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseGoodservice"]];
+//    NSArray *arr = [temp componentsSeparatedByString:@","];
+//    NSString *t = [Tool convertHexStrToString:arr[0]];
     
-    NSLog(@"userInfoDic:%@",userInfoDic);
+    [NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseGoodservice"]];
     dataSourceDic = [NSMutableDictionary dictionaryWithCapacity:8];
     [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseHeader"]] forKey:@"nurseHeader"];
     [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseNick"]] forKey:@"nurseNick"];
@@ -82,6 +87,35 @@
     [myTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
 
+}
+
+//将十六进制的字符串转换成NSString则可使用如下方式:
++ (NSString *)convertHexStrToString:(NSString *)str {
+    if (!str || [str length] == 0) {
+        return nil;
+    }
+    
+    NSMutableData *hexData = [[NSMutableData alloc] initWithCapacity:8];
+    NSRange range;
+    if ([str length] % 2 == 0) {
+        range = NSMakeRange(0, 2);
+    } else {
+        range = NSMakeRange(0, 1);
+    }
+    for (NSInteger i = range.location; i < [str length]; i += 2) {
+        unsigned int anInt;
+        NSString *hexCharStr = [str substringWithRange:range];
+        NSScanner *scanner = [[NSScanner alloc] initWithString:hexCharStr];
+        
+        [scanner scanHexInt:&anInt];
+        NSData *entity = [[NSData alloc] initWithBytes:&anInt length:1];
+        [hexData appendData:entity];
+        
+        range.location += range.length;
+        range.length = 2;
+    }
+    NSString *string = [[NSString alloc]initWithData:hexData encoding:NSUTF8StringEncoding];
+    return string;
 }
 - (IBAction)saveAction:(UIButton *)sender {
     [self sendDataToServe];
@@ -151,7 +185,7 @@
     MyInfoTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell) {
         cell = [[MyInfoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier cellSize:cellSize];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
     }
     
     cell.name.text = dataArr[row];
@@ -225,17 +259,17 @@
             NSLog(@"%ld",row);
             break;
         case 4:
-            NSLog(@"%ld",row);
+        {
+            [self showChooseSexView];
+        }
             break;
         case 5:
         {
             [self showAddView];
-            
         }
             break;
         case 6:
             NSLog(@"%ld",row);
-            
             break;
         case 7:
         {
@@ -250,9 +284,107 @@
     }
 }
 
+- (void)showChooseSexView{
+    windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
+    windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
+    [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
+    
+    NSInteger addBgView_W = SCREENWIDTH -20;
+    NSInteger addBgView_H = 170;
+    NSInteger addBgView_Y = SCREENHEIGH/2.0-addBgView_H/2.0-40;
+    UIView *addBgView = [[UIView alloc] initWithFrame:CGRectMake(10, addBgView_Y, addBgView_W, addBgView_H)];
+    addBgView.backgroundColor = [UIColor whiteColor];
+    [addBgView.layer setMasksToBounds:YES];
+    [addBgView.layer setCornerRadius:4];
+    addBgView.alpha = 1.0;
+    [windowView addSubview:addBgView];
+
+    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 40)];
+    titleL.textColor = [UIColor blackColor];
+    titleL.textAlignment = NSTextAlignmentLeft;
+    titleL.font = [UIFont systemFontOfSize:18.0];
+    titleL.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:titleL];
+    titleL.text = @"请选择性别";
+    
+    NSInteger boyBt_W = 25;
+    NSInteger boyBt_Y = 50;
+    boyBt = [[UIButton alloc] init];
+    [boyBt setFrame:CGRectMake(10, boyBt_Y, boyBt_W, boyBt_W)];
+    [boyBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio_on"] forState:UIControlStateNormal];
+    boyBt.tag = 1;
+    boyBt.enabled = NO;
+    [boyBt addTarget:self action:@selector(chooseSexAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:boyBt];
+    
+    UILabel *boyL = [[UILabel alloc] initWithFrame:CGRectMake(10+35, boyBt_Y-8, 100, 40)];
+    boyL.textColor = [UIColor blackColor];
+    boyL.font = [UIFont systemFontOfSize:15.0];
+    boyL.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:boyL];
+    boyL.text = @"男";
+
+    girlBt = [[UIButton alloc] init];
+    [girlBt setFrame:CGRectMake(10, boyBt_Y+30, boyBt_W, boyBt_W)];
+    [girlBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio"] forState:UIControlStateNormal];
+    girlBt.tag = 2;
+    [girlBt addTarget:self action:@selector(chooseSexAction:) forControlEvents:UIControlEventTouchUpInside];
+    girlBt.enabled = YES;
+    [addBgView addSubview:girlBt];
+    
+    UILabel *girlL = [[UILabel alloc] initWithFrame:CGRectMake(10+35, boyBt_Y+30-8, 100, 40)];
+    girlL.textColor = [UIColor blackColor];
+    girlL.font = [UIFont systemFontOfSize:15.0];
+    girlL.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:girlL];
+    girlL.text = @"女";
+    
+    NSInteger cancleBt_X = SCREENWIDTH-20-10-90;
+    NSInteger cancleBt_Y = addBgView_Y - 30;
+    NSInteger cancleBt_W = 40;
+    NSInteger cancleBt_H = 20;
+    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
+    cancleBt.backgroundColor = [UIColor clearColor];
+    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    cancleBt.tag = 0;
+    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:cancleBt];
+    
+    UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [okBt setTitle:@"确定" forState:UIControlStateNormal];
+    okBt.backgroundColor = [UIColor clearColor];
+    okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    okBt.tag = 1;
+    [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:okBt];
+    
+}
+
+- (void )chooseSexAction:(UIButton *)sender{
+    if (sender.tag == 1) {
+        if ([boyBt isEnabled]) {
+            [boyBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio_on"] forState:UIControlStateNormal];
+            [girlBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio"] forState:UIControlStateNormal];
+            boyBt.enabled = NO;
+            girlBt.enabled = YES;
+            
+        }
+    }else if (sender.tag == 2){
+        if ([girlBt isEnabled]) {
+            [girlBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio_on"] forState:UIControlStateNormal];
+            [boyBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio"] forState:UIControlStateNormal];
+            girlBt.enabled = NO;
+            boyBt.enabled = YES;
+            
+        }
+    }
+    
+}
+
 - (void)showAddView{
-    
-    
     windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
         windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
     [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
@@ -361,6 +493,9 @@
             [dataSourceDic setValue:addTextField.text forKey:@"nurseNote"];;
         }else if(currentRow == 7){
             [dataSourceDic setValue:addTextField.text forKey:@"nurseAddress"];;
+        }else if (currentRow == 4){
+            NSString *sex = [girlBt isEnabled] ? @"男" : @"女";
+            [dataSourceDic setValue:sex forKey:@"nurseSex"];
         }
         [myTableView reloadData];
     }

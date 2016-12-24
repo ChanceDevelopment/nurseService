@@ -83,4 +83,8 @@
 + (NSString *)deleteErrorStringInString:(NSString *)inputString;
 //删除错误的字符串
 + (NSString *)deleteErrorStringInData:(NSData *)inputData;
+//将十六进制的字符串转换成NSString则可使用如下方式:
++ (NSString *)convertHexStrToString:(NSString *)str;
+//将NSString转换成十六进制的字符串则可使用如下方式:
++ (NSString *)convertStringToHexStr:(NSString *)str;
 @end
