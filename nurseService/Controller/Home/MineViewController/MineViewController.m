@@ -11,6 +11,13 @@
 #import "SettingViewController.h"
 #import "MainInfoViewController.h"
 #import "MyEvaluateViewController.h"
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKExtension/SSEShareHelper.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
+#import <ShareSDKUI/SSUIShareActionSheetStyle.h>
+#import <ShareSDKUI/SSUIShareActionSheetCustomItem.h>
+#import <ShareSDK/ShareSDK+Base.h>
+
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>
 {
     NSArray *iconArr;
@@ -379,6 +386,7 @@
             switch (index) {
                 case 0:
                 {//邀请好友
+                    [self inviteFriend];
                 }
                     break;
                 case 1:
@@ -418,6 +426,80 @@
     [self.navigationController pushViewController:mainInfoViewController animated:YES];
 }
 
+- (void)inviteFriend
+{
+    //商品的分享
+    NSString *titleStr = @"专业护士上门";
+    NSString *imagePath = @""; //图片的链接地址
+    NSString *nurseid = @"";
+    NSString *guid = @"";
+    NSString *url = @"http://116.62.5.119:8088/nurseDoor/fenxiang.jsp";
+    NSString *content = @"我在这里邀请你的加入";
+    //构造分享内容
+    /***新版分享***/
+    //1、创建分享参数（必要）2/6/22/23/24/37
+//    url = [url stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
+    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    NSArray* imageArray = @[[NSURL URLWithString:imagePath]];
+    [shareParams SSDKSetupShareParamsByText:content
+                                     images:imageArray
+                                        url:[NSURL URLWithString:url]
+                                      title:titleStr
+                                       type:SSDKContentTypeAuto];
+    
+    [ShareSDK showShareActionSheet:nil
+                             items:@[
+                                     @(SSDKPlatformSubTypeQZone),
+                                     @(SSDKPlatformSubTypeWechatSession),
+                                     @(SSDKPlatformSubTypeWechatTimeline),
+                                     @(SSDKPlatformSubTypeQQFriend),
+                                     @(SSDKPlatformSubTypeWechatFav)]
+                       shareParams:shareParams
+               onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+                   
+                   switch (state) {
+                           
+                       case SSDKResponseStateSuccess:
+                       {
+                           UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
+                                                                               message:nil
+                                                                              delegate:nil
+                                                                     cancelButtonTitle:@"确定"
+                                                                     otherButtonTitles:nil];
+                           [alertView show];
+                           break;
+                       }
+                       case SSDKResponseStateFail:
+                       {
+                           UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                               message:nil
+                                                                              delegate:nil
+                                                                     cancelButtonTitle:@"确定"
+                                                                     otherButtonTitles:nil];
+                           [alertView show];
+                           break;
+                       }
+                       case SSDKResponseStateCancel:
+                       {
+                           UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享已取消"
+                                                                               message:nil
+                                                                              delegate:nil
+                                                                     cancelButtonTitle:@"确定"
+                                                                     otherButtonTitles:nil];
+                           [alertView show];
+                           break;
+                       }
+                       default:
+                           break;
+                   }
+                   
+                   if (state != SSDKResponseStateBegin)
+                   {
+
+                   }
+                   
+               }];
+}
 
 
 - (void)didReceiveMemoryWarning {

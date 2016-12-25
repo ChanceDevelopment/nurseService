@@ -39,6 +39,7 @@
     // Override point for customization after application launch.
     
     [self initialization];
+//    [self initshareSDK];
     [self umengTrack];
     self.window.rootViewController = self.viewController;
     //清除缓存
@@ -195,6 +196,50 @@
     //    [MobClick ];  //在线参数配置
     //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onlineConfigCallBack:) name:UMOnlineConfigDidFinishedNotification object:nil];
     
+}
+
+
+//初始化shareSDK
+- (void)initshareSDK
+{
+    [ShareSDK registerApp:SHARESDKKEY
+          activePlatforms:@[
+                            @(SSDKPlatformTypeQQ),
+                            @(SSDKPlatformTypeWechat)
+                            ]
+                 onImport:^(SSDKPlatformType platformType) {
+                     
+                     switch (platformType)
+                     {
+                         case SSDKPlatformTypeWechat:
+                             [ShareSDKConnector connectWeChat:[WXApi class] delegate:self];
+                             break;
+                         case SSDKPlatformTypeQQ:
+                             [ShareSDKConnector connectQQ:[QQApiInterface class]
+                                        tencentOAuthClass:[TencentOAuth class]];
+                             break;
+                         default:
+                             break;
+                     }
+                     
+                 }
+          onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo) {
+              
+              switch (platformType)
+              {
+                  case SSDKPlatformTypeWechat:
+                      [appInfo SSDKSetupWeChatByAppId:@"WeChatAppId"
+                                            appSecret:@"WeChatAppSecret"];
+                      break;
+                  case SSDKPlatformTypeQQ:
+                      [appInfo SSDKSetupQQByAppId:@"TencentWeiboKey"
+                                           appKey:@"TencentWeiboKey"
+                                         authType:SSDKAuthTypeBoth];
+                      break;
+                  default:
+                      break;
+              }
+          }];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
