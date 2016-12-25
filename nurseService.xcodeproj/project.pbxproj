@@ -23,6 +23,12 @@
 		AD5CD6C81E0D58FA0025517E /* MyInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5CD6C71E0D58FA0025517E /* MyInfoTableViewCell.m */; };
 		AD5CD6CB1E0EAECF0025517E /* abc_btn_radio_on.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5CD6C91E0EAECF0025517E /* abc_btn_radio_on.png */; };
 		AD5CD6CC1E0EAECF0025517E /* abc_btn_radio.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5CD6CA1E0EAECF0025517E /* abc_btn_radio.png */; };
+		AD5CD6D11E0FAA8D0025517E /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5CD6CF1E0FAA8D0025517E /* FeedbackViewController.m */; };
+		AD5CD6D21E0FAA8D0025517E /* FeedbackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD5CD6D01E0FAA8D0025517E /* FeedbackViewController.xib */; };
+		AD5CD6D61E0FB14B0025517E /* DelMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5CD6D51E0FB14B0025517E /* DelMenuItem.m */; };
+		AD5CD6D91E0FB7F00025517E /* add.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5CD6D71E0FB7F00025517E /* add.png */; };
+		AD5CD6DA1E0FB7F00025517E /* reduce.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5CD6D81E0FB7F00025517E /* reduce.png */; };
+		AD5CD6DC1E0FBCB70025517E /* cancle.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5CD6DB1E0FBCB70025517E /* cancle.png */; };
 		AD8BB1191E092857004064F9 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1181E092857004064F9 /* UIView+Toast.m */; };
 		AD8BB1241E09363B004064F9 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1221E09363B004064F9 /* SettingViewController.m */; };
 		AD8BB1251E09363B004064F9 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1231E09363B004064F9 /* SettingViewController.xib */; };
@@ -641,6 +647,14 @@
 		AD5CD6C71E0D58FA0025517E /* MyInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfoTableViewCell.m; sourceTree = "<group>"; };
 		AD5CD6C91E0EAECF0025517E /* abc_btn_radio_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = abc_btn_radio_on.png; sourceTree = "<group>"; };
 		AD5CD6CA1E0EAECF0025517E /* abc_btn_radio.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = abc_btn_radio.png; sourceTree = "<group>"; };
+		AD5CD6CE1E0FAA8D0025517E /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
+		AD5CD6CF1E0FAA8D0025517E /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
+		AD5CD6D01E0FAA8D0025517E /* FeedbackViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedbackViewController.xib; sourceTree = "<group>"; };
+		AD5CD6D41E0FB14B0025517E /* DelMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DelMenuItem.h; sourceTree = "<group>"; };
+		AD5CD6D51E0FB14B0025517E /* DelMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DelMenuItem.m; sourceTree = "<group>"; };
+		AD5CD6D71E0FB7F00025517E /* add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add.png; sourceTree = "<group>"; };
+		AD5CD6D81E0FB7F00025517E /* reduce.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reduce.png; sourceTree = "<group>"; };
+		AD5CD6DB1E0FBCB70025517E /* cancle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cancle.png; sourceTree = "<group>"; };
 		AD8BB1171E092857004064F9 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		AD8BB1181E092857004064F9 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		AD8BB1211E09363B004064F9 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
@@ -1768,6 +1782,8 @@
 		AD3013741DFCF4F200D26E09 /* mineIcon */ = {
 			isa = PBXGroup;
 			children = (
+				AD5CD6D71E0FB7F00025517E /* add.png */,
+				AD5CD6D81E0FB7F00025517E /* reduce.png */,
 				AD5CD6C91E0EAECF0025517E /* abc_btn_radio_on.png */,
 				AD5CD6CA1E0EAECF0025517E /* abc_btn_radio.png */,
 				ADCD25AE1E0C2E7300FBCF26 /* icon_star_normal.png */,
@@ -1800,6 +1816,26 @@
 			path = MyInfoTableViewCell;
 			sourceTree = "<group>";
 		};
+		AD5CD6CD1E0FAA710025517E /* FeedbackViewController */ = {
+			isa = PBXGroup;
+			children = (
+				AD5CD6CE1E0FAA8D0025517E /* FeedbackViewController.h */,
+				AD5CD6CF1E0FAA8D0025517E /* FeedbackViewController.m */,
+				AD5CD6D01E0FAA8D0025517E /* FeedbackViewController.xib */,
+			);
+			path = FeedbackViewController;
+			sourceTree = "<group>";
+		};
+		AD5CD6D31E0FB13F0025517E /* DelMenuItem */ = {
+			isa = PBXGroup;
+			children = (
+				AD5CD6DB1E0FBCB70025517E /* cancle.png */,
+				AD5CD6D41E0FB14B0025517E /* DelMenuItem.h */,
+				AD5CD6D51E0FB14B0025517E /* DelMenuItem.m */,
+			);
+			path = DelMenuItem;
+			sourceTree = "<group>";
+		};
 		AD8BB1161E092857004064F9 /* UIViewToast */ = {
 			isa = PBXGroup;
 			children = (
@@ -1812,6 +1848,7 @@
 		AD8BB1201E09363B004064F9 /* SettingViewController */ = {
 			isa = PBXGroup;
 			children = (
+				AD5CD6CD1E0FAA710025517E /* FeedbackViewController */,
 				AD8BB1211E09363B004064F9 /* SettingViewController.h */,
 				AD8BB1221E09363B004064F9 /* SettingViewController.m */,
 				AD8BB1231E09363B004064F9 /* SettingViewController.xib */,
@@ -1893,6 +1930,7 @@
 		ADDBEB2E1DFCE267000BDA95 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				AD5CD6D31E0FB13F0025517E /* DelMenuItem */,
 				AD8BB1161E092857004064F9 /* UIViewToast */,
 				ADDBEB7A1DFCE87E000BDA95 /* LBBannerKit */,
 				ADDBEB4F1DFCE31B000BDA95 /* RESideMenu */,
@@ -4272,6 +4310,7 @@
 				AD3013841DFCF4F200D26E09 /* icon_invite.png in Resources */,
 				ADCD25B11E0C2E7300FBCF26 /* icon_star_yellow.png in Resources */,
 				EAC2D99B1D4B063C00E282A8 /* loading_anim2.png in Resources */,
+				AD5CD6DC1E0FBCB70025517E /* cancle.png in Resources */,
 				EAC2D8871D4B063B00E282A8 /* IQActionSheetPickerView.xib in Resources */,
 				EAC2D8761D4B063B00E282A8 /* blueArrow.png in Resources */,
 				EAC2D9571D4B063B00E282A8 /* ProvincesAndCities.plist in Resources */,
@@ -4323,6 +4362,7 @@
 				EAA4F3231E012F3000EF9E14 /* tabar_rank_icon_normal@2x.png in Resources */,
 				EAC2D8711D4B063B00E282A8 /* i2KEPCMultiComponentPickerView.xib in Resources */,
 				AD3013731DFCF4DC00D26E09 /* icon_search.png in Resources */,
+				AD5CD6DA1E0FB7F00025517E /* reduce.png in Resources */,
 				AD3013871DFCF4F300D26E09 /* icon_mycomment.png in Resources */,
 				EAA4F3381E024CF300EF9E14 /* icon_openeyes.png in Resources */,
 				EAA4F3211E012F3000EF9E14 /* tabar_order_icon_normal@2x.png in Resources */,
@@ -4361,6 +4401,7 @@
 				EAC2D8371D4B063B00E282A8 /* BrowserView.xib in Resources */,
 				ADDBEB951DFCE87E000BDA95 /* index_banner4@2x.jpg in Resources */,
 				EAA4F33A1E024D0600EF9E14 /* icon_look.png in Resources */,
+				AD5CD6D21E0FAA8D0025517E /* FeedbackViewController.xib in Resources */,
 				AD5CD6CB1E0EAECF0025517E /* abc_btn_radio_on.png in Resources */,
 				EAA4F30B1E012A8400EF9E14 /* MineViewController.xib in Resources */,
 				ADDBEB441DFCE267000BDA95 /* HeBaseViewController.xib in Resources */,
@@ -4379,6 +4420,7 @@
 				EAA4F3011E011ED100EF9E14 /* HeEnrollVC.xib in Resources */,
 				EAA6552C1E0627C300F424DD /* AlbumShare@3x.png in Resources */,
 				EAC2D85E1D4B063B00E282A8 /* back-arrow@3x.png in Resources */,
+				AD5CD6D91E0FB7F00025517E /* add.png in Resources */,
 				EAA6552A1E0627C300F424DD /* AlbumOperateMoreViewBkg@2x.png in Resources */,
 				EAC2D9501D4B063B00E282A8 /* bg_023@2x.png in Resources */,
 				ADCD25B01E0C2E7300FBCF26 /* icon_star_normal.png in Resources */,
@@ -4584,6 +4626,7 @@
 				EAC2D92D1D4B063B00E282A8 /* UIStepper+RACSignalSupport.m in Sources */,
 				EAC2D86C1D4B063B00E282A8 /* DropDownListView.m in Sources */,
 				EAA655051E0627C300F424DD /* DFActivityCollectCellAdapter.m in Sources */,
+				AD5CD6D61E0FB14B0025517E /* DelMenuItem.m in Sources */,
 				EAC2D8BC1D4B063B00E282A8 /* MLTextAttachment.m in Sources */,
 				EAA655131E0627C300F424DD /* DFUserTimeLineViewController.m in Sources */,
 				EAA655111E0627C300F424DD /* DFBaseTimeLineViewController.m in Sources */,
@@ -4826,6 +4869,7 @@
 				EA472CB91E04E4B700E0316F /* UIButton+countDown.m in Sources */,
 				EAC2D8921D4B063B00E282A8 /* CHANGELOG.md in Sources */,
 				EAC2D82C1D4B063B00E282A8 /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
+				AD5CD6D11E0FAA8D0025517E /* FeedbackViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

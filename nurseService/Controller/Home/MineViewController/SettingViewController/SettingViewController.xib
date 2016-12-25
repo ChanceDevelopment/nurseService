@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11760" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11760" systemVersion="15G1212" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="ipad12_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -16,11 +16,11 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4gQ-7b-8u1">
-                    <rect key="frame" x="0.0" y="627" width="375" height="40"/>
+                    <rect key="frame" x="0.0" y="1326" width="1024" height="40"/>
                     <color key="backgroundColor" red="0.59607843140000005" green="0.26274509800000001" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="DO0-Sg-4lj"/>
@@ -32,8 +32,8 @@
                         <action selector="logOffAction:" destination="-1" eventType="touchUpInside" id="RJF-2A-HuJ"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sub-mi-ZK2">
-                    <rect key="frame" x="0.0" y="5" width="375" height="48"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sub-mi-ZK2">
+                    <rect key="frame" x="0.0" y="5" width="1024" height="48"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="Lgi-YN-IZf"/>
@@ -46,8 +46,8 @@
                         <action selector="updateVersionAction:" destination="-1" eventType="touchUpInside" id="LQP-kN-jFm"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iRE-qJ-E8f">
-                    <rect key="frame" x="0.0" y="58" width="375" height="48"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iRE-qJ-E8f">
+                    <rect key="frame" x="0.0" y="58" width="1024" height="48"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="hHi-5l-GxE"/>
@@ -67,7 +67,7 @@
                 <constraint firstItem="sub-mi-ZK2" firstAttribute="leading" secondItem="4gQ-7b-8u1" secondAttribute="leading" id="Gdi-97-hVX"/>
                 <constraint firstAttribute="trailing" secondItem="sub-mi-ZK2" secondAttribute="trailing" id="O2O-Zo-pzU"/>
                 <constraint firstItem="sub-mi-ZK2" firstAttribute="leading" secondItem="iRE-qJ-E8f" secondAttribute="leading" id="Rbg-0G-fFm"/>
-                <constraint firstItem="sub-mi-ZK2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="ZYW-T2-TaS"/>
+                <constraint firstItem="sub-mi-ZK2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="5" id="ZYW-T2-TaS"/>
                 <constraint firstItem="sub-mi-ZK2" firstAttribute="trailing" secondItem="iRE-qJ-E8f" secondAttribute="trailing" id="aJ8-Qc-cmP"/>
                 <constraint firstItem="sub-mi-ZK2" firstAttribute="trailing" secondItem="4gQ-7b-8u1" secondAttribute="trailing" id="hP9-Sx-uUP"/>
                 <constraint firstItem="iRE-qJ-E8f" firstAttribute="top" secondItem="sub-mi-ZK2" secondAttribute="bottom" constant="5" id="kwi-Dp-a2I"/>

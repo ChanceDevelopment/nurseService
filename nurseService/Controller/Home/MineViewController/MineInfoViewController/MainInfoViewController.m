@@ -619,8 +619,6 @@
         }
         
         encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-        
-        
         [self dismissViewControllerAnimated:YES completion:^{
             [myTableView reloadData];
         }];

@@ -7,7 +7,7 @@
 //
 
 #import "SettingViewController.h"
-
+#import "FeedbackViewController.h"
 @interface SettingViewController ()
 
 @end
@@ -83,6 +83,9 @@
 - (IBAction)updateVersionAction:(UIButton *)sender {
 }
 - (IBAction)feedBackAction:(UIButton *)sender {
+    FeedbackViewController *feedbackViewController = [[FeedbackViewController alloc] init];
+    feedbackViewController.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:feedbackViewController animated:YES];
 }
 
 /*
