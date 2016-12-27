@@ -228,12 +228,12 @@
               switch (platformType)
               {
                   case SSDKPlatformTypeWechat:
-                      [appInfo SSDKSetupWeChatByAppId:@"WeChatAppId"
-                                            appSecret:@"WeChatAppSecret"];
+                      [appInfo SSDKSetupWeChatByAppId:@"wx59a24b22c97543ee"
+                                            appSecret:@"e02faf49615c6c9208cd3510604e1599"];
                       break;
                   case SSDKPlatformTypeQQ:
-                      [appInfo SSDKSetupQQByAppId:@"TencentWeiboKey"
-                                           appKey:@"TencentWeiboKey"
+                      [appInfo SSDKSetupQQByAppId:@"1105892456"
+                                           appKey:@"v6V8Hu6jufsf3iBn"
                                          authType:SSDKAuthTypeBoth];
                       break;
                   default:
