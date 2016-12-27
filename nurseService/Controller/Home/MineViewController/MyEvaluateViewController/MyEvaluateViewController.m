@@ -112,8 +112,9 @@
     
 }
 - (void)getDataWithType:(NSInteger)type{
-    
-    NSDictionary * params  = @{@"nurseid": [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY]],@"type" : [NSString stringWithFormat:@"%ld",type],@"pageNum" : [NSString stringWithFormat:@"%ld",currentPage]};
+    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+
+    NSDictionary * params  = @{@"nurseid": userAccount,@"type" : [NSString stringWithFormat:@"%ld",type],@"pageNum" : [NSString stringWithFormat:@"%ld",currentPage]};
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:EVALUATEURL params:params success:^(AFHTTPRequestOperation* operation,id response){
         
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
@@ -135,7 +136,7 @@
         }
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
-        [self.view makeToast:@"请检查网络连接是否正常" duration:2.0 position:@"center"];
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
 }
 #pragma mark - PrivateMethod

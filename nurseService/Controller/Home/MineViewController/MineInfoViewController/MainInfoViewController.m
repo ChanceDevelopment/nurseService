@@ -132,7 +132,8 @@
     if ([[dataSourceDic valueForKey:@"nurseSex"] isEqualToString:@"女"]) {
         sexStr = @"2";
     }
-    NSDictionary * params  = @{@"NurseId": [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY]],
+    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+    NSDictionary * params  = @{@"NurseId": [NSString stringWithFormat:@"%@",userAccount],
                                @"Nurseheader" : headerStr,
                                @"nurseTruename" : [dataSourceDic valueForKey:@"nurseNick"],
                                @"NurseSex" : [dataSourceDic valueForKey:@"nurseSex"],
@@ -155,7 +156,7 @@
         [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
-        [self.view makeToast:@"请检查网络连接是否正常" duration:2.0 position:@"center"];
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
 }
 

@@ -187,7 +187,7 @@
         
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
-        [self.view makeToast:@"请检查网络连接是否正常" duration:2.0 position:@"center"];
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
 
 }

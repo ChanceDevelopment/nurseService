@@ -33,6 +33,11 @@
 #define EVALUATEURL @"selectnurserated.action"
 //修改用户信息
 #define MODIFYUSERINFO @"NurseInfoAdd.action"
+//签到
+#define TOSIGNIN @"nurseToSignin.action"
+//是否签到
+#define SIGNINSTATE @"selectNurseIsSignined.action"
+
 
 
 

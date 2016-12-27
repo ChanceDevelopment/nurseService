@@ -58,8 +58,9 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)logOffAction:(UIButton *)sender {
-    
-    NSDictionary * params  = @{@"nurseid ": [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY]};
+    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+
+    NSDictionary * params  = @{@"nurseid": userAccount};
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:EVALUATEURL params:params success:^(AFHTTPRequestOperation* operation,id response){
         
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
@@ -77,7 +78,7 @@
         
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
-        [self.view makeToast:@"请检查网络连接是否正常" duration:2.0 position:@"center"];
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
 }
 - (IBAction)updateVersionAction:(UIButton *)sender {

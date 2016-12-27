@@ -17,13 +17,14 @@
 #import <ShareSDKUI/SSUIShareActionSheetStyle.h>
 #import <ShareSDKUI/SSUIShareActionSheetCustomItem.h>
 #import <ShareSDK/ShareSDK+Base.h>
-
+#import "MyCapitalViewController.h"
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>
 {
     NSArray *iconArr;
     NSArray *tableItemArr;
     UIImageView *portrait;        //头像
     UILabel *userNameL;       //用户名
+    UIButton *signBtn;
 }
 
 @property(strong,nonatomic)IBOutlet UITableView *myTableView;
@@ -57,12 +58,14 @@
     // Do any additional setup after loading the view from its nib.
     [self initializaiton];
     [self initView];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden = YES;
+    [self getSignInState];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -104,7 +107,7 @@
     CGFloat buttonH = 20;
     CGFloat buttonX = SCREENWIDTH-60;
     CGFloat buttonY = 20;
-    UIButton *signBtn = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
+    signBtn = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
     signBtn.backgroundColor = [UIColor clearColor];
     signBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
     signBtn.layer.cornerRadius = 4.0;//2.0是圆角的弧度，根据需求自己更改
@@ -195,7 +198,7 @@
     nameL.text = @"实名认证";
     
 //    viewHeight
-    NSArray *titleArr = @[@"我的账号",@"我的积分",@"我的信息"];
+    NSArray *titleArr = @[@"我的资金",@"我的积分",@"我的信息"];
     CGFloat titleX = 0;
     CGFloat titleY = viewHeight-30;
     CGFloat titleW = SCREENWIDTH/3.0;
@@ -221,11 +224,73 @@
 
 - (void)clickTitleBtAction:(UIButton*)sender{
     NSLog(@"tag:%ld",sender.tag);
-    
+    if (sender.tag == 100) {
+        MyCapitalViewController *myCapitalViewController = [[MyCapitalViewController alloc] init];
+        myCapitalViewController.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:myCapitalViewController animated:YES];
+    }else if (sender.tag == 101){
+        
+    }else if (sender.tag == 102){
+        [self goToMineInfoView];
+    }
 }
 
 - (void)toSignInView{
     NSLog(@"toSignInView");
+    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+
+    NSDictionary * params  = @{@"nurseId": userAccount};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:TOSIGNIN params:params success:^(AFHTTPRequestOperation* operation,id response){
+        
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            if ([[respondDict valueForKey:@"json"] boolValue]) {
+                [signBtn setTitle:@"已签" forState:UIControlStateNormal];
+                [signBtn setEnabled:NO];
+            }
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
+        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
+}
+
+- (void)getSignInState{
+    NSLog(@"toSignInView");
+    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+
+    NSDictionary * params  = @{@"nurseId": userAccount};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:SIGNINSTATE params:params success:^(AFHTTPRequestOperation* operation,id response){
+        
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            if ([[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"json"]] isEqualToString:@"no"]) {
+                if (signBtn) {
+                    [signBtn setTitle:@"签到" forState:UIControlStateNormal];
+                    [signBtn setEnabled:YES];
+                }
+            }else{
+                if (signBtn) {
+                    [signBtn setTitle:@"已签" forState:UIControlStateNormal];
+                    [signBtn setEnabled:NO];
+                }
+            }
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        }
+        
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
 }
 
 #pragma mark UITableViewdDataSource UITableViewDelegate

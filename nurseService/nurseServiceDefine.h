@@ -80,6 +80,7 @@
 #define USERHAVELOGINKEY @"userHaveLogin"
 #define FRIENDLISTDOWNLOADSUCCEED @"friendDownloadSucceed"
 
+
 #define ERRORREQUESTTIP @"网络出错，请稍后再试!"
 #define MODIFYPASSWORDKEY @"modifyPasswordKey"
 
