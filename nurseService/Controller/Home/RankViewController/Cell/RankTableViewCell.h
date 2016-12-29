@@ -13,7 +13,7 @@
 
 @property (nonatomic,strong)UILabel *rankNum;
 @property (nonatomic,strong)UIImageView *rankImageView;
-@property (nonatomic,strong)UIImageView *headImageView;
+@property (nonatomic,strong)AsynImageView *headImageView;
 @property (nonatomic,strong)UILabel *pickName;
 @property (nonatomic,strong)UILabel *coinNum;
 @property (nonatomic,strong) void(^followBlock)();

@@ -76,12 +76,10 @@
     NSString *sex = [[userInfoDic valueForKey:@"nurseSex"] integerValue]==1 ? @"男" : @"女";
     [dataSourceDic setValue:sex forKey:@"nurseSex"];
     [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseNote"]] forKey:@"nurseNote"];
-    [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseJob"]] forKey:@"nurseJob"];
-    [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseAddress"]] forKey:@"nurseAddress"];
     [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseGoodservice"]] forKey:@"nurseGoodservice"];
+    [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseAddress"]] forKey:@"nurseAddress"];
+    [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseJob"]] forKey:@"nurseJob"];
     
-    [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"NurseEmail"]] forKey:@"NurseEmail"];
-    [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"NurseCardpic"]] forKey:@"NurseCardpic"];
 
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
     [myTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -133,17 +131,16 @@
         sexStr = @"2";
     }
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
-    NSDictionary * params  = @{@"NurseId": [NSString stringWithFormat:@"%@",userAccount],
-                               @"Nurseheader" : headerStr,
-                               @"nurseTruename" : [dataSourceDic valueForKey:@"nurseNick"],
-                               @"NurseSex" : [dataSourceDic valueForKey:@"nurseSex"],
-                               @"NurseCard" : [dataSourceDic valueForKey:@"nurseCard"],
-                               @"NursePhone" : [dataSourceDic valueForKey:@"nursePhone"],
-                               @"NurseAddress" : [dataSourceDic valueForKey:@"nurseAddress"],
-                               @"NurseLanguage" : [dataSourceDic valueForKey:@"nurseNote"],
-                               @"NurseEmail" : [dataSourceDic valueForKey:@"NurseEmail"],
-                               @"NurseCardpic" : [dataSourceDic valueForKey:@"NurseCardpic"]};
-    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:MODIFYUSERINFO params:params success:^(AFHTTPRequestOperation* operation,id response){
+    NSDictionary * params  = @{@"nurseId" : [NSString stringWithFormat:@"%@",userAccount],
+                               @"nurseheader" : headerStr,
+                               @"nursePhone" : [dataSourceDic valueForKey:@"nursePhone"],
+                               @"nurseSex" : [dataSourceDic valueForKey:@"nurseSex"],
+                               @"nurseNote" : [dataSourceDic valueForKey:@"nurseNote"],
+                               @"nurseAddress" : [dataSourceDic valueForKey:@"nurseAddress"],
+                               @"cardCd" : [dataSourceDic valueForKey:@"nurseCard"],
+                               @"nurseInfo" : [dataSourceDic valueForKey:@"nurseJob"],
+                               @"goosServices" : [dataSourceDic valueForKey:@"nurseGoodservice"]};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:UPDATENURSEINFO params:params success:^(AFHTTPRequestOperation* operation,id response){
         
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];

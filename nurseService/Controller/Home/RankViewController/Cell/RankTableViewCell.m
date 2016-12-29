@@ -8,6 +8,11 @@
 
 #import "RankTableViewCell.h"
 
+@interface RankTableViewCell ()
+{
+    UIButton *followBt;
+}
+@end
 @implementation RankTableViewCell
 @synthesize rankNum,rankImageView,headImageView,pickName,coinNum,followBlock;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier cellSize:(CGSize)cellsize
@@ -28,11 +33,11 @@
         rankNum.text = @"3";
         [self addSubview:rankNum];
 
-        headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(55, 2, 40, 40)];
+        headImageView = [[AsynImageView alloc] initWithFrame:CGRectMake(55, 2, 40, 40)];
         headImageView.backgroundColor = [UIColor clearColor];
         headImageView.layer.masksToBounds = YES;
         headImageView.contentMode = UIViewContentModeScaleAspectFill;
-        headImageView.image = [UIImage imageNamed:@"index1"];
+        headImageView.placeholderImage = [UIImage imageNamed:@"index1"];
         headImageView.layer.borderWidth = 0.0;
         headImageView.layer.cornerRadius = 40 / 2.0;
         headImageView.layer.masksToBounds = YES;
@@ -58,7 +63,7 @@
         coinNum.text  =@"111";
         [self addSubview:coinNum];
         
-        UIButton *followBt = [[UIButton alloc] initWithFrame:CGRectMake(SCREENWIDTH-50, 12, 40, 20)];
+        followBt = [[UIButton alloc] initWithFrame:CGRectMake(SCREENWIDTH-50, 12, 40, 20)];
         [followBt setTitle:@"+关注" forState:UIControlStateNormal];
         followBt.titleLabel.font = [UIFont systemFontOfSize:10.0];
         [followBt setTitleColor:[UIColor purpleColor] forState:UIControlStateNormal];
@@ -81,6 +86,7 @@
     NSLog(@"followAction");
     if (self.followBlock) {
         self.followBlock();
+        
     }
 }
 @end

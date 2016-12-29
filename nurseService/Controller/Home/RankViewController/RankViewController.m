@@ -13,6 +13,8 @@
 @interface RankViewController ()
 {
     NSMutableArray *dataArray;
+    NSMutableArray *dataArr;
+    NSInteger currentPage;
 }
 @property(nonatomic,strong)DLNavigationTabBar *navigationTabBar;
 @end
@@ -55,33 +57,94 @@
     return _navigationTabBar;
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    currentPage = 1;
+    if (dataArr) {
+        [dataArr removeAllObjects];
+    }else{
+        dataArray = [[NSMutableArray alloc] init];
+    }
+    [self getNurseRankDataWithUrl:NURSEMARKRANKING];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self initializaiton];
-    [self initData];
     [self initView];
 }
 
 - (void)initializaiton
 {
     [super initializaiton];
-
+    
 }
 
-- (void)initData{
-    dataArray = [[NSMutableArray alloc] init];
-}
 - (void)initView
 {
     [super initView];
+    
+    
     [self.view addSubview:self.navigationTabBar];
     [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+}
+
+
+- (void)getNurseRankDataWithUrl:(NSString *)url{
+
+    NSDictionary * params  = @{@"pageNum": [NSNumber numberWithInteger:currentPage]};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:url params:params success:^(AFHTTPRequestOperation* operation,id response){
+        
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
+            if (tempArr.count > 0) {
+                currentPage++;
+            }else{
+                return ;
+            }
+            [dataArr addObjectsFromArray:tempArr];
+            
+            [tableView reloadData];
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        }
+
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
 }
 
 #pragma mark - PrivateMethod
 - (void)navigationDidSelectedControllerIndex:(NSInteger)index {
     NSLog(@"index = %ld",index);
+    currentPage = 1;
+    if (dataArr.count > 0 ) {
+        [dataArr removeAllObjects];
+    }
+    switch (index) {
+        case 0:
+        {
+            [self getNurseRankDataWithUrl:NURSEMARKRANKING];
+        }
+            break;
+        case 1:
+        {
+            [self getNurseRankDataWithUrl:NURSEMONTHRANKING];
+        }
+            break;
+        case 2:
+        {
+            [self getNurseRankDataWithUrl:NURSESEVENDAYRANKING];
+        }
+            break;
+            
+        default:
+            break;
+    }
     [self.tableView reloadData];
     
 }
@@ -92,7 +155,7 @@
  
  -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
  {
-     return 5;
+     return dataArr.count;
  }
  
  -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -106,23 +169,28 @@
      
      static NSString *cellIndentifier = @"RankTableViewCell";
      CGSize cellSize = [tableView rectForRowAtIndexPath:indexPath].size;
-     NSDictionary *dict = nil;
-     
+     NSDictionary *dict = [NSDictionary dictionaryWithDictionary:dataArr[row]];
      RankTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
      if (!cell) {
          cell = [[RankTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier cellSize:cellSize];
          cell.selectionStyle = UITableViewCellSelectionStyleNone;
      }
-     cell.rankNum.text = @"111";
-     cell.rankImageView.image = [UIImage imageNamed:@""];
-     cell.headImageView.image = [UIImage imageNamed:@""];
-     cell.pickName.text = @"昵称";
-     cell.coinNum.text = @"1233";
+
+     if (row < 3) {
+         cell.rankImageView.hidden = NO;
+         cell.rankImageView.image = [UIImage imageNamed:@""];
+         cell.rankNum.hidden = YES;
+     }else{
+         cell.rankNum.hidden = NO;
+         cell.rankNum.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"ranks"]];
+         cell.rankImageView.hidden = YES;
+     }
+     cell.headImageView.imageURL = [NSString stringWithFormat:@"%@%@",PIC_URL,[dict valueForKey:@"nurseHeader"]];
+     cell.pickName.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"nurseNick"]];
+     cell.coinNum.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"nurseMark"]];
      cell.followBlock=^(){
          NSLog(@"关注：%ld",row);
      };
-     
-     
      return cell;
  }
  

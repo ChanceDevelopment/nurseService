@@ -24,20 +24,35 @@
 //------------------------------
 
 #define PIC_URL @"http://116.62.5.119:8088/"
-#define API_URL @"http://116.62.5.119:8088/nurseDoor/nurseAnduser/"
+#define API_URL @"http://116.62.5.119:8088/nurseDoor/"
 //登录
-#define LOGINURL @"NurseLogin.action"
+#define LOGINURL @"nurseAnduser/NurseLogin.action"
 //注册
-#define REGISTERURL @"NurseRegistered.action"
+#define REGISTERURL @"nurseAnduser/NurseRegistered.action"
 //评价
-#define EVALUATEURL @"selectnurserated.action"
-//修改用户信息
-#define MODIFYUSERINFO @"NurseInfoAdd.action"
+#define EVALUATEURL @"nurseAnduser/selectnurserated.action"
+//1.3 基本信息完善
+#define MODIFYUSERINFO @"nurseAnduser/NurseInfoAdd.action"         //
+//1.3.1修改个人信息
+#define UPDATENURSEINFO @"nurseAnduser/updateNurseInfo.action"     //
 //签到
-#define TOSIGNIN @"nurseToSignin.action"
+#define TOSIGNIN @"nurseAnduser/nurseToSignin.action"
 //是否签到
-#define SIGNINSTATE @"selectNurseIsSignined.action"
-
+#define SIGNINSTATE @"nurseAnduser/selectNurseIsSignined.action"
+//关注总榜
+#define USERREGISTERED @"mark/UserRegistered.action"
+//护士总榜排行
+#define NURSEMARKRANKING @"mark/nurseMarkRanking.action"
+//6.4护士近一月积分排行榜
+#define NURSEMONTHRANKING @"mark/nurseMarkThirtyDayRanking.action"
+//护士近一周排行榜
+#define NURSESEVENDAYRANKING @"mark/nurseMarkSevenDayRanking.action"
+//6.3护士近一周积分排行总榜
+#define NURSEMARKSEVENDAYDES @"mark/nurseMarkSevenDayDesc.action"
+//6.2积分近一个月排行总榜
+#define MURSEMARKMONTHDES @"mark/nurseMarkThirtyDayDesc.action"
+//6.1 积分排行总榜
+#define NURSEMARKDES @"mark/nurseMarkDesc.action"
 
 
 
