@@ -41,10 +41,17 @@
 		AD8BB1321E096EA7004064F9 /* defalut_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1301E096EA7004064F9 /* defalut_icon.png */; };
 		AD8BB1331E096EA7004064F9 /* icon_into_right.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1311E096EA7004064F9 /* icon_into_right.png */; };
 		AD8BB13B1E0A0F0E004064F9 /* icon_integral.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1371E0A0F0E004064F9 /* icon_integral.png */; };
-		AD8BB13C1E0A0F0E004064F9 /* icon_rank_first.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1381E0A0F0E004064F9 /* icon_rank_first.png */; };
-		AD8BB13D1E0A0F0E004064F9 /* icon_rank_second.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1391E0A0F0E004064F9 /* icon_rank_second.png */; };
-		AD8BB13E1E0A0F0E004064F9 /* icon_rank_third.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB13A1E0A0F0E004064F9 /* icon_rank_third.png */; };
 		AD8BB1431E0A3745004064F9 /* RankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1411E0A3745004064F9 /* RankTableViewCell.m */; };
+		ADB49C531E163CA3008DBCF6 /* icon_rank_1.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB49C501E163CA3008DBCF6 /* icon_rank_1.png */; };
+		ADB49C541E163CA3008DBCF6 /* icon_rank_2.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB49C511E163CA3008DBCF6 /* icon_rank_2.png */; };
+		ADB49C551E163CA3008DBCF6 /* icon_rank_3.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB49C521E163CA3008DBCF6 /* icon_rank_3.png */; };
+		ADB49C5B1E164526008DBCF6 /* icon_bind_alipay.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB49C571E164526008DBCF6 /* icon_bind_alipay.png */; };
+		ADB49C5C1E164526008DBCF6 /* icon_financial_details.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB49C581E164526008DBCF6 /* icon_financial_details.png */; };
+		ADB49C5D1E164526008DBCF6 /* icon_set_paypwd.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB49C591E164526008DBCF6 /* icon_set_paypwd.png */; };
+		ADB49C5E1E164526008DBCF6 /* icon_withdrawals.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB49C5A1E164526008DBCF6 /* icon_withdrawals.png */; };
+		ADB49C601E16470B008DBCF6 /* icon_money_volie.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB49C5F1E16470B008DBCF6 /* icon_money_volie.png */; };
+		ADB49C651E164BEB008DBCF6 /* DrawCashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB49C631E164BEB008DBCF6 /* DrawCashViewController.m */; };
+		ADB49C661E164BEB008DBCF6 /* DrawCashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADB49C641E164BEB008DBCF6 /* DrawCashViewController.xib */; };
 		ADCD25A61E0C0E9900FBCF26 /* MyEvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCD25A41E0C0E9900FBCF26 /* MyEvaluateViewController.m */; };
 		ADCD25AB1E0C19CD00FBCF26 /* MyEvaluateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCD25AA1E0C19CD00FBCF26 /* MyEvaluateTableViewCell.m */; };
 		ADCD25AD1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADCD25AC1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib */; };
@@ -673,11 +680,19 @@
 		AD8BB1301E096EA7004064F9 /* defalut_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = defalut_icon.png; sourceTree = "<group>"; };
 		AD8BB1311E096EA7004064F9 /* icon_into_right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_into_right.png; sourceTree = "<group>"; };
 		AD8BB1371E0A0F0E004064F9 /* icon_integral.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_integral.png; sourceTree = "<group>"; };
-		AD8BB1381E0A0F0E004064F9 /* icon_rank_first.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_rank_first.png; sourceTree = "<group>"; };
-		AD8BB1391E0A0F0E004064F9 /* icon_rank_second.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_rank_second.png; sourceTree = "<group>"; };
-		AD8BB13A1E0A0F0E004064F9 /* icon_rank_third.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_rank_third.png; sourceTree = "<group>"; };
 		AD8BB1401E0A3745004064F9 /* RankTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankTableViewCell.h; sourceTree = "<group>"; };
 		AD8BB1411E0A3745004064F9 /* RankTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankTableViewCell.m; sourceTree = "<group>"; };
+		ADB49C501E163CA3008DBCF6 /* icon_rank_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_rank_1.png; sourceTree = "<group>"; };
+		ADB49C511E163CA3008DBCF6 /* icon_rank_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_rank_2.png; sourceTree = "<group>"; };
+		ADB49C521E163CA3008DBCF6 /* icon_rank_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_rank_3.png; sourceTree = "<group>"; };
+		ADB49C571E164526008DBCF6 /* icon_bind_alipay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_bind_alipay.png; sourceTree = "<group>"; };
+		ADB49C581E164526008DBCF6 /* icon_financial_details.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_financial_details.png; sourceTree = "<group>"; };
+		ADB49C591E164526008DBCF6 /* icon_set_paypwd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_set_paypwd.png; sourceTree = "<group>"; };
+		ADB49C5A1E164526008DBCF6 /* icon_withdrawals.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_withdrawals.png; sourceTree = "<group>"; };
+		ADB49C5F1E16470B008DBCF6 /* icon_money_volie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_money_volie.png; sourceTree = "<group>"; };
+		ADB49C621E164BEB008DBCF6 /* DrawCashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawCashViewController.h; sourceTree = "<group>"; };
+		ADB49C631E164BEB008DBCF6 /* DrawCashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawCashViewController.m; sourceTree = "<group>"; };
+		ADB49C641E164BEB008DBCF6 /* DrawCashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawCashViewController.xib; sourceTree = "<group>"; };
 		ADCD25A31E0C0E9900FBCF26 /* MyEvaluateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEvaluateViewController.h; sourceTree = "<group>"; };
 		ADCD25A41E0C0E9900FBCF26 /* MyEvaluateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEvaluateViewController.m; sourceTree = "<group>"; };
 		ADCD25A91E0C19CD00FBCF26 /* MyEvaluateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEvaluateTableViewCell.h; sourceTree = "<group>"; };
@@ -1787,6 +1802,7 @@
 		AD3013741DFCF4F200D26E09 /* mineIcon */ = {
 			isa = PBXGroup;
 			children = (
+				ADB49C561E164526008DBCF6 /* myCapital */,
 				AD5CD6D71E0FB7F00025517E /* add.png */,
 				AD5CD6D81E0FB7F00025517E /* reduce.png */,
 				AD5CD6C91E0EAECF0025517E /* abc_btn_radio_on.png */,
@@ -1844,6 +1860,7 @@
 		AD5CD6DD1E12D1F60025517E /* MyCapitalViewController */ = {
 			isa = PBXGroup;
 			children = (
+				ADB49C611E164BD2008DBCF6 /* DrawCashViewController */,
 				AD5CD6DE1E12D2070025517E /* MyCapitalViewController.h */,
 				AD5CD6DF1E12D2070025517E /* MyCapitalViewController.m */,
 				AD5CD6E01E12D2070025517E /* MyCapitalViewController.xib */,
@@ -1885,10 +1902,10 @@
 		AD8BB1361E0A0F0E004064F9 /* rank */ = {
 			isa = PBXGroup;
 			children = (
+				ADB49C501E163CA3008DBCF6 /* icon_rank_1.png */,
+				ADB49C511E163CA3008DBCF6 /* icon_rank_2.png */,
+				ADB49C521E163CA3008DBCF6 /* icon_rank_3.png */,
 				AD8BB1371E0A0F0E004064F9 /* icon_integral.png */,
-				AD8BB1381E0A0F0E004064F9 /* icon_rank_first.png */,
-				AD8BB1391E0A0F0E004064F9 /* icon_rank_second.png */,
-				AD8BB13A1E0A0F0E004064F9 /* icon_rank_third.png */,
 			);
 			path = rank;
 			sourceTree = "<group>";
@@ -1900,6 +1917,28 @@
 				AD8BB1411E0A3745004064F9 /* RankTableViewCell.m */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		ADB49C561E164526008DBCF6 /* myCapital */ = {
+			isa = PBXGroup;
+			children = (
+				ADB49C5F1E16470B008DBCF6 /* icon_money_volie.png */,
+				ADB49C571E164526008DBCF6 /* icon_bind_alipay.png */,
+				ADB49C581E164526008DBCF6 /* icon_financial_details.png */,
+				ADB49C591E164526008DBCF6 /* icon_set_paypwd.png */,
+				ADB49C5A1E164526008DBCF6 /* icon_withdrawals.png */,
+			);
+			path = myCapital;
+			sourceTree = "<group>";
+		};
+		ADB49C611E164BD2008DBCF6 /* DrawCashViewController */ = {
+			isa = PBXGroup;
+			children = (
+				ADB49C621E164BEB008DBCF6 /* DrawCashViewController.h */,
+				ADB49C631E164BEB008DBCF6 /* DrawCashViewController.m */,
+				ADB49C641E164BEB008DBCF6 /* DrawCashViewController.xib */,
+			);
+			path = DrawCashViewController;
 			sourceTree = "<group>";
 		};
 		ADCD25A21E0C0E5700FBCF26 /* MyEvaluateViewController */ = {
@@ -4323,6 +4362,7 @@
 				EAA4F2FC1E011EC100EF9E14 /* HeLoginVC.xib in Resources */,
 				AD3013851DFCF4F300D26E09 /* icon_myadd.png in Resources */,
 				EAC2D95E1D4B063B00E282A8 /* TZImagePickerController.bundle in Resources */,
+				ADB49C661E164BEB008DBCF6 /* DrawCashViewController.xib in Resources */,
 				AD30138C1DFCF4F300D26E09 /* icon_set.png in Resources */,
 				AD3013841DFCF4F200D26E09 /* icon_invite.png in Resources */,
 				ADCD25B11E0C2E7300FBCF26 /* icon_star_yellow.png in Resources */,
@@ -4339,10 +4379,12 @@
 				AD30138A1DFCF4F300D26E09 /* icon_schedule.png in Resources */,
 				EAA6552B1E0627C300F424DD /* AlbumShare@2x.png in Resources */,
 				EAC2D9991D4B063C00E282A8 /* zbar-samples.png in Resources */,
+				ADB49C5B1E164526008DBCF6 /* icon_bind_alipay.png in Resources */,
 				EAC2D98E1D4B063C00E282A8 /* WeiboSDK.bundle in Resources */,
 				EAC2D8881D4B063B00E282A8 /* IQKeyboardManager.bundle in Resources */,
 				AD3013721DFCF4DC00D26E09 /* icon_scan.png in Resources */,
 				AD3013861DFCF4F300D26E09 /* icon_mycollection.png in Resources */,
+				ADB49C5D1E164526008DBCF6 /* icon_set_paypwd.png in Resources */,
 				EAC2D8621D4B063B00E282A8 /* fail@3x.png in Resources */,
 				EAC2D9531D4B063B00E282A8 /* btn_020@2x.png in Resources */,
 				EAC2D8C21D4B063B00E282A8 /* LICENSE in Resources */,
@@ -4352,14 +4394,13 @@
 				EAA655271E0627C300F424DD /* AlbumOperateMore@3x.png in Resources */,
 				EAC2D8651D4B063B00E282A8 /* success@2x.png in Resources */,
 				ADDBEB941DFCE87E000BDA95 /* index_banner3@2x.jpg in Resources */,
-				AD8BB13E1E0A0F0E004064F9 /* icon_rank_third.png in Resources */,
-				AD8BB13C1E0A0F0E004064F9 /* icon_rank_first.png in Resources */,
 				EAC2D8771D4B063B00E282A8 /* blueArrow@2x.png in Resources */,
 				EAC2D4351D4B031500E282A8 /* Assets.xcassets in Resources */,
 				EAC2D9731D4B063B00E282A8 /* LICENSE in Resources */,
 				EAC2D86B1D4B063B00E282A8 /* down_dark.png in Resources */,
 				EAC2D9901D4B063C00E282A8 /* README.txt in Resources */,
 				EA472CD51E04E71B00E0316F /* TOWebViewControllerLocalizable.strings in Resources */,
+				ADB49C5C1E164526008DBCF6 /* icon_financial_details.png in Resources */,
 				ADCD25AD1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib in Resources */,
 				EAC2D8971D4B063B00E282A8 /* MBProgressHUD.bundle in Resources */,
 				EAC2D87B1D4B063B00E282A8 /* grayArrow@2x.png in Resources */,
@@ -4368,6 +4409,7 @@
 				AD5CD6E21E12D2070025517E /* MyCapitalViewController.xib in Resources */,
 				AD8BB1251E09363B004064F9 /* SettingViewController.xib in Resources */,
 				EAC2D9971D4B063C00E282A8 /* zbar-help.html in Resources */,
+				ADB49C551E163CA3008DBCF6 /* icon_rank_3.png in Resources */,
 				EAA4F3061E012A7000EF9E14 /* HomeViewController.xib in Resources */,
 				AD3013821DFCF4F200D26E09 /* icon_fans.png in Resources */,
 				EAC2D9361D4B063B00E282A8 /* sharemore_pic@3x.png in Resources */,
@@ -4375,6 +4417,7 @@
 				EAC2D9521D4B063B00E282A8 /* btn_020.press@2x.png in Resources */,
 				AD8BB13B1E0A0F0E004064F9 /* icon_integral.png in Resources */,
 				ADDBEB931DFCE87E000BDA95 /* index_banner2@2x.jpg in Resources */,
+				ADB49C601E16470B008DBCF6 /* icon_money_volie.png in Resources */,
 				EAC2D8751D4B063B00E282A8 /* blackArrow@2x.png in Resources */,
 				EAC2D9591D4B063B00E282A8 /* TSLocateView.xib in Resources */,
 				EAA4F3231E012F3000EF9E14 /* tabar_rank_icon_normal@2x.png in Resources */,
@@ -4390,6 +4433,7 @@
 				EA472CB61E04DE5500E0316F /* select_box.png in Resources */,
 				EAC2D9511D4B063B00E282A8 /* btn_020.disable@2x.png in Resources */,
 				EAC2D8601D4B063B00E282A8 /* Expression.plist in Resources */,
+				ADB49C531E163CA3008DBCF6 /* icon_rank_1.png in Resources */,
 				EAA6547D1E061FDF00F424DD /* HeBaseTableViewCell.xib in Resources */,
 				EAC2D8D61D4B063B00E282A8 /* README.textile in Resources */,
 				EAC2D4331D4B031500E282A8 /* Main.storyboard in Resources */,
@@ -4409,11 +4453,11 @@
 				EAA6552F1E0627C400F424DD /* LikeCmtBg@2x.png in Resources */,
 				EAA4F3101E012A9600EF9E14 /* OrderViewController.xib in Resources */,
 				EAA655261E0627C300F424DD /* AlbumOperateMore@2x.png in Resources */,
+				ADB49C5E1E164526008DBCF6 /* icon_withdrawals.png in Resources */,
 				EAC2D8B11D4B063B00E282A8 /* MJRefresh.bundle in Resources */,
 				EAA655281E0627C300F424DD /* AlbumOperateMoreHL@2x.png in Resources */,
 				EAC2D8631D4B063B00E282A8 /* refresh@2x.png in Resources */,
 				EAA4F3241E012F3000EF9E14 /* tabar_user_icon_active@2x.png in Resources */,
-				AD8BB13D1E0A0F0E004064F9 /* icon_rank_second.png in Resources */,
 				EAC2D8731D4B063B00E282A8 /* i2KEPCSingleComponentPickerView.xib in Resources */,
 				EAC2D9981D4B063C00E282A8 /* zbar-helpicons.png in Resources */,
 				EAC2D8371D4B063B00E282A8 /* BrowserView.xib in Resources */,
@@ -4445,6 +4489,7 @@
 				EAA655221E0627C300F424DD /* AlbumComment@2x.png in Resources */,
 				EA472CB51E04DE5500E0316F /* unselect_box.png in Resources */,
 				AD8BB12E1E096E9B004064F9 /* icon_health_authent.png in Resources */,
+				ADB49C541E163CA3008DBCF6 /* icon_rank_2.png in Resources */,
 				EAA4F3151E012AA800EF9E14 /* RankViewController.xib in Resources */,
 				EAC2D99A1D4B063C00E282A8 /* loading_anim1.png in Resources */,
 				AD8BB1321E096EA7004064F9 /* defalut_icon.png in Resources */,
@@ -4829,6 +4874,7 @@
 				EAC2D9581D4B063B00E282A8 /* TSLocateView.m in Sources */,
 				ADDBEB571DFCE31B000BDA95 /* RESideMenu.m in Sources */,
 				EAA655101E0627C300F424DD /* DFUserLineCellAdapterManager.m in Sources */,
+				ADB49C651E164BEB008DBCF6 /* DrawCashViewController.m in Sources */,
 				EAC2D95D1D4B063B00E282A8 /* TZImageManager.m in Sources */,
 				EAC2D97B1D4B063B00E282A8 /* UIImageUploader.m in Sources */,
 				ADDBEB481DFCE267000BDA95 /* RDVTabBarController.m in Sources */,

@@ -36,6 +36,24 @@
         label.text = @"排行榜";
         [label sizeToFit];
         self.title = @"排行榜";
+        
+        self.navigationItem.titleView.backgroundColor = [UIColor clearColor];
+
+        
+        NSMutableArray *buttons = [[NSMutableArray alloc] init];
+        UIButton *scanBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+        [scanBt setBackgroundImage:[UIImage imageNamed:@"icon_scan"] forState:UIControlStateNormal];
+        [scanBt addTarget:self action:@selector(scanAction) forControlEvents:UIControlEventTouchUpInside];
+        scanBt.backgroundColor = [UIColor clearColor];
+        UIBarButtonItem *scanItem = [[UIBarButtonItem alloc] initWithCustomView:scanBt];
+        [buttons addObject:scanItem];
+        UIButton *searchBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+        [searchBt setBackgroundImage:[UIImage imageNamed:@"icon_search"] forState:UIControlStateNormal];
+        [searchBt addTarget:self action:@selector(searchAction) forControlEvents:UIControlEventTouchUpInside];
+        searchBt.backgroundColor = [UIColor clearColor];
+        UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithCustomView:searchBt];
+        [buttons addObject:searchItem];
+        self.navigationItem.rightBarButtonItems = buttons;
     }
     return self;
 }
@@ -58,14 +76,8 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    currentPage = 1;
-    if (dataArr) {
-        [dataArr removeAllObjects];
-    }else{
-        dataArray = [[NSMutableArray alloc] init];
-    }
-    [self getNurseRankDataWithUrl:NURSEMARKRANKING];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -82,7 +94,14 @@
 - (void)initView
 {
     [super initView];
-    
+    currentPage = 0;
+    if (dataArr) {
+        [dataArr removeAllObjects];
+    }else{
+        dataArray = [[NSMutableArray alloc] initWithCapacity:0];
+    }
+    [self getNurseRankDataWithUrl:NURSEMARKDES];
+
     
     [self.view addSubview:self.navigationTabBar];
     [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
@@ -104,10 +123,15 @@
             }else{
                 return ;
             }
-            [dataArr addObjectsFromArray:tempArr];
+            if (dataArr) {
+                [dataArr addObjectsFromArray:tempArr];
+            }else{
+                dataArr = [NSMutableArray arrayWithArray:tempArr];
+            }
+            
             
             [tableView reloadData];
-        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+        }else{
             NSLog(@"faile");
             [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         }
@@ -121,24 +145,24 @@
 #pragma mark - PrivateMethod
 - (void)navigationDidSelectedControllerIndex:(NSInteger)index {
     NSLog(@"index = %ld",index);
-    currentPage = 1;
+    currentPage = 0;
     if (dataArr.count > 0 ) {
         [dataArr removeAllObjects];
     }
     switch (index) {
         case 0:
         {
-            [self getNurseRankDataWithUrl:NURSEMARKRANKING];
+            [self getNurseRankDataWithUrl:NURSEMARKDES];
         }
             break;
         case 1:
         {
-            [self getNurseRankDataWithUrl:NURSEMONTHRANKING];
+            [self getNurseRankDataWithUrl:MURSEMARKMONTHDES];
         }
             break;
         case 2:
         {
-            [self getNurseRankDataWithUrl:NURSESEVENDAYRANKING];
+            [self getNurseRankDataWithUrl:NURSEMARKSEVENDAYDES];
         }
             break;
             
@@ -178,7 +202,7 @@
 
      if (row < 3) {
          cell.rankImageView.hidden = NO;
-         cell.rankImageView.image = [UIImage imageNamed:@""];
+         cell.rankImageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"icon_rank_%ld",row+1]];
          cell.rankNum.hidden = YES;
      }else{
          cell.rankNum.hidden = NO;
@@ -215,7 +239,13 @@
 
 
 
+- (void)searchAction{
+    NSLog(@"searchAction");
+}
 
+- (void)scanAction{
+    NSLog(@"scanAction");
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

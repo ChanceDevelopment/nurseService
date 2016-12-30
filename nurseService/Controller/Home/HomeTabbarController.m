@@ -22,10 +22,10 @@
     
 //    self.selectedIndex = 0;
    
-    HomeViewController *homeVC = [[HomeViewController alloc] init];
-    [self addChildVc:homeVC title:@"学术圈" image:@"main_home_unselector" selectedImage:@"main_home_selector"];
-    RankViewController *rankVC = [[RankViewController alloc] init];
-    [self addChildVc:rankVC title:@"排行榜" image:@"main_rank_unselector" selectedImage:@"main_rank_selector"];
+//    HomeViewController *homeVC = [[HomeViewController alloc] init];
+//    [self addChildVc:homeVC title:@"学术圈" image:@"main_home_unselector" selectedImage:@"main_home_selector"];
+//    RankViewController *rankVC = [[RankViewController alloc] init];
+//    [self addChildVc:rankVC title:@"排行榜" image:@"main_rank_unselector" selectedImage:@"main_rank_selector"];
     OrderViewController *orderVC = [[OrderViewController alloc] init];
     [self addChildVc:orderVC title:@"订单" image:@"main_order_unselector" selectedImage:@"main_order_selector"];
     MineViewController *mineVC = [[MineViewController alloc] init];

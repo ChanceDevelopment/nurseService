@@ -64,11 +64,11 @@
 //设置根控制器的四个子控制器
 - (void)setupSubviews
 {
-    homeVC = [[HomeViewController alloc] init];
-    CustomNavigationController *homeNav = [[CustomNavigationController alloc] initWithRootViewController:homeVC];
-    
-    rankVC = [[RankViewController alloc] init];
-    CustomNavigationController *rankNav = [[CustomNavigationController alloc] initWithRootViewController:rankVC];
+//    homeVC = [[HomeViewController alloc] init];
+//    CustomNavigationController *homeNav = [[CustomNavigationController alloc] initWithRootViewController:homeVC];
+//    
+//    rankVC = [[RankViewController alloc] init];
+//    CustomNavigationController *rankNav = [[CustomNavigationController alloc] initWithRootViewController:rankVC];
     
     orderVC = [[OrderViewController alloc] init];
     CustomNavigationController *orderNav = [[CustomNavigationController alloc] initWithRootViewController:orderVC];
@@ -77,7 +77,7 @@
     CustomNavigationController *userNav = [[CustomNavigationController alloc]
                                            initWithRootViewController:userVC];
     
-    [self setViewControllers:@[homeNav,rankNav,orderNav,userNav]];
+    [self setViewControllers:@[orderNav,userNav]];//@[homeNav,rankNav,orderNav,userNav]
     [self customizeTabBarForController];
 }
 

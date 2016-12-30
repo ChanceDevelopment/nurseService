@@ -22,15 +22,13 @@
         
         rankImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 12, 20, 20)];
         rankImageView.backgroundColor = [UIColor clearColor];
-        rankImageView.image = [UIImage imageNamed:@"icon_rank_first"];
         [self addSubview:rankImageView];
 
         
-        rankNum = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 40, 44)];
+        rankNum = [[UILabel alloc] initWithFrame:CGRectMake(16, 0, 40, 44)];
         rankNum.textColor = [UIColor blackColor];
         rankNum.font = [UIFont systemFontOfSize:13.0];
         rankNum.backgroundColor = [UIColor clearColor];
-        rankNum.text = @"3";
         [self addSubview:rankNum];
 
         headImageView = [[AsynImageView alloc] initWithFrame:CGRectMake(55, 2, 40, 40)];

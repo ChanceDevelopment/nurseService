@@ -7,10 +7,12 @@
 //
 
 #import "MyCapitalViewController.h"
+#import "DrawCashViewController.h"
 
 @interface MyCapitalViewController ()<UITableViewDelegate,UITableViewDataSource>{
     NSArray *iconArr;
     NSArray * tableItemArr;
+    UILabel *capitalL;
 }
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
 
@@ -42,12 +44,13 @@
     // Do any additional setup after loading the view from its nib.
     [self initializaiton];
     [self initView];
+//    [self getData];
 }
 
 - (void)initializaiton
 {
     [super initializaiton];
-    iconArr = @[@"icon_mycollection",@"icon_publish",@"icon_mycomment",@"icon_mycomment"];
+    iconArr = @[@"icon_withdrawals",@"icon_bind_alipay",@"icon_set_paypwd",@"icon_financial_details"];
     tableItemArr = @[@"        提现",@"        绑定支付宝",@"        设置支付密码",@"        交易明细"];
 }
 
@@ -63,14 +66,80 @@
     myTableView.backgroundColor = [UIColor clearColor];
     [Tool setExtraCellLineHidden:myTableView];
     
-    CGFloat viewHeight = 150;
+    CGFloat viewHeight = 100;
     UIView *headerView = [[UIView alloc] init];
     headerView.frame = CGRectMake(0, 0, SCREENWIDTH, viewHeight);
     headerView.backgroundColor = [UIColor whiteColor];
     myTableView.tableHeaderView = headerView;
     
+    capitalL = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, SCREENWIDTH, 40)];
+    capitalL.backgroundColor = [UIColor clearColor];
+    capitalL.font = [UIFont systemFontOfSize:25.0f];
+    capitalL.textColor = APPDEFAULTTITLECOLOR;
+    capitalL.textAlignment = NSTextAlignmentCenter;
+    capitalL.text = @"2000.00元";
+    [headerView addSubview:capitalL];
+    
+    CGFloat tipImageX = SCREENWIDTH/2.0 - 30;
+    CGFloat tipImageY = 65;
+    CGFloat tipImageW = 15;
+    UIImageView *tipImageV = [[UIImageView alloc] initWithFrame:CGRectMake(tipImageX, tipImageY, tipImageW, tipImageW)];
+    [headerView addSubview:tipImageV];
+    [tipImageV setBackgroundColor:[UIColor clearColor]];
+    tipImageV.image = [UIImage imageNamed:@"icon_money_volie"];
+    
+    
+    UILabel *tipL = [[UILabel alloc] initWithFrame:CGRectMake(tipImageX+20, tipImageY-2, 120, 20)];
+    tipL.backgroundColor = [UIColor clearColor];
+    tipL.font = [UIFont systemFontOfSize:15.0f];
+    tipL.textColor = APPDEFAULTTITLECOLOR;
+    tipL.text = @"我的余额";
+    [headerView addSubview:tipL];
+    
 }
 
+- (void)getData{
+    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+
+    NSDictionary * params  = @{@"nurseid": [NSString stringWithFormat:@"%@",userAccount],@"latitude" : @"0",@"longitude" : @"0"};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:LOGINURL params:params success:^(AFHTTPRequestOperation* operation,id response){
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            
+            NSDictionary *userInfoDic = [NSDictionary dictionaryWithDictionary:[respondDict valueForKey:@"json"]];
+            NSMutableDictionary *nurseDic = [NSMutableDictionary dictionaryWithCapacity:0];
+            
+            for (NSString *key in [userInfoDic allKeys]) {
+                
+                if ([[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:key]] isEqualToString:@"<null>"]) {
+                    NSLog(@"key:%@",key);
+                    
+                    //                    [userInfoDic setValue:@"" forKey:key];
+                    [nurseDic setValue:@"" forKey:key];
+                }else{
+                    [nurseDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:key]] forKey:key];
+                }
+            }
+            NSLog(@"%@",nurseDic);
+            
+            NSString *capitalStr = [[NSString stringWithFormat:@"%@",[nurseDic valueForKey:@"nurseBalance"]] isEqualToString:@""] ? @"0元" : [NSString stringWithFormat:@"%@元",[nurseDic valueForKey:@"nurseBalance"]];
+            capitalL.text = capitalStr;
+            
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
+        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        
+        
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
+
+}
 
 
 #pragma mark UITableViewdDataSource UITableViewDelegate
@@ -122,13 +191,36 @@
     NSInteger index = indexPath.row;
     NSInteger sectionNum = indexPath.section;
     NSLog(@"section:%ld,index:%ld",sectionNum,index);
-    
+    switch (index) {
+        case 0:
+        {
+            DrawCashViewController *drawCashViewController = [[DrawCashViewController alloc] init];
+            drawCashViewController.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:drawCashViewController animated:YES];
+        }
+            break;
+        case 1:
+        {
+        }
+            break;
+        case 2:
+        {
+        }
+            break;
+        case 3:
+        {
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 0;
+        return 10;
     }
     return 10;
 }
