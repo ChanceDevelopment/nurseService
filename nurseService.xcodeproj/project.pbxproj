@@ -5071,8 +5071,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.channce.nurseService;
 				PRODUCT_NAME = "护士端";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = 20161019_nurseService_Development;
+				PROVISIONING_PROFILE = "718ac37f-57dc-4593-99e3-4e3fb3dedba5";
+				PROVISIONING_PROFILE_SPECIFIER = 20161230_nurseService_Development;
 			};
 			name = Debug;
 		};
@@ -5081,7 +5081,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = E6CUH72B23;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5108,7 +5108,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.channce.nurseService;
 				PRODUCT_NAME = "护士端";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "c4393c60-67d1-487e-83f7-1bc819bf98b0";
+				PROVISIONING_PROFILE_SPECIFIER = 20161230_nurseService_Release;
 			};
 			name = Release;
 		};
@@ -5201,6 +5202,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEVELOPMENT_TEAM = E6CUH72B23;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5227,7 +5229,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.channce.nurseService;
 				PRODUCT_NAME = "护士端";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "affc9fb3-6e49-406c-8572-945cc513f128";
+				PROVISIONING_PROFILE_SPECIFIER = 20161230_nurseService_Distribution;
 			};
 			name = Distribution;
 		};
