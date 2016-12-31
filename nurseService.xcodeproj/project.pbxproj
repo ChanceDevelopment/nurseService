@@ -52,6 +52,7 @@
 		ADB49C601E16470B008DBCF6 /* icon_money_volie.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB49C5F1E16470B008DBCF6 /* icon_money_volie.png */; };
 		ADB49C651E164BEB008DBCF6 /* DrawCashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB49C631E164BEB008DBCF6 /* DrawCashViewController.m */; };
 		ADB49C661E164BEB008DBCF6 /* DrawCashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADB49C641E164BEB008DBCF6 /* DrawCashViewController.xib */; };
+		ADB49C6C1E180548008DBCF6 /* OrderFinishedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB49C6B1E180548008DBCF6 /* OrderFinishedTableViewCell.m */; };
 		ADCD25A61E0C0E9900FBCF26 /* MyEvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCD25A41E0C0E9900FBCF26 /* MyEvaluateViewController.m */; };
 		ADCD25AB1E0C19CD00FBCF26 /* MyEvaluateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCD25AA1E0C19CD00FBCF26 /* MyEvaluateTableViewCell.m */; };
 		ADCD25AD1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADCD25AC1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib */; };
@@ -693,6 +694,8 @@
 		ADB49C621E164BEB008DBCF6 /* DrawCashViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawCashViewController.h; sourceTree = "<group>"; };
 		ADB49C631E164BEB008DBCF6 /* DrawCashViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawCashViewController.m; sourceTree = "<group>"; };
 		ADB49C641E164BEB008DBCF6 /* DrawCashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawCashViewController.xib; sourceTree = "<group>"; };
+		ADB49C6A1E180548008DBCF6 /* OrderFinishedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderFinishedTableViewCell.h; sourceTree = "<group>"; };
+		ADB49C6B1E180548008DBCF6 /* OrderFinishedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderFinishedTableViewCell.m; sourceTree = "<group>"; };
 		ADCD25A31E0C0E9900FBCF26 /* MyEvaluateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEvaluateViewController.h; sourceTree = "<group>"; };
 		ADCD25A41E0C0E9900FBCF26 /* MyEvaluateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEvaluateViewController.m; sourceTree = "<group>"; };
 		ADCD25A91E0C19CD00FBCF26 /* MyEvaluateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEvaluateTableViewCell.h; sourceTree = "<group>"; };
@@ -1941,6 +1944,29 @@
 			path = DrawCashViewController;
 			sourceTree = "<group>";
 		};
+		ADB49C671E180524008DBCF6 /* OrderFinishedTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				ADB49C6A1E180548008DBCF6 /* OrderFinishedTableViewCell.h */,
+				ADB49C6B1E180548008DBCF6 /* OrderFinishedTableViewCell.m */,
+			);
+			path = OrderFinishedTableViewCell;
+			sourceTree = "<group>";
+		};
+		ADB49C681E180524008DBCF6 /* OrderNowTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = OrderNowTableViewCell;
+			sourceTree = "<group>";
+		};
+		ADB49C691E180524008DBCF6 /* OrderRecTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = OrderRecTableViewCell;
+			sourceTree = "<group>";
+		};
 		ADCD25A21E0C0E5700FBCF26 /* MyEvaluateViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2102,6 +2128,9 @@
 		ADDBEB6C1DFCE41A000BDA95 /* OrderViewController */ = {
 			isa = PBXGroup;
 			children = (
+				ADB49C671E180524008DBCF6 /* OrderFinishedTableViewCell */,
+				ADB49C681E180524008DBCF6 /* OrderNowTableViewCell */,
+				ADB49C691E180524008DBCF6 /* OrderRecTableViewCell */,
 				EAA4F30C1E012A9600EF9E14 /* OrderViewController.h */,
 				EAA4F30D1E012A9600EF9E14 /* OrderViewController.m */,
 				EAA4F30E1E012A9600EF9E14 /* OrderViewController.xib */,
@@ -4808,6 +4837,7 @@
 				EAC2D95B1D4B063B00E282A8 /* TZAssetCell.m in Sources */,
 				EAC2D8EB1D4B063B00E282A8 /* NSString+RACSupport.m in Sources */,
 				EAC2D91B1D4B063B00E282A8 /* RACTuple.m in Sources */,
+				ADB49C6C1E180548008DBCF6 /* OrderFinishedTableViewCell.m in Sources */,
 				EAC2D8991D4B063B00E282A8 /* UIViewController+HUD.m in Sources */,
 				EAC2D8571D4B063B00E282A8 /* RRDevice.m in Sources */,
 				EAC2D9151D4B063B00E282A8 /* RACSubject.m in Sources */,

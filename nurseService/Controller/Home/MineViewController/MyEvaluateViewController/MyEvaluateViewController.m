@@ -124,12 +124,13 @@
             NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
             if (tempArr.count > 0) {
                 currentPage++;
+                
+                [dataArr addObjectsFromArray:tempArr];
+                [myTableView reloadData];
             }else{
                 return ;
             }
-            [dataArr addObjectsFromArray:tempArr];
-            
-            [myTableView reloadData];
+
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
             [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];

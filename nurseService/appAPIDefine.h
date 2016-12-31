@@ -54,7 +54,12 @@
 //6.1 积分排行总榜
 #define NURSEMARKDES @"mark/nurseMarkDesc.action"
 
-
+//2.1查看可接取的订单
+#define ORDERLOOKRECEIVER @"orderReceiver/orderLookReceiver.action"
+//2.4正在进行中的订单
+#define ORDERSTATENOW @"orderReceiver/OrderStateAccessNow.action"
+//2.5查询已完成订单
+#define ORDERSTATESUCCESS @"orderReceiver/OrderStateAccessSuccess.action"
 
 
 //绑定角色
