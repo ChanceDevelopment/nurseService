@@ -87,7 +87,7 @@
     [self.view addSubview:self.navigationTabBar];
     
     currentPage = 0;
-    currentType = 2;
+    currentType = 1;
 //    [self getDataWithUrl:ORDERSTATESUCCESS];
     dataArr = [[NSMutableArray alloc] initWithCapacity:0];
 
@@ -291,11 +291,8 @@
         
         UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToCheck)];
         [v addGestureRecognizer:tapGes];
-
-        return v;
-    }else{
-        return nil;
     }
+    return v;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

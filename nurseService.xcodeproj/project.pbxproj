@@ -55,6 +55,7 @@
 		ADB49C6C1E180548008DBCF6 /* OrderFinishedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB49C6B1E180548008DBCF6 /* OrderFinishedTableViewCell.m */; };
 		ADB49C6F1E18F369008DBCF6 /* OrderNowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB49C6E1E18F369008DBCF6 /* OrderNowTableViewCell.m */; };
 		ADB49C721E18F3A9008DBCF6 /* OrderRecTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB49C711E18F3A9008DBCF6 /* OrderRecTableViewCell.m */; };
+		ADB49C751E1947CD008DBCF6 /* icon_address.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB49C741E1947CD008DBCF6 /* icon_address.png */; };
 		ADCD25A61E0C0E9900FBCF26 /* MyEvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCD25A41E0C0E9900FBCF26 /* MyEvaluateViewController.m */; };
 		ADCD25AB1E0C19CD00FBCF26 /* MyEvaluateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCD25AA1E0C19CD00FBCF26 /* MyEvaluateTableViewCell.m */; };
 		ADCD25AD1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADCD25AC1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib */; };
@@ -702,6 +703,7 @@
 		ADB49C6E1E18F369008DBCF6 /* OrderNowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderNowTableViewCell.m; sourceTree = "<group>"; };
 		ADB49C701E18F3A9008DBCF6 /* OrderRecTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderRecTableViewCell.h; sourceTree = "<group>"; };
 		ADB49C711E18F3A9008DBCF6 /* OrderRecTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderRecTableViewCell.m; sourceTree = "<group>"; };
+		ADB49C741E1947CD008DBCF6 /* icon_address.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_address.png; sourceTree = "<group>"; };
 		ADCD25A31E0C0E9900FBCF26 /* MyEvaluateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEvaluateViewController.h; sourceTree = "<group>"; };
 		ADCD25A41E0C0E9900FBCF26 /* MyEvaluateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEvaluateViewController.m; sourceTree = "<group>"; };
 		ADCD25A91E0C19CD00FBCF26 /* MyEvaluateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEvaluateTableViewCell.h; sourceTree = "<group>"; };
@@ -1977,6 +1979,14 @@
 			path = OrderRecTableViewCell;
 			sourceTree = "<group>";
 		};
+		ADB49C731E1947C5008DBCF6 /* order */ = {
+			isa = PBXGroup;
+			children = (
+				ADB49C741E1947CD008DBCF6 /* icon_address.png */,
+			);
+			path = order;
+			sourceTree = "<group>";
+		};
 		ADCD25A21E0C0E5700FBCF26 /* MyEvaluateViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2071,6 +2081,7 @@
 		ADDBEB4B1DFCE26F000BDA95 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				ADB49C731E1947C5008DBCF6 /* order */,
 				AD8BB1361E0A0F0E004064F9 /* rank */,
 				EAA4F3341E024A9600EF9E14 /* Custom */,
 				AD3013741DFCF4F200D26E09 /* mineIcon */,
@@ -4475,6 +4486,7 @@
 				ADB49C531E163CA3008DBCF6 /* icon_rank_1.png in Resources */,
 				EAA6547D1E061FDF00F424DD /* HeBaseTableViewCell.xib in Resources */,
 				EAC2D8D61D4B063B00E282A8 /* README.textile in Resources */,
+				ADB49C751E1947CD008DBCF6 /* icon_address.png in Resources */,
 				EAC2D4331D4B031500E282A8 /* Main.storyboard in Resources */,
 				EAC2D87E1D4B063B00E282A8 /* LICENSE.txt in Resources */,
 				EAC2D9961D4B063C00E282A8 /* zbar-back.png in Resources */,
