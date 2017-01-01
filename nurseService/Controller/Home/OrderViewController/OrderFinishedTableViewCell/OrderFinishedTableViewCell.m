@@ -63,13 +63,13 @@
         orderFinshTime.backgroundColor = [UIColor clearColor];
         [bgView addSubview:orderFinshTime];
         
-        orderMoney = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH-100, 65, 80, 20)];
+        orderMoney = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH-150, 65, 130, 30)];
         orderMoney.textColor = [UIColor orangeColor];
         orderMoney.textAlignment = NSTextAlignmentRight;
-        orderMoney.font = [UIFont systemFontOfSize:12.0];
-        orderMoney.text = @"￥890.0";
+        orderMoney.font = [UIFont systemFontOfSize:15.0];
+        orderMoney.text = @"￥89990.00";
         orderMoney.backgroundColor = [UIColor clearColor];
-        [bgView addSubview:orderReceiveTime];
+        [bgView addSubview:orderMoney];
     
         UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectMake(5, 111, SCREENWIDTH-20, 1)];
         [bgView addSubview:line1];
@@ -82,6 +82,10 @@
         reportBt.backgroundColor = [UIColor clearColor];
         [reportBt addTarget:self action:@selector(reportAction) forControlEvents:UIControlEventTouchUpInside];
         [bgView addSubview:reportBt];
+        
+        UILabel *line2 = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH/2.0-5, 113, 1, 30)];
+        [bgView addSubview:line2];
+        line2.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
         
         UIButton *evaluateBt = [[UIButton alloc] initWithFrame:CGRectMake(SCREENWIDTH/2.0-5, 111, SCREENWIDTH/2.0-5, 35)];
         [evaluateBt setTitle:@"去评价" forState:UIControlStateNormal];

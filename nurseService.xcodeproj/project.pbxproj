@@ -53,6 +53,8 @@
 		ADB49C651E164BEB008DBCF6 /* DrawCashViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB49C631E164BEB008DBCF6 /* DrawCashViewController.m */; };
 		ADB49C661E164BEB008DBCF6 /* DrawCashViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADB49C641E164BEB008DBCF6 /* DrawCashViewController.xib */; };
 		ADB49C6C1E180548008DBCF6 /* OrderFinishedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB49C6B1E180548008DBCF6 /* OrderFinishedTableViewCell.m */; };
+		ADB49C6F1E18F369008DBCF6 /* OrderNowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB49C6E1E18F369008DBCF6 /* OrderNowTableViewCell.m */; };
+		ADB49C721E18F3A9008DBCF6 /* OrderRecTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB49C711E18F3A9008DBCF6 /* OrderRecTableViewCell.m */; };
 		ADCD25A61E0C0E9900FBCF26 /* MyEvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCD25A41E0C0E9900FBCF26 /* MyEvaluateViewController.m */; };
 		ADCD25AB1E0C19CD00FBCF26 /* MyEvaluateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCD25AA1E0C19CD00FBCF26 /* MyEvaluateTableViewCell.m */; };
 		ADCD25AD1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADCD25AC1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib */; };
@@ -696,6 +698,10 @@
 		ADB49C641E164BEB008DBCF6 /* DrawCashViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DrawCashViewController.xib; sourceTree = "<group>"; };
 		ADB49C6A1E180548008DBCF6 /* OrderFinishedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderFinishedTableViewCell.h; sourceTree = "<group>"; };
 		ADB49C6B1E180548008DBCF6 /* OrderFinishedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderFinishedTableViewCell.m; sourceTree = "<group>"; };
+		ADB49C6D1E18F369008DBCF6 /* OrderNowTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderNowTableViewCell.h; sourceTree = "<group>"; };
+		ADB49C6E1E18F369008DBCF6 /* OrderNowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderNowTableViewCell.m; sourceTree = "<group>"; };
+		ADB49C701E18F3A9008DBCF6 /* OrderRecTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderRecTableViewCell.h; sourceTree = "<group>"; };
+		ADB49C711E18F3A9008DBCF6 /* OrderRecTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderRecTableViewCell.m; sourceTree = "<group>"; };
 		ADCD25A31E0C0E9900FBCF26 /* MyEvaluateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEvaluateViewController.h; sourceTree = "<group>"; };
 		ADCD25A41E0C0E9900FBCF26 /* MyEvaluateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEvaluateViewController.m; sourceTree = "<group>"; };
 		ADCD25A91E0C19CD00FBCF26 /* MyEvaluateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEvaluateTableViewCell.h; sourceTree = "<group>"; };
@@ -1956,6 +1962,8 @@
 		ADB49C681E180524008DBCF6 /* OrderNowTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				ADB49C6D1E18F369008DBCF6 /* OrderNowTableViewCell.h */,
+				ADB49C6E1E18F369008DBCF6 /* OrderNowTableViewCell.m */,
 			);
 			path = OrderNowTableViewCell;
 			sourceTree = "<group>";
@@ -1963,6 +1971,8 @@
 		ADB49C691E180524008DBCF6 /* OrderRecTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				ADB49C701E18F3A9008DBCF6 /* OrderRecTableViewCell.h */,
+				ADB49C711E18F3A9008DBCF6 /* OrderRecTableViewCell.m */,
 			);
 			path = OrderRecTableViewCell;
 			sourceTree = "<group>";
@@ -4762,6 +4772,7 @@
 				EAC2D8A11D4B063B00E282A8 /* README.md in Sources */,
 				EAC2D8201D4B063B00E282A8 /* AFURLResponseSerialization.m in Sources */,
 				EAC2D8CC1D4B063B00E282A8 /* SIMenuConfiguration.m in Sources */,
+				ADB49C6F1E18F369008DBCF6 /* OrderNowTableViewCell.m in Sources */,
 				EAC2D8E51D4B063B00E282A8 /* NSObject+RACPropertySubscribing.m in Sources */,
 				EAC2D8DC1D4B063B00E282A8 /* NSEnumerator+RACSequenceAdditions.m in Sources */,
 				EAC2D8FE1D4B063B00E282A8 /* RACEvent.m in Sources */,
@@ -4863,6 +4874,7 @@
 				EAA654861E06207600F424DD /* HeStudyTableCell.m in Sources */,
 				EAC2D8F61D4B063B00E282A8 /* RACDelegateProxy.m in Sources */,
 				EAC2D9301D4B063B00E282A8 /* UITableViewHeaderFooterView+RACSignalSupport.m in Sources */,
+				ADB49C721E18F3A9008DBCF6 /* OrderRecTableViewCell.m in Sources */,
 				EAC2D95C1D4B063B00E282A8 /* TZAssetModel.m in Sources */,
 				EAA655201E0627C300F424DD /* DFTextImageUserLineItem.m in Sources */,
 				EAC2D8DB1D4B063B00E282A8 /* NSDictionary+RACSequenceAdditions.m in Sources */,
