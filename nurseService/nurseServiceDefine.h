@@ -19,7 +19,8 @@
 #define ISIOS6 ([[[UIDevice currentDevice] systemVersion] floatValue] < 6.9)
 #define IOS7OFFSET        64
 
-
+//百度地图的key
+#define BAIDUMAPKEY @"nO2nGUQoZs42pPVOPoUvQ1GpDlhlcI2N"
 
 //自己服务器的通信模块
 #define EASEMOBKEY @"godchance#aishangfuyang"

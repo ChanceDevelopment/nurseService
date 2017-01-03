@@ -11,32 +11,35 @@
 #import "OrderFinishedTableViewCell.h"
 #import "OrderNowTableViewCell.h"
 #import "OrderRecTableViewCell.h"
+#import "ZJSwitch.h"
+#import "Masonry.h"
+#import "MJRefreshNormalHeader.h"
+#import "MJRefresh.h"
+#import "HeOrderDetailVC.h"
+
 @interface OrderViewController ()<UITableViewDelegate,UITableViewDataSource>{
     NSInteger currentPage;
     NSInteger currentType;
     NSMutableArray *dataArr;
+    UIView *receiveOrderView;
 }
 @property(nonatomic,strong)DLNavigationTabBar *navigationTabBar;
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
+/**
+ *  占位Label
+ */
+@property(nonatomic,strong)UILabel *placeholderLabel;
 
 @end
 
 @implementation OrderViewController
 @synthesize myTableView;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-//        UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
-//        label.backgroundColor = [UIColor clearColor];
-//        label.font = APPDEFAULTTITLETEXTFONT;
-//        label.textColor = APPDEFAULTTITLECOLOR;
-//        label.textAlignment = NSTextAlignmentCenter;
-//        self.navigationItem.titleView = label;
-//        label.text = @"订单";
-//        [label sizeToFit];
-//        self.title = @"订单";
         NSMutableArray *buttons = [[NSMutableArray alloc] init];
         UIButton *searchBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 35)];
         [searchBt setTitleColor:APPDEFAULTTITLECOLOR forState:UIControlStateNormal];
@@ -48,8 +51,23 @@
         [buttons addObject:searchItem];
         self.navigationItem.leftBarButtonItems = buttons;
         
+        self.title = @"订单";
+        
     }
     return self;
+}
+
+- (UILabel *)placeholderLabel {
+    if (!_placeholderLabel) {
+        _placeholderLabel = [[UILabel alloc]init];
+        _placeholderLabel.hidden = YES;
+        //        NSString *judge = [[Tool judge] isEqualToString:@"0"] ? @"车主" : @"用户";
+        _placeholderLabel.text = @"暂无新动态";
+        _placeholderLabel.font = [UIFont systemFontOfSize:28];
+        _placeholderLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1];
+        _placeholderLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _placeholderLabel;
 }
 
 -(DLNavigationTabBar *)navigationTabBar
@@ -94,7 +112,85 @@
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
     [myTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
+    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 100)];
+    myTableView.tableFooterView = footerView;
     
+    CGFloat receiveOrderViewX = 0;
+    CGFloat receiveOrderViewY = 0;
+    CGFloat receiveOrderViewW = 50;
+    CGFloat receiveOrderViewH = 35;
+    
+    CGFloat receiveOrderX = 0;
+    CGFloat receiveOrderY = 0;
+    CGFloat receiveOrderH = 20;
+    CGFloat receiveOrderW = receiveOrderViewW;
+    
+    receiveOrderView = [[UIView alloc] initWithFrame:CGRectMake(receiveOrderViewX, receiveOrderViewY, receiveOrderViewW, receiveOrderViewH)];
+    receiveOrderView.backgroundColor = [UIColor whiteColor];
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, receiveOrderH, receiveOrderViewW, 15)];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.textColor = APPDEFAULTORANGE;
+    titleLabel.text = @"接单中";
+    titleLabel.tag = 100;
+    titleLabel.font = [UIFont systemFontOfSize:10.0];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [receiveOrderView addSubview:titleLabel];
+    
+    ZJSwitch *receiveOrderSwitch = [[ZJSwitch alloc] initWithFrame:CGRectMake(receiveOrderX, receiveOrderY, receiveOrderW, receiveOrderH)];
+    receiveOrderSwitch.on = YES;
+    [receiveOrderSwitch addTarget:self action:@selector(receiveOrderSwitchChangeValue:) forControlEvents:UIControlEventValueChanged];
+    receiveOrderSwitch.tintColor = APPDEFAULTORANGE;
+    receiveOrderSwitch.onTintColor = APPDEFAULTORANGE;
+    receiveOrderSwitch.thumbTintColor = [UIColor whiteColor];
+//    receiveOrderSwitch.layer.borderWidth = 0.5;
+//    receiveOrderSwitch.layer.borderColor = APPDEFAULTORANGE.CGColor;
+    [receiveOrderView addSubview:receiveOrderSwitch];
+    
+    UIBarButtonItem *receiveOrderItem = [[UIBarButtonItem alloc] initWithCustomView:receiveOrderView];
+    self.navigationItem.rightBarButtonItem = receiveOrderItem;
+    
+    [self.myTableView addSubview:self.placeholderLabel];
+    [self.placeholderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.myTableView);
+    }];
+    
+    self.myTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block,刷新
+        [self.myTableView.header performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
+    }];
+    
+    self.myTableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        self.myTableView.footer.automaticallyHidden = YES;
+        self.myTableView.footer.hidden = NO;
+        // 进入刷新状态后会自动调用这个block，加载更多
+        [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
+    }];
+}
+
+- (void)endRefreshing
+{
+    [self.myTableView.footer endRefreshing];
+    self.myTableView.footer.hidden = YES;
+    self.myTableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        self.myTableView.footer.automaticallyHidden = YES;
+        self.myTableView.footer.hidden = NO;
+        // 进入刷新状态后会自动调用这个block，加载更多
+        [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
+    }];
+}
+
+- (void)receiveOrderSwitchChangeValue:(UISwitch *)mySwitch
+{
+    UILabel *titleLabel = [receiveOrderView viewWithTag:100];
+    if (mySwitch.on) {
+        titleLabel.text = @"接单中";
+        NSLog(@"接单中");
+    }
+    else{
+        titleLabel.text = @"关闭接单";
+        NSLog(@"关闭接单");
+    }
 }
 
 - (void)getDataWithUrl:(NSString *)url{
@@ -155,6 +251,12 @@
     
 }
 
+- (void)showOrderDetailWithOrder:(NSDictionary *)orderDict
+{
+    HeOrderDetailVC *orderDetailVC = [[HeOrderDetailVC alloc] init];
+    orderDetailVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:orderDetailVC animated:YES];
+}
 
 #pragma mark - TableView Delegate
 
@@ -196,8 +298,10 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         cell.backgroundColor = [UIColor colorWithWhite:244.0 / 255.0 alpha:1.0];
-        
-        
+        __weak typeof(self) weakSelf = self;
+        cell.showOrderDetailBlock = ^{
+            [weakSelf showOrderDetailWithOrder:nil];
+        };
         
         return  cell;
     }else if(currentType == 2){
@@ -301,7 +405,7 @@
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;
     
-    
+    NSLog(@"row = %ld, section = %ld",row,section);
 }
 
 

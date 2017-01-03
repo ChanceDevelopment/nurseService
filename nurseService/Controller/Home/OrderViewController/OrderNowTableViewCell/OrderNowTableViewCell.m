@@ -28,7 +28,13 @@
         [bgView.layer setMasksToBounds:YES];
         bgView.layer.cornerRadius = 4.0;
         
-        serviceContentL = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 200, 44)];
+        CGFloat serviceContentLX = 10;
+        CGFloat serviceContentLY = 5;
+        CGFloat serviceContentLW = SCREENWIDTH - serviceContentLX;
+        CGFloat serviceContentLH = 44;
+        
+        serviceContentL = [[UILabel alloc] initWithFrame:CGRectMake(serviceContentLX, serviceContentLY, serviceContentLW, serviceContentLH)];
+        serviceContentL.userInteractionEnabled = YES;
         serviceContentL.textColor = APPDEFAULTORANGE;
         serviceContentL.font = [UIFont systemFontOfSize:15.0];
         serviceContentL.text = @"新生儿套餐";
@@ -42,7 +48,7 @@
         [bgView addSubview:rightV];
         
         UITapGestureRecognizer *showOrderDetailTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showOrderDetail)];
-        [rightV addGestureRecognizer:showOrderDetailTap];
+        [serviceContentL addGestureRecognizer:showOrderDetailTap];
         
         UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(5, 44, bgView_W-10, 1)];
         [bgView addSubview:line];

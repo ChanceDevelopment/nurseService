@@ -59,6 +59,7 @@
 {
     [super initView];
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
+    securirtyButton.selected = YES;
 }
 
 - (IBAction)loginButtonClick:(id)sender

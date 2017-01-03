@@ -32,6 +32,8 @@
 
 @end
 
+BMKMapManager* _mapManager;
+
 @implementation AppDelegate
 @synthesize queue;
 
@@ -39,7 +41,7 @@
     // Override point for customization after application launch.
     
     [self initialization];
-//    [self initshareSDK];
+    [self launchBaiduMap];
     [self umengTrack];
     self.window.rootViewController = self.viewController;
     //清除缓存
@@ -58,6 +60,19 @@
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (void)launchBaiduMap
+{
+    // 要使用百度地图，请先启动BaiduMapManager
+    _mapManager = [[BMKMapManager alloc]init];
+    BOOL ret = [_mapManager start:BAIDUMAPKEY generalDelegate:self];
+    if (!ret) {
+        NSLog(@"manager start failed!");
+    }
+    else{
+        NSLog(@"manager start success!");
+    }
 }
 
 #pragma mark - login changed
