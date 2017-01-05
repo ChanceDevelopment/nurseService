@@ -14,6 +14,7 @@
 @synthesize orderMoney;
 @synthesize addressL;
 @synthesize userInfoL;
+@synthesize orderInfoDict;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier cellSize:(CGSize)cellsize
 {

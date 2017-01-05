@@ -16,6 +16,7 @@
 #import "MJRefreshNormalHeader.h"
 #import "MJRefresh.h"
 #import "HeOrderDetailVC.h"
+#import "MZTimerLabel.h"
 
 @interface OrderViewController ()<UITableViewDelegate,UITableViewDataSource>{
     NSInteger currentPage;
@@ -29,11 +30,13 @@
  *  占位Label
  */
 @property(nonatomic,strong)UILabel *placeholderLabel;
+@property(strong,nonatomic)IBOutlet UIView *footerView;
 
 @end
 
 @implementation OrderViewController
 @synthesize myTableView;
+@synthesize footerView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -111,9 +114,70 @@
 
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
     [myTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 100)];
-    myTableView.tableFooterView = footerView;
+    [Tool setExtraCellLineHidden:myTableView];
+    myTableView.backgroundView = nil;
+    myTableView.backgroundColor = self.view.backgroundColor;
+    
+    footerView.backgroundColor = self.view.backgroundColor;
+    
+    CGFloat footerHeigth = 100;
+    CGFloat receiveIconW = 60;
+    CGFloat receiveIconH = 60;
+    CGFloat receiveIconX = (SCREENWIDTH - receiveIconW) / 2.0;
+    CGFloat receiveIconY = (footerHeigth - receiveIconH) / 2.0;
+    
+    UIImageView *receiveIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_takeorder_violet"]];
+    receiveIcon.frame = CGRectMake(receiveIconX, receiveIconY, receiveIconW, receiveIconH);
+    [footerView addSubview:receiveIcon];
+    
+    UIImageView *leftArrowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_rightarrow_violet"]];
+    
+    CGFloat leftArrowImageW = 60;
+    CGFloat leftArrowImageH = leftArrowImage.image.size.height / leftArrowImage.image.size.width * leftArrowImageW;
+    CGFloat leftArrowImageX = CGRectGetMinX(receiveIcon.frame) - leftArrowImageW - 5;
+    CGFloat leftArrowImageY = 0;
+    leftArrowImage.frame = CGRectMake(leftArrowImageX, leftArrowImageY, leftArrowImageW, leftArrowImageH);
+    CGPoint centerPoint = receiveIcon.center;
+    centerPoint.x = leftArrowImage.center.x;
+    leftArrowImage.center = centerPoint;
+    [footerView addSubview:leftArrowImage];
+    
+    leftArrowImageY = CGRectGetMinY(leftArrowImage.frame);
+    leftArrowImageX = CGRectGetMaxX(receiveIcon.frame) + 5;
+    UIImageView *rightArrowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_leftarrow_violet"]];
+    rightArrowImage.frame = CGRectMake(leftArrowImageX, leftArrowImageY, leftArrowImageW, leftArrowImageH);
+    [footerView addSubview:rightArrowImage];
+    
+    CGFloat buttonH = receiveIconH;
+    CGFloat buttonW = 50;
+    CGFloat buttonX = CGRectGetMinX(leftArrowImage.frame) - buttonW - 5;
+    CGFloat buttonY = receiveIconY;
+    
+    UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
+    [cancelButton setTitleColor:APPDEFAULTORANGE forState:UIControlStateNormal];
+    cancelButton.tag = 0;
+    [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
+    [cancelButton.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [cancelButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [footerView addSubview:cancelButton];
+    
+    buttonX = CGRectGetMaxX(rightArrowImage.frame) + 5;
+    UIButton *receiveButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
+    [receiveButton setTitleColor:APPDEFAULTORANGE forState:UIControlStateNormal];
+    receiveButton.tag = 1;
+    [receiveButton setTitle:@"接单" forState:UIControlStateNormal];
+    [receiveButton.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [receiveButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [footerView addSubview:receiveButton];
+    
+    
+    UILabel *timeLabel = [[UILabel alloc] init];
+    
+    MZTimerLabel *timer3 = [[MZTimerLabel alloc] initWithLabel:timeLabel andTimerType:MZTimerLabelTypeTimer];
+    timer3.timeFormat = @"mm:ss";
+    [timer3 setCountDownTime:60 * 5];
+    [timer3 start];
+    
     
     CGFloat receiveOrderViewX = 0;
     CGFloat receiveOrderViewY = 0;
@@ -168,6 +232,15 @@
     }];
 }
 
+- (void)buttonClick:(UIButton *)button
+{
+    if (button.tag == 0) {
+        NSLog(@"取消");
+    }
+    else if (button.tag == 1){
+        NSLog(@"接单");
+    }
+}
 - (void)endRefreshing
 {
     [self.myTableView.footer endRefreshing];

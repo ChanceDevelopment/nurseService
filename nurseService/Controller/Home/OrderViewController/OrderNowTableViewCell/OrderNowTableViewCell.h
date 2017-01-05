@@ -20,4 +20,5 @@
 @property (nonatomic,strong)void(^locationBlock)();
 @property (nonatomic,strong)void(^showUserInfoBlock)();
 
+@property(strong,nonatomic)NSDictionary *orderInfoDict;
 @end

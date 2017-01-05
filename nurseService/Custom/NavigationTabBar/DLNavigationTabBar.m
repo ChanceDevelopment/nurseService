@@ -41,7 +41,7 @@
         [btn setTitleColor:self.buttonSelectedTileColor forState:UIControlStateSelected];
         [btn setTitleColor:self.buttonSelectedTileColor forState:UIControlStateHighlighted | UIControlStateSelected];
         [btn setTitle:titleString forState:UIControlStateNormal];
-        btn.titleLabel.font = [UIFont systemFontOfSize:16];
+        btn.titleLabel.font = [UIFont systemFontOfSize:15];
         if(buttonIndex == 0) {btn.selected = YES; self.selectedButton = btn;};
         [btn addTarget:self action:@selector(subButtonSelected:) forControlEvents:UIControlEventTouchUpInside];
         btn.tag = 100 + buttonIndex;
