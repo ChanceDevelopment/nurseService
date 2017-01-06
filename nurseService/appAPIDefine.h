@@ -23,8 +23,8 @@
 
 //------------------------------
 
-#define PIC_URL @"http://116.62.5.119:8088/"
-#define API_URL @"http://116.62.5.119:8088/nurseDoor/"
+#define PIC_URL @"http://118.178.186.59:8080/"
+#define API_URL @"http://118.178.186.59:8080/nurseDoor/"
 //登录
 #define LOGINURL @"nurseAnduser/NurseLogin.action"
 //注册
