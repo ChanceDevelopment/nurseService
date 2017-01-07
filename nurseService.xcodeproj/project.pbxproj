@@ -174,6 +174,7 @@
 		EA8C892D1E2135460093657B /* HeUserLocatiVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8C892B1E2135460093657B /* HeUserLocatiVC.xib */; };
 		EA8C89311E2138BD0093657B /* HePaitentInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8C892F1E2138BD0093657B /* HePaitentInfoVC.m */; };
 		EA8C89321E2138BD0093657B /* HePaitentInfoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8C89301E2138BD0093657B /* HePaitentInfoVC.xib */; };
+		EA8C89351E2149340093657B /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EA8C89341E2149340093657B /* mapapi.bundle */; };
 		EAA4F2FB1E011EC100EF9E14 /* HeLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA4F2F91E011EC100EF9E14 /* HeLoginVC.m */; };
 		EAA4F2FC1E011EC100EF9E14 /* HeLoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA4F2FA1E011EC100EF9E14 /* HeLoginVC.xib */; };
 		EAA4F3001E011ED100EF9E14 /* HeEnrollVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA4F2FE1E011ED100EF9E14 /* HeEnrollVC.m */; };
@@ -948,6 +949,7 @@
 		EA8C892E1E2138BD0093657B /* HePaitentInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HePaitentInfoVC.h; sourceTree = "<group>"; };
 		EA8C892F1E2138BD0093657B /* HePaitentInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HePaitentInfoVC.m; sourceTree = "<group>"; };
 		EA8C89301E2138BD0093657B /* HePaitentInfoVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HePaitentInfoVC.xib; sourceTree = "<group>"; };
+		EA8C89341E2149340093657B /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = "<group>"; };
 		EAA4F2F81E011EC100EF9E14 /* HeLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeLoginVC.h; sourceTree = "<group>"; };
 		EAA4F2F91E011EC100EF9E14 /* HeLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeLoginVC.m; sourceTree = "<group>"; };
 		EAA4F2FA1E011EC100EF9E14 /* HeLoginVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeLoginVC.xib; sourceTree = "<group>"; };
@@ -2708,6 +2710,14 @@
 			path = Location;
 			sourceTree = "<group>";
 		};
+		EA8C89331E2149340093657B /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				EA8C89341E2149340093657B /* mapapi.bundle */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		EAA4F2F61E011EA600EF9E14 /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -3037,6 +3047,7 @@
 		EABFEC4A1E1B86FF009C27C5 /* BaiduMap_v3.2.1 */ = {
 			isa = PBXGroup;
 			children = (
+				EA8C89331E2149340093657B /* Resources */,
 				EABFEC4B1E1B86FF009C27C5 /* BaiduMapAPI_Base.framework */,
 				EABFEC4C1E1B86FF009C27C5 /* BaiduMapAPI_Cloud.framework */,
 				EABFEC4D1E1B86FF009C27C5 /* BaiduMapAPI_Location.framework */,
@@ -4716,6 +4727,7 @@
 				EAC2D9591D4B063B00E282A8 /* TSLocateView.xib in Resources */,
 				EAA4F3231E012F3000EF9E14 /* tabar_rank_icon_normal@2x.png in Resources */,
 				EAC2D8711D4B063B00E282A8 /* i2KEPCMultiComponentPickerView.xib in Resources */,
+				EA8C89351E2149340093657B /* mapapi.bundle in Resources */,
 				AD3013731DFCF4DC00D26E09 /* icon_search.png in Resources */,
 				AD5CD6DA1E0FB7F00025517E /* reduce.png in Resources */,
 				AD3013871DFCF4F300D26E09 /* icon_mycomment.png in Resources */,
