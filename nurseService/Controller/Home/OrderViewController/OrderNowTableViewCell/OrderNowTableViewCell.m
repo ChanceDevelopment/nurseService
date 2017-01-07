@@ -38,7 +38,6 @@
         serviceContentL.userInteractionEnabled = YES;
         serviceContentL.textColor = APPDEFAULTORANGE;
         serviceContentL.font = [UIFont systemFontOfSize:15.0];
-        serviceContentL.text = @"新生儿套餐";
         serviceContentL.backgroundColor = [UIColor clearColor];
         [bgView addSubview:serviceContentL];
         
@@ -58,7 +57,6 @@
         stopTimeL = [[UILabel alloc] initWithFrame:CGRectMake(10, 45, 200, 20)];
         stopTimeL.textColor = [UIColor blackColor];
         stopTimeL.font = [UIFont systemFontOfSize:12.0];
-        stopTimeL.text = @"02/01 周一 09：09";
         stopTimeL.backgroundColor = [UIColor clearColor];
         [bgView addSubview:stopTimeL];
         
@@ -66,14 +64,12 @@
         orderMoney.textColor = [UIColor orangeColor];
         orderMoney.textAlignment = NSTextAlignmentRight;
         orderMoney.font = [UIFont systemFontOfSize:12.0];
-        orderMoney.text = @"￥89990.00";
         orderMoney.backgroundColor = [UIColor clearColor];
         [bgView addSubview:orderMoney];
 
-        addressL = [[UILabel alloc] initWithFrame:CGRectMake(10, 65, 200, 20)];
+        addressL = [[UILabel alloc] initWithFrame:CGRectMake(10, 65, 300, 20)];
         addressL.textColor = [UIColor blackColor];
         addressL.font = [UIFont systemFontOfSize:12.0];
-        addressL.text = @"中国浙江福建";
         addressL.backgroundColor = [UIColor clearColor];
         [bgView addSubview:addressL];
         
@@ -92,8 +88,8 @@
         
         UILabel *userTip = [[UILabel alloc] initWithFrame:CGRectMake(10, 91, 200, 20)];
         userTip.textColor = [UIColor blackColor];
-        userTip.font = [UIFont systemFontOfSize:12.0];
         userTip.text = @"患者信息";
+        userTip.font = [UIFont systemFontOfSize:12.0];
         userTip.backgroundColor = [UIColor clearColor];
         [bgView addSubview:userTip];
 
@@ -101,7 +97,6 @@
         userInfoL.textColor = [UIColor blackColor];
         userInfoL.userInteractionEnabled = YES;
         userInfoL.font = [UIFont systemFontOfSize:12.0];
-        userInfoL.text = @"张三 女 23岁";
         userInfoL.textAlignment = NSTextAlignmentRight;
         userInfoL.backgroundColor = [UIColor clearColor];
         [bgView addSubview:userInfoL];

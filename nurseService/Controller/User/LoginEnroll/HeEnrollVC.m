@@ -143,8 +143,8 @@
         [self showHint:@"请输入正确的手机号"];
         return;
     }
-    if ((code == nil || [code isEqualToString:@""])) {
-        [self showHint:@"验证码"];
+    if ((code == nil || [code isEqualToString:@""] || code.length != 6)) {
+        [self showHint:@"请输入验证码"];
         return;
     }
     if (password == nil || [password isEqualToString:@""]) {
@@ -169,7 +169,11 @@
         headImageStr = encodedImageStr;
     }
     
-    NSDictionary * params  = @{@"NurseName": userPhone,@"NursePwd" : password,@"NurseNick" : nick,@"NurseHeader" : headImageStr};
+    NSDictionary * params  = @{@"NurseName": userPhone,
+                               @"NursePwd" : password,
+                               @"NurseNick" : nick,
+                               @"NurseHeader" : headImageStr,
+                               @"code" : code};
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:REGISTERURL params:params success:^(AFHTTPRequestOperation* operation,id response){
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSLog(@"respondString:%@",respondString);

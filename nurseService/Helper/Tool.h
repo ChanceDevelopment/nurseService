@@ -79,6 +79,8 @@
 
 + (NSString *)replaceUnicode:(NSString *)unicodeStr;
 
+//删除<null>字段
++ (NSMutableDictionary *)deleteNullFromDic:(NSDictionary *)dic;
 //删除错误的字符串
 + (NSString *)deleteErrorStringInString:(NSString *)inputString;
 //删除错误的字符串

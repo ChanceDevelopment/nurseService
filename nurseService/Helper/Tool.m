@@ -182,6 +182,22 @@
     return setxattr(fileSysPath, attrName, &attrValue, sizeof(attrValue), 0, 0);
 }
 
+//删除<null>字段
++ (NSMutableDictionary *)deleteNullFromDic:(NSDictionary *)dic{
+    NSDictionary *userInfoDic = [NSDictionary dictionaryWithDictionary:dic];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:0];
+    for (NSString *key in [userInfoDic allKeys]) {
+        if ([[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:key]] isEqualToString:@"<null>"]) {
+            NSLog(@"key:%@",key);
+            [dict setValue:@"" forKey:key];
+        }else{
+            [dict setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:key]] forKey:key];
+        }
+    }
+    return dict;
+}
+
+    
 + (NSString *)deleteErrorStringInString:(NSString *)inputString
 {
     NSMutableString *mutablestring = [[NSMutableString alloc] initWithString:inputString];

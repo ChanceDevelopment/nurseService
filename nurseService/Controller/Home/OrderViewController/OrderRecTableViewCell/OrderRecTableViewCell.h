@@ -9,5 +9,17 @@
 #import "HeBaseTableViewCell.h"
 
 @interface OrderRecTableViewCell : HeBaseTableViewCell
+@property (nonatomic,strong)UILabel *serviceContentL;
+@property (nonatomic,strong)UILabel *orderMoney;
+@property (nonatomic,strong)UILabel *stopTimeL;
+@property (nonatomic,strong)UILabel *addressL;
+@property (nonatomic,strong)UILabel *userInfoL;
+@property (nonatomic,strong)UILabel *remarkInfoL;
+
+@property (nonatomic,strong)void(^showOrderDetailBlock)();
+@property (nonatomic,strong)void(^locationBlock)();
+@property (nonatomic,strong)void(^showUserInfoBlock)();
+
+
 
 @end

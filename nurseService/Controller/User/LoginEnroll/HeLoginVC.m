@@ -95,8 +95,6 @@
                 
                 if ([[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:key]] isEqualToString:@"<null>"]) {
                     NSLog(@"key:%@",key);
-                    
-//                    [userInfoDic setValue:@"" forKey:key];
                     [nurseDic setValue:@"" forKey:key];
                 }else{
                     [nurseDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:key]] forKey:key];

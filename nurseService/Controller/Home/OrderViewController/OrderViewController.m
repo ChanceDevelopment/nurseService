@@ -107,9 +107,9 @@
     [super initView];
     [self.view addSubview:self.navigationTabBar];
     
-    currentPage = 0;
-    currentType = 1;
-//    [self getDataWithUrl:ORDERSTATESUCCESS];
+    currentPage = 1;
+    currentType = 0;
+    [self getDataWithUrl:ORDERLOOKRECEIVER];
     dataArr = [[NSMutableArray alloc] initWithCapacity:0];
 
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
@@ -251,6 +251,8 @@
         // 进入刷新状态后会自动调用这个block，加载更多
         [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
     }];
+    
+    
 }
 
 - (void)receiveOrderSwitchChangeValue:(UISwitch *)mySwitch
@@ -268,21 +270,32 @@
 
 - (void)getDataWithUrl:(NSString *)url{
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
-    NSDictionary * params  = @{@"nurseid" : userAccount,@"pageNow" : [NSString stringWithFormat:@"%ld",currentPage]};
+    NSDictionary * params;
+    if (currentType == 0) {
+        params= @{@"nurseId" : userAccount,@"pageNum" : [NSString stringWithFormat:@"%ld",currentPage]};
+    }else{
+        params= @{@"nurseId" : userAccount,@"pageNow" : [NSString stringWithFormat:@"%ld",currentPage]};
+    }
+    
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:url params:params success:^(AFHTTPRequestOperation* operation,id response){
         
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
-            NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
-            if (tempArr.count > 0) {
-                currentPage++;
-                
-                [dataArr addObjectsFromArray:tempArr];
-                [myTableView reloadData];
-            }else{
+            if ([[respondDict valueForKey:@"json"] isMemberOfClass:[NSNull class]] || [respondDict valueForKey:@"json"] == nil) {
+                [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+
                 return ;
+            }else{
+                NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
+                if (tempArr.count >0) {
+                    currentPage++;
+                    [dataArr addObjectsFromArray:tempArr];
+                    [myTableView reloadData];
+                }else{
+                    return;
+                }
             }
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
@@ -299,6 +312,7 @@
 - (void)navigationDidSelectedControllerIndex:(NSInteger)index {
     NSLog(@"index = %ld",index);
     currentType = index;
+    currentPage = 1;
     if (dataArr && dataArr.count > 0) {
         [dataArr removeAllObjects];
     }
@@ -335,7 +349,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;//dataArr.count;
+    return dataArr.count;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -349,7 +363,9 @@
     
     static NSString *cellIndentifier = @"OrderFinishedTableViewCell";
     CGSize cellSize = [tableView rectForRowAtIndexPath:indexPath].size;
-//    NSDictionary *dict = [NSDictionary dictionaryWithDictionary:[dataArr objectAtIndex:row]];
+    
+    NSDictionary *userInfoDic = [NSDictionary dictionaryWithDictionary:[dataArr objectAtIndex:row]];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[Tool deleteNullFromDic:userInfoDic]];
     
     if (currentType == 0) {
         OrderRecTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
@@ -359,10 +375,34 @@
         }
         cell.backgroundColor = [UIColor colorWithWhite:244.0 / 255.0 alpha:1.0];
         
+        cell.serviceContentL.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendServicecontent"]];
         
+        NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateStyle:NSDateFormatterMediumStyle];
+        [formatter setTimeStyle:NSDateFormatterShortStyle];
+        [formatter setDateFormat:@"MM/dd HH:MM"];
+        [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendGetOrderTime"]];
+        NSDate *stopTimeData = [NSDate dateWithTimeIntervalSince1970:[[dict valueForKey:@"orderSendGetOrderTime"] longLongValue]];
+        NSString *stopTimeStr = [formatter stringFromDate:stopTimeData];
+        cell.stopTimeL.text = stopTimeStr;
+        cell.orderMoney.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
+        NSString *address = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendAddree"]];
+        NSArray *addArr = [address componentsSeparatedByString:@","];
+        cell.addressL.text = [NSString stringWithFormat:@"%@",[addArr objectAtIndex:2]];
+        NSString *sex = [[dict valueForKey:@"orderSendSex"] integerValue]==1 ? @"男" : @"女";
+        cell.userInfoL.text = [NSString stringWithFormat:@"%@ %@ %@岁",[dict valueForKey:@"orderSendUsername"],sex,[dict valueForKey:@"orderSendAge"]];
+        cell.remarkInfoL.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendNote"]];
         
-        
-        
+        cell.showOrderDetailBlock = ^(){
+            NSLog(@"showOrderDetail");
+        };
+        cell.locationBlock = ^(){
+            NSLog(@"locationBlock");
+        };
+        cell.showUserInfoBlock = ^(){
+            NSLog(@"showUserInfoBlock");
+        };
+
         return  cell;
     }else if (currentType == 1){
         OrderNowTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
@@ -375,6 +415,38 @@
         cell.showOrderDetailBlock = ^{
             [weakSelf showOrderDetailWithOrder:nil];
         };
+        cell.serviceContentL.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendServicecontent"]];
+        
+        NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateStyle:NSDateFormatterMediumStyle];
+        [formatter setTimeStyle:NSDateFormatterShortStyle];
+        [formatter setDateFormat:@"MM/dd HH:MM"];
+        [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendGetOrderTime"]];
+        NSDate *stopTimeData = [NSDate dateWithTimeIntervalSince1970:[[dict valueForKey:@"orderSendGetOrderTime"] longLongValue]];
+        NSString *stopTimeStr = [formatter stringFromDate:stopTimeData];
+        cell.stopTimeL.text = stopTimeStr;
+        cell.orderMoney.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
+        NSString *address = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendAddree"]];
+        NSArray *addArr = [address componentsSeparatedByString:@","];
+        cell.addressL.text = [NSString stringWithFormat:@"%@",[addArr objectAtIndex:2]];
+        NSString *sex = [[dict valueForKey:@"orderSendSex"] integerValue]==1 ? @"男" : @"女";
+        cell.userInfoL.text = [NSString stringWithFormat:@"%@ %@ %@岁",[dict valueForKey:@"orderSendUsername"],sex,[dict valueForKey:@"orderSendAge"]];
+        
+        cell.showOrderDetailBlock = ^(){
+            NSLog(@"showOrderDetail");
+        };
+        cell.cancleRequstBlock = ^(){
+            NSLog(@"cancleRequstBlock");
+        };
+        cell.nextStepBlock = ^(){
+            NSLog(@"nextStepBlock");
+        };
+        cell.locationBlock = ^(){
+            NSLog(@"locationBlock");
+        };
+        cell.showUserInfoBlock = ^(){
+            NSLog(@"showUserInfoBlock");
+        };
         
         return  cell;
     }else if(currentType == 2){
@@ -385,7 +457,7 @@
         }
         cell.backgroundColor = [UIColor colorWithWhite:244.0 / 255.0 alpha:1.0];
         
-        /*
+        
          cell.serviceContentL.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendServicecontent"]];
          cell.orderIdNum.text = [NSString stringWithFormat:@"订单编号：%@",[dict valueForKey:@"orderSendId"]];
          
@@ -393,11 +465,11 @@
          [formatter setDateStyle:NSDateFormatterMediumStyle];
          [formatter setTimeStyle:NSDateFormatterShortStyle];
          [formatter setDateFormat:@"yyyy/MM/dd HH:MM:SS"];
-         
-         NSDate *receiveTimeData = [NSDate dateWithTimeIntervalSince1970:[[dict valueForKey:@"orderSendGetOrderTime"] longValue]];
+        [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendGetOrderTime"]];
+         NSDate *receiveTimeData = [NSDate dateWithTimeIntervalSince1970:[[dict valueForKey:@"orderSendGetOrderTime"] longLongValue]];
          NSString *receiveTimeStr = [formatter stringFromDate:receiveTimeData];
          
-         NSDate *finishData = [NSDate dateWithTimeIntervalSince1970:[[dict valueForKey:@"orderSendFinishOrderTime"] longValue]];
+         NSDate *finishData = [NSDate dateWithTimeIntervalSince1970:[[dict valueForKey:@"orderSendFinishOrderTime"] longLongValue]];
          NSString *finishDataTimeStr = [formatter stringFromDate:finishData];
          
          cell.orderReceiveTime.text = receiveTimeStr;
@@ -409,7 +481,7 @@
          cell.evaluateBlock = ^(){
          NSLog(@"评价");
          };
-         */
+        
         return cell;
     }
     return nil;
