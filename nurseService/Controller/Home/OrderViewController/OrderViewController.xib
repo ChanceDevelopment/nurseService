@@ -22,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fbn-Gk-Nwf">
-                    <rect key="frame" x="0.0" y="44" width="375" height="523"/>
+                    <rect key="frame" x="0.0" y="44" width="375" height="503"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="l06-15-g6A"/>
@@ -30,10 +30,10 @@
                     </connections>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PjW-4V-bH3">
-                    <rect key="frame" x="0.0" y="567" width="375" height="100"/>
+                    <rect key="frame" x="0.0" y="547" width="375" height="120"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="100" id="h7w-zJ-TvN"/>
+                        <constraint firstAttribute="height" constant="120" id="h7w-zJ-TvN"/>
                     </constraints>
                 </view>
             </subviews>
@@ -42,7 +42,7 @@
                 <constraint firstItem="fbn-Gk-Nwf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="2Xv-qq-Bpy"/>
                 <constraint firstItem="PjW-4V-bH3" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="D1U-gD-wmy"/>
                 <constraint firstAttribute="bottom" secondItem="PjW-4V-bH3" secondAttribute="bottom" id="Ehu-zy-6iL"/>
-                <constraint firstAttribute="bottom" secondItem="fbn-Gk-Nwf" secondAttribute="bottom" constant="100" id="LXo-T0-6ep"/>
+                <constraint firstAttribute="bottom" secondItem="fbn-Gk-Nwf" secondAttribute="bottom" constant="120" id="LXo-T0-6ep"/>
                 <constraint firstAttribute="trailing" secondItem="PjW-4V-bH3" secondAttribute="trailing" id="Nhw-tc-mD2"/>
                 <constraint firstAttribute="trailing" secondItem="fbn-Gk-Nwf" secondAttribute="trailing" id="rha-6L-UCP"/>
                 <constraint firstItem="fbn-Gk-Nwf" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="44" id="xrw-aR-CyL"/>

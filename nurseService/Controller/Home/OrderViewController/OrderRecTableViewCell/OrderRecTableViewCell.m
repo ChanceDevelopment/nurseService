@@ -69,26 +69,37 @@
         [bgView addSubview:line];
         line.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
         
-        stopTimeL = [[UILabel alloc] initWithFrame:CGRectMake(10, 45, 200, 20)];
+        CGFloat timeAddressViewX = 0;
+        CGFloat timeAddressViewY = CGRectGetMaxY(line.frame);
+        CGFloat timeAddressViewW = SCREENWIDTH;
+        CGFloat timeAddressViewH = 46;
+        UIView *timeAddressView = [[UIView alloc] initWithFrame:CGRectMake(timeAddressViewX, timeAddressViewY, timeAddressViewW, timeAddressViewH)];
+        timeAddressView.backgroundColor = [UIColor whiteColor];
+        [bgView addSubview:timeAddressView];
+        
+        stopTimeL = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 20)];
         stopTimeL.textColor = [UIColor blackColor];
         stopTimeL.font = [UIFont systemFontOfSize:12.0];
         stopTimeL.backgroundColor = [UIColor clearColor];
-        [bgView addSubview:stopTimeL];
+        [timeAddressView addSubview:stopTimeL];
     
-        addressL = [[UILabel alloc] initWithFrame:CGRectMake(10, 65, 300, 20)];
+        addressL = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(stopTimeL.frame), 300, 20)];
         addressL.textColor = [UIColor blackColor];
         addressL.font = [UIFont systemFontOfSize:12.0];
         addressL.backgroundColor = [UIColor clearColor];
-        [bgView addSubview:addressL];
+        [timeAddressView addSubview:addressL];
         
-        UIImageView *locationImageView = [[UIImageView alloc] initWithFrame:CGRectMake(SCREENWIDTH - 50, 65, 20, 20)];
+        UIImageView *locationImageView = [[UIImageView alloc] initWithFrame:CGRectMake(SCREENWIDTH - 50, CGRectGetMaxY(stopTimeL.frame), 20, 20)];
         [locationImageView setBackgroundColor:[UIColor clearColor]];
         locationImageView.userInteractionEnabled = YES;
         locationImageView.image = [UIImage imageNamed:@"icon_address"];
-        [bgView addSubview:locationImageView];
+        [timeAddressView addSubview:locationImageView];
         
         UITapGestureRecognizer *locationTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToLocationView)];
-        [locationImageView addGestureRecognizer:locationTap];
+        locationTap.numberOfTapsRequired = 1;
+        locationTap.numberOfTapsRequired = 1;
+        timeAddressView.userInteractionEnabled = YES;
+        [timeAddressView addGestureRecognizer:locationTap];
         
         UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectMake(5, 91, bgView_W-10, 1)];
         [bgView addSubview:line1];

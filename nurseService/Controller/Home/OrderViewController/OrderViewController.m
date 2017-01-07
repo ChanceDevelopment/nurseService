@@ -17,6 +17,8 @@
 #import "MJRefresh.h"
 #import "HeOrderDetailVC.h"
 #import "MZTimerLabel.h"
+#import "HeUserLocatiVC.h"
+#import "HePaitentInfoVC.h"
 
 @interface OrderViewController ()<UITableViewDelegate,UITableViewDataSource>{
     NSInteger currentPage;
@@ -124,7 +126,7 @@
     CGFloat receiveIconW = 60;
     CGFloat receiveIconH = 60;
     CGFloat receiveIconX = (SCREENWIDTH - receiveIconW) / 2.0;
-    CGFloat receiveIconY = (footerHeigth - receiveIconH) / 2.0;
+    CGFloat receiveIconY = 20;
     
     UIImageView *receiveIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_takeorder_violet"]];
     receiveIcon.frame = CGRectMake(receiveIconX, receiveIconY, receiveIconW, receiveIconH);
@@ -170,8 +172,17 @@
     [receiveButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:receiveButton];
     
+    CGFloat timeLabelX = 0;
+    CGFloat timeLabelY = CGRectGetMaxY(receiveButton.frame) + 5;
+    CGFloat timeLabelH = 30;
+    CGFloat timeLabelW = SCREENWIDTH;
     
-    UILabel *timeLabel = [[UILabel alloc] init];
+    UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(timeLabelX, timeLabelY, timeLabelW, timeLabelH)];
+    timeLabel.backgroundColor = [UIColor clearColor];
+    timeLabel.font = [UIFont systemFontOfSize:18.0];
+    timeLabel.textColor = [UIColor grayColor];
+    timeLabel.textAlignment = NSTextAlignmentCenter;
+    [footerView addSubview:timeLabel];
     
     MZTimerLabel *timer3 = [[MZTimerLabel alloc] initWithLabel:timeLabel andTimerType:MZTimerLabelTypeTimer];
     timer3.timeFormat = @"mm:ss";
@@ -200,6 +211,7 @@
     titleLabel.font = [UIFont systemFontOfSize:10.0];
     titleLabel.textAlignment = NSTextAlignmentCenter;
     [receiveOrderView addSubview:titleLabel];
+    
     
     ZJSwitch *receiveOrderSwitch = [[ZJSwitch alloc] initWithFrame:CGRectMake(receiveOrderX, receiveOrderY, receiveOrderW, receiveOrderH)];
     receiveOrderSwitch.on = YES;
@@ -338,11 +350,27 @@
     
 }
 
+- (void)showPaitentInfoWith:(NSDictionary *)paitentInfoDict
+{
+    HePaitentInfoVC *paitentInfoVC = [[HePaitentInfoVC alloc] init];
+    paitentInfoVC.userInfoDict = [[NSDictionary alloc] initWithDictionary:paitentInfoDict];
+    paitentInfoVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:paitentInfoVC animated:YES];
+}
+
 - (void)showOrderDetailWithOrder:(NSDictionary *)orderDict
 {
     HeOrderDetailVC *orderDetailVC = [[HeOrderDetailVC alloc] init];
     orderDetailVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:orderDetailVC animated:YES];
+}
+
+- (void)goLocationWithLocation:(NSDictionary *)locationDict
+{
+    HeUserLocatiVC *userLocationVC = [[HeUserLocatiVC alloc] init];
+    userLocationVC.userLocationDict = [[NSDictionary alloc] initWithDictionary:locationDict];
+    userLocationVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:userLocationVC animated:YES];
 }
 
 #pragma mark - TableView Delegate
@@ -388,19 +416,38 @@
         cell.orderMoney.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
         NSString *address = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendAddree"]];
         NSArray *addArr = [address componentsSeparatedByString:@","];
-        cell.addressL.text = [NSString stringWithFormat:@"%@",[addArr objectAtIndex:2]];
+        NSString *addressStr = nil;
+        //经度
+        NSString *zoneLocationX = nil;
+        //纬度
+        NSString *zoneLocationY = nil;
+        @try {
+            zoneLocationX = addArr[0];
+            zoneLocationY = addArr[1];
+            addressStr = [addArr objectAtIndex:2];
+        } @catch (NSException *exception) {
+            
+        } @finally {
+            
+        }
+        cell.addressL.text = [NSString stringWithFormat:@"%@",addressStr];
         NSString *sex = [[dict valueForKey:@"orderSendSex"] integerValue]==1 ? @"男" : @"女";
         cell.userInfoL.text = [NSString stringWithFormat:@"%@ %@ %@岁",[dict valueForKey:@"orderSendUsername"],sex,[dict valueForKey:@"orderSendAge"]];
         cell.remarkInfoL.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendNote"]];
+        
+        __weak typeof(self) weakSelf = self;
         
         cell.showOrderDetailBlock = ^(){
             NSLog(@"showOrderDetail");
         };
         cell.locationBlock = ^(){
             NSLog(@"locationBlock");
+            NSDictionary *userLocationDic = @{@"zoneLocationY":zoneLocationY,@"zoneLocationX":zoneLocationX};
+            [weakSelf goLocationWithLocation:userLocationDic];
         };
         cell.showUserInfoBlock = ^(){
             NSLog(@"showUserInfoBlock");
+            [weakSelf showPaitentInfoWith:dict];
         };
 
         return  cell;
@@ -411,10 +458,8 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         cell.backgroundColor = [UIColor colorWithWhite:244.0 / 255.0 alpha:1.0];
-        __weak typeof(self) weakSelf = self;
-        cell.showOrderDetailBlock = ^{
-            [weakSelf showOrderDetailWithOrder:nil];
-        };
+        
+        
         cell.serviceContentL.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendServicecontent"]];
         
         NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
@@ -428,12 +473,29 @@
         cell.orderMoney.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
         NSString *address = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendAddree"]];
         NSArray *addArr = [address componentsSeparatedByString:@","];
-        cell.addressL.text = [NSString stringWithFormat:@"%@",[addArr objectAtIndex:2]];
+        NSString *addressStr = nil;
+        //经度
+        NSString *zoneLocationX = nil;
+        //纬度
+        NSString *zoneLocationY = nil;
+        @try {
+            zoneLocationX = addArr[0];
+            zoneLocationY = addArr[1];
+            addressStr = [addArr objectAtIndex:2];
+        } @catch (NSException *exception) {
+            
+        } @finally {
+            
+        }
+        cell.addressL.text = [NSString stringWithFormat:@"%@",addressStr];
         NSString *sex = [[dict valueForKey:@"orderSendSex"] integerValue]==1 ? @"男" : @"女";
         cell.userInfoL.text = [NSString stringWithFormat:@"%@ %@ %@岁",[dict valueForKey:@"orderSendUsername"],sex,[dict valueForKey:@"orderSendAge"]];
         
+        __weak typeof(self) weakSelf = self;
+        
         cell.showOrderDetailBlock = ^(){
             NSLog(@"showOrderDetail");
+            [weakSelf showOrderDetailWithOrder:nil];
         };
         cell.cancleRequstBlock = ^(){
             NSLog(@"cancleRequstBlock");
@@ -443,9 +505,12 @@
         };
         cell.locationBlock = ^(){
             NSLog(@"locationBlock");
+            NSDictionary *userLocationDic = @{@"zoneLocationY":zoneLocationY,@"zoneLocationX":zoneLocationX};
+            [weakSelf goLocationWithLocation:userLocationDic];
         };
         cell.showUserInfoBlock = ^(){
             NSLog(@"showUserInfoBlock");
+            [weakSelf showPaitentInfoWith:dict];
         };
         
         return  cell;
