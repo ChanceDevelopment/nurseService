@@ -31,6 +31,13 @@
 		AD5CD6DC1E0FBCB70025517E /* cancle.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5CD6DB1E0FBCB70025517E /* cancle.png */; };
 		AD5CD6E11E12D2070025517E /* MyCapitalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5CD6DF1E12D2070025517E /* MyCapitalViewController.m */; };
 		AD5CD6E21E12D2070025517E /* MyCapitalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD5CD6E01E12D2070025517E /* MyCapitalViewController.xib */; };
+		AD8A0E541E229E2C0001CC02 /* jpush-ios-2.1.9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E521E229E2C0001CC02 /* jpush-ios-2.1.9.a */; };
+		AD8A0E561E229EBA0001CC02 /* JSPatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E551E229EBA0001CC02 /* JSPatch.framework */; };
+		AD8A0E5C1E22A0030001CC02 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E5B1E22A0030001CC02 /* UserNotifications.framework */; };
+		AD8A0E5E1E22A02B0001CC02 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E5D1E22A02B0001CC02 /* UIKit.framework */; };
+		AD8A0E601E22A0330001CC02 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E5F1E22A0330001CC02 /* Foundation.framework */; };
+		AD8A0E621E22A0580001CC02 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E611E22A0570001CC02 /* CoreFoundation.framework */; };
+		AD8A0E641E22A0610001CC02 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E631E22A0610001CC02 /* CFNetwork.framework */; };
 		AD8BB1191E092857004064F9 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1181E092857004064F9 /* UIView+Toast.m */; };
 		AD8BB1241E09363B004064F9 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1221E09363B004064F9 /* SettingViewController.m */; };
 		AD8BB1251E09363B004064F9 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1231E09363B004064F9 /* SettingViewController.xib */; };
@@ -636,7 +643,6 @@
 		EAC2D97B1D4B063B00E282A8 /* UIImageUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC2D7A31D4B063B00E282A8 /* UIImageUploader.m */; };
 		EAC2D97C1D4B063B00E282A8 /* HeSysbsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC2D7A61D4B063B00E282A8 /* HeSysbsModel.m */; };
 		EAC2D97D1D4B063B00E282A8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC2D7A81D4B063B00E282A8 /* User.m */; };
-		EAC2D97E1D4B063B00E282A8 /* jpush-ios-2.1.7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EAC2D7AC1D4B063B00E282A8 /* jpush-ios-2.1.7.a */; };
 		EAC2D97F1D4B063B00E282A8 /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = EAC2D7AF1D4B063B00E282A8 /* bitstream.c */; };
 		EAC2D9801D4B063B00E282A8 /* mask.c in Sources */ = {isa = PBXBuildFile; fileRef = EAC2D7B11D4B063B00E282A8 /* mask.c */; };
 		EAC2D9811D4B063B00E282A8 /* QRCodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC2D7B41D4B063B00E282A8 /* QRCodeGenerator.m */; };
@@ -714,6 +720,14 @@
 		AD5CD6DE1E12D2070025517E /* MyCapitalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCapitalViewController.h; sourceTree = "<group>"; };
 		AD5CD6DF1E12D2070025517E /* MyCapitalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCapitalViewController.m; sourceTree = "<group>"; };
 		AD5CD6E01E12D2070025517E /* MyCapitalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyCapitalViewController.xib; sourceTree = "<group>"; };
+		AD8A0E521E229E2C0001CC02 /* jpush-ios-2.1.9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.9.a"; sourceTree = "<group>"; };
+		AD8A0E531E229E2C0001CC02 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
+		AD8A0E551E229EBA0001CC02 /* JSPatch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JSPatch.framework; sourceTree = "<group>"; };
+		AD8A0E5B1E22A0030001CC02 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		AD8A0E5D1E22A02B0001CC02 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		AD8A0E5F1E22A0330001CC02 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		AD8A0E611E22A0570001CC02 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		AD8A0E631E22A0610001CC02 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		AD8BB1171E092857004064F9 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		AD8BB1181E092857004064F9 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		AD8BB1211E09363B004064F9 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
@@ -1769,8 +1783,6 @@
 		EAC2D7A61D4B063B00E282A8 /* HeSysbsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeSysbsModel.m; sourceTree = "<group>"; };
 		EAC2D7A71D4B063B00E282A8 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		EAC2D7A81D4B063B00E282A8 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		EAC2D7AC1D4B063B00E282A8 /* jpush-ios-2.1.7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.7.a"; sourceTree = "<group>"; };
-		EAC2D7AD1D4B063B00E282A8 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		EAC2D7AF1D4B063B00E282A8 /* bitstream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitstream.c; sourceTree = "<group>"; };
 		EAC2D7B01D4B063B00E282A8 /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
 		EAC2D7B11D4B063B00E282A8 /* mask.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mask.c; sourceTree = "<group>"; };
@@ -1853,15 +1865,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD8A0E641E22A0610001CC02 /* CFNetwork.framework in Frameworks */,
+				AD8A0E621E22A0580001CC02 /* CoreFoundation.framework in Frameworks */,
+				AD8A0E601E22A0330001CC02 /* Foundation.framework in Frameworks */,
+				AD8A0E5E1E22A02B0001CC02 /* UIKit.framework in Frameworks */,
+				EABFEC601E1B8871009C27C5 /* Security.framework in Frameworks */,
+				EAC2D4831D4B056800E282A8 /* libz.tbd in Frameworks */,
+				EAC2D46F1D4B04CD00E282A8 /* AdSupport.framework in Frameworks */,
+				AD8A0E5C1E22A0030001CC02 /* UserNotifications.framework in Frameworks */,
+				EAC2D4811D4B055E00E282A8 /* libresolv.tbd in Frameworks */,
 				EABFEC641E1B8889009C27C5 /* CoreTelephony.framework in Frameworks */,
 				EA17433C1E1E33AE0038E805 /* lame.framework in Frameworks */,
 				EABFEC621E1B887D009C27C5 /* libsqlite3.0.tbd in Frameworks */,
-				EABFEC601E1B8871009C27C5 /* Security.framework in Frameworks */,
+				AD8A0E541E229E2C0001CC02 /* jpush-ios-2.1.9.a in Frameworks */,
 				EAC2D48B1D4B059300E282A8 /* libsqlite3.tbd in Frameworks */,
 				EABFEC591E1B86FF009C27C5 /* BaiduMapAPI_Radar.framework in Frameworks */,
 				EAC2D4731D4B04E100E282A8 /* JavaScriptCore.framework in Frameworks */,
 				EAC2D4751D4B04F100E282A8 /* libstdc++.tbd in Frameworks */,
-				EAC2D4831D4B056800E282A8 /* libz.tbd in Frameworks */,
+				AD8A0E561E229EBA0001CC02 /* JSPatch.framework in Frameworks */,
 				EAC2D4771D4B050400E282A8 /* libicucore.tbd in Frameworks */,
 				EAC2D4951D4B05CD00E282A8 /* Contacts.framework in Frameworks */,
 				EAC2D4931D4B05C600E282A8 /* SystemConfiguration.framework in Frameworks */,
@@ -1882,7 +1903,6 @@
 				EAC2D4871D4B057F00E282A8 /* CoreMedia.framework in Frameworks */,
 				EAC2D4851D4B057200E282A8 /* libiconv.tbd in Frameworks */,
 				EAC2D98F1D4B063C00E282A8 /* libWeChatSDK.a in Frameworks */,
-				EAC2D4811D4B055E00E282A8 /* libresolv.tbd in Frameworks */,
 				EAC2D47F1D4B054F00E282A8 /* libstdc++.6.0.9.tbd in Frameworks */,
 				EAC2D47D1D4B053C00E282A8 /* libxml2.tbd in Frameworks */,
 				EABFEC5A1E1B86FF009C27C5 /* BaiduMapAPI_Search.framework in Frameworks */,
@@ -1890,13 +1910,11 @@
 				EAC2D47B1D4B052300E282A8 /* CoreVideo.framework in Frameworks */,
 				EAC2D4791D4B051000E282A8 /* QuartzCore.framework in Frameworks */,
 				EABFEC571E1B86FF009C27C5 /* BaiduMapAPI_Location.framework in Frameworks */,
-				EAC2D97E1D4B063B00E282A8 /* jpush-ios-2.1.7.a in Frameworks */,
 				EAC2D9941D4B063C00E282A8 /* UMMobClick.framework in Frameworks */,
 				EAC2D9881D4B063B00E282A8 /* ShareSDKExtension.framework in Frameworks */,
 				EABFEC5C1E1B86FF009C27C5 /* libcrypto.a in Frameworks */,
 				EAC2D9931D4B063C00E282A8 /* ShareSDKConnector.framework in Frameworks */,
 				EAC2D4711D4B04D600E282A8 /* ImageIO.framework in Frameworks */,
-				EAC2D46F1D4B04CD00E282A8 /* AdSupport.framework in Frameworks */,
 				EAC2D46D1D4B04BE00E282A8 /* MessageUI.framework in Frameworks */,
 				EAC2D46B1D4B04AF00E282A8 /* AddressBook.framework in Frameworks */,
 				EAC2D4691D4B04A200E282A8 /* MapKit.framework in Frameworks */,
@@ -1994,6 +2012,15 @@
 				AD5CD6E01E12D2070025517E /* MyCapitalViewController.xib */,
 			);
 			path = MyCapitalViewController;
+			sourceTree = "<group>";
+		};
+		AD8A0E511E229E2C0001CC02 /* JPushSDK */ = {
+			isa = PBXGroup;
+			children = (
+				AD8A0E521E229E2C0001CC02 /* jpush-ios-2.1.9.a */,
+				AD8A0E531E229E2C0001CC02 /* JPUSHService.h */,
+			);
+			path = JPushSDK;
 			sourceTree = "<group>";
 		};
 		AD8BB1161E092857004064F9 /* UIViewToast */ = {
@@ -3078,6 +3105,12 @@
 		EABFEC5E1E1B8871009C27C5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AD8A0E631E22A0610001CC02 /* CFNetwork.framework */,
+				AD8A0E611E22A0570001CC02 /* CoreFoundation.framework */,
+				AD8A0E5F1E22A0330001CC02 /* Foundation.framework */,
+				AD8A0E5D1E22A02B0001CC02 /* UIKit.framework */,
+				AD8A0E5B1E22A0030001CC02 /* UserNotifications.framework */,
+				AD8A0E551E229EBA0001CC02 /* JSPatch.framework */,
 				EABFEC631E1B8889009C27C5 /* CoreTelephony.framework */,
 				EABFEC611E1B887D009C27C5 /* libsqlite3.0.tbd */,
 				EABFEC5F1E1B8871009C27C5 /* Security.framework */,
@@ -4296,32 +4329,15 @@
 		EAC2D7A91D4B063B00E282A8 /* ThirdPartySDK */ = {
 			isa = PBXGroup;
 			children = (
+				AD8A0E511E229E2C0001CC02 /* JPushSDK */,
 				EABFEC4A1E1B86FF009C27C5 /* BaiduMap_v3.2.1 */,
 				EA472CBA1E04E4CD00E0316F /* SMS_SDK */,
-				EAC2D7AA1D4B063B00E282A8 /* JPush-iOS-SDK-2.1.7 */,
 				EAC2D7AE1D4B063B00E282A8 /* libqrencode */,
 				EAC2D7BF1D4B063B00E282A8 /* ShareSDK3.3.0 */,
 				EAC2D7E21D4B063B00E282A8 /* umsdk_IOS_analyics_no-idfa_v4.0.5 */,
 				EAC2D7E41D4B063B00E282A8 /* ZBarSDK */,
 			);
 			path = ThirdPartySDK;
-			sourceTree = "<group>";
-		};
-		EAC2D7AA1D4B063B00E282A8 /* JPush-iOS-SDK-2.1.7 */ = {
-			isa = PBXGroup;
-			children = (
-				EAC2D7AB1D4B063B00E282A8 /* lib */,
-			);
-			path = "JPush-iOS-SDK-2.1.7";
-			sourceTree = "<group>";
-		};
-		EAC2D7AB1D4B063B00E282A8 /* lib */ = {
-			isa = PBXGroup;
-			children = (
-				EAC2D7AC1D4B063B00E282A8 /* jpush-ios-2.1.7.a */,
-				EAC2D7AD1D4B063B00E282A8 /* JPUSHService.h */,
-			);
-			path = lib;
 			sourceTree = "<group>";
 		};
 		EAC2D7AE1D4B063B00E282A8 /* libqrencode */ = {
@@ -4534,8 +4550,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EAC2D4521D4B031500E282A8 /* Build configuration list for PBXNativeTarget "nurseService" */;
 			buildPhases = (
-				EAC2D4211D4B031500E282A8 /* Sources */,
 				EAC2D4221D4B031500E282A8 /* Frameworks */,
+				EAC2D4211D4B031500E282A8 /* Sources */,
 				EAC2D4231D4B031500E282A8 /* Resources */,
 			);
 			buildRules = (
@@ -5439,6 +5455,7 @@
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/umsdk_IOS_analyics_no-idfa_v4.0.5",
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/SMS_SDK",
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/BaiduMap_v3.2.1",
+					"$(PROJECT_DIR)",
 				);
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5453,6 +5470,7 @@
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/ShareSDK3.3.0/Support/PlatformSDK/WeChatSDK",
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/ZBarSDK",
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/BaiduMap_v3.2.1/thirdlibs",
+					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/JPushSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.channce.nurseService;
@@ -5480,6 +5498,7 @@
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/umsdk_IOS_analyics_no-idfa_v4.0.5",
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/SMS_SDK",
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/BaiduMap_v3.2.1",
+					"$(PROJECT_DIR)",
 				);
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5494,6 +5513,7 @@
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/ShareSDK3.3.0/Support/PlatformSDK/WeChatSDK",
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/ZBarSDK",
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/BaiduMap_v3.2.1/thirdlibs",
+					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/JPushSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.channce.nurseService;
@@ -5605,6 +5625,7 @@
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/umsdk_IOS_analyics_no-idfa_v4.0.5",
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/SMS_SDK",
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/BaiduMap_v3.2.1",
+					"$(PROJECT_DIR)",
 				);
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -5619,6 +5640,7 @@
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/ShareSDK3.3.0/Support/PlatformSDK/WeChatSDK",
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/ZBarSDK",
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/BaiduMap_v3.2.1/thirdlibs",
+					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/JPushSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.channce.nurseService;

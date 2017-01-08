@@ -9,8 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "RESideMenu.h"
 #import <BaiduMapAPI_Base/BMKBaseComponent.h>
+#import "JPUSHService.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate,RESideMenuDelegate,BMKGeneralDelegate>
+static NSString *appKey = @"f3df690c367e49335b6eca7b";
+static NSString *channel = @"AppStore";
+static BOOL isProduction = FALSE;
+@interface AppDelegate : UIResponder <UIApplicationDelegate,RESideMenuDelegate,BMKGeneralDelegate,JPUSHRegisterDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UIViewController *viewController;
