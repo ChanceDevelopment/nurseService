@@ -175,6 +175,8 @@
 		EA8C89311E2138BD0093657B /* HePaitentInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8C892F1E2138BD0093657B /* HePaitentInfoVC.m */; };
 		EA8C89321E2138BD0093657B /* HePaitentInfoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8C89301E2138BD0093657B /* HePaitentInfoVC.xib */; };
 		EA8C89351E2149340093657B /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EA8C89341E2149340093657B /* mapapi.bundle */; };
+		EA8C89AD1E21DE2E0093657B /* tabbar_normal_background.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8C89AB1E21DE2E0093657B /* tabbar_normal_background.png */; };
+		EA8C89AE1E21DE2E0093657B /* tabbar_normal_background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA8C89AC1E21DE2E0093657B /* tabbar_normal_background@2x.png */; };
 		EAA4F2FB1E011EC100EF9E14 /* HeLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA4F2F91E011EC100EF9E14 /* HeLoginVC.m */; };
 		EAA4F2FC1E011EC100EF9E14 /* HeLoginVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA4F2FA1E011EC100EF9E14 /* HeLoginVC.xib */; };
 		EAA4F3001E011ED100EF9E14 /* HeEnrollVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA4F2FE1E011ED100EF9E14 /* HeEnrollVC.m */; };
@@ -950,6 +952,8 @@
 		EA8C892F1E2138BD0093657B /* HePaitentInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HePaitentInfoVC.m; sourceTree = "<group>"; };
 		EA8C89301E2138BD0093657B /* HePaitentInfoVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HePaitentInfoVC.xib; sourceTree = "<group>"; };
 		EA8C89341E2149340093657B /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = "<group>"; };
+		EA8C89AB1E21DE2E0093657B /* tabbar_normal_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabbar_normal_background.png; sourceTree = "<group>"; };
+		EA8C89AC1E21DE2E0093657B /* tabbar_normal_background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tabbar_normal_background@2x.png"; sourceTree = "<group>"; };
 		EAA4F2F81E011EC100EF9E14 /* HeLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeLoginVC.h; sourceTree = "<group>"; };
 		EAA4F2F91E011EC100EF9E14 /* HeLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeLoginVC.m; sourceTree = "<group>"; };
 		EAA4F2FA1E011EC100EF9E14 /* HeLoginVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeLoginVC.xib; sourceTree = "<group>"; };
@@ -2232,6 +2236,8 @@
 		ADDBEB591DFCE384000BDA95 /* tabbar */ = {
 			isa = PBXGroup;
 			children = (
+				EA8C89AB1E21DE2E0093657B /* tabbar_normal_background.png */,
+				EA8C89AC1E21DE2E0093657B /* tabbar_normal_background@2x.png */,
 				EAA4F3161E012F3000EF9E14 /* tabar_home_icon_active@2x.png */,
 				EAA4F3171E012F3000EF9E14 /* tabar_home_icon_normal@2x.png */,
 				EAA4F3181E012F3000EF9E14 /* tabar_order_icon_active@2x.png */,
@@ -4751,6 +4757,7 @@
 				EA4D13C01E03CCF900BBE450 /* navigationBar_back_icon.png in Resources */,
 				EAA4F3221E012F3000EF9E14 /* tabar_rank_icon_active@2x.png in Resources */,
 				EAA6552E1E0627C400F424DD /* Like@3x.png in Resources */,
+				EA8C89AE1E21DE2E0093657B /* tabbar_normal_background@2x.png in Resources */,
 				AD30138B1DFCF4F300D26E09 /* icon_service.png in Resources */,
 				EAA655231E0627C300F424DD /* AlbumComment@3x.png in Resources */,
 				EAC2D87C1D4B063B00E282A8 /* whiteArrow.png in Resources */,
@@ -4807,6 +4814,7 @@
 				AD3013891DFCF4F300D26E09 /* icon_publish.png in Resources */,
 				EAC2D8C81D4B063B00E282A8 /* arrow_down@2x.png in Resources */,
 				EAC2D98C1D4B063B00E282A8 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
+				EA8C89AD1E21DE2E0093657B /* tabbar_normal_background.png in Resources */,
 				EAC2D9351D4B063B00E282A8 /* sharemore_pic@2x.png in Resources */,
 				EA1743561E1E33AF0038E805 /* success@2x.png in Resources */,
 				EA472CB21E04DCF500E0316F /* icon_add_photo.png in Resources */,
