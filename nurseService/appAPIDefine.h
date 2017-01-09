@@ -29,12 +29,25 @@
 #define LOGINURL @"nurseAnduser/NurseLogin.action"
 //注册
 #define REGISTERURL @"nurseAnduser/NurseRegistered.action"
+//短信验证码
+#define SMSCODE @"nurseAnduser/sendSmsCode.action"
 //评价
 #define EVALUATEURL @"nurseAnduser/selectnurserated.action"
 //1.3 基本信息完善
 #define MODIFYUSERINFO @"nurseAnduser/NurseInfoAdd.action"         //
 //1.3.1修改个人信息
 #define UPDATENURSEINFO @"nurseAnduser/updateNurseInfo.action"     //
+//2.7获取当前接单开关
+#define ORDERRECEIVESTATE @"orderReceiver/orderReceiverState.action"
+//2.8修改当前接单开关
+#define UPDATEORDERSTATE @"orderReceiver/UpdateorderReceiverState.action"
+
+//2.9取消订单
+#define CANCLEORDER @"orderSend/cancelOrder.action"
+//2.9.1 护士取消专属订单(正接单取消)
+#define CANCLEEXCLUSIVEORDER @"orderReceiver/giveUpExclusiveOrder.action"
+
+
 //签到
 #define TOSIGNIN @"nurseAnduser/nurseToSignin.action"
 //是否签到

@@ -23,6 +23,7 @@
 #include <string.h>
 #import "HeSysbsModel.h"
 #import "DFBaseLineCell.h"
+#import "HomeTableViewCell.h"
 
 @interface HomeViewController ()<LBBannerDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)DLNavigationTabBar *navigationTabBar;
@@ -172,16 +173,17 @@
 {
     NSInteger row = indexPath.row;
     
-    static NSString *cellIndentifier = @"HeStudyTableCell";
+    static NSString *cellIndentifier = @"HomeTableViewCell";
     CGSize cellSize = [tableView rectForRowAtIndexPath:indexPath].size;
     NSDictionary *dict = nil;
     
-    HeStudyTableCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
+    HomeTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell) {
-        cell = [[HeStudyTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier cellSize:cellSize];
+        cell = [[HomeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier cellSize:cellSize];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
+    cell.backgroundColor = [UIColor colorWithWhite:244.0 / 255.0 alpha:1.0];
+
     return cell;
     return nil;
 }

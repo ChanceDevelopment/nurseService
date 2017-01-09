@@ -64,9 +64,9 @@
 //设置根控制器的四个子控制器
 - (void)setupSubviews
 {
-//    homeVC = [[HomeViewController alloc] init];
-//    CustomNavigationController *homeNav = [[CustomNavigationController alloc] initWithRootViewController:homeVC];
-//    
+    homeVC = [[HomeViewController alloc] init];
+    CustomNavigationController *homeNav = [[CustomNavigationController alloc] initWithRootViewController:homeVC];
+
 //    rankVC = [[RankViewController alloc] init];
 //    CustomNavigationController *rankNav = [[CustomNavigationController alloc] initWithRootViewController:rankVC];
     
@@ -77,7 +77,7 @@
     CustomNavigationController *userNav = [[CustomNavigationController alloc]
                                            initWithRootViewController:userVC];
     
-    [self setViewControllers:@[orderNav,userNav]];//@[homeNav,rankNav,orderNav,userNav]
+    [self setViewControllers:@[homeNav,orderNav,userNav]];//@[homeNav,rankNav,orderNav,userNav]
     [self customizeTabBarForController];
 }
 
@@ -86,7 +86,7 @@
     //    tabbar_normal_background   tabbar_selected_background
     UIImage *finishedImage = [UIImage imageNamed:@"tabbar_normal_background"];
     UIImage *unfinishedImage = [UIImage imageNamed:@"tabbar_normal_background"];
-    NSArray *tabBarItemImages = @[@"tabar_home_icon", @"tabar_rank_icon", @"tabar_order_icon", @"tabar_user_icon"];
+    NSArray *tabBarItemImages = @[@"tabar_home_icon", @"tabar_order_icon", @"tabar_user_icon"];//@[@"tabar_home_icon", @"tabar_rank_icon", @"tabar_order_icon", @"tabar_user_icon"]
     
     NSInteger index = 0;
     for (RDVTabBarItem *item in [[self tabBar] items]) {

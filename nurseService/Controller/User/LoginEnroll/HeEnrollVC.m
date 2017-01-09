@@ -100,25 +100,30 @@
     }
     
     [sender startWithTime:60 title:@"获取验证码" countDownTitle:@"s" mainColor:APPDEFAULTORANGE countColor:[UIColor lightGrayColor]];
+
     //获取注册手机号的验证码
-    NSString *zone = @"86"; //区域号
     NSString *phoneNumber = accountField.text;
-    [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:phoneNumber
-                                   zone:zone
-                       customIdentifier:nil
-                                 result:^(NSError *error)
-     {
-         [self hideHud];
-         if (!error)
-         {
-             [self showHint:@"验证码已发送，请注意查收!"];
-         }
-         else
-         {
-             NSString *errorString = [NSString stringWithFormat:@"错误描述：%@",[error.userInfo objectForKey:@"getVerificationCode"]];
-             [self showHint:errorString];
-         }
-     }];
+
+    NSDictionary * params  = @{@"Phone": phoneNumber};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:SMSCODE params:params success:^(AFHTTPRequestOperation* operation,id response){
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSLog(@"respondString:%@",respondString);
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        
+        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+
+            
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
+        
+        
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
 }
 
 //同意协议按钮

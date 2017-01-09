@@ -120,7 +120,13 @@
     myTableView.backgroundView = nil;
     myTableView.backgroundColor = self.view.backgroundColor;
     
-    footerView.backgroundColor = self.view.backgroundColor;
+    
+    CGFloat view_h = self.view.frame.size.height;
+    footerView = [[UIView alloc] init];
+    footerView.frame = CGRectMake(0, view_h-120-145, SCREENWIDTH, 120);
+    footerView.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:footerView];
+//    footerView.backgroundColor = self.view.backgroundColor;
     
     CGFloat footerHeigth = 100;
     CGFloat receiveIconW = 60;
@@ -214,7 +220,7 @@
     
     
     ZJSwitch *receiveOrderSwitch = [[ZJSwitch alloc] initWithFrame:CGRectMake(receiveOrderX, receiveOrderY, receiveOrderW, receiveOrderH)];
-    receiveOrderSwitch.on = YES;
+    receiveOrderSwitch.on = [[NSUserDefaults standardUserDefaults] objectForKey:RECEIVEORDERSTATE];
     [receiveOrderSwitch addTarget:self action:@selector(receiveOrderSwitchChangeValue:) forControlEvents:UIControlEventValueChanged];
     receiveOrderSwitch.tintColor = APPDEFAULTORANGE;
     receiveOrderSwitch.onTintColor = APPDEFAULTORANGE;
@@ -242,6 +248,7 @@
         // 进入刷新状态后会自动调用这个block，加载更多
         [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
     }];
+    
 }
 
 - (void)buttonClick:(UIButton *)button
@@ -278,6 +285,32 @@
         titleLabel.text = @"关闭接单";
         NSLog(@"关闭接单");
     }
+    
+    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+    NSString *receiveState = mySwitch.on ? @"0" : @"1";    //0可接1不可接
+    NSDictionary * params  = @{@"nurseId": userAccount,
+                               @"nurseReceiverState": receiveState};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:UPDATEORDERSTATE params:params success:^(AFHTTPRequestOperation* operation,id response){
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSLog(@"respondString:%@",respondString);
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            if (mySwitch.on) {
+                [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:RECEIVEORDERSTATE];
+            }else{
+                [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:RECEIVEORDERSTATE];
+            }
+            
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
+
 }
 
 - (void)getDataWithUrl:(NSString *)url{
@@ -318,7 +351,32 @@
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
 }
-
+//取消订单
+- (void)sendCancleOrderWithOrderId:(NSString *)orderId{
+    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+    //订单ID
+    NSDictionary * params  = @{@"orderSendId": orderId,
+                               @"userId": userAccount,
+                               @"identity": [NSNumber numberWithInteger:1]};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:CANCLEORDER params:params success:^(AFHTTPRequestOperation* operation,id response){
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSLog(@"respondString:%@",respondString);
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            
+            
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
+        
+        
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
+}
 
 #pragma mark - PrivateMethod
 - (void)navigationDidSelectedControllerIndex:(NSInteger)index {
@@ -499,6 +557,7 @@
         };
         cell.cancleRequstBlock = ^(){
             NSLog(@"cancleRequstBlock");
+            [self sendCancleOrderWithOrderId:@"11111111111"];
         };
         cell.nextStepBlock = ^(){
             NSLog(@"nextStepBlock");

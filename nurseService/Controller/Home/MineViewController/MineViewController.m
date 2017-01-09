@@ -146,7 +146,7 @@
     userNameL.textColor = [UIColor whiteColor];
     userNameL.frame = CGRectMake(labelX, labelY, labelW, labelH);
     [headerView addSubview:userNameL];
-    userNameL.text = @"Amy";
+    userNameL.text = [NSString stringWithFormat:@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseNick"]];
     
     CGFloat sexX = SCREENWIDTH/2.0+10;
     CGFloat sexY = labelY;
@@ -158,7 +158,7 @@
     sexL.textColor = [UIColor whiteColor];
     sexL.frame = CGRectMake(sexX, sexY, sexW, labelH);
     [headerView addSubview:sexL];
-    sexL.text = @"男";
+    sexL.text = [[NSString stringWithFormat:@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseSex"]] isEqualToString:@"1"] ? @"男" : @"女";
     
     CGFloat healthX = 30;
     CGFloat healthY = labelY +30;

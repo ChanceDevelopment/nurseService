@@ -58,28 +58,10 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)logOffAction:(UIButton *)sender {
-    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
 
-    NSDictionary * params  = @{@"nurseid": userAccount};
-    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:EVALUATEURL params:params success:^(AFHTTPRequestOperation* operation,id response){
-        
-        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
-        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
-        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
-            NSLog(@"success");
-            NSDictionary *userInfoDic = [NSDictionary dictionaryWithDictionary:[respondDict valueForKey:@"json"]];
-            
-            
-        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
-            NSLog(@"faile");
-        }
-        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
-        
-        
-    } failure:^(NSError* err){
-        NSLog(@"err:%@",err);
-        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
-    }];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERIDKEY];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERACCOUNTKEY];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@NO];
 }
 - (IBAction)updateVersionAction:(UIButton *)sender {
 }

@@ -38,6 +38,9 @@
 		AD8A0E601E22A0330001CC02 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E5F1E22A0330001CC02 /* Foundation.framework */; };
 		AD8A0E621E22A0580001CC02 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E611E22A0570001CC02 /* CoreFoundation.framework */; };
 		AD8A0E641E22A0610001CC02 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E631E22A0610001CC02 /* CFNetwork.framework */; };
+		AD8A0E681E2405340001CC02 /* HomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8A0E671E2405340001CC02 /* HomeTableViewCell.m */; };
+		AD8A0E6A1E240D4F0001CC02 /* icon_like.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E691E240D4F0001CC02 /* icon_like.png */; };
+		AD8A0E6C1E240D580001CC02 /* icon_comment.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E6B1E240D580001CC02 /* icon_comment.png */; };
 		AD8BB1191E092857004064F9 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1181E092857004064F9 /* UIView+Toast.m */; };
 		AD8BB1241E09363B004064F9 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1221E09363B004064F9 /* SettingViewController.m */; };
 		AD8BB1251E09363B004064F9 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1231E09363B004064F9 /* SettingViewController.xib */; };
@@ -728,6 +731,10 @@
 		AD8A0E5F1E22A0330001CC02 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AD8A0E611E22A0570001CC02 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		AD8A0E631E22A0610001CC02 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		AD8A0E661E2405340001CC02 /* HomeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeTableViewCell.h; sourceTree = "<group>"; };
+		AD8A0E671E2405340001CC02 /* HomeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeTableViewCell.m; sourceTree = "<group>"; };
+		AD8A0E691E240D4F0001CC02 /* icon_like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_like.png; sourceTree = "<group>"; };
+		AD8A0E6B1E240D580001CC02 /* icon_comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_comment.png; sourceTree = "<group>"; };
 		AD8BB1171E092857004064F9 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		AD8BB1181E092857004064F9 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		AD8BB1211E09363B004064F9 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
@@ -2023,6 +2030,15 @@
 			path = JPushSDK;
 			sourceTree = "<group>";
 		};
+		AD8A0E651E2405250001CC02 /* HomeTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				AD8A0E661E2405340001CC02 /* HomeTableViewCell.h */,
+				AD8A0E671E2405340001CC02 /* HomeTableViewCell.m */,
+			);
+			path = HomeTableViewCell;
+			sourceTree = "<group>";
+		};
 		AD8BB1161E092857004064F9 /* UIViewToast */ = {
 			isa = PBXGroup;
 			children = (
@@ -2233,6 +2249,8 @@
 		ADDBEB4B1DFCE26F000BDA95 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				AD8A0E6B1E240D580001CC02 /* icon_comment.png */,
+				AD8A0E691E240D4F0001CC02 /* icon_like.png */,
 				ADB49C731E1947C5008DBCF6 /* order */,
 				AD8BB1361E0A0F0E004064F9 /* rank */,
 				EA17435C1E1E3EE90038E805 /* comonDefaultImage.png */,
@@ -2280,6 +2298,7 @@
 		ADDBEB6A1DFCE41A000BDA95 /* HomeViewController */ = {
 			isa = PBXGroup;
 			children = (
+				AD8A0E651E2405250001CC02 /* HomeTableViewCell */,
 				EAA4F3021E012A7000EF9E14 /* HomeViewController.h */,
 				EAA4F3031E012A7000EF9E14 /* HomeViewController.m */,
 				EAA4F3041E012A7000EF9E14 /* HomeViewController.xib */,
@@ -4754,6 +4773,7 @@
 				AD5CD6DA1E0FB7F00025517E /* reduce.png in Resources */,
 				AD3013871DFCF4F300D26E09 /* icon_mycomment.png in Resources */,
 				EAA4F3381E024CF300EF9E14 /* icon_openeyes.png in Resources */,
+				AD8A0E6C1E240D580001CC02 /* icon_comment.png in Resources */,
 				EA1743551E1E33AF0038E805 /* refresh@3x.png in Resources */,
 				EA17434F1E1E33AF0038E805 /* back-arrow@3x.png in Resources */,
 				EAA4F3211E012F3000EF9E14 /* tabar_order_icon_normal@2x.png in Resources */,
@@ -4795,6 +4815,7 @@
 				EAC2D9981D4B063C00E282A8 /* zbar-helpicons.png in Resources */,
 				EAC2D8371D4B063B00E282A8 /* BrowserView.xib in Resources */,
 				EA1ADE8B1E1DFC5600A8422D /* img_no_data.png in Resources */,
+				AD8A0E6A1E240D4F0001CC02 /* icon_like.png in Resources */,
 				ADDBEB951DFCE87E000BDA95 /* index_banner4@2x.jpg in Resources */,
 				EAA4F33A1E024D0600EF9E14 /* icon_look.png in Resources */,
 				AD5CD6D21E0FAA8D0025517E /* FeedbackViewController.xib in Resources */,
@@ -4970,6 +4991,7 @@
 				EABFECAC1E1B8D4E009C27C5 /* MASCompositeConstraint.m in Sources */,
 				EAC2D9831D4B063B00E282A8 /* qrinput.c in Sources */,
 				AD5CD6C81E0D58FA0025517E /* MyInfoTableViewCell.m in Sources */,
+				AD8A0E681E2405340001CC02 /* HomeTableViewCell.m in Sources */,
 				EAC2D8C41D4B063B00E282A8 /* MRZoomScrollView.m in Sources */,
 				EAC2D8B31D4B063B00E282A8 /* UIScrollView+MJExtension.m in Sources */,
 				EAC2D97C1D4B063B00E282A8 /* HeSysbsModel.m in Sources */,

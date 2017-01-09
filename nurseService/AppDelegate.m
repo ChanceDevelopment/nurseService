@@ -138,7 +138,7 @@ BMKMapManager* _mapManager;
     [self initialization];
     [self launchBaiduMap];
     [self initAPServiceWithOptions:launchOptions];
-    [self initSMSSDK];
+//    [self initSMSSDK];
     [self umengTrack];
     self.window.rootViewController = self.viewController;
     //清除缓存
@@ -289,7 +289,6 @@ BMKMapManager* _mapManager;
                 NSLog(@"remove caches faild");
             }
         }
-        
     }
 }
 
