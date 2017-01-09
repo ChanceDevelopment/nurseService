@@ -329,7 +329,7 @@ BMKMapManager* _mapManager;
 //初始化SMSSDK
 - (void)initSMSSDK{
     //初始化应用，appKey和appSecret从后台申请得
-    [SMSSDK registerApp:@"appKey" withSecret:@"appSecret"];
+    [SMSSDK registerApp:@"15eb8c9d7d534" withSecret:@"dacf079a7e60b30120a97690d154f113"];
 }
 
 //初始化友盟的SDK
