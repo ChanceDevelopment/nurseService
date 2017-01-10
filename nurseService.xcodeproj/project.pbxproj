@@ -41,6 +41,13 @@
 		AD8A0E681E2405340001CC02 /* HomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8A0E671E2405340001CC02 /* HomeTableViewCell.m */; };
 		AD8A0E6A1E240D4F0001CC02 /* icon_like.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E691E240D4F0001CC02 /* icon_like.png */; };
 		AD8A0E6C1E240D580001CC02 /* icon_comment.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E6B1E240D580001CC02 /* icon_comment.png */; };
+		AD8A0E711E248B040001CC02 /* NurseReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8A0E6F1E248B040001CC02 /* NurseReportVC.m */; };
+		AD8A0E721E248B040001CC02 /* NurseReportVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E701E248B040001CC02 /* NurseReportVC.xib */; };
+		AD8A0E741E24B9D80001CC02 /* img_exclusive.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E731E24B9D80001CC02 /* img_exclusive.png */; };
+		AD8A0E771E24E36C0001CC02 /* icon_dot_violet_select.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E751E24E36C0001CC02 /* icon_dot_violet_select.png */; };
+		AD8A0E781E24E36C0001CC02 /* icon_dot_violet_unselect.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E761E24E36C0001CC02 /* icon_dot_violet_unselect.png */; };
+		AD8A0E7B1E24E3B90001CC02 /* icon_rectangle_selector.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E791E24E3B90001CC02 /* icon_rectangle_selector.png */; };
+		AD8A0E7C1E24E3B90001CC02 /* icon_rectangle_unselector.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E7A1E24E3B90001CC02 /* icon_rectangle_unselector.png */; };
 		AD8BB1191E092857004064F9 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1181E092857004064F9 /* UIView+Toast.m */; };
 		AD8BB1241E09363B004064F9 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1221E09363B004064F9 /* SettingViewController.m */; };
 		AD8BB1251E09363B004064F9 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1231E09363B004064F9 /* SettingViewController.xib */; };
@@ -735,6 +742,14 @@
 		AD8A0E671E2405340001CC02 /* HomeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeTableViewCell.m; sourceTree = "<group>"; };
 		AD8A0E691E240D4F0001CC02 /* icon_like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_like.png; sourceTree = "<group>"; };
 		AD8A0E6B1E240D580001CC02 /* icon_comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_comment.png; sourceTree = "<group>"; };
+		AD8A0E6E1E248B040001CC02 /* NurseReportVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NurseReportVC.h; sourceTree = "<group>"; };
+		AD8A0E6F1E248B040001CC02 /* NurseReportVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NurseReportVC.m; sourceTree = "<group>"; };
+		AD8A0E701E248B040001CC02 /* NurseReportVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NurseReportVC.xib; sourceTree = "<group>"; };
+		AD8A0E731E24B9D80001CC02 /* img_exclusive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_exclusive.png; sourceTree = "<group>"; };
+		AD8A0E751E24E36C0001CC02 /* icon_dot_violet_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_dot_violet_select.png; sourceTree = "<group>"; };
+		AD8A0E761E24E36C0001CC02 /* icon_dot_violet_unselect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_dot_violet_unselect.png; sourceTree = "<group>"; };
+		AD8A0E791E24E3B90001CC02 /* icon_rectangle_selector.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_rectangle_selector.png; sourceTree = "<group>"; };
+		AD8A0E7A1E24E3B90001CC02 /* icon_rectangle_unselector.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_rectangle_unselector.png; sourceTree = "<group>"; };
 		AD8BB1171E092857004064F9 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		AD8BB1181E092857004064F9 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		AD8BB1211E09363B004064F9 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
@@ -2039,6 +2054,16 @@
 			path = HomeTableViewCell;
 			sourceTree = "<group>";
 		};
+		AD8A0E6D1E248AED0001CC02 /* NurseReportVC */ = {
+			isa = PBXGroup;
+			children = (
+				AD8A0E6E1E248B040001CC02 /* NurseReportVC.h */,
+				AD8A0E6F1E248B040001CC02 /* NurseReportVC.m */,
+				AD8A0E701E248B040001CC02 /* NurseReportVC.xib */,
+			);
+			path = NurseReportVC;
+			sourceTree = "<group>";
+		};
 		AD8BB1161E092857004064F9 /* UIViewToast */ = {
 			isa = PBXGroup;
 			children = (
@@ -2142,6 +2167,11 @@
 		ADB49C731E1947C5008DBCF6 /* order */ = {
 			isa = PBXGroup;
 			children = (
+				AD8A0E791E24E3B90001CC02 /* icon_rectangle_selector.png */,
+				AD8A0E7A1E24E3B90001CC02 /* icon_rectangle_unselector.png */,
+				AD8A0E751E24E36C0001CC02 /* icon_dot_violet_select.png */,
+				AD8A0E761E24E36C0001CC02 /* icon_dot_violet_unselect.png */,
+				AD8A0E731E24B9D80001CC02 /* img_exclusive.png */,
 				EA1ADE941E1DFCE800A8422D /* icon_leftarrow_gray.png */,
 				EA1ADE901E1DFCDD00A8422D /* icon_rightarrow_gray.png */,
 				EA1ADE911E1DFCDD00A8422D /* icon_rightarrow_violet.png */,
@@ -2323,6 +2353,7 @@
 		ADDBEB6C1DFCE41A000BDA95 /* OrderViewController */ = {
 			isa = PBXGroup;
 			children = (
+				AD8A0E6D1E248AED0001CC02 /* NurseReportVC */,
 				EABFEC441E1B8652009C27C5 /* OrderDetail */,
 				ADB49C671E180524008DBCF6 /* OrderFinishedTableViewCell */,
 				ADB49C681E180524008DBCF6 /* OrderNowTableViewCell */,
@@ -4738,6 +4769,7 @@
 				EAC2D86B1D4B063B00E282A8 /* down_dark.png in Resources */,
 				EAC2D9901D4B063C00E282A8 /* README.txt in Resources */,
 				EA472CD51E04E71B00E0316F /* TOWebViewControllerLocalizable.strings in Resources */,
+				AD8A0E721E248B040001CC02 /* NurseReportVC.xib in Resources */,
 				ADB49C5C1E164526008DBCF6 /* icon_financial_details.png in Resources */,
 				ADCD25AD1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib in Resources */,
 				EAC2D8971D4B063B00E282A8 /* MBProgressHUD.bundle in Resources */,
@@ -4770,6 +4802,7 @@
 				EAC2D8711D4B063B00E282A8 /* i2KEPCMultiComponentPickerView.xib in Resources */,
 				EA8C89351E2149340093657B /* mapapi.bundle in Resources */,
 				AD3013731DFCF4DC00D26E09 /* icon_search.png in Resources */,
+				AD8A0E7C1E24E3B90001CC02 /* icon_rectangle_unselector.png in Resources */,
 				AD5CD6DA1E0FB7F00025517E /* reduce.png in Resources */,
 				AD3013871DFCF4F300D26E09 /* icon_mycomment.png in Resources */,
 				EAA4F3381E024CF300EF9E14 /* icon_openeyes.png in Resources */,
@@ -4816,8 +4849,10 @@
 				EAC2D8371D4B063B00E282A8 /* BrowserView.xib in Resources */,
 				EA1ADE8B1E1DFC5600A8422D /* img_no_data.png in Resources */,
 				AD8A0E6A1E240D4F0001CC02 /* icon_like.png in Resources */,
+				AD8A0E771E24E36C0001CC02 /* icon_dot_violet_select.png in Resources */,
 				ADDBEB951DFCE87E000BDA95 /* index_banner4@2x.jpg in Resources */,
 				EAA4F33A1E024D0600EF9E14 /* icon_look.png in Resources */,
+				AD8A0E741E24B9D80001CC02 /* img_exclusive.png in Resources */,
 				AD5CD6D21E0FAA8D0025517E /* FeedbackViewController.xib in Resources */,
 				AD5CD6CB1E0EAECF0025517E /* abc_btn_radio_on.png in Resources */,
 				EAA4F30B1E012A8400EF9E14 /* MineViewController.xib in Resources */,
@@ -4834,6 +4869,8 @@
 				EAA6552D1E0627C300F424DD /* Like@2x.png in Resources */,
 				EAA4F31F1E012F3000EF9E14 /* tabar_home_icon_normal@2x.png in Resources */,
 				EA17435D1E1E3EE90038E805 /* comonDefaultImage.png in Resources */,
+				AD8A0E781E24E36C0001CC02 /* icon_dot_violet_unselect.png in Resources */,
+				AD8A0E7B1E24E3B90001CC02 /* icon_rectangle_selector.png in Resources */,
 				EAA4F3011E011ED100EF9E14 /* HeEnrollVC.xib in Resources */,
 				EAA6552C1E0627C300F424DD /* AlbumShare@3x.png in Resources */,
 				AD5CD6D91E0FB7F00025517E /* add.png in Resources */,
@@ -4963,6 +5000,7 @@
 				EA1742BE1E1E331B0038E805 /* README.md in Sources */,
 				EAC2D8811D4B063B00E282A8 /* FMDatabaseAdditions.m in Sources */,
 				EAC2D8091D4B063B00E282A8 /* NSDate+Category.m in Sources */,
+				AD8A0E711E248B040001CC02 /* NurseReportVC.m in Sources */,
 				EAC2D88F1D4B063B00E282A8 /* UIView+Hierarchy.m in Sources */,
 				EA472CD61E04E71B00E0316F /* TOActivityChrome.m in Sources */,
 				EAC2D93D1D4B063B00E282A8 /* SDWebImageDownloaderOperation.m in Sources */,

@@ -198,7 +198,6 @@
         NSLog(@"err:%@",err);
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
-
 }
 
 - (void)backToLoginView{

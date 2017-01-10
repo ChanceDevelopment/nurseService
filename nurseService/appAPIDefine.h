@@ -37,10 +37,14 @@
 #define MODIFYUSERINFO @"nurseAnduser/NurseInfoAdd.action"         //
 //1.3.1修改个人信息
 #define UPDATENURSEINFO @"nurseAnduser/updateNurseInfo.action"     //
+//2.3接单状态修改
+#define UPDATEORDERSTATE @"orderReceiver/updateOrderState.action"
+//2.6根据订单id查询订单详情
+#define ORDERDESCRIPTION @"orderReceiver/OrderSendDescriptionByNurse.action"
 //2.7获取当前接单开关
 #define ORDERRECEIVESTATE @"orderReceiver/orderReceiverState.action"
 //2.8修改当前接单开关
-#define UPDATEORDERSTATE @"orderReceiver/UpdateorderReceiverState.action"
+#define UPDATEORDERRECEIVERSTATE @"orderReceiver/UpdateorderReceiverState.action"
 
 //2.9取消订单
 #define CANCLEORDER @"orderSend/cancelOrder.action"

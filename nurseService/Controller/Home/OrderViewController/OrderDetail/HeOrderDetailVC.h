@@ -11,5 +11,10 @@
 
 
 @interface HeOrderDetailVC : HeBaseViewController
-
+{
+    NSDictionary *infoDic;
+    NSString *orderId;
+}
+@property(strong,nonatomic)NSDictionary *infoDic;
+@property(strong,nonatomic)NSString *orderId;
 @end

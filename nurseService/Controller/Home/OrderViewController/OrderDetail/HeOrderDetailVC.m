@@ -12,6 +12,9 @@
 #import "MLLabel+Size.h"
 #import "MJPhoto.h"
 #import "MJPhotoBrowser.h"
+#import "NurseReportVC.h"
+#import "HePaitentInfoVC.h"
+#import "HeUserLocatiVC.h"
 
 @interface HeOrderDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -31,6 +34,8 @@
 @synthesize statusView;
 @synthesize photoScrollView;
 @synthesize paperArray;
+@synthesize infoDic;
+@synthesize orderId;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -56,6 +61,7 @@
     // Do any additional setup after loading the view from its nib.
     [self initializaiton];
     [self initView];
+    [self getOrderDetailData];
 }
 
 - (void)initializaiton
@@ -64,29 +70,30 @@
     statusArray = @[@"已接单",@"已沟通",@"已出发",@"开始服务",@"已完成"];
     imageScrollViewHeigh = 100;
     paperArray = [[NSMutableArray alloc] initWithCapacity:0];
+    infoDic = [[NSDictionary alloc] init];
 }
 
 - (void)initView
 {
     [super initView];
+
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
     tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableview.backgroundView = nil;
     tableview.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
     [Tool setExtraCellLineHidden:tableview];
-    [self addStatueViewWithStatus:eOrderStatusTypeStart];
     
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 50)];
-    footerView.backgroundColor = tableview.backgroundColor;
-    tableview.tableFooterView = footerView;
-    
-    UILabel *tipLabel = [[UILabel alloc] initWithFrame:footerView.bounds];
-    tipLabel.textAlignment = NSTextAlignmentCenter;
-    tipLabel.textColor = [UIColor grayColor];
-    tipLabel.backgroundColor = [UIColor clearColor];
-    tipLabel.font = [UIFont systemFontOfSize:12.0];
-    tipLabel.text = @"服务完成后，请填写护理报告";
-    [footerView addSubview:tipLabel];
+//    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 50)];
+//    footerView.backgroundColor = tableview.backgroundColor;
+//    tableview.tableFooterView = footerView;
+//    
+//    UILabel *tipLabel = [[UILabel alloc] initWithFrame:footerView.bounds];
+//    tipLabel.textAlignment = NSTextAlignmentCenter;
+//    tipLabel.textColor = [UIColor grayColor];
+//    tipLabel.backgroundColor = [UIColor clearColor];
+//    tipLabel.font = [UIFont systemFontOfSize:12.0];
+//    tipLabel.text = @"服务完成后，请填写护理报告";
+//    [footerView addSubview:tipLabel];
     
     CGFloat scrollX = 5;
     CGFloat scrollY = 5;
@@ -94,15 +101,43 @@
     CGFloat scrollH = imageScrollViewHeigh;
     photoScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(scrollX, scrollY, scrollW, scrollH)];
     [paperArray addObject:@"123"];
-    [paperArray addObject:@"123"];
-    [paperArray addObject:@"123"];
-    [paperArray addObject:@"123"];
-    [paperArray addObject:@"123"];
+
     [self addPhotoScrollView];
     
 }
 
-- (void)addStatueViewWithStatus:(eOrderStatusType)statusType
+- (void)getOrderDetailData{
+    
+    NSDictionary * params  = @{@"orderSendId" : orderId};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:ORDERDESCRIPTION params:params success:^(AFHTTPRequestOperation* operation,id response){
+        
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            if ([[respondDict valueForKey:@"json"] isMemberOfClass:[NSNull class]] || [respondDict valueForKey:@"json"] == nil) {
+                [self performSelector:@selector(backToRootView) withObject:nil afterDelay:1.2];
+            }else{
+                infoDic = [[NSDictionary alloc] initWithDictionary:[respondDict valueForKey:@"json"]];
+                [self addStatueViewWithStatus:[[infoDic valueForKey:@"orderReceivestate"] integerValue]];
+                [tableview reloadData];
+            }
+            NSLog(@"success");
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            [self performSelector:@selector(backToRootView) withObject:nil afterDelay:1.2];
+            NSLog(@"faile");
+        }
+        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
+}
+
+- (void)backToRootView{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)addStatueViewWithStatus:(NSInteger)statusType
 {
     CGFloat statusLabelX = 5;
     CGFloat statusLabelY = 10;
@@ -232,9 +267,18 @@
 {
     if (button.tag == 0) {
         NSLog(@"请求取消");
-    }
-    else{
-        NSLog(@"填写护理报告");
+        [self sendCancleOrderWithOrderId:orderId];
+    }else{
+        
+        NSInteger orderIndex = [[infoDic valueForKey:@"orderReceivestate"] integerValue];
+        if(orderIndex == 0 || orderIndex == 1 || orderIndex == 2){
+            [self updateOrderStateWithOrderState:orderIndex];
+        }else if(orderIndex == 3){
+            // "执行下一步：填写报告";
+            NurseReportVC *nurseReportVC = [[NurseReportVC alloc] init];
+            nurseReportVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:nurseReportVC animated:YES];
+        }
     }
 }
 
@@ -277,7 +321,7 @@
     
     static NSString *cellIndentifier = @"OrderFinishedTableViewCell";
     CGSize cellSize = [tableView rectForRowAtIndexPath:indexPath].size;
-    //    NSDictionary *dict = [NSDictionary dictionaryWithDictionary:[dataArr objectAtIndex:row]];
+    NSDictionary *dict = [NSDictionary dictionaryWithDictionary:infoDic];
     
     HeBaseTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell) {
@@ -291,14 +335,24 @@
                 case 0:
                 {
                     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                    
+                    NSString *content = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendServicecontent"]];
+                    NSArray *contentArr = [content componentsSeparatedByString:@":"];
+                    
                     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, cellSize.height)];
                     titleLabel.backgroundColor = [UIColor clearColor];
-                    titleLabel.text = @"新生儿护理";
+                    @try {
+                        titleLabel.text = contentArr[1];
+                    } @catch (NSException *exception) {
+                        
+                    } @finally {
+                        
+                    }
                     titleLabel.font = [UIFont systemFontOfSize:15.0];
                     titleLabel.textColor = [UIColor blackColor];
                     [cell addSubview:titleLabel];
                     
-                    NSString *priceString = @"￥199";
+                    NSString *priceString = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
                     UIFont *priceFont = [UIFont systemFontOfSize:14.0];
                     CGSize priceSize = [MLLabel getViewSizeByString:priceString maxWidth:200 font:priceFont lineHeight:1.2f lines:0];
                     CGFloat priceLabelW = priceSize.width;
@@ -325,13 +379,20 @@
                 }
                 case 1:
                 {
+                    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+                    [formatter setDateStyle:NSDateFormatterMediumStyle];
+                    [formatter setTimeStyle:NSDateFormatterShortStyle];
+                    [formatter setDateFormat:@"MM/dd HH:MM"];
+                    NSDate *stopTimeData = [NSDate dateWithTimeIntervalSince1970:[[dict valueForKey:@"orderSendBegintime"] longLongValue]];
+                    NSString *stopTimeStr = [formatter stringFromDate:stopTimeData];
+                    
                     CGFloat timeLabelX = 10;
                     CGFloat timeLabelW = SCREENWIDTH - 2 * timeLabelX;
                     CGFloat timeLabelH = cellSize.height / 2.0;
                     CGFloat timeLabelY = 0;
                     UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(timeLabelX, timeLabelY, timeLabelW, timeLabelH)];
                     timeLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
-                    timeLabel.text = @"07/26 星期二 16:00 ~ 18:00";
+                    timeLabel.text = stopTimeStr;
                     [cell addSubview:timeLabel];
                     
                     CGFloat locationIconH = 20;
@@ -343,6 +404,8 @@
                     locationIcon.frame = CGRectMake(locationIconX, locationIconY, locationIconW, locationIconH);
                     [cell addSubview:locationIcon];
                     
+                    NSString *address = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendAddree"]];
+                    NSArray *addArr = [address componentsSeparatedByString:@","];
                     
                     CGFloat addressLabelX = 10;
                     CGFloat addressLabelW = CGRectGetMinX(locationIcon.frame) - addressLabelX - 10;
@@ -350,7 +413,13 @@
                     CGFloat addressLabelY = CGRectGetMaxY(timeLabel.frame);
                     UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(addressLabelX, addressLabelY, addressLabelW, addressLabelH)];
                     addressLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
-                    addressLabel.text = @"西湖区西溪路385号西西创立方24号801";
+                    @try {
+                        addressLabel.text = addArr[2];
+                    } @catch (NSException *exception) {
+                        
+                    } @finally {
+                        
+                    }
                     [cell addSubview:addressLabel];
                     
                     break;
@@ -365,13 +434,15 @@
                     titleLabel.textColor = [UIColor blackColor];
                     [cell addSubview:titleLabel];
                     
+                    NSString *sex = [[dict valueForKey:@"orderSendSex"] integerValue] == 1 ? @"男" : @"女";
+                    
                     CGFloat subTitleLabelX = CGRectGetMaxX(titleLabel.frame) + 5;
                     CGFloat subTitleLabelY = 0;
                     CGFloat subTitleLabelH = cellSize.height;
                     CGFloat subTitleLabelW = SCREENWIDTH - subTitleLabelX - 40;
                     UILabel *subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(subTitleLabelX, subTitleLabelY, subTitleLabelW, subTitleLabelH)];
                     subTitleLabel.backgroundColor = [UIColor clearColor];
-                    subTitleLabel.text = @"小明   男   12岁";
+                    subTitleLabel.text = [NSString stringWithFormat:@"%@ %@ %@岁",[dict valueForKey:@"orderSendUsername"],sex,[dict valueForKey:@"orderSendAge"]];
                     subTitleLabel.textAlignment = NSTextAlignmentRight;
                     subTitleLabel.font = [UIFont systemFontOfSize:15.0];
                     subTitleLabel.textColor = [UIColor blackColor];
@@ -402,7 +473,7 @@
                     CGFloat subTitleLabelW = SCREENWIDTH - subTitleLabelX - 10;
                     UILabel *subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(subTitleLabelX, subTitleLabelY, subTitleLabelW, subTitleLabelH)];
                     subTitleLabel.backgroundColor = [UIColor clearColor];
-                    subTitleLabel.text = @"宝宝一岁半，经常尿床";
+                    subTitleLabel.text = [dict valueForKey:@"orderSendNote"];
                     subTitleLabel.textAlignment = NSTextAlignmentRight;
                     subTitleLabel.font = [UIFont systemFontOfSize:15.0];
                     subTitleLabel.textColor = [UIColor blackColor];
@@ -441,10 +512,17 @@
                     CGFloat orderNoLabelY = 0;
                     UILabel *orderNoLabel = [[UILabel alloc] initWithFrame:CGRectMake(orderNoLabelX, orderNoLabelY, orderNoLabelW, orderNoLabelH)];
                     orderNoLabel.font = [UIFont fontWithName:@"Helvetica" size:13.0];
-                    orderNoLabel.text = @"订单编号: 201610324222";
+                    orderNoLabel.text = [NSString stringWithFormat:@"订单编号: %@",[dict valueForKey:@"orderSendId"]];
+                    
                     [cell addSubview:orderNoLabel];
                     
                     
+                    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+                    [formatter setDateStyle:NSDateFormatterMediumStyle];
+                    [formatter setTimeStyle:NSDateFormatterShortStyle];
+                    [formatter setDateFormat:@"MM/dd HH:MM"];
+                    NSDate *stopTimeData = [NSDate dateWithTimeIntervalSince1970:[[dict valueForKey:@"orderSendGetOrderTime"] longLongValue]];
+                    NSString *stopTimeStr = [formatter stringFromDate:stopTimeData];
                     
                     CGFloat timeLabelX = 10;
                     CGFloat timeLabelW = SCREENWIDTH - 2 * timeLabelX;
@@ -452,7 +530,7 @@
                     CGFloat timeLabelY = CGRectGetMaxY(orderNoLabel.frame);
                     UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(timeLabelX, timeLabelY, timeLabelW, timeLabelH)];
                     timeLabel.font = [UIFont fontWithName:@"Helvetica" size:13.0];
-                    timeLabel.text = @"接单时间: 2016 07/26 17:30";
+                    timeLabel.text = [NSString stringWithFormat:@"接单时间: %@",stopTimeStr];
                     [cell addSubview:timeLabel];
                     
                     break;
@@ -462,7 +540,7 @@
                     CGFloat buttonX = 0;
                     CGFloat buttonY = 0;
                     CGFloat buttonW = 100;
-                    CGFloat buttonH = cellSize.height;
+                    CGFloat buttonH = 44;
                     
                     UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
                     [cancelButton setTitle:@"请求取消" forState:UIControlStateNormal];
@@ -472,24 +550,46 @@
                     cancelButton.tag = 0;
                     [cell addSubview:cancelButton];
                     
+                    NSArray  *orderStateStr = @[@"联系客户",@"出发",@"开始服务",@"填写报告"];
+                    NSInteger orderIndex = [[dict valueForKey:@"orderReceivestate"] integerValue];
+                    
                     buttonX = CGRectGetMaxX(cancelButton.frame);
                     buttonW = SCREENWIDTH - buttonX;
+
+                    UILabel *stateLabel = [[UILabel alloc] initWithFrame:CGRectMake(buttonX+buttonW/2.0+15, buttonY, 100, buttonH)];
+                    stateLabel.font = [UIFont systemFontOfSize:15.0];
+                    stateLabel.text = [NSString stringWithFormat:@"(%@)",orderStateStr[orderIndex]];
+                    stateLabel.textColor = [UIColor grayColor];
+                    stateLabel.textAlignment = NSTextAlignmentCenter;
+                    stateLabel.backgroundColor = [UIColor clearColor];
+                    [cell addSubview:stateLabel];
+                    
                     UIButton *nextButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
-                    [nextButton setTitle:@"下一步（填写报告）" forState:UIControlStateNormal];
+                    [nextButton setTitle:@"下一步" forState:UIControlStateNormal];
                     [nextButton.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
                     [nextButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                    nextButton.backgroundColor = [UIColor clearColor];
                     [nextButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
                     nextButton.tag = 1;
                     [cell addSubview:nextButton];
                     
                     CGFloat sepLineX = buttonX;
                     CGFloat sepLineY = 3;
-                    CGFloat sepLineH = cellSize.height - 2 * sepLineY;
+                    CGFloat sepLineH = 44 - 2 * sepLineY;
                     CGFloat sepLineW = 1;
                     
                     UIView *sepLine = [[UIView alloc] initWithFrame:CGRectMake(sepLineX, sepLineY, sepLineW, sepLineH)];
                     sepLine.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
                     [cell addSubview:sepLine];
+                    
+                    NSArray *tipArr = @[@"1.仔细查看订单内容；\n2.仔细查看服务内容、备注内容；\n注：要求接单后尽快与病人确认。",@"1、电话联系用户，核对\n 1)服务时间、地点\n 2)病人信息、服务内容，备注：如需要请病人补充；\n 3）过敏史，传染病史；\n 4）病人自备材料及要求采购材料。",@"1、电话联系用户，确定是否在家。告知预计到达时间，及病人自备材料；\n2、核对所带设备、材料",@"1、自我介绍；\n2、说明服务内容及流程；\n3、开始服务"];
+                    UITextView *tipTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, buttonY+buttonH, SCREENWIDTH-20, 90)];
+                    tipTextView.font = [UIFont systemFontOfSize:10.0];
+                    tipTextView.text = tipArr[orderIndex];
+                    tipTextView.textColor = [UIColor grayColor];
+                    tipTextView.backgroundColor = [UIColor clearColor];
+                    [cell addSubview:tipTextView];
+                    
                     break;
                 }
                 default:
@@ -547,7 +647,7 @@
                     return 50;
                     break;
                 case 1:
-                    return 44;
+                    return 44+94;
                     break;
                 default:
                     break;
@@ -579,8 +679,104 @@
     NSInteger section = indexPath.section;
     
     NSLog(@"row = %ld, section = %ld",row,section);
+    if (section == 0 && row == 1) {
+        //地图
+        NSString *address = [NSString stringWithFormat:@"%@",[infoDic valueForKey:@"orderSendAddree"]];
+        NSArray *addArr = [address componentsSeparatedByString:@","];
+        //经度
+        NSString *zoneLocationX = nil;
+        //纬度
+        NSString *zoneLocationY = nil;
+        @try {
+            zoneLocationX = addArr[0];
+            zoneLocationY = addArr[1];
+        } @catch (NSException *exception) {
+            
+        } @finally {
+            
+        }
+        NSDictionary *userLocationDic = @{@"zoneLocationY":zoneLocationY,@"zoneLocationX":zoneLocationX};
+        [self goLocationWithLocation:userLocationDic];
+    }
+    if (section == 0 && row == 2) {
+        //患者信息
+        [self showPaitentInfoWith:infoDic];
+    }
 }
 
+
+//取消订单
+- (void)sendCancleOrderWithOrderId:(NSString *)orderId{
+    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+    //订单ID
+    NSDictionary * params  = @{@"orderSendId" : orderId,
+                               @"userId" : userAccount,
+                               @"identity" : [NSNumber numberWithInteger:1]};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:CANCLEORDER params:params success:^(AFHTTPRequestOperation* operation,id response){
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSLog(@"respondString:%@",respondString);
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+//            [self getOrderDetailData];
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
+        
+        
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
+}
+
+
+- (void)updateOrderStateWithOrderState:(NSInteger)orderState{
+    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+    NSString *orderSendId = [infoDic valueForKey:@"orderSendId"];
+    NSString *orderReceiverState = [NSString stringWithFormat:@"%ld",orderState+1];
+    
+    NSDictionary * params  = @{@"nurseId": userAccount,
+                               @"orderSendId" : orderSendId,
+                               @"orderReceiverState" : orderReceiverState};
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:UPDATEORDERSTATE params:params success:^(AFHTTPRequestOperation* operation,id response){
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSLog(@"respondString:%@",respondString);
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        
+        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            
+            [self getOrderDetailData];
+            
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
+}
+
+//患者信息
+- (void)showPaitentInfoWith:(NSDictionary *)paitentInfoDict
+{
+    HePaitentInfoVC *paitentInfoVC = [[HePaitentInfoVC alloc] init];
+    paitentInfoVC.userInfoDict = [[NSDictionary alloc] initWithDictionary:paitentInfoDict];
+    paitentInfoVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:paitentInfoVC animated:YES];
+}
+
+- (void)goLocationWithLocation:(NSDictionary *)locationDict
+{
+    HeUserLocatiVC *userLocationVC = [[HeUserLocatiVC alloc] init];
+    userLocationVC.userLocationDict = [[NSDictionary alloc] initWithDictionary:locationDict];
+    userLocationVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:userLocationVC animated:YES];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

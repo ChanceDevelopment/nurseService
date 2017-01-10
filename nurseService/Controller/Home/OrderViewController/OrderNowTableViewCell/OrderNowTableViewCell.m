@@ -15,6 +15,7 @@
 @synthesize addressL;
 @synthesize userInfoL;
 @synthesize orderInfoDict;
+@synthesize oderStateL;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier cellSize:(CGSize)cellsize
 {
@@ -136,18 +137,30 @@
         [bgView addSubview:line2];
         line2.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
 
-        
-        UILabel *nextStepL = [[UILabel alloc] initWithFrame:CGRectMake(90, 111, SCREENWIDTH-100, 35)];
-        nextStepL.textColor = [UIColor grayColor];
+        CGFloat nextStepW = (SCREENWIDTH-100)*2/5.0;
+        UILabel *nextStepL = [[UILabel alloc] initWithFrame:CGRectMake(90, 111, nextStepW, 35)];
+        nextStepL.textColor = [UIColor blackColor];
         nextStepL.userInteractionEnabled = YES;
-        nextStepL.textAlignment = NSTextAlignmentCenter;
+        nextStepL.textAlignment = NSTextAlignmentRight;
         nextStepL.font = [UIFont systemFontOfSize:12.0];
-        nextStepL.text = @"下一步（填写报告）";
         nextStepL.backgroundColor = [UIColor clearColor];
+        nextStepL.text = @"下一步";
         [bgView addSubview:nextStepL];
+
+        CGFloat oderStateX = 90 + nextStepW;
+        CGFloat oderStateW = (SCREENWIDTH-100)*3/5.0;
+        oderStateL = [[UILabel alloc] initWithFrame:CGRectMake(oderStateX, 111, oderStateW, 35)];
+        oderStateL.textColor = [UIColor grayColor];
+        oderStateL.userInteractionEnabled = YES;
+        oderStateL.font = [UIFont systemFontOfSize:12.0];
+        oderStateL.backgroundColor = [UIColor clearColor];
+        [bgView addSubview:oderStateL];
         
         UITapGestureRecognizer *nextStepTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStepRequst)];
         [nextStepL addGestureRecognizer:nextStepTap];
+        
+        UITapGestureRecognizer *nextStepTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStepRequst)];
+        [oderStateL addGestureRecognizer:nextStepTap1];
         
     }
     return self;

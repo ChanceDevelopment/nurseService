@@ -19,12 +19,16 @@
 #import "MZTimerLabel.h"
 #import "HeUserLocatiVC.h"
 #import "HePaitentInfoVC.h"
+#import "NurseReportVC.h"
 
 @interface OrderViewController ()<UITableViewDelegate,UITableViewDataSource>{
     NSInteger currentPage;
     NSInteger currentType;
     NSMutableArray *dataArr;
     UIView *receiveOrderView;
+    UIView *windowView;
+    NSDictionary *currentDic;
+    UIImageView *noDataView;
 }
 @property(nonatomic,strong)DLNavigationTabBar *navigationTabBar;
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
@@ -113,22 +117,110 @@
     currentType = 0;
     [self getDataWithUrl:ORDERLOOKRECEIVER];
     dataArr = [[NSMutableArray alloc] initWithCapacity:0];
+    currentDic = [[NSDictionary alloc] init];
 
+    
+    CGFloat tableViewY = 44;
+    CGFloat tableViewH = self.view.frame.size.height-44-120-48+80;
+    
+
+    CGFloat noDataViewW = 50;
+    CGFloat noDataViewY = (self.view.frame.size.height-44-48-noDataViewW)/2.0;
+    CGFloat noDataViewX = (SCREENWIDTH-noDataViewW)/2.0;
+    
+    UIView *bgView = [[UIView alloc] init];
+    bgView.frame  = CGRectMake(0, tableViewY, SCREENWIDTH, tableViewH);
+    [self.view addSubview:bgView];
+    bgView.backgroundColor = [UIColor colorWithWhite:244.0 / 255.0 alpha:1.0];
+
+    noDataView = [[UIImageView alloc] init];
+    noDataView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:noDataView];
+    noDataView.frame = CGRectMake(noDataViewX, noDataViewY, noDataViewW, noDataViewW);
+    noDataView.image = [UIImage imageNamed:@"img_no_data"];
+    noDataView.hidden = YES;
+    
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
+    myTableView = [[UITableView alloc] init];
+    myTableView.frame = CGRectMake(0, tableViewY, SCREENWIDTH, tableViewH);
+    myTableView.delegate = self;
+    myTableView.dataSource = self;
     [myTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [Tool setExtraCellLineHidden:myTableView];
     myTableView.backgroundView = nil;
     myTableView.backgroundColor = self.view.backgroundColor;
+    [self.view addSubview:myTableView];
+    myTableView.hidden = YES;
     
     
-    CGFloat view_h = self.view.frame.size.height;
+    CGFloat receiveOrderViewX = 0;
+    CGFloat receiveOrderViewY = 0;
+    CGFloat receiveOrderViewW = 50;
+    CGFloat receiveOrderViewH = 35;
+    
+    CGFloat receiveOrderX = 0;
+    CGFloat receiveOrderY = 0;
+    CGFloat receiveOrderH = 20;
+    CGFloat receiveOrderW = receiveOrderViewW;
+    
+    receiveOrderView = [[UIView alloc] initWithFrame:CGRectMake(receiveOrderViewX, receiveOrderViewY, receiveOrderViewW, receiveOrderViewH)];
+    receiveOrderView.backgroundColor = [UIColor whiteColor];
+    
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, receiveOrderH, receiveOrderViewW, 15)];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.textColor = APPDEFAULTORANGE;
+    titleLabel.text = @"接单中";
+    titleLabel.tag = 100;
+    titleLabel.font = [UIFont systemFontOfSize:10.0];
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    [receiveOrderView addSubview:titleLabel];
+    
+    
+    ZJSwitch *receiveOrderSwitch = [[ZJSwitch alloc] initWithFrame:CGRectMake(receiveOrderX, receiveOrderY, receiveOrderW, receiveOrderH)];
+    receiveOrderSwitch.on = [[NSUserDefaults standardUserDefaults] objectForKey:RECEIVEORDERSTATE];
+    [receiveOrderSwitch addTarget:self action:@selector(receiveOrderSwitchChangeValue:) forControlEvents:UIControlEventValueChanged];
+    receiveOrderSwitch.tintColor = APPDEFAULTORANGE;
+    receiveOrderSwitch.onTintColor = APPDEFAULTORANGE;
+    receiveOrderSwitch.thumbTintColor = [UIColor whiteColor];
+//    receiveOrderSwitch.layer.borderWidth = 0.5;
+//    receiveOrderSwitch.layer.borderColor = APPDEFAULTORANGE.CGColor;
+    [receiveOrderView addSubview:receiveOrderSwitch];
+    
+    UIBarButtonItem *receiveOrderItem = [[UIBarButtonItem alloc] initWithCustomView:receiveOrderView];
+    self.navigationItem.rightBarButtonItem = receiveOrderItem;
+    
+    [self.myTableView addSubview:self.placeholderLabel];
+    [self.placeholderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.myTableView);
+    }];
+    
+    self.myTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        // 进入刷新状态后会自动调用这个block,刷新
+        [self.myTableView.header performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
+        [self reloadData];
+    }];
+    
+    self.myTableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        self.myTableView.footer.automaticallyHidden = YES;
+        self.myTableView.footer.hidden = NO;
+        // 进入刷新状态后会自动调用这个block，加载更多
+        [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
+    }];
+    
+}
+
+- (void)initFooterView{
+    
+    CGFloat tableViewY = 44;
+    CGFloat tableViewH = self.view.frame.size.height-44-120-48;
+    
+    CGFloat footerViewY = tableViewY + tableViewH;
+    CGFloat footerViewH = 120;
     footerView = [[UIView alloc] init];
-    footerView.frame = CGRectMake(0, view_h-120-145, SCREENWIDTH, 120);
-    footerView.backgroundColor = [UIColor grayColor];
+    footerView.frame = CGRectMake(0, footerViewY, SCREENWIDTH, footerViewH);
     [self.view addSubview:footerView];
-//    footerView.backgroundColor = self.view.backgroundColor;
+    footerView.backgroundColor = self.view.backgroundColor;
     
-    CGFloat footerHeigth = 100;
     CGFloat receiveIconW = 60;
     CGFloat receiveIconH = 60;
     CGFloat receiveIconX = (SCREENWIDTH - receiveIconW) / 2.0;
@@ -194,62 +286,8 @@
     timer3.timeFormat = @"mm:ss";
     [timer3 setCountDownTime:60 * 5];
     [timer3 start];
-    
-    
-    CGFloat receiveOrderViewX = 0;
-    CGFloat receiveOrderViewY = 0;
-    CGFloat receiveOrderViewW = 50;
-    CGFloat receiveOrderViewH = 35;
-    
-    CGFloat receiveOrderX = 0;
-    CGFloat receiveOrderY = 0;
-    CGFloat receiveOrderH = 20;
-    CGFloat receiveOrderW = receiveOrderViewW;
-    
-    receiveOrderView = [[UIView alloc] initWithFrame:CGRectMake(receiveOrderViewX, receiveOrderViewY, receiveOrderViewW, receiveOrderViewH)];
-    receiveOrderView.backgroundColor = [UIColor whiteColor];
-    
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, receiveOrderH, receiveOrderViewW, 15)];
-    titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.textColor = APPDEFAULTORANGE;
-    titleLabel.text = @"接单中";
-    titleLabel.tag = 100;
-    titleLabel.font = [UIFont systemFontOfSize:10.0];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    [receiveOrderView addSubview:titleLabel];
-    
-    
-    ZJSwitch *receiveOrderSwitch = [[ZJSwitch alloc] initWithFrame:CGRectMake(receiveOrderX, receiveOrderY, receiveOrderW, receiveOrderH)];
-    receiveOrderSwitch.on = [[NSUserDefaults standardUserDefaults] objectForKey:RECEIVEORDERSTATE];
-    [receiveOrderSwitch addTarget:self action:@selector(receiveOrderSwitchChangeValue:) forControlEvents:UIControlEventValueChanged];
-    receiveOrderSwitch.tintColor = APPDEFAULTORANGE;
-    receiveOrderSwitch.onTintColor = APPDEFAULTORANGE;
-    receiveOrderSwitch.thumbTintColor = [UIColor whiteColor];
-//    receiveOrderSwitch.layer.borderWidth = 0.5;
-//    receiveOrderSwitch.layer.borderColor = APPDEFAULTORANGE.CGColor;
-    [receiveOrderView addSubview:receiveOrderSwitch];
-    
-    UIBarButtonItem *receiveOrderItem = [[UIBarButtonItem alloc] initWithCustomView:receiveOrderView];
-    self.navigationItem.rightBarButtonItem = receiveOrderItem;
-    
-    [self.myTableView addSubview:self.placeholderLabel];
-    [self.placeholderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self.myTableView);
-    }];
-    
-    self.myTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        // 进入刷新状态后会自动调用这个block,刷新
-        [self.myTableView.header performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
-    }];
-    
-    self.myTableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        self.myTableView.footer.automaticallyHidden = YES;
-        self.myTableView.footer.hidden = NO;
-        // 进入刷新状态后会自动调用这个block，加载更多
-        [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
-    }];
-    
 }
+
 
 - (void)buttonClick:(UIButton *)button
 {
@@ -290,7 +328,7 @@
     NSString *receiveState = mySwitch.on ? @"0" : @"1";    //0可接1不可接
     NSDictionary * params  = @{@"nurseId": userAccount,
                                @"nurseReceiverState": receiveState};
-    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:UPDATEORDERSTATE params:params success:^(AFHTTPRequestOperation* operation,id response){
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:UPDATEORDERRECEIVERSTATE params:params success:^(AFHTTPRequestOperation* operation,id response){
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSLog(@"respondString:%@",respondString);
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
@@ -330,17 +368,84 @@
             NSLog(@"success");
             if ([[respondDict valueForKey:@"json"] isMemberOfClass:[NSNull class]] || [respondDict valueForKey:@"json"] == nil) {
                 [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
-
+                
+                if (footerView) {
+                    [footerView removeFromSuperview];
+                    footerView = nil;
+                }
+                noDataView.hidden = NO;
+                myTableView.hidden = YES;
                 return ;
             }else{
                 NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
+                switch (currentType) {
+                    case 0:
+                    {
+                        CGFloat tableViewY = 44;
+                        CGFloat tableViewH = self.view.frame.size.height-44-120-48+80;
+                        myTableView.frame = CGRectMake(0, tableViewY, SCREENWIDTH, tableViewH);
+                        if (tempArr.count >0){
+                            if (footerView == nil) {
+                                [self initFooterView];
+                            }
+                            noDataView.hidden = YES;
+                            myTableView.hidden = NO;
+                        }else{
+                            noDataView.hidden = NO;
+                            myTableView.hidden = YES;
+                        }
+                    }
+                        break;
+                    case 1:
+                    {
+                        
+                        CGFloat tableViewY = 44;
+                        CGFloat tableViewH = self.view.frame.size.height-44-48+80;
+                        myTableView.frame = CGRectMake(0, tableViewY, SCREENWIDTH, tableViewH);
+                        if (footerView) {
+                            [footerView removeFromSuperview];
+                            footerView = nil;
+                        }
+                        if (tempArr.count >0){
+                            noDataView.hidden = YES;
+                            myTableView.hidden = NO;
+                        }else{
+                            noDataView.hidden = NO;
+                            myTableView.hidden = YES;
+                        }
+                    }
+                        break;
+                    case 2:
+                    {
+                        if (footerView) {
+                            [footerView removeFromSuperview];
+                            footerView = nil;
+                        }
+                        CGFloat tableViewY = 44;
+                        CGFloat tableViewH = self.view.frame.size.height-44-48+50;
+                        myTableView.frame = CGRectMake(0, tableViewY, SCREENWIDTH, tableViewH);
+                        if (tempArr.count >0){
+                            noDataView.hidden = YES;
+                            myTableView.hidden = NO;
+                        }else{
+                            noDataView.hidden = NO;
+                            myTableView.hidden = YES;
+                        }
+                    }
+                        break;
+                    default:
+                        break;
+                }
+                
                 if (tempArr.count >0) {
                     currentPage++;
                     [dataArr addObjectsFromArray:tempArr];
                     [myTableView reloadData];
                 }else{
+                    [myTableView reloadData];
                     return;
                 }
+                
             }
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
@@ -355,9 +460,9 @@
 - (void)sendCancleOrderWithOrderId:(NSString *)orderId{
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     //订单ID
-    NSDictionary * params  = @{@"orderSendId": orderId,
-                               @"userId": userAccount,
-                               @"identity": [NSNumber numberWithInteger:1]};
+    NSDictionary * params  = @{@"orderSendId" : orderId,
+                               @"userId" : userAccount,
+                               @"identity" : [NSNumber numberWithInteger:1]};
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:CANCLEORDER params:params success:^(AFHTTPRequestOperation* operation,id response){
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSLog(@"respondString:%@",respondString);
@@ -365,8 +470,7 @@
         [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
-            
-            
+//            [self reloadData];
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
         }
@@ -386,7 +490,7 @@
     if (dataArr && dataArr.count > 0) {
         [dataArr removeAllObjects];
     }
-    switch (currentPage) {
+    switch (currentType) {
         case 0:
         {
             [self getDataWithUrl:ORDERLOOKRECEIVER];
@@ -408,6 +512,7 @@
     
 }
 
+
 - (void)showPaitentInfoWith:(NSDictionary *)paitentInfoDict
 {
     HePaitentInfoVC *paitentInfoVC = [[HePaitentInfoVC alloc] init];
@@ -420,6 +525,7 @@
 {
     HeOrderDetailVC *orderDetailVC = [[HeOrderDetailVC alloc] init];
     orderDetailVC.hidesBottomBarWhenPushed = YES;
+    orderDetailVC.orderId = [orderDict valueForKey:@"orderSendId"];
     [self.navigationController pushViewController:orderDetailVC animated:YES];
 }
 
@@ -449,10 +555,13 @@
     
     static NSString *cellIndentifier = @"OrderFinishedTableViewCell";
     CGSize cellSize = [tableView rectForRowAtIndexPath:indexPath].size;
-    
-    NSDictionary *userInfoDic = [NSDictionary dictionaryWithDictionary:[dataArr objectAtIndex:row]];
-    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[Tool deleteNullFromDic:userInfoDic]];
-    
+    NSDictionary *userInfoDic = nil;
+    NSMutableDictionary *dict = nil;
+    if (dataArr.count > 0) {
+        userInfoDic = [NSDictionary dictionaryWithDictionary:[dataArr objectAtIndex:row]];
+        dict = [NSMutableDictionary dictionaryWithDictionary:[Tool deleteNullFromDic:userInfoDic]];
+        currentDic = dict;
+    }
     if (currentType == 0) {
         OrderRecTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
         if (!cell) {
@@ -461,14 +570,16 @@
         }
         cell.backgroundColor = [UIColor colorWithWhite:244.0 / 255.0 alpha:1.0];
         
-        cell.serviceContentL.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendServicecontent"]];
+        NSString *content = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendServicecontent"]];
+        NSArray *contentArr = [content componentsSeparatedByString:@":"];
+        
+        cell.serviceContentL.text = contentArr[1];
         
         NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
         [formatter setDateStyle:NSDateFormatterMediumStyle];
         [formatter setTimeStyle:NSDateFormatterShortStyle];
         [formatter setDateFormat:@"MM/dd HH:MM"];
-        [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendGetOrderTime"]];
-        NSDate *stopTimeData = [NSDate dateWithTimeIntervalSince1970:[[dict valueForKey:@"orderSendGetOrderTime"] longLongValue]];
+        NSDate *stopTimeData = [NSDate dateWithTimeIntervalSince1970:[[dict valueForKey:@"orderSendBegintime"] longLongValue]];
         NSString *stopTimeStr = [formatter stringFromDate:stopTimeData];
         cell.stopTimeL.text = stopTimeStr;
         cell.orderMoney.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
@@ -497,6 +608,7 @@
         
         cell.showOrderDetailBlock = ^(){
             NSLog(@"showOrderDetail");
+            [weakSelf showOrderDetailWithOrder:dict];
         };
         cell.locationBlock = ^(){
             NSLog(@"locationBlock");
@@ -516,16 +628,16 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         cell.backgroundColor = [UIColor colorWithWhite:244.0 / 255.0 alpha:1.0];
+        NSString *content = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendServicecontent"]];
+        NSArray *contentArr = [content componentsSeparatedByString:@":"];
         
-        
-        cell.serviceContentL.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendServicecontent"]];
+        cell.serviceContentL.text = contentArr[1];
         
         NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
         [formatter setDateStyle:NSDateFormatterMediumStyle];
         [formatter setTimeStyle:NSDateFormatterShortStyle];
         [formatter setDateFormat:@"MM/dd HH:MM"];
-        [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendGetOrderTime"]];
-        NSDate *stopTimeData = [NSDate dateWithTimeIntervalSince1970:[[dict valueForKey:@"orderSendGetOrderTime"] longLongValue]];
+        NSDate *stopTimeData = [NSDate dateWithTimeIntervalSince1970:[[dict valueForKey:@"orderSendFinishOrderTime"] longLongValue]];
         NSString *stopTimeStr = [formatter stringFromDate:stopTimeData];
         cell.stopTimeL.text = stopTimeStr;
         cell.orderMoney.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
@@ -546,21 +658,26 @@
             
         }
         cell.addressL.text = [NSString stringWithFormat:@"%@",addressStr];
-        NSString *sex = [[dict valueForKey:@"orderSendSex"] integerValue]==1 ? @"男" : @"女";
+        NSString *sex = [[dict valueForKey:@"orderSendSex"] integerValue] == 1 ? @"男" : @"女";
         cell.userInfoL.text = [NSString stringWithFormat:@"%@ %@ %@岁",[dict valueForKey:@"orderSendUsername"],sex,[dict valueForKey:@"orderSendAge"]];
         
+        NSArray  *orderStateStr = @[@"联系客户",@"出发",@"开始服务",@"填写报告"];
+        NSInteger orderIndex = [[dict valueForKey:@"orderReceivestate"] integerValue];
+        cell.oderStateL.text = [NSString stringWithFormat:@"(%@)",orderStateStr[orderIndex]];
+    
         __weak typeof(self) weakSelf = self;
         
         cell.showOrderDetailBlock = ^(){
             NSLog(@"showOrderDetail");
-            [weakSelf showOrderDetailWithOrder:nil];
+            [weakSelf showOrderDetailWithOrder:dict];
         };
         cell.cancleRequstBlock = ^(){
             NSLog(@"cancleRequstBlock");
-            [self sendCancleOrderWithOrderId:@"11111111111"];
+            [weakSelf showCancleAlertView];
         };
         cell.nextStepBlock = ^(){
             NSLog(@"nextStepBlock");
+            [weakSelf showAlertViewWithTag:orderIndex];
         };
         cell.locationBlock = ^(){
             NSLog(@"locationBlock");
@@ -581,8 +698,10 @@
         }
         cell.backgroundColor = [UIColor colorWithWhite:244.0 / 255.0 alpha:1.0];
         
+        NSString *content = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendServicecontent"]];
+        NSArray *contentArr = [content componentsSeparatedByString:@":"];
         
-         cell.serviceContentL.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendServicecontent"]];
+         cell.serviceContentL.text = contentArr[1];
          cell.orderIdNum.text = [NSString stringWithFormat:@"订单编号：%@",[dict valueForKey:@"orderSendId"]];
          
          NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
@@ -624,7 +743,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     
-    if (currentType == 2 && section == 0) {
+    if (currentType == 2 && section == 0 && dataArr.count > 0) {
         return 30;
     }else{
         return 0;
@@ -634,7 +753,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
     UIView *v = nil;
-    if (currentType == 2 && section == 0) {
+    if (currentType == 2 && section == 0 && dataArr.count > 0) {
         v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
         v.userInteractionEnabled = YES;
         [v setBackgroundColor:[UIColor colorWithWhite:244.0 / 255.0 alpha:1.0]];
@@ -684,6 +803,215 @@
 
 - (void)searchAction{
     NSLog(@"searchAction");
+}
+
+- (void)showCancleAlertView{
+    
+    windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
+    windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
+    [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
+    
+    NSInteger addBgView_W = SCREENWIDTH -20;
+    NSInteger addBgView_H = 160;
+    NSInteger addBgView_Y = SCREENHEIGH/2.0-addBgView_H/2.0-40;
+    UIView *addBgView = [[UIView alloc] initWithFrame:CGRectMake(10, addBgView_Y, addBgView_W, addBgView_H)];
+    addBgView.backgroundColor = [UIColor whiteColor];
+    [addBgView.layer setMasksToBounds:YES];
+    [addBgView.layer setCornerRadius:4];
+    addBgView.alpha = 1.0;
+    [windowView addSubview:addBgView];
+    
+    
+    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 40)];
+    titleL.textColor = [UIColor blackColor];
+    titleL.textAlignment = NSTextAlignmentLeft;
+    titleL.font = [UIFont systemFontOfSize:18.0];
+    titleL.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:titleL];
+    
+    NSInteger addTextField_H = 44;
+    NSInteger addTextField_Y = 50;
+    NSInteger addTextField_W =SCREENWIDTH-40;
+    
+    UILabel *infoTip= [[UILabel alloc] initWithFrame:CGRectMake(10, addTextField_Y, addTextField_W, addTextField_H)];//高度--44
+    infoTip.font = [UIFont systemFontOfSize:12.0];
+    infoTip.numberOfLines = 0;
+    infoTip.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:infoTip];
+    
+    titleL.text = @"请求取消";
+    infoTip.text = @"若取消订单,你将无法获取酬劳,你确定要取消这笔订单吗？";
+    
+    
+    NSInteger wordNum_Y = addTextField_Y+44;
+    
+    NSInteger cancleBt_X = SCREENWIDTH-20-10-90;
+    NSInteger cancleBt_Y = wordNum_Y+30;
+    NSInteger cancleBt_W = 40;
+    NSInteger cancleBt_H = 20;
+    
+    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
+    cancleBt.backgroundColor = [UIColor clearColor];
+    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    cancleBt.tag = 0;
+    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:cancleBt];
+    
+    UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [okBt setTitle:@"确定" forState:UIControlStateNormal];
+    okBt.backgroundColor = [UIColor clearColor];
+    okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    okBt.tag = 100;
+    [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:okBt];
+    
+    
+}
+
+- (void)showAlertViewWithTag:(NSInteger)tag{
+    
+    windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
+    windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
+    [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
+    
+    NSInteger addBgView_W = SCREENWIDTH -20;
+    NSInteger addBgView_H = 90;
+    NSInteger addBgView_Y = SCREENHEIGH/2.0-addBgView_H/2.0-40;
+    UIView *addBgView = [[UIView alloc] initWithFrame:CGRectMake(10, addBgView_Y, addBgView_W, addBgView_H)];
+    addBgView.backgroundColor = [UIColor whiteColor];
+    [addBgView.layer setMasksToBounds:YES];
+    [addBgView.layer setCornerRadius:4];
+    addBgView.alpha = 1.0;
+    [windowView addSubview:addBgView];
+    
+    NSInteger addTextField_H = 44;
+    NSInteger addTextField_Y = 10;
+    NSInteger addTextField_W =SCREENWIDTH-40;
+    
+    UILabel *infoTip= [[UILabel alloc] initWithFrame:CGRectMake(10, addTextField_Y, addTextField_W, addTextField_H)];//高度--44
+    infoTip.font = [UIFont systemFontOfSize:12.0];
+    infoTip.numberOfLines = 0;
+    infoTip.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:infoTip];
+    NSInteger orderSendState = tag;  //0已接单1已沟通2已出发3开始服务4已完成
+    if(orderSendState == 0){
+        infoTip.text = @"执行下一步：联系客户";
+    }else if(orderSendState == 1){
+        infoTip.text = @"执行下一步：出发";
+    }else if(orderSendState == 2){
+        infoTip.text = @"执行下一步：开始服务";
+    }else if(orderSendState == 3){
+        infoTip.text = @"执行下一步：填写报告";
+    }
+    
+    NSInteger cancleBt_X = SCREENWIDTH-20-10-90;
+    NSInteger cancleBt_Y = addTextField_Y+50;
+    NSInteger cancleBt_W = 40;
+    NSInteger cancleBt_H = 20;
+    
+    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
+    cancleBt.backgroundColor = [UIColor clearColor];
+    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    cancleBt.tag = 0;
+    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:cancleBt];
+    
+    UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [okBt setTitle:@"确定" forState:UIControlStateNormal];
+    okBt.backgroundColor = [UIColor clearColor];
+    okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    okBt.tag = orderSendState;
+    [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:okBt];
+    
+    
+}
+- (void)clickBtAction:(UIButton *)sender{
+    
+    NSLog(@"tag:%ld",sender.tag);
+    if (sender.tag == 100) {
+// "请求取消";
+        NurseReportVC *nurseReportVC = [[NurseReportVC alloc] init];
+        nurseReportVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:nurseReportVC animated:YES];
+//        [self sendCancleOrderWithOrderId:[currentDic valueForKey:@"orderSendId"]];
+    }else if(sender.tag == 0){
+        [self updateOrderStateWithOrderState:sender.tag];
+// "执行下一步：联系客户";
+    }else if(sender.tag == 1){
+        [self updateOrderStateWithOrderState:sender.tag];
+// "执行下一步：出发";
+    }else if(sender.tag == 2){
+        [self updateOrderStateWithOrderState:sender.tag];
+// "执行下一步：开始服务";
+    }else if(sender.tag == 3){
+// "执行下一步：填写报告";
+        NurseReportVC *nurseReportVC = [[NurseReportVC alloc] init];
+        nurseReportVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:nurseReportVC animated:YES];
+    }
+    if (windowView) {
+        [windowView removeFromSuperview];
+    }
+}
+
+- (void)updateOrderStateWithOrderState:(NSInteger)orderState{
+    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+    NSString *orderSendId = [currentDic valueForKey:@"orderSendId"];
+    NSString *orderReceiverState = [NSString stringWithFormat:@"%ld",orderState+1];
+
+    NSDictionary * params  = @{@"nurseId": userAccount,
+                               @"orderSendId" : orderSendId,
+                               @"orderReceiverState" : orderReceiverState};
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:UPDATEORDERSTATE params:params success:^(AFHTTPRequestOperation* operation,id response){
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSLog(@"respondString:%@",respondString);
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        
+        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            [self reloadData];
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
+}
+
+- (void)reloadData{
+    currentPage = 1;
+    if (dataArr && dataArr.count > 0) {
+        [dataArr removeAllObjects];
+    }
+    switch (currentType) {
+        case 0:
+        {
+            [self getDataWithUrl:ORDERLOOKRECEIVER];
+        }
+            break;
+        case 1:
+        {
+            [self getDataWithUrl:ORDERSTATENOW];
+        }
+            break;
+        case 2:
+        {
+            [self getDataWithUrl:ORDERSTATESUCCESS];
+        }
+            break;
+        default:
+            break;
+    }
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
