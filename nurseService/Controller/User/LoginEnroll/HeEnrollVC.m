@@ -187,7 +187,7 @@
         [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
-            [self.navigationController popViewControllerAnimated:YES];
+            [self performSelector:@selector(backToLoginView) withObject:nil afterDelay:1.2];
             
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
@@ -199,6 +199,10 @@
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
 
+}
+
+- (void)backToLoginView{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 //选择上传头像
