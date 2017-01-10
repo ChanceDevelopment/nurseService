@@ -50,6 +50,13 @@
 #define CANCLEORDER @"orderSend/cancelOrder.action"
 //2.9.1 护士取消专属订单(正接单取消)
 #define CANCLEEXCLUSIVEORDER @"orderReceiver/giveUpExclusiveOrder.action"
+//9.1绑定支付密码和账号
+#define BINDACCOUNTANDPAW@"nurseAnduser/BindAccountAndPassword.action"
+
+
+
+
+
 
 
 //签到

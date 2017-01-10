@@ -293,11 +293,16 @@
 {
     if (button.tag == 0) {
         NSLog(@"取消");
+        [self sendCancleOrderWithOrderId:[dataArr[0] valueForKey:@"orderSendId"]];
+        
     }
     else if (button.tag == 1){
         NSLog(@"接单");
+        [self updateOrderStateWithOrderState:0];
     }
 }
+
+
 - (void)endRefreshing
 {
     [self.myTableView.footer endRefreshing];
@@ -470,12 +475,37 @@
         [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
-//            [self reloadData];
+            [self reloadData];
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
         }
         
         
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
+}
+
+//取消专属订单
+- (void)cancleExclusiveOrder{
+    
+    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+    NSDictionary * params  = @{@"orderSendId" : [dataArr[0] valueForKey:@"orderSendId"],
+                               @"userId" : userAccount};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:CANCLEEXCLUSIVEORDER params:params success:^(AFHTTPRequestOperation* operation,id response){
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSLog(@"respondString:%@",respondString);
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        
+        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:2.0 position:@"center"];
+        
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            [self reloadData];
+            NSLog(@"success");
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
@@ -933,14 +963,10 @@
     
 }
 - (void)clickBtAction:(UIButton *)sender{
-    
     NSLog(@"tag:%ld",sender.tag);
     if (sender.tag == 100) {
 // "请求取消";
-        NurseReportVC *nurseReportVC = [[NurseReportVC alloc] init];
-        nurseReportVC.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:nurseReportVC animated:YES];
-//        [self sendCancleOrderWithOrderId:[currentDic valueForKey:@"orderSendId"]];
+        [self sendCancleOrderWithOrderId:[currentDic valueForKey:@"orderSendId"]];
     }else if(sender.tag == 0){
         [self updateOrderStateWithOrderState:sender.tag];
 // "执行下一步：联系客户";
@@ -954,6 +980,7 @@
 // "执行下一步：填写报告";
         NurseReportVC *nurseReportVC = [[NurseReportVC alloc] init];
         nurseReportVC.hidesBottomBarWhenPushed = YES;
+        nurseReportVC.infoData = currentDic;
         [self.navigationController pushViewController:nurseReportVC animated:YES];
     }
     if (windowView) {
@@ -961,6 +988,7 @@
     }
 }
 
+//执行下一步
 - (void)updateOrderStateWithOrderState:(NSInteger)orderState{
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     NSString *orderSendId = [currentDic valueForKey:@"orderSendId"];

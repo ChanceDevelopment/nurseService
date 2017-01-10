@@ -42,7 +42,6 @@
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
-                        <action selector="logOffAction:" destination="-1" eventType="touchUpInside" id="410-xZ-2h7"/>
                         <action selector="updateVersionAction:" destination="-1" eventType="touchUpInside" id="LQP-kN-jFm"/>
                     </connections>
                 </button>
@@ -57,7 +56,6 @@
                     </state>
                     <connections>
                         <action selector="feedBackAction:" destination="-1" eventType="touchUpInside" id="U5s-2B-a7S"/>
-                        <action selector="logOffAction:" destination="-1" eventType="touchUpInside" id="iqB-Gx-uSZ"/>
                     </connections>
                 </button>
             </subviews>

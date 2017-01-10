@@ -8,11 +8,15 @@
 
 #import "MyCapitalViewController.h"
 #import "DrawCashViewController.h"
+#import "SettingPayPswVC.h"
+#import "ExchangeDetailVC.h"
 
 @interface MyCapitalViewController ()<UITableViewDelegate,UITableViewDataSource>{
     NSArray *iconArr;
     NSArray * tableItemArr;
     UILabel *capitalL;
+    UIView *windowView;
+    UITextField *addTextField;
 }
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
 
@@ -45,6 +49,7 @@
     [self initializaiton];
     [self initView];
 //    [self getData];
+    [self reloadData];
 }
 
 - (void)initializaiton
@@ -77,7 +82,6 @@
     capitalL.font = [UIFont systemFontOfSize:25.0f];
     capitalL.textColor = APPDEFAULTTITLECOLOR;
     capitalL.textAlignment = NSTextAlignmentCenter;
-    capitalL.text = @"2000.00元";
     [headerView addSubview:capitalL];
     
     CGFloat tipImageX = SCREENWIDTH/2.0 - 30;
@@ -96,6 +100,11 @@
     tipL.text = @"我的余额";
     [headerView addSubview:tipL];
     
+}
+
+- (void)reloadData{
+    NSLog(@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY]);
+    capitalL.text = [NSString stringWithFormat:@"%@元",[[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseBalance"]];
 }
 
 - (void)getData{
@@ -201,14 +210,21 @@
             break;
         case 1:
         {
+            [self showAddView];
         }
             break;
         case 2:
         {
+            SettingPayPswVC *settingPayPswVC =[[SettingPayPswVC alloc] init];
+            settingPayPswVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:settingPayPswVC animated:YES];
         }
             break;
         case 3:
         {
+            ExchangeDetailVC *exchangeDetailVC = [[ExchangeDetailVC alloc] init];
+            exchangeDetailVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:exchangeDetailVC animated:YES];
         }
             break;
             
@@ -225,6 +241,110 @@
     return 10;
 }
 
+- (void)showAddView{
+    windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
+    windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
+    [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
+    
+    NSInteger addBgView_W = SCREENWIDTH -20;
+    NSInteger addBgView_H = 160;
+    NSInteger addBgView_Y = SCREENHEIGH/2.0-addBgView_H/2.0-40;
+    UIView *addBgView = [[UIView alloc] initWithFrame:CGRectMake(10, addBgView_Y, addBgView_W, addBgView_H)];
+    addBgView.backgroundColor = [UIColor whiteColor];
+    [addBgView.layer setMasksToBounds:YES];
+    [addBgView.layer setCornerRadius:4];
+    addBgView.alpha = 1.0;
+    [windowView addSubview:addBgView];
+    
+    
+    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 40)];
+    titleL.textColor = [UIColor blackColor];
+    titleL.textAlignment = NSTextAlignmentLeft;
+    titleL.font = [UIFont systemFontOfSize:18.0];
+    titleL.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:titleL];
+    titleL.text = @"绑定支付宝";
+    
+    NSInteger addTextField_H = 44;
+    NSInteger addTextField_Y = 50;
+    NSInteger addTextField_W =SCREENWIDTH-40;
+    
+    addTextField = [[UITextField alloc] initWithFrame:CGRectMake(10, addTextField_Y, addTextField_W, addTextField_H)];//高度--44
+    addTextField.font = [UIFont systemFontOfSize:15.0];
+    addTextField.backgroundColor = [UIColor clearColor];
+    addTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    addTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    addTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    addTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    addTextField.placeholder = @"请输入支付宝账号";
+    [addBgView addSubview:addTextField];
+    
+    //边线
+    UILabel *borderLine = [[UILabel alloc] initWithFrame:CGRectMake(10, addTextField_Y+44, addTextField_W, 0.5)];
+    [addBgView addSubview:borderLine];
+    borderLine.backgroundColor = [UIColor blueColor];
+    
+    
+    NSInteger cancleBt_X = SCREENWIDTH-20-10-90;
+    NSInteger cancleBt_Y = addTextField_Y+44+30;
+    NSInteger cancleBt_W = 40;
+    NSInteger cancleBt_H = 20;
+    
+    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
+    cancleBt.backgroundColor = [UIColor clearColor];
+    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    cancleBt.tag = 0;
+    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:cancleBt];
+    
+    UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [okBt setTitle:@"确定" forState:UIControlStateNormal];
+    okBt.backgroundColor = [UIColor clearColor];
+    okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    okBt.tag = 1;
+    [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:okBt];
+    
+    
+}
+
+- (void)clickBtAction:(UIButton *)sender{
+    if (sender.tag == 1) {
+        if (addTextField.text.length == 0) {
+            [self.view makeToast:@"请输入支付宝账号" duration:2.0 position:@"center"];
+            return;
+        }
+    }
+    if (sender.tag == 1) {
+        
+        NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+        NSString *psw = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"pwd"];
+        NSDictionary * params  = @{@"nurseId" : userAccount,
+                                   @"pwd" : psw,
+                                   @"account" : addTextField.text};
+        [AFHttpTool requestWihtMethod:RequestMethodTypePost url:BINDACCOUNTANDPAW params:params success:^(AFHTTPRequestOperation* operation,id response){
+            NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+            NSLog(@"respondString:%@",respondString);
+            NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+            if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+                NSLog(@"success");
+                
+            }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+                NSLog(@"faile");
+            }
+        } failure:^(NSError* err){
+            NSLog(@"err:%@",err);
+            [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+        }];
+    }
+    if (windowView) {
+        [windowView removeFromSuperview];
+    }
+    NSLog(@"tag:%ld",sender.tag);
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

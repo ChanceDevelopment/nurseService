@@ -41,13 +41,17 @@
 		AD8A0E681E2405340001CC02 /* HomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8A0E671E2405340001CC02 /* HomeTableViewCell.m */; };
 		AD8A0E6A1E240D4F0001CC02 /* icon_like.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E691E240D4F0001CC02 /* icon_like.png */; };
 		AD8A0E6C1E240D580001CC02 /* icon_comment.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E6B1E240D580001CC02 /* icon_comment.png */; };
-		AD8A0E711E248B040001CC02 /* NurseReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8A0E6F1E248B040001CC02 /* NurseReportVC.m */; };
-		AD8A0E721E248B040001CC02 /* NurseReportVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E701E248B040001CC02 /* NurseReportVC.xib */; };
 		AD8A0E741E24B9D80001CC02 /* img_exclusive.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E731E24B9D80001CC02 /* img_exclusive.png */; };
 		AD8A0E771E24E36C0001CC02 /* icon_dot_violet_select.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E751E24E36C0001CC02 /* icon_dot_violet_select.png */; };
 		AD8A0E781E24E36C0001CC02 /* icon_dot_violet_unselect.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E761E24E36C0001CC02 /* icon_dot_violet_unselect.png */; };
 		AD8A0E7B1E24E3B90001CC02 /* icon_rectangle_selector.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E791E24E3B90001CC02 /* icon_rectangle_selector.png */; };
 		AD8A0E7C1E24E3B90001CC02 /* icon_rectangle_unselector.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E7A1E24E3B90001CC02 /* icon_rectangle_unselector.png */; };
+		AD8A0E801E254F3E0001CC02 /* NurseReportVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8A0E7E1E254F3E0001CC02 /* NurseReportVC.m */; };
+		AD8A0E811E254F3E0001CC02 /* NurseReportVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E7F1E254F3E0001CC02 /* NurseReportVC.xib */; };
+		AD8A0E871E2562500001CC02 /* SettingPayPswVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8A0E851E2562500001CC02 /* SettingPayPswVC.m */; };
+		AD8A0E881E2562500001CC02 /* SettingPayPswVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E861E2562500001CC02 /* SettingPayPswVC.xib */; };
+		AD8A0E8C1E2566720001CC02 /* ExchangeDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8A0E8A1E2566720001CC02 /* ExchangeDetailVC.m */; };
+		AD8A0E8D1E2566720001CC02 /* ExchangeDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E8B1E2566720001CC02 /* ExchangeDetailVC.xib */; };
 		AD8BB1191E092857004064F9 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1181E092857004064F9 /* UIView+Toast.m */; };
 		AD8BB1241E09363B004064F9 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1221E09363B004064F9 /* SettingViewController.m */; };
 		AD8BB1251E09363B004064F9 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1231E09363B004064F9 /* SettingViewController.xib */; };
@@ -742,14 +746,20 @@
 		AD8A0E671E2405340001CC02 /* HomeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeTableViewCell.m; sourceTree = "<group>"; };
 		AD8A0E691E240D4F0001CC02 /* icon_like.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_like.png; sourceTree = "<group>"; };
 		AD8A0E6B1E240D580001CC02 /* icon_comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_comment.png; sourceTree = "<group>"; };
-		AD8A0E6E1E248B040001CC02 /* NurseReportVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NurseReportVC.h; sourceTree = "<group>"; };
-		AD8A0E6F1E248B040001CC02 /* NurseReportVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NurseReportVC.m; sourceTree = "<group>"; };
-		AD8A0E701E248B040001CC02 /* NurseReportVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NurseReportVC.xib; sourceTree = "<group>"; };
 		AD8A0E731E24B9D80001CC02 /* img_exclusive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_exclusive.png; sourceTree = "<group>"; };
 		AD8A0E751E24E36C0001CC02 /* icon_dot_violet_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_dot_violet_select.png; sourceTree = "<group>"; };
 		AD8A0E761E24E36C0001CC02 /* icon_dot_violet_unselect.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_dot_violet_unselect.png; sourceTree = "<group>"; };
 		AD8A0E791E24E3B90001CC02 /* icon_rectangle_selector.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_rectangle_selector.png; sourceTree = "<group>"; };
 		AD8A0E7A1E24E3B90001CC02 /* icon_rectangle_unselector.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_rectangle_unselector.png; sourceTree = "<group>"; };
+		AD8A0E7D1E254F3E0001CC02 /* NurseReportVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NurseReportVC.h; sourceTree = "<group>"; };
+		AD8A0E7E1E254F3E0001CC02 /* NurseReportVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NurseReportVC.m; sourceTree = "<group>"; };
+		AD8A0E7F1E254F3E0001CC02 /* NurseReportVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NurseReportVC.xib; sourceTree = "<group>"; };
+		AD8A0E841E2562500001CC02 /* SettingPayPswVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingPayPswVC.h; sourceTree = "<group>"; };
+		AD8A0E851E2562500001CC02 /* SettingPayPswVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingPayPswVC.m; sourceTree = "<group>"; };
+		AD8A0E861E2562500001CC02 /* SettingPayPswVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingPayPswVC.xib; sourceTree = "<group>"; };
+		AD8A0E891E2566720001CC02 /* ExchangeDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeDetailVC.h; sourceTree = "<group>"; };
+		AD8A0E8A1E2566720001CC02 /* ExchangeDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeDetailVC.m; sourceTree = "<group>"; };
+		AD8A0E8B1E2566720001CC02 /* ExchangeDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExchangeDetailVC.xib; sourceTree = "<group>"; };
 		AD8BB1171E092857004064F9 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		AD8BB1181E092857004064F9 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		AD8BB1211E09363B004064F9 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
@@ -2028,6 +2038,8 @@
 		AD5CD6DD1E12D1F60025517E /* MyCapitalViewController */ = {
 			isa = PBXGroup;
 			children = (
+				AD8A0E821E25623A0001CC02 /* ExchangeDetailVC */,
+				AD8A0E831E25623A0001CC02 /* SettingPayPswVC */,
 				ADB49C611E164BD2008DBCF6 /* DrawCashViewController */,
 				AD5CD6DE1E12D2070025517E /* MyCapitalViewController.h */,
 				AD5CD6DF1E12D2070025517E /* MyCapitalViewController.m */,
@@ -2057,11 +2069,31 @@
 		AD8A0E6D1E248AED0001CC02 /* NurseReportVC */ = {
 			isa = PBXGroup;
 			children = (
-				AD8A0E6E1E248B040001CC02 /* NurseReportVC.h */,
-				AD8A0E6F1E248B040001CC02 /* NurseReportVC.m */,
-				AD8A0E701E248B040001CC02 /* NurseReportVC.xib */,
+				AD8A0E7D1E254F3E0001CC02 /* NurseReportVC.h */,
+				AD8A0E7E1E254F3E0001CC02 /* NurseReportVC.m */,
+				AD8A0E7F1E254F3E0001CC02 /* NurseReportVC.xib */,
 			);
 			path = NurseReportVC;
+			sourceTree = "<group>";
+		};
+		AD8A0E821E25623A0001CC02 /* ExchangeDetailVC */ = {
+			isa = PBXGroup;
+			children = (
+				AD8A0E891E2566720001CC02 /* ExchangeDetailVC.h */,
+				AD8A0E8A1E2566720001CC02 /* ExchangeDetailVC.m */,
+				AD8A0E8B1E2566720001CC02 /* ExchangeDetailVC.xib */,
+			);
+			path = ExchangeDetailVC;
+			sourceTree = "<group>";
+		};
+		AD8A0E831E25623A0001CC02 /* SettingPayPswVC */ = {
+			isa = PBXGroup;
+			children = (
+				AD8A0E841E2562500001CC02 /* SettingPayPswVC.h */,
+				AD8A0E851E2562500001CC02 /* SettingPayPswVC.m */,
+				AD8A0E861E2562500001CC02 /* SettingPayPswVC.xib */,
+			);
+			path = SettingPayPswVC;
 			sourceTree = "<group>";
 		};
 		AD8BB1161E092857004064F9 /* UIViewToast */ = {
@@ -4762,6 +4794,7 @@
 				EAC2D9471D4B063B00E282A8 /* sr_refresh.png in Resources */,
 				EA1ADE891E1DFC4C00A8422D /* icon_takeorder_white.png in Resources */,
 				EAA655271E0627C300F424DD /* AlbumOperateMore@3x.png in Resources */,
+				AD8A0E8D1E2566720001CC02 /* ExchangeDetailVC.xib in Resources */,
 				ADDBEB941DFCE87E000BDA95 /* index_banner3@2x.jpg in Resources */,
 				EAC2D8771D4B063B00E282A8 /* blueArrow@2x.png in Resources */,
 				EAC2D4351D4B031500E282A8 /* Assets.xcassets in Resources */,
@@ -4769,7 +4802,6 @@
 				EAC2D86B1D4B063B00E282A8 /* down_dark.png in Resources */,
 				EAC2D9901D4B063C00E282A8 /* README.txt in Resources */,
 				EA472CD51E04E71B00E0316F /* TOWebViewControllerLocalizable.strings in Resources */,
-				AD8A0E721E248B040001CC02 /* NurseReportVC.xib in Resources */,
 				ADB49C5C1E164526008DBCF6 /* icon_financial_details.png in Resources */,
 				ADCD25AD1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib in Resources */,
 				EAC2D8971D4B063B00E282A8 /* MBProgressHUD.bundle in Resources */,
@@ -4851,6 +4883,7 @@
 				AD8A0E6A1E240D4F0001CC02 /* icon_like.png in Resources */,
 				AD8A0E771E24E36C0001CC02 /* icon_dot_violet_select.png in Resources */,
 				ADDBEB951DFCE87E000BDA95 /* index_banner4@2x.jpg in Resources */,
+				AD8A0E881E2562500001CC02 /* SettingPayPswVC.xib in Resources */,
 				EAA4F33A1E024D0600EF9E14 /* icon_look.png in Resources */,
 				AD8A0E741E24B9D80001CC02 /* img_exclusive.png in Resources */,
 				AD5CD6D21E0FAA8D0025517E /* FeedbackViewController.xib in Resources */,
@@ -4863,6 +4896,7 @@
 				EAC2D8C51D4B063B00E282A8 /* arrow_down.png in Resources */,
 				EA1743571E1E33AF0038E805 /* success@3x.png in Resources */,
 				EAA4F3201E012F3000EF9E14 /* tabar_order_icon_active@2x.png in Resources */,
+				AD8A0E811E254F3E0001CC02 /* NurseReportVC.xib in Resources */,
 				EAA655241E0627C300F424DD /* AlbumLike@2x.png in Resources */,
 				ADDBEB9B1DFCE954000BDA95 /* index2.png in Resources */,
 				EAC2D86F1D4B063B00E282A8 /* i2KEPCDatePickerView.xib in Resources */,
@@ -5000,7 +5034,7 @@
 				EA1742BE1E1E331B0038E805 /* README.md in Sources */,
 				EAC2D8811D4B063B00E282A8 /* FMDatabaseAdditions.m in Sources */,
 				EAC2D8091D4B063B00E282A8 /* NSDate+Category.m in Sources */,
-				AD8A0E711E248B040001CC02 /* NurseReportVC.m in Sources */,
+				AD8A0E801E254F3E0001CC02 /* NurseReportVC.m in Sources */,
 				EAC2D88F1D4B063B00E282A8 /* UIView+Hierarchy.m in Sources */,
 				EA472CD61E04E71B00E0316F /* TOActivityChrome.m in Sources */,
 				EAC2D93D1D4B063B00E282A8 /* SDWebImageDownloaderOperation.m in Sources */,
@@ -5046,6 +5080,7 @@
 				EAC2D8A41D4B063B00E282A8 /* MJRefreshBackFooter.m in Sources */,
 				EAA6550A1E0627C300F424DD /* DFTextImageLineCellAdapter.m in Sources */,
 				EAC2D86D1D4B063B00E282A8 /* i2KEPCBasePickerView.m in Sources */,
+				AD8A0E8C1E2566720001CC02 /* ExchangeDetailVC.m in Sources */,
 				EAA6550D1E0627C300F424DD /* DFUserNewsActivityDetailLineCellAdapter.m in Sources */,
 				EA17432C1E1E33AE0038E805 /* MLLabel+Size.m in Sources */,
 				EAC2D8E71D4B063B00E282A8 /* NSOrderedSet+RACSequenceAdditions.m in Sources */,
@@ -5147,6 +5182,7 @@
 				EAC2D93E1D4B063B00E282A8 /* SDWebImageManager.m in Sources */,
 				EA1743321E1E33AE0038E805 /* UITabBar+Badge.m in Sources */,
 				EAC2D9641D4B063B00E282A8 /* UIView+Layout.m in Sources */,
+				AD8A0E871E2562500001CC02 /* SettingPayPswVC.m in Sources */,
 				EAC2D9241D4B063B00E282A8 /* UICollectionReusableView+RACSignalSupport.m in Sources */,
 				EAC2D9161D4B063B00E282A8 /* RACSubscriber.m in Sources */,
 				EAC2D90B1D4B063B00E282A8 /* RACScheduler.m in Sources */,

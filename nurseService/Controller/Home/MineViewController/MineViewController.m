@@ -197,6 +197,15 @@
     [headerView addSubview:nameL];
     nameL.text = @"实名认证";
     
+    NSString *nurseDistrict = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseDistrict"];
+    
+    if ([nurseDistrict isEqualToString:@"1"]) {
+        healthImageView.hidden = YES;
+        healthL.hidden = YES;
+        nameImageView.hidden = YES;
+        nameL.hidden = YES;
+    }
+    
 //    viewHeight
     NSArray *titleArr = @[@"我的资金",@"我的积分",@"我的信息"];
     CGFloat titleX = 0;
