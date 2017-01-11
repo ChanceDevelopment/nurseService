@@ -39,7 +39,7 @@
 			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>QQ1105892456</string>
+				<string>QQ41EB58E0</string>
 			</array>
 		</dict>
 		<dict>
@@ -55,6 +55,22 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>3</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>mqqOpensdkSSoLogin</string>
+		<string>mqqopensdkapiV2</string>
+		<string>mqqopensdkapiV3</string>
+		<string>wtloginmqq2</string>
+		<string>mqq</string>
+		<string>mqqapi</string>
+		<string>alipayshare</string>
+		<string>alipay</string>
+		<string>weixin</string>
+		<string>wechat</string>
+		<string>baidumap</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

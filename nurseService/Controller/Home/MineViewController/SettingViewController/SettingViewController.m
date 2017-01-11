@@ -9,7 +9,9 @@
 #import "SettingViewController.h"
 #import "FeedbackViewController.h"
 @interface SettingViewController ()
-
+{
+    UIView *windowView;
+}
 @end
 
 @implementation SettingViewController
@@ -59,9 +61,7 @@
 }
 - (IBAction)logOffAction:(UIButton *)sender {
 
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERIDKEY];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERACCOUNTKEY];
-    [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@NO];
+    [self showAddView];
 }
 - (IBAction)updateVersionAction:(UIButton *)sender {
 }
@@ -69,6 +69,78 @@
     FeedbackViewController *feedbackViewController = [[FeedbackViewController alloc] init];
     feedbackViewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:feedbackViewController animated:YES];
+}
+- (void)showAddView{
+    windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
+    windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
+    [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
+    
+    NSInteger addBgView_W = SCREENWIDTH -20;
+    NSInteger addBgView_H = 160;
+    NSInteger addBgView_Y = SCREENHEIGH/2.0-addBgView_H/2.0-40;
+    UIView *addBgView = [[UIView alloc] initWithFrame:CGRectMake(10, addBgView_Y, addBgView_W, addBgView_H)];
+    addBgView.backgroundColor = [UIColor whiteColor];
+    [addBgView.layer setMasksToBounds:YES];
+    [addBgView.layer setCornerRadius:4];
+    addBgView.alpha = 1.0;
+    [windowView addSubview:addBgView];
+    
+    
+    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 40)];
+    titleL.textColor = [UIColor blackColor];
+    titleL.textAlignment = NSTextAlignmentLeft;
+    titleL.font = [UIFont systemFontOfSize:18.0];
+    titleL.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:titleL];
+    titleL.text = @"提示";
+    
+    NSInteger addTextField_H = 44;
+    NSInteger addTextField_Y = 50;
+    NSInteger addTextField_W =SCREENWIDTH-40;
+    
+    UILabel *tipLable = [[UILabel alloc] initWithFrame:CGRectMake(10, addTextField_Y, addTextField_W, addTextField_H)];//高度--44
+    tipLable.font = [UIFont systemFontOfSize:15.0];
+    tipLable.backgroundColor = [UIColor clearColor];
+    tipLable.text = @"确认退出当前账号吗？";
+    [addBgView addSubview:tipLable];
+    
+    NSInteger cancleBt_X = SCREENWIDTH-20-10-90;
+    NSInteger cancleBt_Y = addTextField_Y+44+30;
+    NSInteger cancleBt_W = 40;
+    NSInteger cancleBt_H = 20;
+    
+    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
+    cancleBt.backgroundColor = [UIColor clearColor];
+    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    cancleBt.tag = 0;
+    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:cancleBt];
+    
+    UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [okBt setTitle:@"确定" forState:UIControlStateNormal];
+    okBt.backgroundColor = [UIColor clearColor];
+    okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    okBt.tag = 1;
+    [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:okBt];
+    
+    
+}
+
+- (void)clickBtAction:(UIButton *)sender{
+    
+    if (sender.tag == 1) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERIDKEY];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERACCOUNTKEY];
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@NO];
+    }
+    if (windowView) {
+        [windowView removeFromSuperview];
+    }
+    NSLog(@"tag:%ld",sender.tag);
 }
 
 /*

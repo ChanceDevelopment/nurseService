@@ -15,7 +15,7 @@
 @property (nonatomic,strong)UILabel *addressL;
 @property (nonatomic,strong)UILabel *userInfoL;
 @property (nonatomic,strong)UILabel *remarkInfoL;
-
+@property (nonatomic,strong)UIImageView *exclusiveImageView;
 @property (nonatomic,strong)void(^showOrderDetailBlock)();
 @property (nonatomic,strong)void(^locationBlock)();
 @property (nonatomic,strong)void(^showUserInfoBlock)();

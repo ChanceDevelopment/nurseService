@@ -138,7 +138,7 @@ BMKMapManager* _mapManager;
     [self initialization];
     [self launchBaiduMap];
     [self initAPServiceWithOptions:launchOptions];
-//    [self initSMSSDK];
+    [self initshareSDK];
     [self umengTrack];
     self.window.rootViewController = self.viewController;
     //清除缓存
@@ -370,6 +370,7 @@ BMKMapManager* _mapManager;
 {
     [ShareSDK registerApp:SHARESDKKEY
           activePlatforms:@[
+                            @(SSDKPlatformSubTypeQZone),
                             @(SSDKPlatformTypeQQ),
                             @(SSDKPlatformTypeWechat)
                             ]
@@ -398,8 +399,8 @@ BMKMapManager* _mapManager;
                                             appSecret:@"e02faf49615c6c9208cd3510604e1599"];
                       break;
                   case SSDKPlatformTypeQQ:
-                      [appInfo SSDKSetupQQByAppId:@"1105892456"
-                                           appKey:@"v6V8Hu6jufsf3iBn"
+                      [appInfo SSDKSetupQQByAppId:@"1105942752"
+                                           appKey:@"V78mzcd0Hrwjrgxc"
                                          authType:SSDKAuthTypeBoth];
                       break;
                   default:

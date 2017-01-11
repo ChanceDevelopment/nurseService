@@ -52,6 +52,11 @@
 		AD8A0E881E2562500001CC02 /* SettingPayPswVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E861E2562500001CC02 /* SettingPayPswVC.xib */; };
 		AD8A0E8C1E2566720001CC02 /* ExchangeDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8A0E8A1E2566720001CC02 /* ExchangeDetailVC.m */; };
 		AD8A0E8D1E2566720001CC02 /* ExchangeDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E8B1E2566720001CC02 /* ExchangeDetailVC.xib */; };
+		AD8A0E9E1E260E2D0001CC02 /* BasicInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8A0E9C1E260E2D0001CC02 /* BasicInfoVC.m */; };
+		AD8A0E9F1E260E2D0001CC02 /* BasicInfoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0E9D1E260E2D0001CC02 /* BasicInfoVC.xib */; };
+		AD8A0EA31E260E3C0001CC02 /* ProfessionInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8A0EA11E260E3C0001CC02 /* ProfessionInfoVC.m */; };
+		AD8A0EA41E260E3C0001CC02 /* ProfessionInfoVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0EA21E260E3C0001CC02 /* ProfessionInfoVC.xib */; };
+		AD8A0EA61E26215E0001CC02 /* icon_add_photo_violet.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8A0EA51E26215E0001CC02 /* icon_add_photo_violet.png */; };
 		AD8BB1191E092857004064F9 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1181E092857004064F9 /* UIView+Toast.m */; };
 		AD8BB1241E09363B004064F9 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1221E09363B004064F9 /* SettingViewController.m */; };
 		AD8BB1251E09363B004064F9 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1231E09363B004064F9 /* SettingViewController.xib */; };
@@ -760,6 +765,13 @@
 		AD8A0E891E2566720001CC02 /* ExchangeDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeDetailVC.h; sourceTree = "<group>"; };
 		AD8A0E8A1E2566720001CC02 /* ExchangeDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeDetailVC.m; sourceTree = "<group>"; };
 		AD8A0E8B1E2566720001CC02 /* ExchangeDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExchangeDetailVC.xib; sourceTree = "<group>"; };
+		AD8A0E9B1E260E2D0001CC02 /* BasicInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicInfoVC.h; sourceTree = "<group>"; };
+		AD8A0E9C1E260E2D0001CC02 /* BasicInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicInfoVC.m; sourceTree = "<group>"; };
+		AD8A0E9D1E260E2D0001CC02 /* BasicInfoVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BasicInfoVC.xib; sourceTree = "<group>"; };
+		AD8A0EA01E260E3C0001CC02 /* ProfessionInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfessionInfoVC.h; sourceTree = "<group>"; };
+		AD8A0EA11E260E3C0001CC02 /* ProfessionInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfessionInfoVC.m; sourceTree = "<group>"; };
+		AD8A0EA21E260E3C0001CC02 /* ProfessionInfoVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfessionInfoVC.xib; sourceTree = "<group>"; };
+		AD8A0EA51E26215E0001CC02 /* icon_add_photo_violet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_add_photo_violet.png; sourceTree = "<group>"; };
 		AD8BB1171E092857004064F9 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		AD8BB1181E092857004064F9 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		AD8BB1211E09363B004064F9 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
@@ -1980,6 +1992,7 @@
 		AD3013741DFCF4F200D26E09 /* mineIcon */ = {
 			isa = PBXGroup;
 			children = (
+				AD8A0EA51E26215E0001CC02 /* icon_add_photo_violet.png */,
 				ADB49C561E164526008DBCF6 /* myCapital */,
 				AD5CD6D71E0FB7F00025517E /* add.png */,
 				AD5CD6D81E0FB7F00025517E /* reduce.png */,
@@ -2094,6 +2107,26 @@
 				AD8A0E861E2562500001CC02 /* SettingPayPswVC.xib */,
 			);
 			path = SettingPayPswVC;
+			sourceTree = "<group>";
+		};
+		AD8A0E8E1E260E070001CC02 /* BasicInfoVC */ = {
+			isa = PBXGroup;
+			children = (
+				AD8A0E9B1E260E2D0001CC02 /* BasicInfoVC.h */,
+				AD8A0E9C1E260E2D0001CC02 /* BasicInfoVC.m */,
+				AD8A0E9D1E260E2D0001CC02 /* BasicInfoVC.xib */,
+			);
+			path = BasicInfoVC;
+			sourceTree = "<group>";
+		};
+		AD8A0E9A1E260E1D0001CC02 /* ProfessionInfoVC */ = {
+			isa = PBXGroup;
+			children = (
+				AD8A0EA01E260E3C0001CC02 /* ProfessionInfoVC.h */,
+				AD8A0EA11E260E3C0001CC02 /* ProfessionInfoVC.m */,
+				AD8A0EA21E260E3C0001CC02 /* ProfessionInfoVC.xib */,
+			);
+			path = ProfessionInfoVC;
 			sourceTree = "<group>";
 		};
 		AD8BB1161E092857004064F9 /* UIViewToast */ = {
@@ -2836,6 +2869,8 @@
 		EAA4F2F61E011EA600EF9E14 /* User */ = {
 			isa = PBXGroup;
 			children = (
+				AD8A0E9A1E260E1D0001CC02 /* ProfessionInfoVC */,
+				AD8A0E8E1E260E070001CC02 /* BasicInfoVC */,
 				EAA4F2F71E011EA600EF9E14 /* LoginEnroll */,
 				EA8C892E1E2138BD0093657B /* HePaitentInfoVC.h */,
 				EA8C892F1E2138BD0093657B /* HePaitentInfoVC.m */,
@@ -4766,6 +4801,7 @@
 				EA1743501E1E33AF0038E805 /* ClippedExpression.bundle in Resources */,
 				AD30138C1DFCF4F300D26E09 /* icon_set.png in Resources */,
 				AD3013841DFCF4F200D26E09 /* icon_invite.png in Resources */,
+				AD8A0EA61E26215E0001CC02 /* icon_add_photo_violet.png in Resources */,
 				ADCD25B11E0C2E7300FBCF26 /* icon_star_yellow.png in Resources */,
 				EAC2D99B1D4B063C00E282A8 /* loading_anim2.png in Resources */,
 				AD5CD6DC1E0FBCB70025517E /* cancle.png in Resources */,
@@ -4784,6 +4820,7 @@
 				ADB49C5B1E164526008DBCF6 /* icon_bind_alipay.png in Resources */,
 				EAC2D98E1D4B063C00E282A8 /* WeiboSDK.bundle in Resources */,
 				EA17434E1E1E33AF0038E805 /* back-arrow@2x.png in Resources */,
+				AD8A0E9F1E260E2D0001CC02 /* BasicInfoVC.xib in Resources */,
 				EAC2D8881D4B063B00E282A8 /* IQKeyboardManager.bundle in Resources */,
 				AD3013721DFCF4DC00D26E09 /* icon_scan.png in Resources */,
 				AD3013861DFCF4F300D26E09 /* icon_mycollection.png in Resources */,
@@ -4791,6 +4828,7 @@
 				EAC2D9531D4B063B00E282A8 /* btn_020@2x.png in Resources */,
 				EAC2D94B1D4B063B00E282A8 /* LICENSE.txt in Resources */,
 				EAC2D87A1D4B063B00E282A8 /* grayArrow.png in Resources */,
+				AD8A0EA41E260E3C0001CC02 /* ProfessionInfoVC.xib in Resources */,
 				EAC2D9471D4B063B00E282A8 /* sr_refresh.png in Resources */,
 				EA1ADE891E1DFC4C00A8422D /* icon_takeorder_white.png in Resources */,
 				EAA655271E0627C300F424DD /* AlbumOperateMore@3x.png in Resources */,
@@ -4953,6 +4991,7 @@
 				EAC2D8891D4B063B00E282A8 /* IQKeyboardManager.m in Sources */,
 				EA472CD71E04E71B00E0316F /* TOActivitySafari.m in Sources */,
 				EAA6553F1E0627C400F424DD /* DFLikeCommentView.m in Sources */,
+				AD8A0EA31E260E3C0001CC02 /* ProfessionInfoVC.m in Sources */,
 				EAC2D8A61D4B063B00E282A8 /* MJRefreshFooter.m in Sources */,
 				EAC2D96B1D4B063B00E282A8 /* UUDatePicker.m in Sources */,
 				EA1743301E1E33AE0038E805 /* UIButton+Corner.m in Sources */,
@@ -5339,6 +5378,7 @@
 				EAC2D89A1D4B063B00E282A8 /* MJPhoto.m in Sources */,
 				EAA655321E0627C400F424DD /* HeCommentInputView.m in Sources */,
 				EAC2D9081D4B063B00E282A8 /* RACQueueScheduler.m in Sources */,
+				AD8A0E9E1E260E2D0001CC02 /* BasicInfoVC.m in Sources */,
 				EAA655401E0627C400F424DD /* MLClickColorLinkLabel.m in Sources */,
 				EAC2D99C1D4B063C00E282A8 /* Waiting.m in Sources */,
 				EAC2D9671D4B063B00E282A8 /* NSString+FontAwesome.m in Sources */,
