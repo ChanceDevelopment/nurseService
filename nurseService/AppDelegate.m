@@ -31,7 +31,7 @@
 #import <UserNotifications/UserNotifications.h>
 #endif
 
-
+#import "BasicInfoVC.h"
 
 @interface AppDelegate ()
 
@@ -241,7 +241,8 @@ BMKMapManager* _mapManager;
         self.viewController = tabBarController;
     }
     else{
-        HeLoginVC *loginVC = [[HeLoginVC alloc] init];
+        //BasicInfoVC
+        BasicInfoVC *loginVC = [[BasicInfoVC alloc] init];
         CustomNavigationController *loginNav = [[CustomNavigationController alloc] initWithRootViewController:loginVC];
         self.viewController = loginNav;
     }

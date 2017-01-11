@@ -15,7 +15,10 @@
     UIImage *userImage;
     NSString *encodedImageStr;
     NSMutableDictionary *infoDic;
-
+    UIImageView *headImageView;
+    UIImageView *idCardImageView;
+    BOOL isHeadImage;
+    UIView *windowView;
 }
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
 @property(strong,nonatomic)IBOutlet UIView *statusView;
@@ -31,7 +34,7 @@
     if (self) {
         // Custom initialization
         NSMutableArray *buttons = [[NSMutableArray alloc] init];
-        UIButton *saveBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 35)];
+        UIButton *saveBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 25)];
         [saveBt setTitleColor:APPDEFAULTTITLECOLOR forState:UIControlStateNormal];
         [saveBt setTitle:@"保存" forState:UIControlStateNormal];
         saveBt.layer.cornerRadius = 4.0;//2.0是圆角的弧度，根据需求自己更改
@@ -61,6 +64,7 @@
     [super initializaiton];
     statusArray = @[@"基本信息",@"专业信息",@"等待审核"];
     infoDic = [[NSMutableDictionary alloc] initWithCapacity:0];
+    isHeadImage = YES;
 }
 
 - (void)initView
@@ -73,19 +77,115 @@
     [Tool setExtraCellLineHidden:myTableView];
     myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    UIView *footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 25)];
-    footerView.backgroundColor = APPDEFAULTORANGE;
-    myTableView.tableFooterView = footerView;
-    
-    UIButton *nextStepBt = [[UIButton alloc] initWithFrame:footerView.frame];
-    nextStepBt.backgroundColor = [UIColor clearColor];
-    [nextStepBt setTitle:@"下一步" forState:UIControlStateNormal];
-    [nextStepBt addTarget:self action:@selector(nextStepAction) forControlEvents:UIControlEventTouchUpInside];
-    [footerView addSubview:nextStepBt];
-    
-    
     [self addStatueViewWithStatus:0];
 }
+
+- (void)getNurseData{
+    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+
+    NSDictionary * params  = @{@"nurseId" : userAccount};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:NURSEBASICSINFO params:params success:^(AFHTTPRequestOperation* operation,id response){
+        
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            if ([[respondDict valueForKey:@"json"] isMemberOfClass:[NSNull class]] || [respondDict valueForKey:@"json"] == nil) {
+
+                
+            }else{
+                NSDictionary *tempDic = [[NSDictionary alloc] initWithDictionary:[respondDict valueForKey:@"json"]];
+            }
+            
+            NSLog(@"success");
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
+        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
+
+}
+
+- (void)backItemClick:(id)sender{
+    [self showCancleAlertView];
+}
+
+- (void)showCancleAlertView{
+    
+    windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
+    windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
+    [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
+    
+    NSInteger addBgView_W = SCREENWIDTH -20;
+    NSInteger addBgView_H = 160;
+    NSInteger addBgView_Y = SCREENHEIGH/2.0-addBgView_H/2.0-40;
+    UIView *addBgView = [[UIView alloc] initWithFrame:CGRectMake(10, addBgView_Y, addBgView_W, addBgView_H)];
+    addBgView.backgroundColor = [UIColor whiteColor];
+    [addBgView.layer setMasksToBounds:YES];
+    [addBgView.layer setCornerRadius:4];
+    addBgView.alpha = 1.0;
+    [windowView addSubview:addBgView];
+    
+    
+    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 200, 40)];
+    titleL.textColor = [UIColor blackColor];
+    titleL.textAlignment = NSTextAlignmentLeft;
+    titleL.font = [UIFont systemFontOfSize:18.0];
+    titleL.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:titleL];
+    
+    NSInteger addTextField_H = 44;
+    NSInteger addTextField_Y = 50;
+    NSInteger addTextField_W =SCREENWIDTH-40;
+    
+    UILabel *infoTip= [[UILabel alloc] initWithFrame:CGRectMake(10, addTextField_Y, addTextField_W, addTextField_H)];//高度--44
+    infoTip.font = [UIFont systemFontOfSize:12.0];
+    infoTip.numberOfLines = 0;
+    infoTip.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:infoTip];
+    
+    titleL.text = @"取消验证，返回主页面";
+    infoTip.text = @"若验证不通过，将无法接取订单";
+    
+    NSInteger wordNum_Y = addTextField_Y+44;
+    
+    NSInteger cancleBt_X = SCREENWIDTH-20-10-90;
+    NSInteger cancleBt_Y = wordNum_Y+30;
+    NSInteger cancleBt_W = 40;
+    NSInteger cancleBt_H = 20;
+    
+    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
+    cancleBt.backgroundColor = [UIColor clearColor];
+    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    cancleBt.tag = 0;
+    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:cancleBt];
+    
+    UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [okBt setTitle:@"确定" forState:UIControlStateNormal];
+    okBt.backgroundColor = [UIColor clearColor];
+    okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    okBt.tag = 100;
+    [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:okBt];
+    
+    
+}
+
+- (void)clickBtAction:(UIButton *)sender{
+    NSLog(@"tag:%ld",sender.tag);
+    
+    if (windowView) {
+        [windowView removeFromSuperview];
+    }
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 - (void)saveAction{
     NSLog(@"saveAction");
@@ -158,7 +258,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 8;
+    return 9;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -183,47 +283,205 @@
     switch (row) {
         case 0:
         {
-            UIImageView *headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 60, 60)];
+            CGFloat headImageW = 60;
+            headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, headImageW, headImageW)];
             [cell addSubview:headImageView];
+            headImageView.userInteractionEnabled = YES;
             headImageView.backgroundColor = [UIColor clearColor];
             headImageView.image = [UIImage imageNamed:@"icon_add_photo_violet"];
             
+            UITapGestureRecognizer *clickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickHeadImageAction)];
+            [headImageView addGestureRecognizer:clickTap];
+            
+            CGFloat tipLabelX = 20+headImageW;
+            CGFloat tipLabelY = 10+headImageW/2.0-22;
+            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(tipLabelX, tipLabelY, 150, 44)];
+            tipLabel.backgroundColor = [UIColor clearColor];
+            tipLabel.text = @"请上传个人工作照";
+            tipLabel.font = [UIFont systemFontOfSize:15.0];
+            tipLabel.textColor = [UIColor blackColor];
+            [cell addSubview:tipLabel];
             break;
         }
         case 1:
         {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
+            tipLabel.backgroundColor = [UIColor clearColor];
+            tipLabel.text = @"姓名";
+            tipLabel.font = [UIFont systemFontOfSize:15.0];
+            tipLabel.textColor = [UIColor grayColor];
+            [cell addSubview:tipLabel];
             
+            CGFloat nameTextFieldX = SCREENWIDTH-210;
+            CGFloat nameTextFieldW = 200;
+            
+            UITextField *nameTextField = [[UITextField alloc] initWithFrame:CGRectMake(nameTextFieldX, 0, nameTextFieldW, cellSize.height)];
+            nameTextField.font = [UIFont systemFontOfSize:15.0];
+            nameTextField.textAlignment = NSTextAlignmentRight;
+            nameTextField.textColor = [UIColor blackColor];
+            nameTextField.backgroundColor = [UIColor clearColor];
+            nameTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            nameTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+            nameTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            nameTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
             break;
         }
         case 2:
         {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
+            tipLabel.backgroundColor = [UIColor clearColor];
+            tipLabel.text = @"性别";
+            tipLabel.font = [UIFont systemFontOfSize:15.0];
+            tipLabel.textColor = [UIColor grayColor];
+            [cell addSubview:tipLabel];
+            
+            CGFloat nameTextFieldX = SCREENWIDTH-210;
+            CGFloat nameTextFieldW = 200;
+            
+            UITextField *sexTextField = [[UITextField alloc] initWithFrame:CGRectMake(nameTextFieldX, 0, nameTextFieldW, cellSize.height)];
+            sexTextField.font = [UIFont systemFontOfSize:15.0];
+            sexTextField.textAlignment = NSTextAlignmentRight;
+            sexTextField.textColor = [UIColor blackColor];
+            sexTextField.backgroundColor = [UIColor clearColor];
+            sexTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            sexTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+            sexTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            sexTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
             
             break;
         }
         case 3:
         {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
+            tipLabel.backgroundColor = [UIColor clearColor];
+            tipLabel.text = @"身份证号";
+            tipLabel.font = [UIFont systemFontOfSize:15.0];
+            tipLabel.textColor = [UIColor grayColor];
+            [cell addSubview:tipLabel];
+            
+            CGFloat nameTextFieldX = SCREENWIDTH-210;
+            CGFloat nameTextFieldW = 200;
+            
+            UITextField *idCardTextField = [[UITextField alloc] initWithFrame:CGRectMake(nameTextFieldX, 0, nameTextFieldW, cellSize.height)];
+            idCardTextField.font = [UIFont systemFontOfSize:15.0];
+            idCardTextField.textAlignment = NSTextAlignmentRight;
+            idCardTextField.textColor = [UIColor blackColor];
+            idCardTextField.backgroundColor = [UIColor clearColor];
+            idCardTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            idCardTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+            idCardTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            idCardTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
             
             break;
         }
         case 4:
         {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
+            tipLabel.backgroundColor = [UIColor clearColor];
+            tipLabel.text = @"联系电话";
+            tipLabel.font = [UIFont systemFontOfSize:15.0];
+            tipLabel.textColor = [UIColor grayColor];
+            [cell addSubview:tipLabel];
             
+            CGFloat nameTextFieldX = SCREENWIDTH-210;
+            CGFloat nameTextFieldW = 200;
             
+            UITextField *phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(nameTextFieldX, 0, nameTextFieldW, cellSize.height)];
+            phoneTextField.font = [UIFont systemFontOfSize:15.0];
+            phoneTextField.textAlignment = NSTextAlignmentRight;
+            phoneTextField.textColor = [UIColor blackColor];
+            phoneTextField.backgroundColor = [UIColor clearColor];
+            phoneTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            phoneTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+            phoneTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            phoneTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
             break;
         }
         case 5:
         {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
+            tipLabel.backgroundColor = [UIColor clearColor];
+            tipLabel.text = @"常住地址";
+            tipLabel.font = [UIFont systemFontOfSize:15.0];
+            tipLabel.textColor = [UIColor grayColor];
+            [cell addSubview:tipLabel];
+            
+            CGFloat nameTextFieldX = SCREENWIDTH-210;
+            CGFloat nameTextFieldW = 200;
+            
+            UITextField *addressTextField = [[UITextField alloc] initWithFrame:CGRectMake(nameTextFieldX, 0, nameTextFieldW, cellSize.height)];
+            addressTextField.font = [UIFont systemFontOfSize:15.0];
+            addressTextField.textAlignment = NSTextAlignmentRight;
+            addressTextField.textColor = [UIColor blackColor];
+            addressTextField.backgroundColor = [UIColor clearColor];
+            addressTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            addressTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+            addressTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            addressTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
             
             break;
         }
         case 6:
         {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
+            tipLabel.backgroundColor = [UIColor clearColor];
+            tipLabel.text = @"邮箱";
+            tipLabel.font = [UIFont systemFontOfSize:15.0];
+            tipLabel.textColor = [UIColor grayColor];
+            [cell addSubview:tipLabel];
+            
+            CGFloat nameTextFieldX = SCREENWIDTH-210;
+            CGFloat nameTextFieldW = 200;
+            
+            UITextField *mailTextField = [[UITextField alloc] initWithFrame:CGRectMake(nameTextFieldX, 0, nameTextFieldW, cellSize.height)];
+            mailTextField.font = [UIFont systemFontOfSize:15.0];
+            mailTextField.textAlignment = NSTextAlignmentRight;
+            mailTextField.textColor = [UIColor blackColor];
+            mailTextField.backgroundColor = [UIColor clearColor];
+            mailTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            mailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+            mailTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            mailTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
             
             break;
         }
         case 7:
         {
+            CGFloat headImageW = 60;
+            idCardImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, headImageW, headImageW)];
+            [cell addSubview:headImageView];
+            idCardImageView.userInteractionEnabled = YES;
+            idCardImageView.backgroundColor = [UIColor clearColor];
+            idCardImageView.image = [UIImage imageNamed:@"icon_add_photo_violet"];
             
+            UITapGestureRecognizer *clickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickIdCardAction)];
+            [headImageView addGestureRecognizer:clickTap];
+            
+            CGFloat tipLabelX = 20+headImageW;
+            CGFloat tipLabelY = 10+headImageW/2.0-22;
+            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(tipLabelX, tipLabelY, 150, 44)];
+            tipLabel.backgroundColor = [UIColor clearColor];
+            tipLabel.text = @"请上传身份证件照";
+            tipLabel.font = [UIFont systemFontOfSize:15.0];
+            tipLabel.textColor = [UIColor blackColor];
+            [cell addSubview:tipLabel];
+
+            break;
+        }
+        case 8:{
+            
+            UILabel *nextStepLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, cellSize.height)];
+            nextStepLabel.backgroundColor = APPDEFAULTTITLECOLOR;
+            nextStepLabel.text = @"下一步";
+            nextStepLabel.textAlignment = NSTextAlignmentCenter;
+            nextStepLabel.font = [UIFont systemFontOfSize:15.0];
+            [cell addSubview:nextStepLabel];
             break;
         }
         default:
@@ -264,6 +522,9 @@
         case 7:
             return 90;
             break;
+        case 8:
+            return 40;
+            break;
         default:
             break;
     }
@@ -290,11 +551,20 @@
     NSInteger section = indexPath.section;
     
     NSLog(@"row = %ld, section = %ld",row,section);
-    
+    [self nextStepAction];
 }
 
+- (void)clickIdCardAction{
+    isHeadImage = NO;
+    [self showActionSheet];
+}
 
 - (void)clickHeadImageAction{
+    isHeadImage = YES;
+    [self showActionSheet];
+}
+
+- (void)showActionSheet{
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"来自相册",@"来自拍照", nil];
     sheet.tag = 2;
     [sheet showInView:self.view];
@@ -391,8 +661,15 @@
         }
         
         encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+        
         [self dismissViewControllerAnimated:YES completion:^{
 //            [myTableView reloadData];
+            if (isHeadImage) {
+                headImageView.image = userImage;
+            }else{
+                idCardImageView.image = userImage;
+            }
+
         }];
     }
 }
@@ -428,18 +705,6 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-
-
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
