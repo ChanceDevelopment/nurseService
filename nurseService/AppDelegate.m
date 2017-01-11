@@ -242,7 +242,7 @@ BMKMapManager* _mapManager;
     }
     else{
         //BasicInfoVC
-        BasicInfoVC *loginVC = [[BasicInfoVC alloc] init];
+        HeLoginVC *loginVC = [[HeLoginVC alloc] init];
         CustomNavigationController *loginNav = [[CustomNavigationController alloc] initWithRootViewController:loginVC];
         self.viewController = loginNav;
     }
