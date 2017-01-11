@@ -19,6 +19,9 @@
     UIImageView *idCardImageView;
     BOOL isHeadImage;
     UIView *windowView;
+    
+    UIButton *manSelectbt;
+    UIButton *womanSelectbt;
 }
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
 @property(strong,nonatomic)IBOutlet UIView *statusView;
@@ -336,6 +339,38 @@
             tipLabel.font = [UIFont systemFontOfSize:15.0];
             tipLabel.textColor = [UIColor grayColor];
             [cell addSubview:tipLabel];
+            
+
+            manSelectbt = [[UIButton alloc] initWithFrame:CGRectMake(150, 10, 10, 10)];
+            [cell addSubview:manSelectbt];
+            [manSelectbt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_select"] forState:UIControlStateNormal];
+            manSelectbt.tag = 1;
+            [manSelectbt addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
+            
+            womanSelectbt = [[UIButton alloc] initWithFrame:CGRectMake(200, 10, 10, 10)];
+            [cell addSubview:womanSelectbt];
+            [womanSelectbt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_unselect"] forState:UIControlStateNormal];
+            womanSelectbt.tag = 2;
+            [womanSelectbt addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
+            
+            
+            
+            
+//            UIImageView *manSelectView = [[UIImageView alloc] initWithFrame:CGRectMake(150, 10, 10, 10)];
+//            [cell addSubview:manSelectView];
+//            manSelectView.userInteractionEnabled = YES;
+//            manSelectView.backgroundColor = [UIColor clearColor];
+//            manSelectView.image = [UIImage imageNamed:@"icon_dot_violet_select"];
+//
+//            
+//            UIImageView *womanSelectView = [[UIImageView alloc] initWithFrame:CGRectMake(200, 10, 10, 10)];
+//            [cell addSubview:womanSelectView];
+//            womanSelectView.userInteractionEnabled = YES;
+//            womanSelectView.backgroundColor = [UIColor clearColor];
+//            womanSelectView.image = [UIImage imageNamed:@"icon_dot_violet_unselect"];
+//            
+//            
+            
             
             CGFloat nameTextFieldX = SCREENWIDTH-210;
             CGFloat nameTextFieldW = 200;
@@ -704,6 +739,18 @@
 {
     
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (void)selectAction:(UIButton *)sender{
+    NSLog(@"%ld",sender.tag);
+    if (sender.tag == 0) {
+        [manSelectbt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_unselect"] forState:UIControlStateNormal];
+        [womanSelectbt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_select"] forState:UIControlStateNormal];
+    }else{
+        [manSelectbt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_select"] forState:UIControlStateNormal];
+        [womanSelectbt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_unselect"] forState:UIControlStateNormal];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
