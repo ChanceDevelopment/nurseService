@@ -54,9 +54,6 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-<<<<<<< HEAD
-	<string>4</string>
-=======
 	<string>3</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
@@ -74,7 +71,6 @@
 		<string>wechat</string>
 		<string>baidumap</string>
 	</array>
->>>>>>> origin/master
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
