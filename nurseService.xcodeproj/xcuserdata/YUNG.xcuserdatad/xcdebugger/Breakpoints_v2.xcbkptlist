@@ -347,13 +347,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "nurseService/AppDelegate.m"
-            timestampString = "505850096.349214"
+            filePath = "nurseService/Controller/Home/MineViewController/MineViewController.m"
+            timestampString = "505848423.836246"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "372"
-            endingLineNumber = "372"
-            landmarkName = "-initshareSDK"
+            startingLineNumber = "533"
+            endingLineNumber = "533"
+            landmarkName = "-inviteFriend"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -363,13 +363,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "nurseService/Controller/Home/MineViewController/MineViewController.m"
-            timestampString = "505848423.836246"
+            filePath = "nurseService/Controller/User/BasicInfoVC/BasicInfoVC.m"
+            timestampString = "505885113.611239"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "533"
-            endingLineNumber = "533"
-            landmarkName = "-inviteFriend"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
+            landmarkName = "-nextStepAction"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "nurseService/Controller/User/BasicInfoVC/BasicInfoVC.m"
+            timestampString = "505885167.830357"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "243"
+            endingLineNumber = "243"
+            landmarkName = "-nextStepAction"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

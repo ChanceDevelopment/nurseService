@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BasicInfoVC">
             <connections>
                 <outlet property="myTableView" destination="NbT-tH-si7" id="DHj-DI-Ecx"/>
+                <outlet property="statusView" destination="JIF-og-ffy" id="6VZ-6K-dFe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,14 +21,15 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JIF-og-ffy">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JIF-og-ffy">
                     <rect key="frame" x="0.0" y="5" width="375" height="55"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="avv-hX-gd9"/>
+                    </constraints>
                 </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NbT-tH-si7">
-                    <rect key="frame" x="0.0" y="60" width="375" height="600"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="NbT-tH-si7">
+                    <rect key="frame" x="0.0" y="60" width="375" height="607"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="Mng-5E-x6v"/>
@@ -36,6 +38,15 @@
                 </tableView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="NbT-tH-si7" firstAttribute="top" secondItem="JIF-og-ffy" secondAttribute="bottom" id="4iy-SG-2Gr"/>
+                <constraint firstAttribute="trailing" secondItem="NbT-tH-si7" secondAttribute="trailing" id="55q-dt-YU2"/>
+                <constraint firstAttribute="bottom" secondItem="NbT-tH-si7" secondAttribute="bottom" id="GSM-cH-mEB"/>
+                <constraint firstItem="JIF-og-ffy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="L4Y-KW-abW"/>
+                <constraint firstItem="NbT-tH-si7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="M0H-Ob-uVQ"/>
+                <constraint firstItem="JIF-og-ffy" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="5" id="dVf-ux-2dZ"/>
+                <constraint firstAttribute="trailing" secondItem="JIF-og-ffy" secondAttribute="trailing" id="ekt-Ca-HdN"/>
+            </constraints>
             <point key="canvasLocation" x="23.5" y="50.5"/>
         </view>
     </objects>
