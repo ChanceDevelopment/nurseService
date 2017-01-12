@@ -12,5 +12,6 @@
 
 - (void)initializaiton;
 - (void)initView;
+- (void)backItemClick:(id)sender;
 
 @end

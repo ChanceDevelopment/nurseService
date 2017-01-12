@@ -37,6 +37,8 @@
 #define MODIFYUSERINFO @"nurseAnduser/NurseInfoAdd.action"         //
 //1.3.1修改个人信息
 #define UPDATENURSEINFO @"nurseAnduser/updateNurseInfo.action"     //
+//1.9.1根据护士ID查询护士的基本信息和专业信息
+#define NURSEBASICSINFO @"nurseAnduser/SelectNurseBasicsInfo.action"
 //2.3接单状态修改
 #define UPDATEORDERSTATE @"orderReceiver/updateOrderState.action"
 //2.6根据订单id查询订单详情
