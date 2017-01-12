@@ -15,6 +15,7 @@
 @synthesize addressL;
 @synthesize userInfoL;
 @synthesize remarkInfoL;
+@synthesize exclusiveImageView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier cellSize:(CGSize)cellsize
 {
@@ -22,12 +23,18 @@
     if (self) {
         
         CGFloat bgView_W = SCREENWIDTH-10;
-        UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, bgView_W, 150)];
+        UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(5, 40, bgView_W, 150)];
         bgView.backgroundColor = [UIColor whiteColor];
         bgView.userInteractionEnabled = YES;
         [self addSubview:bgView];
         [bgView.layer setMasksToBounds:YES];
         bgView.layer.cornerRadius = 4.0;
+        
+        exclusiveImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 15, 40, 50)];
+        exclusiveImageView.backgroundColor = [UIColor clearColor];
+        exclusiveImageView.image = [UIImage imageNamed:@"img_exclusive"];
+        exclusiveImageView.userInteractionEnabled = YES;
+        [self addSubview:exclusiveImageView];
         
         CGFloat serviceContentLX = 10;
         CGFloat serviceContentLY = 5;

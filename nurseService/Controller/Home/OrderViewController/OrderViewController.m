@@ -373,7 +373,6 @@
             NSLog(@"success");
             if ([[respondDict valueForKey:@"json"] isMemberOfClass:[NSNull class]] || [respondDict valueForKey:@"json"] == nil) {
                 [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
-                
                 if (footerView) {
                     [footerView removeFromSuperview];
                     footerView = nil;
@@ -603,8 +602,20 @@
         NSString *content = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendServicecontent"]];
         NSArray *contentArr = [content componentsSeparatedByString:@":"];
         
-        cell.serviceContentL.text = contentArr[1];
-        
+        @try {
+            cell.serviceContentL.text = contentArr[1];
+        } @catch (NSException *exception) {
+            
+        } @finally {
+            
+        }
+
+        if ([[dict valueForKey:@"orderSendType"] isEqualToString:@"1"]) {
+            cell.exclusiveImageView.hidden = YES;
+        }else{
+            cell.exclusiveImageView.hidden = NO;
+
+        }
         NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
         [formatter setDateStyle:NSDateFormatterMediumStyle];
         [formatter setTimeStyle:NSDateFormatterShortStyle];
@@ -766,6 +777,9 @@
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
     
+    if (currentType == 0) {
+        return 240;
+    }
     
     return 160;
 }
