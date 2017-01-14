@@ -5654,8 +5654,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.channce.nurseService;
 				PRODUCT_NAME = "护士端";
-				PROVISIONING_PROFILE = "59be4f26-cf80-4560-b893-63c93bb87236";
-				PROVISIONING_PROFILE_SPECIFIER = 20170111_nurseService_Release;
+				PROVISIONING_PROFILE = "b2cd040e-ae19-42e0-99fc-c6658ede13f6";
+				PROVISIONING_PROFILE_SPECIFIER = "20170114_ nurseService_Release";
 			};
 			name = Release;
 		};
