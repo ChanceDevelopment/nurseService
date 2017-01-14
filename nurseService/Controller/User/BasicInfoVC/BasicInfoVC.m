@@ -8,7 +8,7 @@
 
 #import "BasicInfoVC.h"
 #import "HeBaseTableViewCell.h"
-
+#import "ProfessionInfoVC.h"
 @interface BasicInfoVC ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     NSArray *statusArray;
@@ -19,7 +19,6 @@
     UIImageView *headImageView;
     UIImageView *idCardImageView;
     BOOL isHeadImage;
-    BOOL isMan;
     UIView *windowView;
     NSDictionary *postDic;
     
@@ -28,6 +27,9 @@
     UITextField *phoneTextField;
     UITextField *addressTextField;
     UITextField *mailTextField;
+    
+    UIButton *manSelectBt;
+    UIButton *womanSelectBt;
 }
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
 @property(strong,nonatomic)IBOutlet UIView *statusView;
@@ -91,7 +93,6 @@
                @"NurseCardpic",@"", nil];
     infoDic = [[NSMutableDictionary alloc] initWithCapacity:0];
     isHeadImage = YES;
-    isMan = YES;
 }
 
 - (void)initView
@@ -216,6 +217,8 @@
 
 - (void)saveAction{
     NSLog(@"saveAction");
+//    [self nextStepAction];
+    [self goToProfessionInfoVC];
 }
 
 - (void)nextStepAction{
@@ -245,10 +248,14 @@
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             
             NSLog(@"success");
+            
+            
+            
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
         }
         [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        [self performSelector:@selector(goToProfessionInfoVC) withObject:nil afterDelay:1.2];
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
@@ -399,16 +406,26 @@
             
             CGFloat imageW = 10;
             CGFloat imageX = SCREENWIDTH-150;
-            UIImageView *manSelectView = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, 17, imageW, imageW)];
-            [cell addSubview:manSelectView];
-            manSelectView.backgroundColor = [UIColor clearColor];
-            manSelectView.userInteractionEnabled = YES;
+            manSelectBt = [[UIButton alloc] initWithFrame:CGRectMake(imageX, 17, imageW, imageW)];
+            [cell addSubview:manSelectBt];
+            manSelectBt.backgroundColor = [UIColor clearColor];
+            manSelectBt.userInteractionEnabled = YES;
+            [manSelectBt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_select"] forState:UIControlStateSelected];
+            manSelectBt.tag = 1;
+            manSelectBt.selected = YES;
+            [manSelectBt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_unselect"] forState:UIControlStateNormal];
+            [manSelectBt addTarget:self action:@selector(changeSexChoose:) forControlEvents:UIControlEventTouchUpInside];
             
-            UIImageView *womanSelectView = [[UIImageView alloc] initWithFrame:CGRectMake(imageX+70, 17, imageW, imageW)];
-            [cell addSubview:womanSelectView];
-            womanSelectView.backgroundColor = [UIColor clearColor];
-            womanSelectView.userInteractionEnabled  = YES;
-
+            womanSelectBt = [[UIButton alloc] initWithFrame:CGRectMake(imageX+70, 17, imageW, imageW)];
+            [cell addSubview:womanSelectBt];
+            womanSelectBt.backgroundColor = [UIColor clearColor];
+            womanSelectBt.userInteractionEnabled  = YES;
+            [womanSelectBt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_unselect"] forState:UIControlStateNormal];
+            [womanSelectBt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_select"] forState:UIControlStateSelected];
+            womanSelectBt.tag = 2;
+            womanSelectBt.selected = NO;
+            [womanSelectBt addTarget:self action:@selector(changeSexChoose:) forControlEvents:UIControlEventTouchUpInside];
+            
             UILabel *tipManLabel = [[UILabel alloc] initWithFrame:CGRectMake(imageX+20, 0, 30, cellSize.height)];
             tipManLabel.backgroundColor = [UIColor clearColor];
             tipManLabel.text = @"男";
@@ -422,23 +439,6 @@
             tipWomanLabel.font = [UIFont systemFontOfSize:15.0];
             tipWomanLabel.textColor = [UIColor grayColor];
             [cell addSubview:tipWomanLabel];
-            
-            
-            [manSelectView setImage:nil];
-            [womanSelectView setImage:nil];
-            if (isMan) {
-                [manSelectView setImage:[UIImage imageNamed:@"icon_dot_violet_select"]];
-                [womanSelectView setImage:[UIImage imageNamed:@"icon_dot_violet_unselect"]];
-            }else{
-                [manSelectView setImage:[UIImage imageNamed:@"icon_dot_violet_unselect"]];
-                [womanSelectView setImage:[UIImage imageNamed:@"icon_dot_violet_select"]];
-            }
-            
-            UITapGestureRecognizer *clickTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectAction)];
-            [manSelectView addGestureRecognizer:clickTap1];
-
-            UITapGestureRecognizer *clickTap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectAction)];
-            [womanSelectView addGestureRecognizer:clickTap2];
             
             break;
         }
@@ -642,7 +642,9 @@
     NSInteger section = indexPath.section;
     
     NSLog(@"row = %ld, section = %ld",row,section);
-    [self nextStepAction];
+    if (row == 8) {
+        [self nextStepAction];
+    }
 }
 
 - (void)clickIdCardAction{
@@ -803,19 +805,26 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
-- (void)selectAction{
-    NSLog(@"isMan");
-;
-    if (isMan) {
+- (void)changeSexChoose:(UIButton *)sender
+{
+    if (sender.selected == YES) {
+        return;
+    }
+    manSelectBt.selected = !manSelectBt.isSelected;
+    womanSelectBt.selected = !womanSelectBt.isSelected;
+    if (manSelectBt.selected) {
+        NSLog(@"男");
         [postDic setValue:@"1" forKey:@"NurseSex"];
     }else{
         [postDic setValue:@"2" forKey:@"NurseSex"];
+        NSLog(@"女");
     }
-    isMan = !isMan;
+}
 
-    NSIndexPath *indexPath=[NSIndexPath indexPathForRow:2 inSection:0];
-    [myTableView reloadRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath,nil] withRowAnimation:UITableViewRowAnimationNone];
+- (void)goToProfessionInfoVC{
+    ProfessionInfoVC *professionInfoVC = [[ProfessionInfoVC alloc] init];
+    professionInfoVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:professionInfoVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
