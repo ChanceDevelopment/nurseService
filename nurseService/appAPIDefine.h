@@ -37,8 +37,14 @@
 #define MODIFYUSERINFO @"nurseAnduser/NurseInfoAdd.action"         //
 //1.3.1修改个人信息
 #define UPDATENURSEINFO @"nurseAnduser/updateNurseInfo.action"     //
+//1.5更新护士端的经纬度
+#define NURSELATIUDE @"latitude/nurselatiude.action"
+//1.6通过ID查询护士信息
+#define SELECTBURSEBYID @"nurseAnduser/selectfornursebyid.action"
 //1.9.1根据护士ID查询护士的基本信息和专业信息
 #define NURSEBASICSINFO @"nurseAnduser/SelectNurseBasicsInfo.action"
+//2.2接取订单
+#define ORDERRECEIVER @"orderReceiver/orderReceiver.action"
 //2.3接单状态修改
 #define UPDATEORDERSTATE @"orderReceiver/updateOrderState.action"
 //2.6根据订单id查询订单详情
@@ -52,10 +58,16 @@
 #define CANCLEORDER @"orderSend/cancelOrder.action"
 //2.9.1 护士取消专属订单(正接单取消)
 #define CANCLEEXCLUSIVEORDER @"orderReceiver/giveUpExclusiveOrder.action"
+
+//6.3 护理报告详情页
+#define SELECTREPORTDETAIL @"selectReportdetails.action"
+//6.4 填写护理报告
+#define SELECTREPORTDETAILSTAY @"selectReportdetailsStay.action"
+
 //9.1绑定支付密码和账号
 #define BINDACCOUNTANDPAW@"nurseAnduser/BindAccountAndPassword.action"
-
-
+//9.3查询我的粉丝
+#define SELECTFOLLOWBYID @"follow/selectfollowbybefollowid.action"
 
 
 

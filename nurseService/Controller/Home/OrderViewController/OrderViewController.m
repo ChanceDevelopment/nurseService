@@ -29,6 +29,8 @@
     UIView *windowView;
     NSDictionary *currentDic;
     UIImageView *noDataView;
+    UIButton *switchBt;
+    UILabel *titleLabel;
 }
 @property(nonatomic,strong)DLNavigationTabBar *navigationTabBar;
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
@@ -96,6 +98,10 @@
     return _navigationTabBar;
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [self getReceiveOrderSwitchState];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -113,9 +119,8 @@
     [super initView];
     [self.view addSubview:self.navigationTabBar];
     
-    currentPage = 1;
+    currentPage = 0;
     currentType = 0;
-    [self getDataWithUrl:ORDERLOOKRECEIVER];
     dataArr = [[NSMutableArray alloc] initWithCapacity:0];
     currentDic = [[NSDictionary alloc] init];
 
@@ -160,13 +165,13 @@
     
     CGFloat receiveOrderX = 0;
     CGFloat receiveOrderY = 0;
-    CGFloat receiveOrderH = 20;
+    CGFloat receiveOrderH = 25;
     CGFloat receiveOrderW = receiveOrderViewW;
     
     receiveOrderView = [[UIView alloc] initWithFrame:CGRectMake(receiveOrderViewX, receiveOrderViewY, receiveOrderViewW, receiveOrderViewH)];
-    receiveOrderView.backgroundColor = [UIColor whiteColor];
+    receiveOrderView.backgroundColor = [UIColor clearColor];
     
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, receiveOrderH, receiveOrderViewW, 15)];
+    titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, receiveOrderH, receiveOrderViewW, 15)];
     titleLabel.backgroundColor = [UIColor clearColor];
     titleLabel.textColor = APPDEFAULTORANGE;
     titleLabel.text = @"接单中";
@@ -175,16 +180,24 @@
     titleLabel.textAlignment = NSTextAlignmentCenter;
     [receiveOrderView addSubview:titleLabel];
     
+    switchBt = [[UIButton alloc] initWithFrame:CGRectMake(receiveOrderX, receiveOrderY, receiveOrderW, receiveOrderH)];
+    [switchBt setBackgroundImage:[UIImage imageNamed:@"icon_switch_close"] forState:UIControlStateNormal];
+    [switchBt setBackgroundImage:[UIImage imageNamed:@"icon_switch_open"] forState:UIControlStateSelected];
     
-    ZJSwitch *receiveOrderSwitch = [[ZJSwitch alloc] initWithFrame:CGRectMake(receiveOrderX, receiveOrderY, receiveOrderW, receiveOrderH)];
-    receiveOrderSwitch.on = [[NSUserDefaults standardUserDefaults] objectForKey:RECEIVEORDERSTATE];
-    [receiveOrderSwitch addTarget:self action:@selector(receiveOrderSwitchChangeValue:) forControlEvents:UIControlEventValueChanged];
-    receiveOrderSwitch.tintColor = APPDEFAULTORANGE;
-    receiveOrderSwitch.onTintColor = APPDEFAULTORANGE;
-    receiveOrderSwitch.thumbTintColor = [UIColor whiteColor];
+    [switchBt addTarget:self action:@selector(receiveOrderSwitchChangeValue:) forControlEvents:UIControlEventTouchUpInside];
+    [receiveOrderView addSubview:switchBt];
+//
+//    ZJSwitch *receiveOrderSwitch = [[ZJSwitch alloc] initWithFrame:CGRectMake(receiveOrderX, receiveOrderY, receiveOrderW, receiveOrderH)];
+//    receiveOrderSwitch.on = [[NSUserDefaults standardUserDefaults] objectForKey:RECEIVEORDERSTATE];
+//    [receiveOrderSwitch addTarget:self action:@selector(receiveOrderSwitchChangeValue:) forControlEvents:UIControlEventValueChanged];
+//    receiveOrderSwitch.tintColor = APPDEFAULTORANGE;
+//    receiveOrderSwitch.onTintColor = APPDEFAULTORANGE;
+//    receiveOrderSwitch.thumbTintColor = [UIColor whiteColor];
 //    receiveOrderSwitch.layer.borderWidth = 0.5;
 //    receiveOrderSwitch.layer.borderColor = APPDEFAULTORANGE.CGColor;
-    [receiveOrderView addSubview:receiveOrderSwitch];
+//    [receiveOrderView addSubview:receiveOrderSwitch];
+    
+    
     
     UIBarButtonItem *receiveOrderItem = [[UIBarButtonItem alloc] initWithCustomView:receiveOrderView];
     self.navigationItem.rightBarButtonItem = receiveOrderItem;
@@ -207,6 +220,9 @@
         [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
     }];
     
+    
+    [self getDataWithUrl:ORDERLOOKRECEIVER];
+
 }
 
 - (void)initFooterView{
@@ -221,6 +237,53 @@
     [self.view addSubview:footerView];
     footerView.backgroundColor = self.view.backgroundColor;
     
+    CGFloat buttonH = 50;
+    CGFloat buttonW = 100;
+    CGFloat buttonX = SCREENWIDTH/2.0-buttonW-1;
+    CGFloat buttonY = 30;
+
+    
+    UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
+    cancelButton.backgroundColor = APPDEFAULTORANGE;
+    //    [cancelButton setTitleColor: forState:UIControlStateNormal];
+    cancelButton.tag = 0;
+    [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
+    [cancelButton.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [cancelButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [footerView addSubview:cancelButton];
+    
+    buttonX = SCREENWIDTH/2.0 + 1;
+    UIButton *receiveButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
+    receiveButton.backgroundColor = APPDEFAULTORANGE;
+    //    [receiveButton setTitleColor:APPDEFAULTORANGE forState:UIControlStateNormal];
+    receiveButton.tag = 1;
+    [receiveButton setTitle:@"接单" forState:UIControlStateNormal];
+    [receiveButton.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
+    [receiveButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [footerView addSubview:receiveButton];
+    
+    
+    
+    CGFloat timeLabelX = 0;
+    CGFloat timeLabelY = CGRectGetMaxY(receiveButton.frame) + 5;
+    CGFloat timeLabelH = 30;
+    CGFloat timeLabelW = SCREENWIDTH;
+    
+    UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(timeLabelX, timeLabelY, timeLabelW, timeLabelH)];
+    timeLabel.backgroundColor = [UIColor clearColor];
+    timeLabel.font = [UIFont systemFontOfSize:18.0];
+    timeLabel.textColor = [UIColor grayColor];
+    timeLabel.textAlignment = NSTextAlignmentCenter;
+    [footerView addSubview:timeLabel];
+    
+    MZTimerLabel *timer3 = [[MZTimerLabel alloc] initWithLabel:timeLabel andTimerType:MZTimerLabelTypeTimer];
+    timer3.timeFormat = @"mm:ss";
+    [timer3 setCountDownTime:60 * 5];
+    [timer3 start];
+
+    
+    
+    /*
     CGFloat receiveIconW = 60;
     CGFloat receiveIconH = 60;
     CGFloat receiveIconX = (SCREENWIDTH - receiveIconW) / 2.0;
@@ -244,9 +307,9 @@
     
     leftArrowImageY = CGRectGetMinY(leftArrowImage.frame);
     leftArrowImageX = CGRectGetMaxX(receiveIcon.frame) + 5;
-    UIImageView *rightArrowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_leftarrow_violet"]];
-    rightArrowImage.frame = CGRectMake(leftArrowImageX, leftArrowImageY, leftArrowImageW, leftArrowImageH);
-    [footerView addSubview:rightArrowImage];
+//    UIImageView *rightArrowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_leftarrow_violet"]];
+//    rightArrowImage.frame = CGRectMake(leftArrowImageX, leftArrowImageY, leftArrowImageW, leftArrowImageH);
+//    [footerView addSubview:rightArrowImage];
     
     CGFloat buttonH = receiveIconH;
     CGFloat buttonW = 50;
@@ -254,7 +317,8 @@
     CGFloat buttonY = receiveIconY;
     
     UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
-    [cancelButton setTitleColor:APPDEFAULTORANGE forState:UIControlStateNormal];
+    cancelButton.backgroundColor = APPDEFAULTORANGE;
+//    [cancelButton setTitleColor: forState:UIControlStateNormal];
     cancelButton.tag = 0;
     [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
     [cancelButton.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
@@ -263,12 +327,15 @@
     
     buttonX = CGRectGetMaxX(rightArrowImage.frame) + 5;
     UIButton *receiveButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
-    [receiveButton setTitleColor:APPDEFAULTORANGE forState:UIControlStateNormal];
+    receiveButton.backgroundColor = APPDEFAULTORANGE;
+//    [receiveButton setTitleColor:APPDEFAULTORANGE forState:UIControlStateNormal];
     receiveButton.tag = 1;
     [receiveButton setTitle:@"接单" forState:UIControlStateNormal];
     [receiveButton.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
     [receiveButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     [footerView addSubview:receiveButton];
+    
+    
     
     CGFloat timeLabelX = 0;
     CGFloat timeLabelY = CGRectGetMaxY(receiveButton.frame) + 5;
@@ -285,7 +352,7 @@
     MZTimerLabel *timer3 = [[MZTimerLabel alloc] initWithLabel:timeLabel andTimerType:MZTimerLabelTypeTimer];
     timer3.timeFormat = @"mm:ss";
     [timer3 setCountDownTime:60 * 5];
-    [timer3 start];
+    [timer3 start];*/
 }
 
 
@@ -293,12 +360,12 @@
 {
     if (button.tag == 0) {
         NSLog(@"取消");
-        [self sendCancleOrderWithOrderId:[dataArr[0] valueForKey:@"orderSendId"]];
-        
+        [self showCancleAlertView];
     }
     else if (button.tag == 1){
         NSLog(@"接单");
-        [self updateOrderStateWithOrderState:0];
+//        [self updateOrderStateWithOrderState:0];
+        [self receiveTheOrder];
     }
 }
 
@@ -317,10 +384,12 @@
     
 }
 
-- (void)receiveOrderSwitchChangeValue:(UISwitch *)mySwitch
+- (void)receiveOrderSwitchChangeValue:(UIButton *)mySwitch
 {
+
+    mySwitch.selected = !mySwitch.selected;
     UILabel *titleLabel = [receiveOrderView viewWithTag:100];
-    if (mySwitch.on) {
+    if (mySwitch.isSelected) {
         titleLabel.text = @"接单中";
         NSLog(@"接单中");
     }
@@ -329,8 +398,10 @@
         NSLog(@"关闭接单");
     }
     
+    [self reloadData];
+    
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
-    NSString *receiveState = mySwitch.on ? @"0" : @"1";    //0可接1不可接
+    NSString *receiveState = mySwitch.isSelected ? @"0" : @"1";    //0可接1不可接
     NSDictionary * params  = @{@"nurseId": userAccount,
                                @"nurseReceiverState": receiveState};
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:UPDATEORDERRECEIVERSTATE params:params success:^(AFHTTPRequestOperation* operation,id response){
@@ -340,12 +411,12 @@
 
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
-            if (mySwitch.on) {
+            
+            if (mySwitch.isSelected) {
                 [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:RECEIVEORDERSTATE];
             }else{
                 [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:RECEIVEORDERSTATE];
             }
-            
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
         }
@@ -356,7 +427,23 @@
 
 }
 
+- (void)resetSetSwitchBtState{
+    titleLabel .text = [[NSUserDefaults standardUserDefaults] objectForKey:RECEIVEORDERSTATE] ? @"接单中" : @"关闭接单";
+    switchBt.selected = [[NSUserDefaults standardUserDefaults] objectForKey:RECEIVEORDERSTATE];
+}
+
 - (void)getDataWithUrl:(NSString *)url{
+    if (!switchBt.isSelected && currentType == 0) {
+        
+        if (footerView) {
+            [footerView removeFromSuperview];
+            footerView = nil;
+        }
+        noDataView.hidden = NO;
+        myTableView.hidden = YES;
+        return;
+    }
+    
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     NSDictionary * params;
     if (currentType == 0) {
@@ -377,8 +464,11 @@
                     [footerView removeFromSuperview];
                     footerView = nil;
                 }
-                noDataView.hidden = NO;
-                myTableView.hidden = YES;
+                if (currentType != 2) {
+                    noDataView.hidden = NO;
+                    myTableView.hidden = YES;
+                }
+
                 return ;
             }else{
                 NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
@@ -466,7 +556,7 @@
     //订单ID
     NSDictionary * params  = @{@"orderSendId" : orderId,
                                @"userId" : userAccount,
-                               @"identity" : [NSNumber numberWithInteger:1]};
+                               @"identity" : @"1"};
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:CANCLEORDER params:params success:^(AFHTTPRequestOperation* operation,id response){
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSLog(@"respondString:%@",respondString);
@@ -511,11 +601,35 @@
     }];
 }
 
+- (void)receiveTheOrder{
+    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+    NSString *orderSendId = [currentDic valueForKey:@"orderSendId"];
+    
+    NSDictionary * params  = @{@"nurseId": userAccount,
+                               @"orderSendId" : orderSendId};
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:ORDERRECEIVER params:params success:^(AFHTTPRequestOperation* operation,id response){
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSLog(@"respondString:%@",respondString);
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        
+        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            [self reloadData];
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
+}
 #pragma mark - PrivateMethod
 - (void)navigationDidSelectedControllerIndex:(NSInteger)index {
     NSLog(@"index = %ld",index);
     currentType = index;
-    currentPage = 1;
+    currentPage = 0;
     if (dataArr && dataArr.count > 0) {
         [dataArr removeAllObjects];
     }
@@ -611,9 +725,9 @@
         }
 
         if ([[dict valueForKey:@"orderSendType"] isEqualToString:@"1"]) {
-            cell.exclusiveImageView.hidden = YES;
+            cell.exclusiveImageView.hidden = NO;//专属
         }else{
-            cell.exclusiveImageView.hidden = NO;
+            cell.exclusiveImageView.hidden = YES;
 
         }
         NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
@@ -761,6 +875,11 @@
          cell.orderMoney.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
          cell.reportBlock = ^(){
          NSLog(@"报告");
+             NurseReportVC *nurseReportVC = [[NurseReportVC alloc] init];
+             nurseReportVC.hidesBottomBarWhenPushed = YES;
+             nurseReportVC.infoData = currentDic;
+             nurseReportVC.isDetail = YES;
+             [self.navigationController pushViewController:nurseReportVC animated:YES];
          };
          cell.evaluateBlock = ^(){
          NSLog(@"评价");
@@ -980,7 +1099,14 @@
     NSLog(@"tag:%ld",sender.tag);
     if (sender.tag == 100) {
 // "请求取消";
-        [self sendCancleOrderWithOrderId:[currentDic valueForKey:@"orderSendId"]];
+        if (dataArr.count > 0) {
+            if ([[dataArr[0] valueForKey:@"orderSendType"] isEqualToString:@"1"]) {
+                [self cancleExclusiveOrder];
+            }else{
+                [self sendCancleOrderWithOrderId:[dataArr[0] valueForKey:@"orderSendId"]];
+            }
+        }
+//        [self sendCancleOrderWithOrderId:[currentDic valueForKey:@"orderSendId"]];
     }else if(sender.tag == 0){
         [self updateOrderStateWithOrderState:sender.tag];
 // "执行下一步：联系客户";
@@ -995,6 +1121,7 @@
         NurseReportVC *nurseReportVC = [[NurseReportVC alloc] init];
         nurseReportVC.hidesBottomBarWhenPushed = YES;
         nurseReportVC.infoData = currentDic;
+        nurseReportVC.isDetail = NO;
         [self.navigationController pushViewController:nurseReportVC animated:YES];
     }
     if (windowView) {
@@ -1031,7 +1158,7 @@
 }
 
 - (void)reloadData{
-    currentPage = 1;
+    currentPage = 0;
     if (dataArr && dataArr.count > 0) {
         [dataArr removeAllObjects];
     }
@@ -1055,6 +1182,40 @@
             break;
     }
 }
+
+
+//获取是否接单状态
+- (void)getReceiveOrderSwitchState{
+    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+    NSDictionary * params  = @{@"nurseId": userAccount};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:ORDERRECEIVESTATE params:params success:^(AFHTTPRequestOperation* operation,id response){
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSLog(@"respondString:%@",respondString);
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            if ([[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"json"]] isEqualToString:@"0"]) {
+                /*
+                 0.接
+                 1.不接
+                 */
+                [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:RECEIVEORDERSTATE];
+            }else{
+                [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:RECEIVEORDERSTATE];
+            }
+            [self resetSetSwitchBtState];
+            [self reloadData];
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
+        
+        
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

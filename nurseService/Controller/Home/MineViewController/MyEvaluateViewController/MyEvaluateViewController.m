@@ -14,6 +14,7 @@
     NSInteger currentPage;
     NSInteger currentType;
     NSMutableArray *dataArr;
+    UIImageView *noDataView;
 }
 @property(nonatomic,strong)DLNavigationTabBar *navigationTabBar;
 @end
@@ -80,6 +81,18 @@
     dataArr = [[NSMutableArray alloc] initWithCapacity:0];
     
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
+    
+    CGFloat noDataViewW = 50;
+    CGFloat noDataViewY = (self.view.frame.size.height-44-48-noDataViewW)/2.0;
+    CGFloat noDataViewX = (SCREENWIDTH-noDataViewW)/2.0;
+
+    noDataView = [[UIImageView alloc] init];
+    noDataView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:noDataView];
+    noDataView.frame = CGRectMake(noDataViewX, noDataViewY, noDataViewW, noDataViewW);
+    noDataView.image = [UIImage imageNamed:@"img_no_data"];
+    noDataView.hidden = YES;
+    
     [self.view addSubview:self.navigationTabBar];
     [myTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
@@ -127,7 +140,11 @@
                 
                 [dataArr addObjectsFromArray:tempArr];
                 [myTableView reloadData];
+                noDataView.hidden = YES;
+                myTableView.hidden = NO;
             }else{
+                myTableView.hidden = YES;
+                noDataView.hidden = NO;
                 return ;
             }
 

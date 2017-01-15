@@ -38,10 +38,10 @@
         
         CGFloat serviceContentLX = 10;
         CGFloat serviceContentLY = 5;
-        CGFloat serviceContentLW = SCREENWIDTH - 100;
+        CGFloat serviceContentLW = SCREENWIDTH - 170;
         CGFloat serviceContentLH = 35;
         
-        serviceContentL = [[UILabel alloc] initWithFrame:CGRectMake(serviceContentLX, serviceContentLY, serviceContentLW, serviceContentLH)];
+        serviceContentL = [[UILabel alloc] initWithFrame:CGRectMake(serviceContentLX+30, serviceContentLY, serviceContentLW, serviceContentLH)];
         serviceContentL.userInteractionEnabled = YES;
         serviceContentL.textColor = [UIColor blackColor];
         serviceContentL.font = [UIFont systemFontOfSize:15.0];

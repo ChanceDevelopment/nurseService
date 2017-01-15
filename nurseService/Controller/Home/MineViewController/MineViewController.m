@@ -18,13 +18,20 @@
 #import <ShareSDKUI/SSUIShareActionSheetCustomItem.h>
 #import <ShareSDK/ShareSDK+Base.h>
 #import "MyCapitalViewController.h"
+#import "MyFansVC.h"
+
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>
 {
     NSArray *iconArr;
     NSArray *tableItemArr;
-    UIImageView *portrait;        //头像
+    AsynImageView *portrait;        //头像
     UILabel *userNameL;       //用户名
     UIButton *signBtn;
+    
+    UIImageView *healthImageView;
+    UILabel *healthL;
+    UIImageView *nameImageView;
+    UILabel *nameL;
 }
 
 @property(strong,nonatomic)IBOutlet UITableView *myTableView;
@@ -59,6 +66,8 @@
     [self initializaiton];
     [self initView];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getNurseData) name:KNOTIFICATION_NURSEINFOCHANGE object:nil];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -66,6 +75,7 @@
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden = YES;
     [self getSignInState];
+//    [self getNurseData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -74,12 +84,33 @@
     self.navigationController.navigationBarHidden = NO;
 }
 
+
 - (void)initializaiton
 {
     [[UINavigationBar appearance] setTintColor:APPDEFAULTORANGE];
     [super initializaiton];
-    iconArr = @[@[@"icon_mycollection",@"icon_publish",@"icon_mycomment"],@[@"icon_patient",@"icon_follow",@"icon_fans"],@[@"icon_schedule",@"icon_service",@"icon_myadd"],@[@"icon_invite",@"icon_set",@"icon_set"]];
-    tableItemArr = @[@[@"        我的收藏",@"        我的发表",@"        我的评论"],@[@"        我的患者",@"        我的关注",@"        我的粉丝"],@[@"        我的排班表",@"        我的服务",@"        我的常用地址"],@[@"        邀请好友",@"        我的二维码",@"        设置"]];
+//    iconArr = @[@[@"icon_mycollection",@"icon_publish",@"icon_mycomment"],@[@"icon_patient",@"icon_follow",@"icon_fans"],@[@"icon_schedule",@"icon_service",@"icon_myadd"],@[@"icon_invite",@"icon_set",@"icon_set"]];
+    iconArr = @[@"icon_mycomment",@"icon_fans",@"icon_schedule",@"icon_invite",@"icon_set"];
+//    tableItemArr = @[@[@"        我的收藏",@"        我的发表",@"        我的评论"],@[@"        我的患者",@"        我的关注",@"        我的粉丝"],@[@"        我的排班表",@"        我的服务",@"        我的常用地址"],@[@"        邀请好友",@"        我的二维码",@"        设置"]];
+    tableItemArr =@[@"        我的评论",@"        我的粉丝",@"        我的排班表",@"        邀好友",@"        设置"];
+}
+
+- (void)reloadViewData{
+    portrait.imageURL = [NSString stringWithFormat:@"%@%@",PIC_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseHeader"]];
+    userNameL.text = [NSString stringWithFormat:@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseNick"]];
+    NSString *nurseDistrict = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseDistrict"];
+    
+    if ([nurseDistrict isEqualToString:@"1"]) {
+        healthImageView.hidden = YES;
+        healthL.hidden = YES;
+        nameImageView.hidden = YES;
+        nameL.hidden = YES;
+    }else{
+        healthImageView.hidden = NO;
+        healthL.hidden = NO;
+        nameImageView.hidden = NO;
+        nameL.hidden = NO;
+    }
 }
 
 - (void)initView
@@ -121,11 +152,19 @@
     CGFloat imageDia = 70;              //直径
     CGFloat imageX = (SCREENWIDTH-imageDia)/2.0;
     CGFloat imageY = 40;
-    portrait = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, imageY, imageDia, imageDia)];
+    portrait = [[AsynImageView alloc] initWithFrame:CGRectMake(imageX, imageY, imageDia, imageDia)];
     portrait.userInteractionEnabled = YES;
     portrait.layer.masksToBounds = YES;
     portrait.contentMode = UIViewContentModeScaleAspectFill;
-    portrait.image = [UIImage imageNamed:@"index1"];
+    portrait.placeholderImage = [UIImage imageNamed:@"index1"];
+    @try {
+        
+        portrait.imageURL = [NSString stringWithFormat:@"%@%@",PIC_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseHeader"]];
+    } @catch (NSException *exception) {
+        
+    } @finally {
+        
+    }
     portrait.layer.borderWidth = 0.0;
     portrait.layer.cornerRadius = imageDia / 2.0;
     portrait.layer.masksToBounds = YES;
@@ -163,7 +202,7 @@
     CGFloat healthX = 30;
     CGFloat healthY = labelY +30;
     CGFloat healthW = 15;
-    UIImageView *healthImageView = [[UIImageView alloc] initWithFrame:CGRectMake(healthX, healthY, healthW, healthW)];
+    healthImageView = [[UIImageView alloc] initWithFrame:CGRectMake(healthX, healthY, healthW, healthW)];
     healthImageView.backgroundColor = [UIColor clearColor];
     healthImageView.image = [UIImage imageNamed:@"icon_health_authent"];
     [headerView addSubview:healthImageView];
@@ -171,7 +210,7 @@
     CGFloat healthL_X = healthX+20;
     CGFloat healthL_Y = healthY-5;
     CGFloat healthL_W = 120;
-    UILabel *healthL = [[UILabel alloc] init];
+    healthL = [[UILabel alloc] init];
     healthL.textAlignment = NSTextAlignmentLeft;
     healthL.backgroundColor = [UIColor clearColor];
     healthL.font = [UIFont systemFontOfSize:15.0];
@@ -180,7 +219,7 @@
     [headerView addSubview:healthL];
     healthL.text = @"国家卫计委认证";
     
-    UIImageView *nameImageView = [[UIImageView alloc] initWithFrame:CGRectMake(healthL_X+healthL_W+10, healthY, healthW, healthW)];
+    nameImageView = [[UIImageView alloc] initWithFrame:CGRectMake(healthL_X+healthL_W+10, healthY, healthW, healthW)];
     nameImageView.backgroundColor = [UIColor clearColor];
     nameImageView.image = [UIImage imageNamed:@"icon_name_authent"];
     [headerView addSubview:nameImageView];
@@ -188,7 +227,7 @@
     CGFloat nameL_X = healthL_X+healthL_W+healthW+15;
     CGFloat nameL_Y = healthL_Y;
     CGFloat nameL_W = 90;
-    UILabel *nameL = [[UILabel alloc] init];
+    nameL = [[UILabel alloc] init];
     nameL.textAlignment = NSTextAlignmentLeft;
     nameL.backgroundColor = [UIColor clearColor];
     nameL.font = [UIFont systemFontOfSize:15.0];
@@ -204,6 +243,11 @@
         healthL.hidden = YES;
         nameImageView.hidden = YES;
         nameL.hidden = YES;
+    }else{
+        healthImageView.hidden = NO;
+        healthL.hidden = NO;
+        nameImageView.hidden = NO;
+        nameL.hidden = NO;
     }
     
 //    viewHeight
@@ -306,12 +350,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return iconArr.count;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [iconArr[section] count];
+    return iconArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -331,10 +375,10 @@
     switch (section) {
         case 0:
         {
-            UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[iconArr[section] objectAtIndex:row]]];
+            UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[iconArr objectAtIndex:row]]];
             icon.frame = CGRectMake(iconX, iconY, iconW, iconH);
             [userCell addSubview:icon];
-            userCell.textLabel.text = [tableItemArr[section] objectAtIndex:row];
+            userCell.textLabel.text = [tableItemArr objectAtIndex:row];
             userCell.textLabel.textColor = [UIColor grayColor];
             userCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
@@ -344,7 +388,7 @@
             UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[iconArr[section] objectAtIndex:row]]];
             icon.frame = CGRectMake(iconX, iconY, iconW, iconH);
             [userCell addSubview:icon];
-            userCell.textLabel.text = [tableItemArr[section] objectAtIndex:row];
+            userCell.textLabel.text = [tableItemArr objectAtIndex:row];
             userCell.textLabel.textColor = [UIColor grayColor];
             userCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
@@ -354,7 +398,7 @@
             UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[iconArr[section] objectAtIndex:row]]];
             icon.frame = CGRectMake(iconX, iconY, iconW, iconH);
             [userCell addSubview:icon];
-            userCell.textLabel.text = [tableItemArr[section] objectAtIndex:row];
+            userCell.textLabel.text = [tableItemArr objectAtIndex:row];
             userCell.textLabel.textColor = [UIColor grayColor];
             userCell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             break;
@@ -383,7 +427,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self.view makeToast:@"功能未完善" duration:1.2 position:@"center"];
 
     NSInteger index = indexPath.row;
     NSInteger sectionNum = indexPath.section;
@@ -393,18 +436,34 @@
         {
             switch (index) {
                 case 0:
-                {//我的收藏
-                }
-                    break;
-                case 1:
-                {//我的发表
-                }
-                    break;
-                case 2:
                 {//我的评论
                     MyEvaluateViewController *myEvaluateViewController = [[MyEvaluateViewController alloc] init];
                     myEvaluateViewController.hidesBottomBarWhenPushed = YES;
                     [self.navigationController pushViewController:myEvaluateViewController animated:YES];
+                }
+                    break;
+                case 1:
+                {//我的粉丝
+                    MyFansVC *myFansVC = [[MyFansVC alloc] init];
+                    myFansVC.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:myFansVC animated:YES];
+                }
+                    break;
+                case 2:
+                {//我的排班表
+                    [self.view makeToast:@"功能未完善" duration:1.2 position:@"center"];
+                }
+                    break;
+                case 3:
+                {//邀请好友
+                    [self inviteFriend];
+                }
+                    break;
+                case 4:
+                {//设置
+                    SettingViewController *settingViewController = [[SettingViewController alloc] init];
+                    settingViewController.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:settingViewController animated:YES];
                 }
                     break;
                     
@@ -575,6 +634,77 @@
     }
 }
 
+
+
+- (void)getNurseData{
+    NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:NURSEACCOUNTKEY];
+    NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:USERPASSWORDKEY];
+    if (!password) {
+        password = @"";
+    }
+    NSDictionary * params  = @{@"NurseName": account,@"NursePwd" : password};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:LOGINURL params:params success:^(AFHTTPRequestOperation* operation,id response){
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSLog(@"护士信息：%@",respondString);
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            
+            NSDictionary *userInfoDic = [NSDictionary dictionaryWithDictionary:[respondDict valueForKey:@"json"]];
+            NSMutableDictionary *nurseDic = [NSMutableDictionary dictionaryWithCapacity:0];
+            
+            for (NSString *key in [userInfoDic allKeys]) {
+                
+                if ([[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:key]] isEqualToString:@"<null>"]) {
+                    NSLog(@"key:%@",key);
+                    [nurseDic setValue:@"" forKey:key];
+                }else{
+                    [nurseDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:key]] forKey:key];
+                }
+            }
+            NSLog(@"%@",nurseDic);
+            
+            
+            [[NSUserDefaults standardUserDefaults] setObject:nurseDic forKey:USERACCOUNTKEY];//本地存储
+            [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseId"]] forKey:USERIDKEY];
+            [[NSUserDefaults standardUserDefaults] synchronize];//强制写入,保存数据
+            
+            [self reloadViewData];
+            
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
+        
+        
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+    }];
+
+//    NSString *latitude = [[HeSysbsModel getSysModel].userLocationDict objectForKey:@"longitude"];
+//    if (!latitude) {
+//        latitude = @"";
+//    }
+//    NSString *longitude = [[HeSysbsModel getSysModel].userLocationDict objectForKey:@"latitude"];
+//    if (!longitude) {
+//        longitude = @"";
+//    }
+//    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+//
+//    NSDictionary * params  = @{@"nurseid":userAccount,@"latitude": latitude,@"longitude":longitude};
+//    
+//    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:SELECTBURSEBYID params:params success:^(AFHTTPRequestOperation* operation,id response){
+//        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+//        
+//        NSDictionary *respondDict = [NSDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+//        if ([[respondDict valueForKey:@"errorCode"] integerValue] == REQUESTCODE_SUCCEED){
+//            NSLog(@"update Location Succeed!");
+//            
+//        }
+//    } failure:^(NSError* err){
+//        
+//    }];
+
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -63,6 +63,10 @@
 
 //登录状态发生变化的通知
 #define KNOTIFICATION_LOGINCHANGE @"loginStateChange"
+//修改个人信息时发生变化的通知
+#define KNOTIFICATION_NURSEINFOCHANGE @"nurseInfoChange"
+
+
 
 #define UPDATEUSER_NOTIFICATION @"updateUser"
 
@@ -77,10 +81,19 @@
 #define USERIDKEY @"userIDKey"
 #define USERTOKENKEY @"userTokenKey"
 #define USERACCOUNTKEY @"userAccountKey"     //账户信息
+#define NURSEACCOUNTKEY @"nurseAccountKey"
 #define USERPASSWORDKEY @"userPasswordKey"
 #define USERHAVELOGINKEY @"userHaveLogin"
 #define FRIENDLISTDOWNLOADSUCCEED @"friendDownloadSucceed"
 #define RECEIVEORDERSTATE @"receiveOrderState"
+
+//成功获取当前城市
+#define kGetCitySucceedNotification @"GetCitySucceedNotification"
+//上次定位的城市
+#define kPreLocationCityKey @"preLocationCityKey"
+
+
+
 
 #define ERRORREQUESTTIP @"网络出错，请稍后再试!"
 #define MODIFYPASSWORDKEY @"modifyPasswordKey"

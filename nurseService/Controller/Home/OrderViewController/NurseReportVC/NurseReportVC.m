@@ -18,7 +18,7 @@
 @implementation NurseReportVC
 @synthesize webView;
 @synthesize infoData;
-
+@synthesize isDetail;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -55,16 +55,24 @@
 {
     [super initView];
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
-    
+//    [self getReportStayUrl];
+//    [self getReportDetailUrl];
     [webView setScalesPageToFit:YES];
     webView.userInteractionEnabled = YES;
     webView.scrollView.bounces = NO;
-    NSString *urlString = [NSString stringWithFormat:@"http://118.178.186.59:8080/nurseDoor/selectReportdetailsStay.action?orderSendId=%@&protectedPersonId=%@",[infoData valueForKey:@"orderSendId"],[infoData valueForKey:@"orderSendUserid"]];
-    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
+
+    if (isDetail) {
+        NSString *urlString = [NSString stringWithFormat:@"http://118.178.186.59:8080/nurseDoor/selectReportdetails.action?orderSendId=%@&protectedPersonId=%@",[infoData valueForKey:@"orderSendId"],[infoData valueForKey:@"orderSendUserid"]];
+        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
+    }else{
+        NSString *urlString = [NSString stringWithFormat:@"http://118.178.186.59:8080/nurseDoor/selectReportdetailsStay.action?orderSendId=%@&protectedPersonId=%@",[infoData valueForKey:@"orderSendId"],[infoData valueForKey:@"orderSendUserid"]];
+        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
+
+    }
+//    NSString *urlString = [NSString stringWithFormat:@"http://118.178.186.59:8080/nurseDoor/selectReportdetailsStay.action?orderSendId=%@&protectedPersonId=%@",[infoData valueForKey:@"orderSendId"],[infoData valueForKey:@"orderSendUserid"]];
+//    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
 
 
-    
-    
 }
 
 #pragma mark webViewdelegate

@@ -133,19 +133,24 @@
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     NSDictionary * params  = @{@"nurseId" : [NSString stringWithFormat:@"%@",userAccount],
                                @"nurseheader" : headerStr,
+                               @"nurseNick" : [dataSourceDic valueForKey:@"nurseNick"],
                                @"nursePhone" : [dataSourceDic valueForKey:@"nursePhone"],
-                               @"nurseSex" : [dataSourceDic valueForKey:@"nurseSex"],
+                               @"nurseSex" : sexStr,
                                @"nurseNote" : [dataSourceDic valueForKey:@"nurseNote"],
                                @"nurseAddress" : [dataSourceDic valueForKey:@"nurseAddress"],
                                @"cardCd" : [dataSourceDic valueForKey:@"nurseCard"],
                                @"nurseInfo" : [dataSourceDic valueForKey:@"nurseJob"],
                                @"goosServices" : [dataSourceDic valueForKey:@"nurseGoodservice"]};
+
+    NSLog(@"%@",params);
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:UPDATENURSEINFO params:params success:^(AFHTTPRequestOperation* operation,id response){
         
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_NURSEINFOCHANGE object:nil];
             [self performSelector:@selector(backToRootView) withObject:nil afterDelay:1.2f];
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
@@ -159,6 +164,7 @@
 
 - (void)backToRootView{
     [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 #pragma mark - TableView Delegate
@@ -254,7 +260,11 @@
         }
             break;
         case 3:
-            NSLog(@"%ld",row);
+        {
+            [self showAddView];
+
+        }
+//            NSLog(@"%ld",row);
             break;
         case 4:
         {
@@ -427,6 +437,9 @@
     }else if(currentRow == 2){
         titleL.text = @"手机号";
         addTextField.text = [dataSourceDic valueForKey: @"nursePhone"];
+    }else if(currentRow == 3){
+        titleL.text = @"身份证号";
+        addTextField.text = [dataSourceDic valueForKey: @"nurseCard"];
     }else if(currentRow == 5){
         titleL.text = @"我的优势";
         addTextField.text = [dataSourceDic valueForKey: @"nurseNote"];
@@ -487,6 +500,8 @@
             [dataSourceDic setValue:addTextField.text forKey:@"nurseNick"];
         }else if(currentRow == 2){
             [dataSourceDic setValue:addTextField.text forKey:@"nursePhone"];
+        }else if(currentRow == 3){
+            [dataSourceDic setValue:addTextField.text forKey:@"nurseCard"];;
         }else if(currentRow == 5){
             [dataSourceDic setValue:addTextField.text forKey:@"nurseNote"];;
         }else if(currentRow == 7){

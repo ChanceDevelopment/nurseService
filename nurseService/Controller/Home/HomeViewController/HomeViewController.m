@@ -53,20 +53,20 @@
         self.navigationItem.titleView.backgroundColor = [UIColor clearColor];
         
         
-        NSMutableArray *buttons = [[NSMutableArray alloc] init];
-        UIButton *scanBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
-        [scanBt setBackgroundImage:[UIImage imageNamed:@"icon_scan"] forState:UIControlStateNormal];
-        [scanBt addTarget:self action:@selector(scanAction) forControlEvents:UIControlEventTouchUpInside];
-        scanBt.backgroundColor = [UIColor clearColor];
-        UIBarButtonItem *scanItem = [[UIBarButtonItem alloc] initWithCustomView:scanBt];
-        [buttons addObject:scanItem];
-        UIButton *searchBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
-        [searchBt setBackgroundImage:[UIImage imageNamed:@"icon_search"] forState:UIControlStateNormal];
-        [searchBt addTarget:self action:@selector(searchAction) forControlEvents:UIControlEventTouchUpInside];
-        searchBt.backgroundColor = [UIColor clearColor];
-        UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithCustomView:searchBt];
-        [buttons addObject:searchItem];
-        self.navigationItem.rightBarButtonItems = buttons;
+//        NSMutableArray *buttons = [[NSMutableArray alloc] init];
+//        UIButton *scanBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+//        [scanBt setBackgroundImage:[UIImage imageNamed:@"icon_scan"] forState:UIControlStateNormal];
+//        [scanBt addTarget:self action:@selector(scanAction) forControlEvents:UIControlEventTouchUpInside];
+//        scanBt.backgroundColor = [UIColor clearColor];
+//        UIBarButtonItem *scanItem = [[UIBarButtonItem alloc] initWithCustomView:scanBt];
+//        [buttons addObject:scanItem];
+//        UIButton *searchBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+//        [searchBt setBackgroundImage:[UIImage imageNamed:@"icon_search"] forState:UIControlStateNormal];
+//        [searchBt addTarget:self action:@selector(searchAction) forControlEvents:UIControlEventTouchUpInside];
+//        searchBt.backgroundColor = [UIColor clearColor];
+//        UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithCustomView:searchBt];
+//        [buttons addObject:searchItem];
+//        self.navigationItem.rightBarButtonItems = buttons;
         
     }
     return self;
