@@ -24,7 +24,7 @@
 {
     NSArray *iconArr;
     NSArray *tableItemArr;
-    AsynImageView *portrait;        //头像
+    UIImageView *portrait;        //头像
     UILabel *userNameL;       //用户名
     UIButton *signBtn;
     
@@ -96,7 +96,9 @@
 }
 
 - (void)reloadViewData{
-    portrait.imageURL = [NSString stringWithFormat:@"%@%@",PIC_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseHeader"]];
+    NSString *userHeader = [NSString stringWithFormat:@"%@%@",PIC_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseHeader"]];
+    [portrait sd_setImageWithURL:[NSURL URLWithString:userHeader] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];
+    
     userNameL.text = [NSString stringWithFormat:@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseNick"]];
     NSString *nurseDistrict = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseDistrict"];
     
@@ -152,25 +154,20 @@
     CGFloat imageDia = 70;              //直径
     CGFloat imageX = (SCREENWIDTH-imageDia)/2.0;
     CGFloat imageY = 40;
-    portrait = [[AsynImageView alloc] initWithFrame:CGRectMake(imageX, imageY, imageDia, imageDia)];
+    portrait = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, imageY, imageDia, imageDia)];
     portrait.userInteractionEnabled = YES;
     portrait.layer.masksToBounds = YES;
     portrait.contentMode = UIViewContentModeScaleAspectFill;
-    portrait.placeholderImage = [UIImage imageNamed:@"index1"];
-    @try {
-        
-        portrait.imageURL = [NSString stringWithFormat:@"%@%@",PIC_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseHeader"]];
-    } @catch (NSException *exception) {
-        
-    } @finally {
-        
-    }
+    portrait.image = [UIImage imageNamed:@"defalut_icon"];
     portrait.layer.borderWidth = 0.0;
     portrait.layer.cornerRadius = imageDia / 2.0;
     portrait.layer.masksToBounds = YES;
     [headerView addSubview:portrait];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToMineInfoView)];
     [portrait addGestureRecognizer:tap];
+    
+    NSString *userHeader = [NSString stringWithFormat:@"%@%@",PIC_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseHeader"]];
+    [portrait sd_setImageWithURL:[NSURL URLWithString:userHeader] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];
     
     //用户名
     CGFloat labelX = SCREENWIDTH/2.0-150;

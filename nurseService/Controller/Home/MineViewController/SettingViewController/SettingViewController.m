@@ -8,13 +8,20 @@
 
 #import "SettingViewController.h"
 #import "FeedbackViewController.h"
+#import "Tool.h"
+
 @interface SettingViewController ()
 {
     UIView *windowView;
 }
+@property (strong, nonatomic) IBOutlet UIButton *servionLable;
+@property (strong, nonatomic) IBOutlet UIButton *addviceButton;
+
 @end
 
 @implementation SettingViewController
+@synthesize servionLable;
+@synthesize addviceButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,7 +57,7 @@
 {
     [super initView];
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
-    
+    [servionLable setTitle:[NSString stringWithFormat:@"%@%@",@"    版本号:",[Tool getAppVersion]] forState:UIControlStateNormal];
 }
 
 

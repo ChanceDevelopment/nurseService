@@ -58,14 +58,15 @@
 #define CANCLEORDER @"orderSend/cancelOrder.action"
 //2.9.1 护士取消专属订单(正接单取消)
 #define CANCLEEXCLUSIVEORDER @"orderReceiver/giveUpExclusiveOrder.action"
-
+//5.1 护士账单
+#define SELECTNURSEBILL @"nurseAnduser/selectNurseBills.action"
 //6.3 护理报告详情页
 #define SELECTREPORTDETAIL @"selectReportdetails.action"
 //6.4 填写护理报告
 #define SELECTREPORTDETAILSTAY @"selectReportdetailsStay.action"
 
 //9.1绑定支付密码和账号
-#define BINDACCOUNTANDPAW@"nurseAnduser/BindAccountAndPassword.action"
+#define BINDACCOUNTANDPAW @"nurseAnduser/BindAccountAndPassword.action"
 //9.3查询我的粉丝
 #define SELECTFOLLOWBYID @"follow/selectfollowbybefollowid.action"
 

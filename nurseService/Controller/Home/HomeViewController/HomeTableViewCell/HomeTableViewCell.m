@@ -30,10 +30,10 @@
         CGFloat headImageY = 25;
         CGFloat headImageW = 30;
         
-        headImageView = [[AsynImageView alloc] initWithFrame:CGRectMake(headImageX, headImageY, headImageW, headImageW)];
+        headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(headImageX, headImageY, headImageW, headImageW)];
         headImageView.backgroundColor = [UIColor clearColor];
         headImageView.layer.masksToBounds = YES;
-        headImageView.placeholderImage = [UIImage imageNamed:@"defalut_icon"];
+        headImageView.image = [UIImage imageNamed:@"defalut_icon"];
         headImageView.contentMode = UIViewContentModeScaleAspectFill;
         headImageView.layer.borderWidth = 0.0;
         headImageView.layer.cornerRadius = 20 / 2.0;

@@ -199,7 +199,8 @@
         if (userImage) {
             cell.headImageView.image = userImage;
         }else{
-            cell.headImageView.imageURL = [NSString stringWithFormat:@"%@%@",PIC_URL,[dataSourceDic valueForKey:@"nurseHeader"]];
+            NSString *userHeader = [NSString stringWithFormat:@"%@%@",PIC_URL,[dataSourceDic valueForKey:@"nurseHeader"]];
+            [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:userHeader] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];            
         }
     }else{
         NSString *nameStr = @"";

@@ -209,7 +209,9 @@
          cell.rankNum.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"ranks"]];
          cell.rankImageView.hidden = YES;
      }
-     cell.headImageView.imageURL = [NSString stringWithFormat:@"%@%@",PIC_URL,[dict valueForKey:@"nurseHeader"]];
+     NSString *userHeader = [NSString stringWithFormat:@"%@%@",PIC_URL,[dict valueForKey:@"nurseHeader"]];
+     [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:userHeader] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];
+     
      cell.pickName.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"nurseNick"]];
      cell.coinNum.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"nurseMark"]];
      cell.followBlock=^(){

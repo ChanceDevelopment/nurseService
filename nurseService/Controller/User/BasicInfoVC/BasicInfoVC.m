@@ -241,6 +241,7 @@
                                @"NurseLanguage" : @"",
                                @"NurseEmail" : NurseEmail,
                                @"NurseCardpic" : [postDic valueForKey:@"NurseCardpic"]};
+    NSLog(@"%@",params);
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:NURSEBASICSINFO params:params success:^(AFHTTPRequestOperation* operation,id response){
         
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];

@@ -9,7 +9,7 @@
 #import "HeBaseTableViewCell.h"
 
 @interface HomeTableViewCell : HeBaseTableViewCell
-@property (nonatomic,strong)AsynImageView *headImageView;
+@property (nonatomic,strong)UIImageView *headImageView;
 @property (nonatomic,strong)UILabel *nameL;
 @property (nonatomic,strong)UILabel *titleL;
 @property (nonatomic,strong)UILabel *timeL;

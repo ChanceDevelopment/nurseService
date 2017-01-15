@@ -11,5 +11,5 @@
 @interface MyInfoTableViewCell : HeBaseTableViewCell
 @property (strong, nonatomic) UILabel *name;
 @property (strong, nonatomic) UILabel *nameText;
-@property (nonatomic,strong)AsynImageView *headImageView;
+@property (nonatomic,strong)UIImageView *headImageView;
 @end

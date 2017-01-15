@@ -31,11 +31,11 @@
         rankNum.backgroundColor = [UIColor clearColor];
         [self addSubview:rankNum];
 
-        headImageView = [[AsynImageView alloc] initWithFrame:CGRectMake(55, 2, 40, 40)];
+        headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(55, 2, 40, 40)];
         headImageView.backgroundColor = [UIColor clearColor];
         headImageView.layer.masksToBounds = YES;
         headImageView.contentMode = UIViewContentModeScaleAspectFill;
-        headImageView.placeholderImage = [UIImage imageNamed:@"index1"];
+        headImageView.image = [UIImage imageNamed:@"defalut_icon"];
         headImageView.layer.borderWidth = 0.0;
         headImageView.layer.cornerRadius = 40 / 2.0;
         headImageView.layer.masksToBounds = YES;

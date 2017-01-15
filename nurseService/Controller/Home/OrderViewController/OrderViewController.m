@@ -20,6 +20,7 @@
 #import "HeUserLocatiVC.h"
 #import "HePaitentInfoVC.h"
 #import "NurseReportVC.h"
+#import "CheckDetailVC.h"
 
 @interface OrderViewController ()<UITableViewDelegate,UITableViewDataSource>{
     NSInteger currentPage;
@@ -916,7 +917,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     
     UIView *v = nil;
-    if (currentType == 2 && section == 0 && dataArr.count > 0) {
+    if (currentType == 2 && section == 0) {
         v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
         v.userInteractionEnabled = YES;
         [v setBackgroundColor:[UIColor colorWithWhite:244.0 / 255.0 alpha:1.0]];
@@ -962,6 +963,9 @@
 
 - (void)goToCheck{
     NSLog(@"goToCheck");
+    CheckDetailVC *checkDetailVC = [[CheckDetailVC alloc] init];
+    checkDetailVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:checkDetailVC animated:YES];
 }
 
 - (void)searchAction{

@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingViewController">
             <connections>
+                <outlet property="addviceButton" destination="iRE-qJ-E8f" id="C7C-cS-21f"/>
+                <outlet property="servionLable" destination="sub-mi-ZK2" id="RAP-rm-QRy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -38,7 +40,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="Lgi-YN-IZf"/>
                     </constraints>
-                    <state key="normal" title="    版本更新">
+                    <state key="normal" title="    版本号:">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>

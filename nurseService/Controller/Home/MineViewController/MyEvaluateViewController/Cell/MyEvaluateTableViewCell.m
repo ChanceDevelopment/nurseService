@@ -16,10 +16,10 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier cellSize:cellsize];
     if (self) {
         
-        headImageView = [[AsynImageView alloc] initWithFrame:CGRectMake(10, 15, 40, 40)];
+        headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 15, 40, 40)];
         headImageView.backgroundColor = [UIColor clearColor];
         headImageView.layer.masksToBounds = YES;
-        headImageView.placeholderImage = [UIImage imageNamed:@"defalut_icon"];
+        headImageView.image = [UIImage imageNamed:@"defalut_icon"];
         headImageView.contentMode = UIViewContentModeScaleAspectFill;
         headImageView.layer.borderWidth = 0.0;
         headImageView.layer.cornerRadius = 40 / 2.0;
