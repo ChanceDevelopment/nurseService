@@ -88,6 +88,10 @@
 		ADB49C6F1E18F369008DBCF6 /* OrderNowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB49C6E1E18F369008DBCF6 /* OrderNowTableViewCell.m */; };
 		ADB49C721E18F3A9008DBCF6 /* OrderRecTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB49C711E18F3A9008DBCF6 /* OrderRecTableViewCell.m */; };
 		ADB49C751E1947CD008DBCF6 /* icon_address.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB49C741E1947CD008DBCF6 /* icon_address.png */; };
+		ADB4CFEC1E2CBE9E004ED2E3 /* icon_hook.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB4CFEB1E2CBE9E004ED2E3 /* icon_hook.png */; };
+		ADB4CFEE1E2D1CDD004ED2E3 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB4CFED1E2D1CDD004ED2E3 /* delete.png */; };
+		ADB4CFF31E2D3788004ED2E3 /* HeCommentNurseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB4CFF11E2D3788004ED2E3 /* HeCommentNurseVC.m */; };
+		ADB4CFF41E2D3789004ED2E3 /* HeCommentNurseVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADB4CFF21E2D3788004ED2E3 /* HeCommentNurseVC.xib */; };
 		ADCD25A61E0C0E9900FBCF26 /* MyEvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCD25A41E0C0E9900FBCF26 /* MyEvaluateViewController.m */; };
 		ADCD25AB1E0C19CD00FBCF26 /* MyEvaluateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCD25AA1E0C19CD00FBCF26 /* MyEvaluateTableViewCell.m */; };
 		ADCD25AD1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADCD25AC1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib */; };
@@ -821,6 +825,11 @@
 		ADB49C701E18F3A9008DBCF6 /* OrderRecTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderRecTableViewCell.h; sourceTree = "<group>"; };
 		ADB49C711E18F3A9008DBCF6 /* OrderRecTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderRecTableViewCell.m; sourceTree = "<group>"; };
 		ADB49C741E1947CD008DBCF6 /* icon_address.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_address.png; sourceTree = "<group>"; };
+		ADB4CFEB1E2CBE9E004ED2E3 /* icon_hook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_hook.png; sourceTree = "<group>"; };
+		ADB4CFED1E2D1CDD004ED2E3 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
+		ADB4CFF01E2D3788004ED2E3 /* HeCommentNurseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeCommentNurseVC.h; sourceTree = "<group>"; };
+		ADB4CFF11E2D3788004ED2E3 /* HeCommentNurseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeCommentNurseVC.m; sourceTree = "<group>"; };
+		ADB4CFF21E2D3788004ED2E3 /* HeCommentNurseVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeCommentNurseVC.xib; sourceTree = "<group>"; };
 		ADCD25A31E0C0E9900FBCF26 /* MyEvaluateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEvaluateViewController.h; sourceTree = "<group>"; };
 		ADCD25A41E0C0E9900FBCF26 /* MyEvaluateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEvaluateViewController.m; sourceTree = "<group>"; };
 		ADCD25A91E0C19CD00FBCF26 /* MyEvaluateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEvaluateTableViewCell.h; sourceTree = "<group>"; };
@@ -2290,6 +2299,16 @@
 			path = order;
 			sourceTree = "<group>";
 		};
+		ADB4CFEF1E2D3788004ED2E3 /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				ADB4CFF01E2D3788004ED2E3 /* HeCommentNurseVC.h */,
+				ADB4CFF11E2D3788004ED2E3 /* HeCommentNurseVC.m */,
+				ADB4CFF21E2D3788004ED2E3 /* HeCommentNurseVC.xib */,
+			);
+			path = Comment;
+			sourceTree = "<group>";
+		};
 		ADCD25A21E0C0E5700FBCF26 /* MyEvaluateViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2384,6 +2403,8 @@
 		ADDBEB4B1DFCE26F000BDA95 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				ADB4CFED1E2D1CDD004ED2E3 /* delete.png */,
+				ADB4CFEB1E2CBE9E004ED2E3 /* icon_hook.png */,
 				AD8A0E6B1E240D580001CC02 /* icon_comment.png */,
 				AD8A0E691E240D4F0001CC02 /* icon_like.png */,
 				ADB49C731E1947C5008DBCF6 /* order */,
@@ -2459,6 +2480,7 @@
 		ADDBEB6C1DFCE41A000BDA95 /* OrderViewController */ = {
 			isa = PBXGroup;
 			children = (
+				ADB4CFEF1E2D3788004ED2E3 /* Comment */,
 				AD13A6741E2BD7D4002ADE2B /* CheckDetailVC */,
 				AD8A0E6D1E248AED0001CC02 /* NurseReportVC */,
 				EABFEC441E1B8652009C27C5 /* OrderDetail */,
@@ -4828,6 +4850,7 @@
 				AD5CD6CC1E0EAECF0025517E /* abc_btn_radio.png in Resources */,
 				EAA4F3361E024A9A00EF9E14 /* NavBarIOS7.png in Resources */,
 				EAC2D94E1D4B063B00E282A8 /* SVProgressHUD.bundle in Resources */,
+				ADB4CFEC1E2CBE9E004ED2E3 /* icon_hook.png in Resources */,
 				EAA4F31E1E012F3000EF9E14 /* tabar_home_icon_active@2x.png in Resources */,
 				AD8BB1331E096EA7004064F9 /* icon_into_right.png in Resources */,
 				ADDBEB461DFCE267000BDA95 /* HeTabBarVC.xib in Resources */,
@@ -4930,6 +4953,7 @@
 				EAC2D89B1D4B063B00E282A8 /* MJPhotoBrowser.bundle in Resources */,
 				EAC2D87D1D4B063B00E282A8 /* whiteArrow@2x.png in Resources */,
 				EAC2D9541D4B063B00E282A8 /* btn_021.disable@2x.png in Resources */,
+				ADB4CFF41E2D3789004ED2E3 /* HeCommentNurseVC.xib in Resources */,
 				EA472CB61E04DE5500E0316F /* select_box.png in Resources */,
 				EAC2D9511D4B063B00E282A8 /* btn_020.disable@2x.png in Resources */,
 				ADB49C531E163CA3008DBCF6 /* icon_rank_1.png in Resources */,
@@ -5003,6 +5027,7 @@
 				AD8BB12E1E096E9B004064F9 /* icon_health_authent.png in Resources */,
 				ADB49C541E163CA3008DBCF6 /* icon_rank_2.png in Resources */,
 				EAA4F3151E012AA800EF9E14 /* RankViewController.xib in Resources */,
+				ADB4CFEE1E2D1CDD004ED2E3 /* delete.png in Resources */,
 				EAC2D99A1D4B063C00E282A8 /* loading_anim1.png in Resources */,
 				AD8BB1321E096EA7004064F9 /* defalut_icon.png in Resources */,
 				AD3013891DFCF4F300D26E09 /* icon_publish.png in Resources */,
@@ -5129,6 +5154,7 @@
 				EAC2D81B1D4B063B00E282A8 /* AFHTTPSessionManager.m in Sources */,
 				EAC2D8E11D4B063B00E282A8 /* NSObject+RACDeallocating.m in Sources */,
 				EAA655451E0628A600F424DD /* ActivityLogModel.m in Sources */,
+				ADB4CFF31E2D3788004ED2E3 /* HeCommentNurseVC.m in Sources */,
 				EAC2D91C1D4B063B00E282A8 /* RACTupleSequence.m in Sources */,
 				EAC2D9841D4B063B00E282A8 /* qrspec.c in Sources */,
 				EAC2D89E1D4B063B00E282A8 /* MJPhotoProgressView.m in Sources */,

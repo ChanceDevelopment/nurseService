@@ -9,6 +9,8 @@
 #import "Tool.h"
 #include <sys/xattr.h>
 #import "HeSysbsModel.h"
+#import "AppDelegate.h"
+#import "JPUSHService.h"
 
 @implementation Tool
 
@@ -1084,6 +1086,16 @@
     }
 }
 
++ (BOOL) IsIdentityCard:(NSString *)IDCardNumber
+{
+    if (IDCardNumber.length <= 0) {
+        return NO;
+    }
+    NSString *regex2 = @"^(\\d{14}|\\d{17})(\\d|[xX])$";
+    NSPredicate *identityCardPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex2];
+    return [identityCardPredicate evaluateWithObject:IDCardNumber];
+}
+
 + (NSString *)compareCurrentTime:(NSString *)comparedateline
 {
     long long int localdateline = [comparedateline longLongValue];
@@ -1159,6 +1171,18 @@
     
     
     return  result;
+    
+}
+
+//初始化推送服务
++ (void)initPush
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *account = [defaults objectForKey:USERIDKEY];//本地存储;
+    
+    NSArray *objectarray = [NSArray arrayWithObject:account];
+    AppDelegate *appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    [JPUSHService setTags:nil alias:account callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:appdelegate];
     
 }
 

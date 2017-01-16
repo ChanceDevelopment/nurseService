@@ -102,16 +102,16 @@
     userNameL.text = [NSString stringWithFormat:@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseNick"]];
     NSString *nurseDistrict = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseDistrict"];
     
-    if ([nurseDistrict isEqualToString:@"1"]) {
-        healthImageView.hidden = YES;
-        healthL.hidden = YES;
-        nameImageView.hidden = YES;
-        nameL.hidden = YES;
-    }else{
+    if ([nurseDistrict isEqualToString:@"0"]) {
         healthImageView.hidden = NO;
         healthL.hidden = NO;
         nameImageView.hidden = NO;
         nameL.hidden = NO;
+    }else{
+        healthImageView.hidden = YES;
+        healthL.hidden = YES;
+        nameImageView.hidden = YES;
+        nameL.hidden = YES;
     }
 }
 
@@ -136,19 +136,19 @@
 
     
     //签到按钮
-    CGFloat buttonW = 50;
-    CGFloat buttonH = 20;
-    CGFloat buttonX = SCREENWIDTH-60;
-    CGFloat buttonY = 20;
-    signBtn = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
-    signBtn.backgroundColor = [UIColor clearColor];
-    signBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
-    signBtn.layer.cornerRadius = 4.0;//2.0是圆角的弧度，根据需求自己更改
-    signBtn.layer.borderWidth = 1.0f;//设置边框颜色
-    signBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
-    [signBtn setTitle:@"签到" forState:UIControlStateNormal];
-    [signBtn addTarget:self action:@selector(toSignInView) forControlEvents:UIControlEventTouchUpInside];
-    [headerView addSubview:signBtn];
+//    CGFloat buttonW = 50;
+//    CGFloat buttonH = 20;
+//    CGFloat buttonX = SCREENWIDTH-60;
+//    CGFloat buttonY = 20;
+//    signBtn = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
+//    signBtn.backgroundColor = [UIColor clearColor];
+//    signBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
+//    signBtn.layer.cornerRadius = 4.0;//2.0是圆角的弧度，根据需求自己更改
+//    signBtn.layer.borderWidth = 1.0f;//设置边框颜色
+//    signBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
+//    [signBtn setTitle:@"签到" forState:UIControlStateNormal];
+//    [signBtn addTarget:self action:@selector(toSignInView) forControlEvents:UIControlEventTouchUpInside];
+//    [headerView addSubview:signBtn];
     
     //头像
     CGFloat imageDia = 70;              //直径
@@ -235,16 +235,16 @@
     
     NSString *nurseDistrict = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseDistrict"];
     
-    if ([nurseDistrict isEqualToString:@"1"]) {
-        healthImageView.hidden = YES;
-        healthL.hidden = YES;
-        nameImageView.hidden = YES;
-        nameL.hidden = YES;
-    }else{
+    if ([nurseDistrict isEqualToString:@"0"]) {
         healthImageView.hidden = NO;
         healthL.hidden = NO;
         nameImageView.hidden = NO;
         nameL.hidden = NO;
+    }else{
+        healthImageView.hidden = YES;
+        healthL.hidden = YES;
+        nameImageView.hidden = YES;
+        nameL.hidden = YES;
     }
     
 //    viewHeight

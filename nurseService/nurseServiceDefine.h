@@ -65,7 +65,8 @@
 #define KNOTIFICATION_LOGINCHANGE @"loginStateChange"
 //修改个人信息时发生变化的通知
 #define KNOTIFICATION_NURSEINFOCHANGE @"nurseInfoChange"
-
+//跳过实名认证的通知
+#define KNOTIFICATION_JUSTTOROOTVIEW @"justToRootView"
 
 
 #define UPDATEUSER_NOTIFICATION @"updateUser"

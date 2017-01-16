@@ -20,7 +20,7 @@
     UIImageView *idCardImageView;
     BOOL isHeadImage;
     UIView *windowView;
-    NSDictionary *postDic;
+    NSMutableDictionary *postDic;
     
     UITextField *nameTextField;
     UITextField *idCardTextField;
@@ -65,7 +65,7 @@
         saveBt.layer.borderWidth = 1.0f;
         saveBt.layer.borderColor = [[UIColor colorWithRed:152.0 / 255.0 green:67.0 / 255.0 blue:141.0 / 255.0 alpha:1.0] CGColor];
         [saveBt addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
-        saveBt.backgroundColor = [UIColor blackColor];
+        saveBt.backgroundColor = [UIColor clearColor];
         
         UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithCustomView:saveBt];
         [buttons addObject:searchItem];
@@ -87,10 +87,9 @@
 {
     [super initializaiton];
     statusArray = @[@"基本信息",@"专业信息",@"等待审核"];
-    postDic = [NSDictionary dictionaryWithObjectsAndKeys:
-               @"",@"NurseTruePic",
-               @"1",@"NurseSex",
-               @"",@"NurseCardpic", nil];
+//    postDic = @{@"NurseTruePic":@"",@"NurseSex":@"1",@"NurseCardpic":@""};
+    postDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"",@"NurseTruePic",@"1",@"NurseSex",@"",@"NurseCardpic", nil];
+    
     infoDic = [[NSMutableDictionary alloc] initWithCapacity:0];
     isHeadImage = YES;
 }
@@ -106,6 +105,15 @@
     myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     [self addStatueViewWithStatus:0];
+    
+    UIButton *backImage = [[UIButton alloc] init];
+    [backImage setBackgroundImage:[UIImage imageNamed:@"navigationBar_back_icon"] forState:UIControlStateNormal];
+    [backImage addTarget:self action:@selector(backItemClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    backImage.frame = CGRectMake(0, 0, 25, 25);
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backImage];
+    backItem.target = self;
+    self.navigationItem.leftBarButtonItem = backItem;
 }
 
 - (void)getNurseData{
@@ -116,19 +124,19 @@
         
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
-        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
-            if ([[respondDict valueForKey:@"json"] isMemberOfClass:[NSNull class]] || [respondDict valueForKey:@"json"] == nil) {
+        if ([[[respondDict objectForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            if ([[respondDict objectForKey:@"json"] isMemberOfClass:[NSNull class]] || [respondDict objectForKey:@"json"] == nil) {
 
                 
             }else{
-                NSDictionary *tempDic = [[NSDictionary alloc] initWithDictionary:[respondDict valueForKey:@"json"]];
+                NSDictionary *tempDic = [[NSDictionary alloc] initWithDictionary:[respondDict objectForKey:@"json"]];
             }
             
             NSLog(@"success");
-        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+        }else if ([[[respondDict objectForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
         }
-        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict objectForKey:@"data"]] duration:1.2 position:@"center"];
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
@@ -207,11 +215,13 @@
 
 - (void)clickBtAction:(UIButton *)sender{
     NSLog(@"tag:%ld",sender.tag);
+    if (sender.tag == 100) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_JUSTTOROOTVIEW object:nil];
+    }
     
     if (windowView) {
         [windowView removeFromSuperview];
     }
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -230,34 +240,36 @@
     NSString *NurseAddress = addressTextField.text;
     NSString *NurseEmail = mailTextField.text;
     
+    if (nurseCard.length > 0) {
+        if (![Tool IsIdentityCard:nurseCard]) {
+            [self showHint:@"请输入正确的身份证号"];
+            return;
+        }
+    }
     
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     NSDictionary * params  = @{@"NurseId" : userAccount,
-                               @"NurseTruePic" : [postDic valueForKey:@"NurseTruePic"],
+                               @"NurseTruePic" : [postDic objectForKey:@"NurseTruePic"],
                                @"nurseTruename" : nurseTruename,
-                               @"NurseSex" : [postDic valueForKey:@"NurseSex"],
+                               @"NurseSex" : [postDic objectForKey:@"NurseSex"],
                                @"NurseCard" : nurseCard,
                                @"NursePhone" : nursePhone,
                                @"NurseAddress" : NurseAddress,
                                @"NurseLanguage" : @"",
                                @"NurseEmail" : NurseEmail,
-                               @"NurseCardpic" : [postDic valueForKey:@"NurseCardpic"]};
+                               @"NurseCardpic" : [postDic objectForKey:@"NurseCardpic"]};
     NSLog(@"%@",params);
-    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:NURSEBASICSINFO params:params success:^(AFHTTPRequestOperation* operation,id response){
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:MODIFYUSERINFO params:params success:^(AFHTTPRequestOperation* operation,id response){
         
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
-        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
-            
+        if ([[[respondDict objectForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
-            
-            
-            
-        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+        }else if ([[[respondDict objectForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
+            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict objectForKey:@"data"]] duration:1.2 position:@"center"];
         }
-        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
-        [self performSelector:@selector(goToProfessionInfoVC) withObject:nil afterDelay:1.2];
+        [self performSelector:@selector(goToProfessionInfoVC) withObject:nil afterDelay:0];
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
@@ -446,7 +458,6 @@
         }
         case 3:
         {
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
             tipLabel.backgroundColor = [UIColor clearColor];
             tipLabel.text = @"身份证号";
@@ -471,7 +482,6 @@
         }
         case 4:
         {
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
             tipLabel.backgroundColor = [UIColor clearColor];
             tipLabel.text = @"联系电话";
@@ -496,7 +506,6 @@
         }
         case 5:
         {
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
             tipLabel.backgroundColor = [UIColor clearColor];
             tipLabel.text = @"常住地址";
@@ -521,7 +530,6 @@
         }
         case 6:
         {
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
             tipLabel.backgroundColor = [UIColor clearColor];
             tipLabel.text = @"邮箱";

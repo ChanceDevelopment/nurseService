@@ -36,7 +36,9 @@
 //1.3 基本信息完善
 #define MODIFYUSERINFO @"nurseAnduser/NurseInfoAdd.action"         //
 //1.3.1修改个人信息
-#define UPDATENURSEINFO @"nurseAnduser/updateNurseInfo.action"     //
+#define UPDATENURSEINFO @"nurseAnduser/updateNurseInfo.action"     
+//1.4 专业信息认证
+#define NURSEINFOIDENTIFY @"nurseAnduser/NurseInfoIdentify.action"
 //1.5更新护士端的经纬度
 #define NURSELATIUDE @"latitude/nurselatiude.action"
 //1.6通过ID查询护士信息

@@ -19,6 +19,11 @@
     NSInteger currentRow;
     UIButton *girlBt;
     UIButton *boyBt;
+    
+    NSMutableArray *serviceArr;
+    NSMutableArray *serviceSelectArr;
+
+
 }
 @property(strong,nonatomic)UIImage *userImage;
 
@@ -51,11 +56,16 @@
     // Do any additional setup after loading the view from its nib.
     [self initializaiton];
     [self initView];
+    [self getAllServiceInfo];
 }
 
 - (void)initializaiton
 {
     [super initializaiton];
+    serviceArr = [[NSMutableArray alloc] initWithCapacity:0];  //可提供服务
+    serviceSelectArr = [[NSMutableArray alloc] initWithCapacity:0];
+
+
 }
 
 - (void)initView
@@ -131,6 +141,7 @@
         sexStr = @"2";
     }
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+
     NSDictionary * params  = @{@"nurseId" : [NSString stringWithFormat:@"%@",userAccount],
                                @"nurseheader" : headerStr,
                                @"nurseNick" : [dataSourceDic valueForKey:@"nurseNick"],
@@ -143,8 +154,9 @@
                                @"goosServices" : [dataSourceDic valueForKey:@"nurseGoodservice"]};
 
     NSLog(@"%@",params);
+    [self showHudInView:self.view hint:@"保存中..."];
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:UPDATENURSEINFO params:params success:^(AFHTTPRequestOperation* operation,id response){
-        
+        [self hideHud];
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
@@ -158,6 +170,7 @@
         [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
+        [self hideHud];
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
 }
@@ -171,6 +184,9 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (tableView.tag == 500) {
+        return serviceArr.count;
+    }
     return dataArr.count;
 }
 
@@ -186,12 +202,46 @@
     static NSString *cellIndentifier = @"MyInfoTableViewCell";
     CGSize cellSize = [tableView rectForRowAtIndexPath:indexPath].size;
     
+    
+    if (tableView.tag == 500) {
+        
+        HeBaseTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
+        if (!cell) {
+            cell = [[HeBaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier cellSize:cellSize];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        
+        UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, SCREENWIDTH-20, cellSize.height)];
+        tipLabel.backgroundColor = [UIColor clearColor];
+        tipLabel.text = serviceArr[row];
+        tipLabel.textAlignment = NSTextAlignmentCenter;
+        tipLabel.font = [UIFont systemFontOfSize:15.0];
+        tipLabel.textColor = [UIColor grayColor];
+        [cell addSubview:tipLabel];
+        
+        CGFloat imageW = 20;
+        CGFloat imageX = SCREENWIDTH-100;
+        
+        UIImageView *selectImage = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, 12, imageW, imageW)];
+        [cell addSubview:selectImage];
+        selectImage.backgroundColor = [UIColor clearColor];
+        selectImage.userInteractionEnabled = YES;
+        selectImage.tag = row +50;
+        
+        for (NSString *serviceStr in serviceSelectArr) {
+            if ([serviceStr isEqualToString:serviceArr[row]]) {
+                selectImage.image = [UIImage imageNamed:@"icon_hook"];
+            }
+        }
+        
+        return cell;
+    }
+    
     MyInfoTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell) {
         cell = [[MyInfoTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier cellSize:cellSize];
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
     }
-    
     cell.name.text = dataArr[row];
     if (row == 0) {
         cell.nameText.hidden = YES;
@@ -229,7 +279,9 @@
 {
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
-    
+    if (tableView.tag == 500) {
+        return 44;
+    }
     
     return 48;
 }
@@ -238,6 +290,22 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSInteger row = indexPath.row;
+    
+    if (tableView.tag == 500) {
+        for (int i = 0; i < serviceSelectArr.count; i++) {
+            if ([serviceSelectArr[i] isEqualToString:serviceArr[row]]) {
+                //移除
+                [serviceSelectArr removeObjectAtIndex:i];
+                
+                [tableView reloadData];
+                return;
+            }
+        }
+        [serviceSelectArr addObject:serviceArr[row]];
+        [tableView reloadData];
+        
+        return;
+    }
 //    NSInteger section = indexPath.section;
     currentRow = row;
     switch (row) {
@@ -287,6 +355,7 @@
             break;
         case 8:
             NSLog(@"%ld",row);
+            [self showServiceAlertView];
             break;
         default:
             break;
@@ -513,6 +582,18 @@
         }
         [myTableView reloadData];
     }
+    if (sender.tag == 100) {
+        NSString *serviceStr = @"";
+        for (NSString *value in serviceSelectArr) {
+            serviceStr = [serviceStr stringByAppendingFormat:@",%@",value];;
+        }
+        
+        if (serviceStr.length > 0) {
+            serviceStr = [serviceStr substringFromIndex:1];
+        }
+        [dataSourceDic setObject:serviceStr forKey:@"nurseGoodservice"];
+
+    }
     if (windowView) {
         [windowView removeFromSuperview];
     }
@@ -670,6 +751,74 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (void)showServiceAlertView{
+    
+    //serviceArr
+    windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
+    windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
+    [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
+    
+    
+    NSInteger addBgView_W = SCREENWIDTH -20;
+    NSInteger addBgView_H = 44*serviceArr.count;
+    NSInteger addBgView_Y = (SCREENHEIGH-addBgView_H)/2.0;//SCREENHEIGH/2.0-addBgView_H/2.0-40;
+    UIView *addBgView = [[UIView alloc] initWithFrame:CGRectMake(10, addBgView_Y, addBgView_W, addBgView_H)];
+    addBgView.backgroundColor = [UIColor whiteColor];
+    [addBgView.layer setMasksToBounds:YES];
+    [addBgView.layer setCornerRadius:4];
+    addBgView.alpha = 1.0;
+    [windowView addSubview:addBgView];
+    
+    UITableView *tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 10, addBgView_W, addBgView_H-50) style:UITableViewStylePlain];
+    tableview.tag = 500;
+    tableview.delegate = self;
+    tableview.dataSource = self;
+    [addBgView addSubview:tableview];
+    tableview.backgroundView = nil;
+    tableview.backgroundColor = [UIColor whiteColor];
+    [Tool setExtraCellLineHidden:tableview];
+    tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    NSInteger cancleBt_X = SCREENWIDTH-50-90;
+    NSInteger cancleBt_Y = CGRectGetMaxY(tableview.frame)+10;
+    NSInteger cancleBt_W = 40;
+    NSInteger cancleBt_H = 20;
+    
+    UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [okBt setTitle:@"确定" forState:UIControlStateNormal];
+    okBt.backgroundColor = [UIColor clearColor];
+    okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    okBt.tag = 100;
+    [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:okBt];
+    
+}
+
+//获取所有的服务
+- (void)getAllServiceInfo{
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:@"content/SelectContentAllinfo.action" params:nil success:^(AFHTTPRequestOperation* operation,id response){
+        
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSArray *temp = [NSArray arrayWithArray:[respondDict objectForKey:@"json"]];
+            for (int i = 0; i<temp.count; i++) {
+                NSDictionary *tempDic = [NSDictionary dictionaryWithDictionary:temp[i]];
+                [serviceArr addObject:[tempDic objectForKey:@"manageNursingContentName"]];
+            }
+            NSLog(@"success");
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

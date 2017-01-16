@@ -8,6 +8,7 @@
 
 #import "HeLoginVC.h"
 #import "HeEnrollVC.h"
+#import "BasicInfoVC.h"
 
 @interface HeLoginVC ()<UITextFieldDelegate>
 @property(strong,nonatomic)IBOutlet UITextField *accountField;
@@ -68,7 +69,7 @@
     NSString *account = [accountField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSString *password = passwordField.text;
     if (account == nil || [account isEqualToString:@""]) {
-        [self showHint:@"请输入手机号码"];
+        [self showHint:@"请输入正确的手机号"];
         return;
     }
     if (password == nil || [password isEqualToString:@""]) {
@@ -76,12 +77,14 @@
         return;
     }
     if (![Tool isMobileNumber:account]) {
-        [self showHint:@"请输入正确的手机号码"];
+        [self showHint:@"请输入正确的手机号"];
         return;
     }
     
+    [self showHudInView:self.view hint:@"登录中..."];
     NSDictionary * params  = @{@"NurseName": account,@"NursePwd" : password};
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:LOGINURL params:params success:^(AFHTTPRequestOperation* operation,id response){
+        [self hideHud];
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSLog(@"护士信息：%@",respondString);
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
@@ -107,8 +110,16 @@
             [[NSUserDefaults standardUserDefaults] setObject:account forKey:NURSEACCOUNTKEY];
 
             [[NSUserDefaults standardUserDefaults] synchronize];//强制写入,保存数据
-            [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@YES];
-
+            
+            NSString *nurseDistrict = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseDistrict"];
+            BOOL isDistrict = [nurseDistrict isEqualToString:@"0"] ? YES : NO;
+            if (isDistrict) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@YES];
+            }else{
+                BasicInfoVC *basicInfoVC = [[BasicInfoVC alloc] init];
+                basicInfoVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:basicInfoVC animated:YES];
+            }
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
         }
@@ -116,6 +127,7 @@
         
         
     } failure:^(NSError* err){
+        [self hideHud];
         NSLog(@"err:%@",err);
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];

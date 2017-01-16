@@ -21,6 +21,7 @@
 #import "HePaitentInfoVC.h"
 #import "NurseReportVC.h"
 #import "CheckDetailVC.h"
+#import "HeCommentNurseVC.h"
 
 @interface OrderViewController ()<UITableViewDelegate,UITableViewDataSource>{
     NSInteger currentPage;
@@ -884,6 +885,10 @@
          };
          cell.evaluateBlock = ^(){
          NSLog(@"评价");
+             HeCommentNurseVC *commentNurseVC = [[HeCommentNurseVC alloc] init];
+             commentNurseVC.nurseDict = [[NSDictionary alloc] initWithDictionary:dict];
+             commentNurseVC.hidesBottomBarWhenPushed = YES;
+             [self.navigationController pushViewController:commentNurseVC animated:YES];
          };
         
         return cell;

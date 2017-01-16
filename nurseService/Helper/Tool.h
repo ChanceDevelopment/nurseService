@@ -74,6 +74,7 @@
 + (NSString *)getAppScheme;
 //判断字符串是否手机号码
 + (BOOL)isMobileNumber:(NSString *)mobileNum;
++ (BOOL) IsIdentityCard:(NSString *)IDCardNumber;
 
 
 
@@ -89,4 +90,8 @@
 + (NSString *)convertHexStrToString:(NSString *)str;
 //将NSString转换成十六进制的字符串则可使用如下方式:
 + (NSString *)convertStringToHexStr:(NSString *)str;
+
+
+//初始化推送服务
++ (void)initPush;
 @end

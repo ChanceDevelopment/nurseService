@@ -179,7 +179,9 @@
                                @"NurseNick" : nick,
                                @"NurseHeader" : headImageStr,
                                @"code" : code};
+    [self showHudInView:self.view hint:@"注册中..."];
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:REGISTERURL params:params success:^(AFHTTPRequestOperation* operation,id response){
+        [self hideHud];
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSLog(@"respondString:%@",respondString);
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
@@ -195,6 +197,7 @@
 
         
     } failure:^(NSError* err){
+        [self hideHud];
         NSLog(@"err:%@",err);
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];

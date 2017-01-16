@@ -78,6 +78,7 @@ BMKMapManager* _mapManager;
 }
 #endif
 
+
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #pragma mark- JPUSHRegisterDelegate
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
@@ -123,6 +124,9 @@ BMKMapManager* _mapManager;
         NSLog(@"iOS10 收到远程通知:%@", userInfo);
         //        [rootViewController addNotificationCount];
         
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:body delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+        [alert show];
+        
     }
     else {
         // 判断为本地通知
@@ -136,7 +140,7 @@ BMKMapManager* _mapManager;
 //当接收到推送通知，并且设备激活后的处理事件
 -(void)receiveNotification:(NSDictionary *)userInfo
 {
-    //    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    NSLog(@"receiveNotification = %@",userInfo);
     
 }
 
@@ -214,6 +218,7 @@ BMKMapManager* _mapManager;
     //                                                   UIRemoteNotificationTypeAlert)
     //                                       categories:nil];
     //    [APService setupWithOption:launchOptions];
+
     //    [APService setLogOFF];
 }
 
@@ -237,17 +242,29 @@ BMKMapManager* _mapManager;
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     BOOL haveLogin = (userAccount == nil) ? NO : YES;
     
+    NSString *nurseDistrict = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseDistrict"];
+    BOOL isDistrict = [nurseDistrict isEqualToString:@"0"] ? YES : NO;
+    
     if (haveLogin) {//登陆成功加载主窗口控制器
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
         
-        [[UINavigationBar appearance] setTitleTextAttributes:
-         [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont systemFontOfSize:20.0], NSFontAttributeName, nil]];
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+        [Tool initPush];
         
-        HeTabBarVC *tabBarController = [[HeTabBarVC alloc] init];
-        self.viewController = tabBarController;
-        
-        self.viewController = tabBarController;
+        if (isDistrict) {
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+            
+            [[UINavigationBar appearance] setTitleTextAttributes:
+             [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont systemFontOfSize:20.0], NSFontAttributeName, nil]];
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+            
+            HeTabBarVC *tabBarController = [[HeTabBarVC alloc] init];
+            self.viewController = tabBarController;
+            self.viewController = tabBarController;
+            
+        }else{
+            BasicInfoVC *loginVC = [[BasicInfoVC alloc] init];
+            CustomNavigationController *loginNav = [[CustomNavigationController alloc] initWithRootViewController:loginVC];
+            self.viewController = loginNav;
+        }
     }
     else{
         //BasicInfoVC
@@ -255,6 +272,22 @@ BMKMapManager* _mapManager;
         CustomNavigationController *loginNav = [[CustomNavigationController alloc] initWithRootViewController:loginVC];
         self.viewController = loginNav;
     }
+    self.window.rootViewController = self.viewController;
+}
+
+//登陆成功后 未实名验证
+- (void)justToRootView:(NSNotification *)notification
+{
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    [[UINavigationBar appearance] setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName, [UIFont systemFontOfSize:20.0], NSFontAttributeName, nil]];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    
+    HeTabBarVC *tabBarController = [[HeTabBarVC alloc] init];
+    self.viewController = tabBarController;
+    self.viewController = tabBarController;
+    
     self.window.rootViewController = self.viewController;
 }
 
@@ -310,7 +343,10 @@ BMKMapManager* _mapManager;
                                              selector:@selector(loginStateChange:)
                                                  name:KNOTIFICATION_LOGINCHANGE
                                                object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(justToRootView:)
+                                                 name:KNOTIFICATION_JUSTTOROOTVIEW
+                                               object:nil];
     
     
     [[UINavigationBar appearance] setShadowImage:[UIImage new]];
@@ -417,6 +453,10 @@ BMKMapManager* _mapManager;
                       break;
               }
           }];
+}
+
+- (void)tagsAliasCallback:(int)iResCode tags:(NSSet*)tags alias:(NSString*)alias {
+    NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, tags , alias);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
