@@ -88,9 +88,9 @@
     [super initializaiton];
     statusArray = @[@"基本信息",@"专业信息",@"等待审核"];
     postDic = [NSDictionary dictionaryWithObjectsAndKeys:
-               @"NurseTruePic",@"",
-               @"NurseSex",@"1",
-               @"NurseCardpic",@"", nil];
+               @"",@"NurseTruePic",
+               @"1",@"NurseSex",
+               @"",@"NurseCardpic", nil];
     infoDic = [[NSMutableDictionary alloc] initWithCapacity:0];
     isHeadImage = YES;
 }
@@ -229,6 +229,7 @@
     NSString *nursePhone = phoneTextField.text;
     NSString *NurseAddress = addressTextField.text;
     NSString *NurseEmail = mailTextField.text;
+    
     
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     NSDictionary * params  = @{@"NurseId" : userAccount,

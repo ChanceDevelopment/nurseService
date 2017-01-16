@@ -175,7 +175,7 @@ BMKMapManager* _mapManager;
         JPUSHRegisterEntity * entity = [[JPUSHRegisterEntity alloc] init];
         entity.types = UNAuthorizationOptionAlert|UNAuthorizationOptionBadge|UNAuthorizationOptionSound;
         [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
-//        [JPUSHService setTags:<#(NSSet *)#> aliasInbackground:<#(NSString *)#>]
+        
     }
     else if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
         //可以添加自定义categories
