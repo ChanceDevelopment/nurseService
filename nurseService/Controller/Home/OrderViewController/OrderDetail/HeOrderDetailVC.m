@@ -379,12 +379,18 @@
                 }
                 case 1:
                 {
-                    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-                    [formatter setDateStyle:NSDateFormatterMediumStyle];
-                    [formatter setTimeStyle:NSDateFormatterShortStyle];
-                    [formatter setDateFormat:@"MM/dd HH:MM"];
-                    NSDate *stopTimeData = [NSDate dateWithTimeIntervalSince1970:[[dict valueForKey:@"orderSendBegintime"] longLongValue]];
-                    NSString *stopTimeStr = [formatter stringFromDate:stopTimeData];
+                    id zoneCreatetimeObj = [dict objectForKey:@"orderSendBegintime"];
+                    if ([zoneCreatetimeObj isMemberOfClass:[NSNull class]] || zoneCreatetimeObj == nil) {
+                        NSTimeInterval  timeInterval = [[NSDate date] timeIntervalSince1970];
+                        zoneCreatetimeObj = [NSString stringWithFormat:@"%.0f000",timeInterval];
+                    }
+                    long long timestamp = [zoneCreatetimeObj longLongValue];
+                    NSString *zoneCreatetime = [NSString stringWithFormat:@"%lld",timestamp];
+                    if ([zoneCreatetime length] > 3) {
+                        //时间戳
+                        zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
+                    }
+                    NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd HH:MM"];
                     
                     CGFloat timeLabelX = 10;
                     CGFloat timeLabelW = SCREENWIDTH - 2 * timeLabelX;
@@ -516,13 +522,18 @@
                     
                     [cell addSubview:orderNoLabel];
                     
-                    
-                    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-                    [formatter setDateStyle:NSDateFormatterMediumStyle];
-                    [formatter setTimeStyle:NSDateFormatterShortStyle];
-                    [formatter setDateFormat:@"MM/dd HH:MM"];
-                    NSDate *stopTimeData = [NSDate dateWithTimeIntervalSince1970:[[dict valueForKey:@"orderSendGetOrderTime"] longLongValue]];
-                    NSString *stopTimeStr = [formatter stringFromDate:stopTimeData];
+                    id zoneCreatetimeObj = [dict objectForKey:@"orderSendGetOrderTime"];
+                    if ([zoneCreatetimeObj isMemberOfClass:[NSNull class]] || zoneCreatetimeObj == nil) {
+                        NSTimeInterval  timeInterval = [[NSDate date] timeIntervalSince1970];
+                        zoneCreatetimeObj = [NSString stringWithFormat:@"%.0f000",timeInterval];
+                    }
+                    long long timestamp = [zoneCreatetimeObj longLongValue];
+                    NSString *zoneCreatetime = [NSString stringWithFormat:@"%lld",timestamp];
+                    if ([zoneCreatetime length] > 3) {
+                        //时间戳
+                        zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
+                    }
+                    NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd HH:MM"];
                     
                     CGFloat timeLabelX = 10;
                     CGFloat timeLabelW = SCREENWIDTH - 2 * timeLabelX;

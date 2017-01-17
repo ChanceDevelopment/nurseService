@@ -94,6 +94,8 @@
 		ADB4CFF41E2D3789004ED2E3 /* HeCommentNurseVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADB4CFF21E2D3788004ED2E3 /* HeCommentNurseVC.xib */; };
 		ADB4CFF91E2DE929004ED2E3 /* AddPaswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB4CFF71E2DE929004ED2E3 /* AddPaswordVC.m */; };
 		ADB4CFFA1E2DE929004ED2E3 /* AddPaswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADB4CFF81E2DE929004ED2E3 /* AddPaswordVC.xib */; };
+		ADB4CFFD1E2E86C2004ED2E3 /* icon_collection_full.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB4CFFB1E2E86C2004ED2E3 /* icon_collection_full.png */; };
+		ADB4CFFE1E2E86C2004ED2E3 /* icon_collection.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB4CFFC1E2E86C2004ED2E3 /* icon_collection.png */; };
 		ADCD25A61E0C0E9900FBCF26 /* MyEvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCD25A41E0C0E9900FBCF26 /* MyEvaluateViewController.m */; };
 		ADCD25AB1E0C19CD00FBCF26 /* MyEvaluateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCD25AA1E0C19CD00FBCF26 /* MyEvaluateTableViewCell.m */; };
 		ADCD25AD1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADCD25AC1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib */; };
@@ -835,6 +837,8 @@
 		ADB4CFF61E2DE929004ED2E3 /* AddPaswordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPaswordVC.h; sourceTree = "<group>"; };
 		ADB4CFF71E2DE929004ED2E3 /* AddPaswordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPaswordVC.m; sourceTree = "<group>"; };
 		ADB4CFF81E2DE929004ED2E3 /* AddPaswordVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPaswordVC.xib; sourceTree = "<group>"; };
+		ADB4CFFB1E2E86C2004ED2E3 /* icon_collection_full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_collection_full.png; sourceTree = "<group>"; };
+		ADB4CFFC1E2E86C2004ED2E3 /* icon_collection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_collection.png; sourceTree = "<group>"; };
 		ADCD25A31E0C0E9900FBCF26 /* MyEvaluateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEvaluateViewController.h; sourceTree = "<group>"; };
 		ADCD25A41E0C0E9900FBCF26 /* MyEvaluateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEvaluateViewController.m; sourceTree = "<group>"; };
 		ADCD25A91E0C19CD00FBCF26 /* MyEvaluateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEvaluateTableViewCell.h; sourceTree = "<group>"; };
@@ -2285,6 +2289,8 @@
 		ADB49C731E1947C5008DBCF6 /* order */ = {
 			isa = PBXGroup;
 			children = (
+				ADB4CFFB1E2E86C2004ED2E3 /* icon_collection_full.png */,
+				ADB4CFFC1E2E86C2004ED2E3 /* icon_collection.png */,
 				AD13A66F1E2BB067002ADE2B /* icon_switch_close.png */,
 				AD13A6701E2BB067002ADE2B /* icon_switch_open.png */,
 				AD8A0E791E24E3B90001CC02 /* icon_rectangle_selector.png */,
@@ -4958,6 +4964,7 @@
 				EAC2D8711D4B063B00E282A8 /* i2KEPCMultiComponentPickerView.xib in Resources */,
 				EA8C89351E2149340093657B /* mapapi.bundle in Resources */,
 				AD3013731DFCF4DC00D26E09 /* icon_search.png in Resources */,
+				ADB4CFFE1E2E86C2004ED2E3 /* icon_collection.png in Resources */,
 				AD8A0E7C1E24E3B90001CC02 /* icon_rectangle_unselector.png in Resources */,
 				AD5CD6DA1E0FB7F00025517E /* reduce.png in Resources */,
 				AD3013871DFCF4F300D26E09 /* icon_mycomment.png in Resources */,
@@ -4981,6 +4988,7 @@
 				EAC2D87E1D4B063B00E282A8 /* LICENSE.txt in Resources */,
 				EAC2D9961D4B063C00E282A8 /* zbar-back.png in Resources */,
 				EA4D13C01E03CCF900BBE450 /* navigationBar_back_icon.png in Resources */,
+				ADB4CFFD1E2E86C2004ED2E3 /* icon_collection_full.png in Resources */,
 				EAA4F3221E012F3000EF9E14 /* tabar_rank_icon_active@2x.png in Resources */,
 				EAA6552E1E0627C400F424DD /* Like@3x.png in Resources */,
 				EA8C89AE1E21DE2E0093657B /* tabbar_normal_background@2x.png in Resources */,

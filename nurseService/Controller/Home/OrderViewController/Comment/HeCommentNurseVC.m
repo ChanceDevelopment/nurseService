@@ -61,7 +61,7 @@
 - (void)initView
 {
     [super initView];
-    textView.placeholder = @"写下您对护士的而评价";
+    textView.placeholder = @"请写下您对客户的评价";
     nurseImage.layer.masksToBounds = YES;
     nurseImage.layer.cornerRadius = 30;
     
@@ -132,8 +132,9 @@
         [self showHint:@"请至少输入五个字"];
         return;
     }
-    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
-    NSString *nurseId = nurseDict[@"nurseId"];
+    NSString *nurseId = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+    NSString *userId = [NSString stringWithFormat:@"%@",nurseDict[@"userId"]];
+    
     if ([nurseId isMemberOfClass:[NSNull class]] || nurseId == nil) {
         nurseId = @"";
     }
@@ -142,10 +143,9 @@
         sendId = @"";
     }
     
-    
     NSString *mark = [NSString stringWithFormat:@"%ld",currentRank];
-    NSDictionary * params  = @{@"userId":userId,@"nurseId":nurseId,@"sendId":sendId,@"content":content,@"mark":mark};
-    NSString *requestUrl = [NSString stringWithFormat:@"%@/evaluate/addevaluate.action",BASEURL];
+    NSDictionary * params  = @{@"userId":userId,@"nurseId":nurseId,@"sendId":sendId,@"info":content,@"mark":mark};
+    NSString *requestUrl = [NSString stringWithFormat:@"%@/nurseevaluate/addnurseevaluate.action",BASEURL];
     [self showHudInView:self.view hint:@"评价中..."];
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:requestUrl params:params success:^(AFHTTPRequestOperation* operation,id response){
         [self hideHud];
@@ -154,7 +154,7 @@
         if ([[respondDict valueForKey:@"errorCode"] integerValue] == REQUESTCODE_SUCCEED){
             
             [self showHint:@"评价成功"];
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateOrder" object:nil];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateOrder" object:nil];
             [self performSelector:@selector(backToLastView) withObject:nil afterDelay:0.8];
         }
         else{

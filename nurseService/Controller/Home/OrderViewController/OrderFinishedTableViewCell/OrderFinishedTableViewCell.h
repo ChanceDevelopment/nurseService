@@ -10,6 +10,7 @@
 
 @interface OrderFinishedTableViewCell : HeBaseTableViewCell
 @property (nonatomic,strong)UILabel *serviceContentL;
+@property (nonatomic,strong)UILabel *orderStateL;
 @property (nonatomic,strong)UILabel *orderIdNum;
 @property (nonatomic,strong)UILabel *orderReceiveTime;
 @property (nonatomic,strong)UILabel *orderFinshTime;

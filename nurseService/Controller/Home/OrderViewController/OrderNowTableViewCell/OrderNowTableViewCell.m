@@ -38,6 +38,7 @@
         serviceContentL = [[UILabel alloc] initWithFrame:CGRectMake(serviceContentLX, serviceContentLY, serviceContentLW, serviceContentLH)];
         serviceContentL.userInteractionEnabled = YES;
         serviceContentL.textColor = APPDEFAULTORANGE;
+        serviceContentL.adjustsFontSizeToFitWidth = YES;
         serviceContentL.font = [UIFont systemFontOfSize:15.0];
         serviceContentL.backgroundColor = [UIColor clearColor];
         [bgView addSubview:serviceContentL];

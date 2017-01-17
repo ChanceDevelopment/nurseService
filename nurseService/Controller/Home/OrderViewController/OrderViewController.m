@@ -732,12 +732,20 @@
             cell.exclusiveImageView.hidden = YES;
 
         }
-        NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateStyle:NSDateFormatterMediumStyle];
-        [formatter setTimeStyle:NSDateFormatterShortStyle];
-        [formatter setDateFormat:@"MM/dd HH:MM"];
-        NSDate *stopTimeData = [NSDate dateWithTimeIntervalSince1970:[[dict valueForKey:@"orderSendBegintime"] longLongValue]];
-        NSString *stopTimeStr = [formatter stringFromDate:stopTimeData];
+        
+        id zoneCreatetimeObj = [dict objectForKey:@"orderSendBegintime"];
+        if ([zoneCreatetimeObj isMemberOfClass:[NSNull class]] || zoneCreatetimeObj == nil) {
+            NSTimeInterval  timeInterval = [[NSDate date] timeIntervalSince1970];
+            zoneCreatetimeObj = [NSString stringWithFormat:@"%.0f000",timeInterval];
+        }
+        long long timestamp = [zoneCreatetimeObj longLongValue];
+        NSString *zoneCreatetime = [NSString stringWithFormat:@"%lld",timestamp];
+        if ([zoneCreatetime length] > 3) {
+            //时间戳
+            zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
+        }
+        NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd HH:MM"];
+        
         cell.stopTimeL.text = stopTimeStr;
         cell.orderMoney.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
         NSString *address = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendAddree"]];
@@ -790,12 +798,19 @@
         
         cell.serviceContentL.text = contentArr[1];
         
-        NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateStyle:NSDateFormatterMediumStyle];
-        [formatter setTimeStyle:NSDateFormatterShortStyle];
-        [formatter setDateFormat:@"MM/dd HH:MM"];
-        NSDate *stopTimeData = [NSDate dateWithTimeIntervalSince1970:[[dict valueForKey:@"orderSendFinishOrderTime"] longLongValue]];
-        NSString *stopTimeStr = [formatter stringFromDate:stopTimeData];
+        id zoneCreatetimeObj = [dict objectForKey:@"orderSendFinishOrderTime"];
+        if ([zoneCreatetimeObj isMemberOfClass:[NSNull class]] || zoneCreatetimeObj == nil) {
+            NSTimeInterval  timeInterval = [[NSDate date] timeIntervalSince1970];
+            zoneCreatetimeObj = [NSString stringWithFormat:@"%.0f000",timeInterval];
+        }
+        long long timestamp = [zoneCreatetimeObj longLongValue];
+        NSString *zoneCreatetime = [NSString stringWithFormat:@"%lld",timestamp];
+        if ([zoneCreatetime length] > 3) {
+            //时间戳
+            zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
+        }
+        NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd HH:MM"];
+        
         cell.stopTimeL.text = stopTimeStr;
         cell.orderMoney.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
         NSString *address = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendAddree"]];
@@ -858,37 +873,48 @@
         NSString *content = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendServicecontent"]];
         NSArray *contentArr = [content componentsSeparatedByString:@":"];
         
-         cell.serviceContentL.text = contentArr[1];
-         cell.orderIdNum.text = [NSString stringWithFormat:@"订单编号：%@",[dict valueForKey:@"orderSendId"]];
-         
-         NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-         [formatter setDateStyle:NSDateFormatterMediumStyle];
-         [formatter setTimeStyle:NSDateFormatterShortStyle];
-         [formatter setDateFormat:@"yyyy/MM/dd HH:MM:SS"];
-        [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendGetOrderTime"]];
-         NSDate *receiveTimeData = [NSDate dateWithTimeIntervalSince1970:[[dict valueForKey:@"orderSendGetOrderTime"] longLongValue]];
-         NSString *receiveTimeStr = [formatter stringFromDate:receiveTimeData];
-         
-         NSDate *finishData = [NSDate dateWithTimeIntervalSince1970:[[dict valueForKey:@"orderSendFinishOrderTime"] longLongValue]];
-         NSString *finishDataTimeStr = [formatter stringFromDate:finishData];
-         
-         cell.orderReceiveTime.text = receiveTimeStr;
-         cell.orderFinshTime.text = finishDataTimeStr;
-         cell.orderMoney.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
-         cell.reportBlock = ^(){
-         NSLog(@"报告");
-             NurseReportVC *nurseReportVC = [[NurseReportVC alloc] init];
-             nurseReportVC.hidesBottomBarWhenPushed = YES;
-             nurseReportVC.infoData = currentDic;
-             nurseReportVC.isDetail = YES;
-             [self.navigationController pushViewController:nurseReportVC animated:YES];
-         };
-         cell.evaluateBlock = ^(){
-         NSLog(@"评价");
-             HeCommentNurseVC *commentNurseVC = [[HeCommentNurseVC alloc] init];
-             commentNurseVC.nurseDict = [[NSDictionary alloc] initWithDictionary:dict];
-             commentNurseVC.hidesBottomBarWhenPushed = YES;
-             [self.navigationController pushViewController:commentNurseVC animated:YES];
+        cell.serviceContentL.text = contentArr[1];
+        NSString *state = @"";
+        switch ([[dict valueForKey:@"orderSendState"] integerValue]) {
+            case 0:
+                state = @"已接单";
+                break;
+            case 1:
+                state = @"已沟通";
+                break;
+            case 2:
+                state = @"已出发";
+                break;
+            case 3:
+                state = @"开始服务";
+                break;
+            case 4:
+                state = @"已完成";
+                break;
+                
+            default:
+                break;
+        }
+        cell.orderStateL.text = state;
+        
+        cell.orderIdNum.text = [NSString stringWithFormat:@"订单编号：%@",[dict valueForKey:@"orderSendId"]];
+        cell.orderReceiveTime.text = [self getTimeWith:[dict objectForKey:@"orderSendGetOrderTime"]];
+        cell.orderFinshTime.text = [self getTimeWith:[dict valueForKey:@"orderSendFinishOrderTime"]];
+        cell.orderMoney.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
+        cell.reportBlock = ^(){
+        NSLog(@"报告");
+            NurseReportVC *nurseReportVC = [[NurseReportVC alloc] init];
+            nurseReportVC.hidesBottomBarWhenPushed = YES;
+            nurseReportVC.infoData = currentDic;
+            nurseReportVC.isDetail = YES;
+            [self.navigationController pushViewController:nurseReportVC animated:YES];
+        };
+        cell.evaluateBlock = ^(){
+        NSLog(@"评价");
+            HeCommentNurseVC *commentNurseVC = [[HeCommentNurseVC alloc] init];
+            commentNurseVC.nurseDict = dict;
+            commentNurseVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:commentNurseVC animated:YES];
          };
         
         return cell;
@@ -1225,6 +1251,23 @@
     }];
 }
 
+- (NSString *)getTimeWith:(id)value{
+    NSString *time = @"";
+    
+    id zoneCreatetimeObj = value;
+    if ([zoneCreatetimeObj isMemberOfClass:[NSNull class]] || zoneCreatetimeObj == nil) {
+        NSTimeInterval  timeInterval = [[NSDate date] timeIntervalSince1970];
+        zoneCreatetimeObj = [NSString stringWithFormat:@"%.0f000",timeInterval];
+    }
+    long long timestamp = [zoneCreatetimeObj longLongValue];
+    NSString *zoneCreatetime = [NSString stringWithFormat:@"%lld",timestamp];
+    if ([zoneCreatetime length] > 3) {
+        //时间戳
+        zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
+    }
+    time = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"yyyy/MM/dd HH:MM:SS"];
+    return time;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

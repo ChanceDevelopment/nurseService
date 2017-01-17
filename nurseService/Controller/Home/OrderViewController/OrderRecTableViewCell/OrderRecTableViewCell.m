@@ -47,6 +47,8 @@
         serviceContentL.font = [UIFont systemFontOfSize:15.0];
         serviceContentL.backgroundColor = [UIColor clearColor];
         [bgView addSubview:serviceContentL];
+        serviceContentL.adjustsFontSizeToFitWidth = YES;
+
         
         UILabel *payTip = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH-150, 5, 50, 35)];
         payTip.textColor = [UIColor grayColor];
@@ -57,10 +59,11 @@
         payTip.backgroundColor = [UIColor clearColor];
         [bgView addSubview:payTip];
 
-        orderMoney = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH-100, 5, 80, 35)];
+        orderMoney = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH-100, 5, 60, 35)];
         orderMoney.textColor = [UIColor orangeColor];
         orderMoney.font = [UIFont systemFontOfSize:12.0];
         orderMoney.backgroundColor = [UIColor clearColor];
+        orderMoney.adjustsFontSizeToFitWidth = YES;
         [bgView addSubview:orderMoney];
         
         UIImageView *rightV = [[UIImageView alloc] initWithFrame:CGRectMake(bgView_W-30, 14, 20, 20)];
