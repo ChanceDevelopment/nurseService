@@ -48,8 +48,9 @@
     // Do any additional setup after loading the view from its nib.
     [self initializaiton];
     [self initView];
-//    [self getData];
-    [self reloadData];
+
+    [self getData];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getData) name:THREEINFONOCATIFITION object:nil];
 }
 
 - (void)initializaiton
@@ -62,6 +63,7 @@
 - (void)initView
 {
     [super initView];
+    
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
     
     myTableView.showsVerticalScrollIndicator = NO;
@@ -100,21 +102,18 @@
     tipL.text = @"我的余额";
     [headerView addSubview:tipL];
     
-}
-
-- (void)reloadData{
-    NSLog(@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY]);
-    capitalL.text = [NSString stringWithFormat:@"%@元",[[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseBalance"]];
+   
 }
 
 - (void)getData{
-    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+    NSString *nurseId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY]];
 
-    NSDictionary * params  = @{@"nurseid": [NSString stringWithFormat:@"%@",userAccount],@"latitude" : @"0",@"longitude" : @"0"};
-    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:LOGINURL params:params success:^(AFHTTPRequestOperation* operation,id response){
+    NSDictionary * params  = @{@"nurseId": nurseId};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:SELECTNURSETHREEINFO params:params success:^(AFHTTPRequestOperation* operation,id response){
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+//        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict objectForKey:@"data"]] duration:1.2 position:@"center"];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
             
@@ -122,27 +121,20 @@
             NSMutableDictionary *nurseDic = [NSMutableDictionary dictionaryWithCapacity:0];
             
             for (NSString *key in [userInfoDic allKeys]) {
-                
                 if ([[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:key]] isEqualToString:@"<null>"]) {
                     NSLog(@"key:%@",key);
-                    
-                    //                    [userInfoDic setValue:@"" forKey:key];
                     [nurseDic setValue:@"" forKey:key];
                 }else{
                     [nurseDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:key]] forKey:key];
                 }
             }
-            NSLog(@"%@",nurseDic);
             
             NSString *capitalStr = [[NSString stringWithFormat:@"%@",[nurseDic valueForKey:@"nurseBalance"]] isEqualToString:@""] ? @"0元" : [NSString stringWithFormat:@"%@元",[nurseDic valueForKey:@"nurseBalance"]];
             capitalL.text = capitalStr;
-            
+            [[NSUserDefaults standardUserDefaults] setObject:nurseDic forKey:THREEINFOKEY];
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
         }
-        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
-        
-        
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
@@ -203,9 +195,21 @@
     switch (index) {
         case 0:
         {
-            DrawCashViewController *drawCashViewController = [[DrawCashViewController alloc] init];
-            drawCashViewController.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:drawCashViewController animated:YES];
+            NSString *account = [NSString stringWithFormat:@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:THREEINFOKEY] valueForKey:@"nursePaymentSettingsAccount"]];
+            
+            NSString *pwd = [NSString stringWithFormat:@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:THREEINFOKEY] valueForKey:@"nursePaymentSettingsPwd"]];
+            if ([account isEqualToString:@""]) {
+                [self showAddView];
+            }else if([pwd isEqualToString:@""]){
+                SettingPayPswVC *settingPayPswVC =[[SettingPayPswVC alloc] init];
+                settingPayPswVC.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:settingPayPswVC animated:YES];
+            }else {
+                DrawCashViewController *drawCashViewController = [[DrawCashViewController alloc] init];
+                drawCashViewController.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:drawCashViewController animated:YES];
+            }
+
         }
             break;
         case 1:
@@ -317,29 +321,28 @@
             [self.view makeToast:@"请输入支付宝账号" duration:2.0 position:@"center"];
             return;
         }
-    }
-    if (sender.tag == 1) {
-        
-        NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
-        NSString *psw = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"pwd"];
-        NSDictionary * params  = @{@"nurseId" : userAccount,
-                                   @"pwd" : psw,
-                                   @"account" : addTextField.text};
+        NSString *nurseId = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+        NSDictionary * params  = @{@"nurseId" : nurseId,
+                                   @"pwd" : @"",
+                                   @"account" : addTextField.text,
+                                   @"drawcode" : @""};
         [AFHttpTool requestWihtMethod:RequestMethodTypePost url:BINDACCOUNTANDPAW params:params success:^(AFHTTPRequestOperation* operation,id response){
             NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
             NSLog(@"respondString:%@",respondString);
             NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
             if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
                 NSLog(@"success");
-                
+                [self getData];
             }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
                 NSLog(@"faile");
             }
+            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         } failure:^(NSError* err){
             NSLog(@"err:%@",err);
             [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
         }];
     }
+    
     if (windowView) {
         [windowView removeFromSuperview];
     }

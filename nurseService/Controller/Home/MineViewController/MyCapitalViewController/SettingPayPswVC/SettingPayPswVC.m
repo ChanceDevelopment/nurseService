@@ -7,16 +7,20 @@
 //
 
 #import "SettingPayPswVC.h"
-
+#import "UIButton+countDown.h"
+#import <SMS_SDK/SMSSDK.h>
+#import "AddPaswordVC.h"
 @interface SettingPayPswVC ()
 
 @property (strong, nonatomic) IBOutlet UIButton *codeBt;
+@property (strong, nonatomic) IBOutlet UILabel *tipLable;
 @property (strong, nonatomic) IBOutlet UITextField *codeTextField;
 @end
 
 @implementation SettingPayPswVC
 @synthesize codeBt;
 @synthesize codeTextField;
+@synthesize tipLable;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -60,13 +64,22 @@ return self;
     codeBt.layer.backgroundColor = APPDEFAULTORANGE.CGColor;
     codeBt.layer.masksToBounds = YES;
     
+    NSDictionary *userInfoDic = [NSDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY]];
+
+    NSString *tipStr = [NSString stringWithFormat:@"请将手机号%@，收到的验证码填到下面的输入框中",[userInfoDic valueForKey:@"account"]];
+    
+    [tipLable setText:tipStr];
+    
 }
 
 - (IBAction)getCodeClick:(id)sender {
+
+    [sender startWithTime:60 title:@"获取验证码" countDownTitle:@"s" mainColor:APPDEFAULTORANGE countColor:[UIColor lightGrayColor]];
+    
     //获取注册手机号的验证码
-    NSString *phoneNumber = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nursePhone"];
-    NSDictionary * params  = @{@"Phone": phoneNumber};
-    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:SMSCODE params:params success:^(AFHTTPRequestOperation* operation,id response){
+    NSString *nurseId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY]];
+    NSDictionary * params  = @{@"nurseId": nurseId};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:@"nurseAnduser/sendSmsByNurseBindPassword.action" params:params success:^(AFHTTPRequestOperation* operation,id response){
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSLog(@"respondString:%@",respondString);
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
@@ -88,9 +101,41 @@ return self;
 
 }
 - (IBAction)finishedClick:(id)sender {
+    if ([codeTextField.text isEqualToString:@""]) {
+        [self showHint:@"请输入验证码"];
+        return;
+    }
     
+    NSString *pwd = [NSString stringWithFormat:@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:THREEINFOKEY] valueForKey:@"nursePaymentSettingsPwd"]];
+    NSString *account = [NSString stringWithFormat:@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:THREEINFOKEY] valueForKey:@"nursePaymentSettingsAccount"]];
+    NSString *nurseId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY]];
+    NSDictionary * params  = @{@"nurseId": nurseId,@"pwd":pwd,@"account":account,@"drawcode":codeTextField.text};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:BINDACCOUNTANDPAW params:params success:^(AFHTTPRequestOperation* operation,id response){
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSLog(@"respondString:%@",respondString);
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        
+        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            AddPaswordVC *addPaswordVC = [[AddPaswordVC alloc] init];
+            addPaswordVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:addPaswordVC animated:YES];
+
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
+        
+        
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
     
-    
+}
+
+- (void)backToRoot{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

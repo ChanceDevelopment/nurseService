@@ -67,7 +67,8 @@
 #define KNOTIFICATION_NURSEINFOCHANGE @"nurseInfoChange"
 //跳过实名认证的通知
 #define KNOTIFICATION_JUSTTOROOTVIEW @"justToRootView"
-
+//支付宝账号 密码 金额 变化的通知
+#define THREEINFONOCATIFITION @"threeInfoNotification"
 
 #define UPDATEUSER_NOTIFICATION @"updateUser"
 
@@ -87,6 +88,7 @@
 #define USERHAVELOGINKEY @"userHaveLogin"
 #define FRIENDLISTDOWNLOADSUCCEED @"friendDownloadSucceed"
 #define RECEIVEORDERSTATE @"receiveOrderState"
+#define THREEINFOKEY @"threeInfokey" //支付宝账号 密码 金额
 
 //成功获取当前城市
 #define kGetCitySucceedNotification @"GetCitySucceedNotification"

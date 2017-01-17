@@ -22,6 +22,7 @@
     
     NSMutableArray *serviceArr;
     NSMutableArray *serviceSelectArr;
+    NSMutableDictionary *serviceIdDic;
 
 
 }
@@ -64,6 +65,7 @@
     [super initializaiton];
     serviceArr = [[NSMutableArray alloc] initWithCapacity:0];  //可提供服务
     serviceSelectArr = [[NSMutableArray alloc] initWithCapacity:0];
+    serviceIdDic = [[NSMutableDictionary alloc] initWithCapacity:0];  //可提供服务
 
 
 }
@@ -585,7 +587,8 @@
     if (sender.tag == 100) {
         NSString *serviceStr = @"";
         for (NSString *value in serviceSelectArr) {
-            serviceStr = [serviceStr stringByAppendingFormat:@",%@",value];;
+            NSString *serviceItem = [NSString stringWithFormat:@"%@",[serviceIdDic objectForKey:value]];
+            serviceStr = [serviceStr stringByAppendingFormat:@",%@",serviceItem];;
         }
         
         if (serviceStr.length > 0) {
@@ -808,6 +811,8 @@
             for (int i = 0; i<temp.count; i++) {
                 NSDictionary *tempDic = [NSDictionary dictionaryWithDictionary:temp[i]];
                 [serviceArr addObject:[tempDic objectForKey:@"manageNursingContentName"]];
+                [serviceIdDic setObject:[tempDic objectForKey:@"manageNursingContentId"] forKey:[tempDic objectForKey:@"manageNursingContentName"]];
+
             }
             NSLog(@"success");
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){

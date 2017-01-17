@@ -92,6 +92,8 @@
 		ADB4CFEE1E2D1CDD004ED2E3 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB4CFED1E2D1CDD004ED2E3 /* delete.png */; };
 		ADB4CFF31E2D3788004ED2E3 /* HeCommentNurseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB4CFF11E2D3788004ED2E3 /* HeCommentNurseVC.m */; };
 		ADB4CFF41E2D3789004ED2E3 /* HeCommentNurseVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADB4CFF21E2D3788004ED2E3 /* HeCommentNurseVC.xib */; };
+		ADB4CFF91E2DE929004ED2E3 /* AddPaswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = ADB4CFF71E2DE929004ED2E3 /* AddPaswordVC.m */; };
+		ADB4CFFA1E2DE929004ED2E3 /* AddPaswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADB4CFF81E2DE929004ED2E3 /* AddPaswordVC.xib */; };
 		ADCD25A61E0C0E9900FBCF26 /* MyEvaluateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCD25A41E0C0E9900FBCF26 /* MyEvaluateViewController.m */; };
 		ADCD25AB1E0C19CD00FBCF26 /* MyEvaluateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = ADCD25AA1E0C19CD00FBCF26 /* MyEvaluateTableViewCell.m */; };
 		ADCD25AD1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADCD25AC1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib */; };
@@ -830,6 +832,9 @@
 		ADB4CFF01E2D3788004ED2E3 /* HeCommentNurseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeCommentNurseVC.h; sourceTree = "<group>"; };
 		ADB4CFF11E2D3788004ED2E3 /* HeCommentNurseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeCommentNurseVC.m; sourceTree = "<group>"; };
 		ADB4CFF21E2D3788004ED2E3 /* HeCommentNurseVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeCommentNurseVC.xib; sourceTree = "<group>"; };
+		ADB4CFF61E2DE929004ED2E3 /* AddPaswordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPaswordVC.h; sourceTree = "<group>"; };
+		ADB4CFF71E2DE929004ED2E3 /* AddPaswordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPaswordVC.m; sourceTree = "<group>"; };
+		ADB4CFF81E2DE929004ED2E3 /* AddPaswordVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPaswordVC.xib; sourceTree = "<group>"; };
 		ADCD25A31E0C0E9900FBCF26 /* MyEvaluateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEvaluateViewController.h; sourceTree = "<group>"; };
 		ADCD25A41E0C0E9900FBCF26 /* MyEvaluateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEvaluateViewController.m; sourceTree = "<group>"; };
 		ADCD25A91E0C19CD00FBCF26 /* MyEvaluateTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEvaluateTableViewCell.h; sourceTree = "<group>"; };
@@ -2149,6 +2154,7 @@
 		AD8A0E831E25623A0001CC02 /* SettingPayPswVC */ = {
 			isa = PBXGroup;
 			children = (
+				ADB4CFF51E2DE91B004ED2E3 /* AddPaswordVC */,
 				AD8A0E841E2562500001CC02 /* SettingPayPswVC.h */,
 				AD8A0E851E2562500001CC02 /* SettingPayPswVC.m */,
 				AD8A0E861E2562500001CC02 /* SettingPayPswVC.xib */,
@@ -2307,6 +2313,16 @@
 				ADB4CFF21E2D3788004ED2E3 /* HeCommentNurseVC.xib */,
 			);
 			path = Comment;
+			sourceTree = "<group>";
+		};
+		ADB4CFF51E2DE91B004ED2E3 /* AddPaswordVC */ = {
+			isa = PBXGroup;
+			children = (
+				ADB4CFF61E2DE929004ED2E3 /* AddPaswordVC.h */,
+				ADB4CFF71E2DE929004ED2E3 /* AddPaswordVC.m */,
+				ADB4CFF81E2DE929004ED2E3 /* AddPaswordVC.xib */,
+			);
+			path = AddPaswordVC;
 			sourceTree = "<group>";
 		};
 		ADCD25A21E0C0E5700FBCF26 /* MyEvaluateViewController */ = {
@@ -4969,6 +4985,7 @@
 				EAA6552E1E0627C400F424DD /* Like@3x.png in Resources */,
 				EA8C89AE1E21DE2E0093657B /* tabbar_normal_background@2x.png in Resources */,
 				AD30138B1DFCF4F300D26E09 /* icon_service.png in Resources */,
+				ADB4CFFA1E2DE929004ED2E3 /* AddPaswordVC.xib in Resources */,
 				EAA655231E0627C300F424DD /* AlbumComment@3x.png in Resources */,
 				EAC2D87C1D4B063B00E282A8 /* whiteArrow.png in Resources */,
 				AD8BB12F1E096E9B004064F9 /* icon_name_authent.png in Resources */,
@@ -5125,6 +5142,7 @@
 				EAC2D92E1D4B063B00E282A8 /* UISwitch+RACSignalSupport.m in Sources */,
 				EAC2D9391D4B063B00E282A8 /* SDImageCache.m in Sources */,
 				EAA655421E0627C400F424DD /* DFTextImageUserLineCell.m in Sources */,
+				ADB4CFF91E2DE929004ED2E3 /* AddPaswordVC.m in Sources */,
 				EAC2D8391D4B063B00E282A8 /* DCPicScrollView.m in Sources */,
 				EA1743591E1E33AF0038E805 /* DFDatabaseHelper.m in Sources */,
 				EAC2D8E31D4B063B00E282A8 /* NSObject+RACKVOWrapper.m in Sources */,

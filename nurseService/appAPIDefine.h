@@ -45,6 +45,8 @@
 #define SELECTBURSEBYID @"nurseAnduser/selectfornursebyid.action"
 //1.9.1根据护士ID查询护士的基本信息和专业信息
 #define NURSEBASICSINFO @"nurseAnduser/SelectNurseBasicsInfo.action"
+//1.9.3根据护士ID查询余额支付宝账号和密码
+#define SELECTNURSETHREEINFO @"nurseAnduser/selectNurseThreeInfo.action"
 //2.2接取订单
 #define ORDERRECEIVER @"orderReceiver/orderReceiver.action"
 //2.3接单状态修改
@@ -71,7 +73,8 @@
 #define BINDACCOUNTANDPAW @"nurseAnduser/BindAccountAndPassword.action"
 //9.3查询我的粉丝
 #define SELECTFOLLOWBYID @"follow/selectfollowbybefollowid.action"
-
+//18.1提现
+#define NURSEDRAWMONEY @"nurseAnduser/drawMoney.action"
 
 
 

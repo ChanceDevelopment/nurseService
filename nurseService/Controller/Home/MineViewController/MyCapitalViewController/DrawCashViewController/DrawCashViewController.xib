@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DrawCashViewController">
             <connections>
+                <outlet property="crashTextField" destination="hl4-Cc-vOC" id="VWh-jr-m48"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,37 +20,62 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hl4-Cc-vOC">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hl4-Cc-vOC">
                     <rect key="frame" x="62" y="27" width="281" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="wh5-nm-hr5"/>
+                    </constraints>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="金额" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HM1-xY-RrB">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="金额" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HM1-xY-RrB">
                     <rect key="frame" x="16" y="32" width="42" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="42" id="5My-Q5-qjK"/>
+                        <constraint firstAttribute="height" constant="21" id="M8y-Da-kbt"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="提现须知：单笔金额交易在200-2000元以内（收取1%手续费）,1-2个工作日到账" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbD-zl-GCa">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="提现须知：单笔金额交易在200-2000元以内（收取1%手续费）,1-2个工作日到账" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbD-zl-GCa">
                     <rect key="frame" x="10" y="61" width="355" height="40"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Gvc-Gu-G32"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nAy-QY-B4t">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nAy-QY-B4t">
                     <rect key="frame" x="47" y="144" width="280" height="40"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.59607843140000005" green="0.26274509800000001" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Cgd-Bt-bQE"/>
+                    </constraints>
                     <state key="normal" title="确认">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="okAction:" destination="-1" eventType="touchUpInside" id="VHX-7g-GpS"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="nAy-QY-B4t" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="47" id="GQC-z3-o8I"/>
+                <constraint firstItem="HM1-xY-RrB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="KxY-fa-sat"/>
+                <constraint firstAttribute="trailing" secondItem="nAy-QY-B4t" secondAttribute="trailing" constant="48" id="VHc-Sr-bYI"/>
+                <constraint firstItem="hl4-Cc-vOC" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="27" id="aBW-yE-YEf"/>
+                <constraint firstItem="hl4-Cc-vOC" firstAttribute="leading" secondItem="HM1-xY-RrB" secondAttribute="trailing" constant="4" id="c4C-cP-YUV"/>
+                <constraint firstItem="nAy-QY-B4t" firstAttribute="top" secondItem="bbD-zl-GCa" secondAttribute="bottom" constant="43" id="h3Q-6j-yxA"/>
+                <constraint firstItem="bbD-zl-GCa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="hAd-dE-GIt"/>
+                <constraint firstAttribute="trailing" secondItem="hl4-Cc-vOC" secondAttribute="trailing" constant="32" id="qZ1-hf-66r"/>
+                <constraint firstItem="HM1-xY-RrB" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="32" id="rol-xV-MCa"/>
+                <constraint firstItem="bbD-zl-GCa" firstAttribute="top" secondItem="hl4-Cc-vOC" secondAttribute="bottom" constant="4" id="xvt-vs-4w8"/>
+                <constraint firstAttribute="trailing" secondItem="bbD-zl-GCa" secondAttribute="trailing" constant="10" id="zQL-I5-zwh"/>
+            </constraints>
             <point key="canvasLocation" x="33.5" y="63.5"/>
         </view>
     </objects>
