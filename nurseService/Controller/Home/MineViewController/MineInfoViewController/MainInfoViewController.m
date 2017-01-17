@@ -90,7 +90,7 @@
     [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseNote"]] forKey:@"nurseNote"];
     [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseGoodservice"]] forKey:@"nurseGoodservice"];
     [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseAddress"]] forKey:@"nurseAddress"];
-    [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseJob"]] forKey:@"nurseJob"];
+    [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseYearsofservice"]] forKey:@"nurseYearsofservice"];
     
 
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
@@ -152,7 +152,7 @@
                                @"nurseNote" : [dataSourceDic valueForKey:@"nurseNote"],
                                @"nurseAddress" : [dataSourceDic valueForKey:@"nurseAddress"],
                                @"cardCd" : [dataSourceDic valueForKey:@"nurseCard"],
-                               @"nurseInfo" : [dataSourceDic valueForKey:@"nurseJob"],
+                               @"nurseInfo" : [dataSourceDic valueForKey:@"nurseYearsofservice"],
                                @"goosServices" : [dataSourceDic valueForKey:@"nurseGoodservice"]};
 
     NSLog(@"%@",params);
@@ -266,6 +266,8 @@
             nameStr=[dataSourceDic valueForKey:@"nurseSex"];
         }else if (row == 5){
             nameStr=[dataSourceDic valueForKey:@"nurseNote"];
+        }else if (row == 5){
+            nameStr=[dataSourceDic valueForKey:@"nurseYearsofservice"];
         }else if (row == 7){
             nameStr=[dataSourceDic valueForKey:@"nurseAddress"];
         }
@@ -392,6 +394,7 @@
     boyBt = [[UIButton alloc] init];
     [boyBt setFrame:CGRectMake(10, boyBt_Y, boyBt_W, boyBt_W)];
     [boyBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio_on"] forState:UIControlStateNormal];
+    [boyBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio"] forState:UIControlStateNormal];
     boyBt.tag = 1;
     boyBt.enabled = NO;
     [boyBt addTarget:self action:@selector(chooseSexAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -406,11 +409,24 @@
 
     girlBt = [[UIButton alloc] init];
     [girlBt setFrame:CGRectMake(10, boyBt_Y+30, boyBt_W, boyBt_W)];
+    [girlBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio_on"] forState:UIControlStateNormal];
     [girlBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio"] forState:UIControlStateNormal];
     girlBt.tag = 2;
+    
     [girlBt addTarget:self action:@selector(chooseSexAction:) forControlEvents:UIControlEventTouchUpInside];
     girlBt.enabled = YES;
     [addBgView addSubview:girlBt];
+    
+    NSString *nurseDistrict = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseDistrict"];
+    BOOL isBoy = [nurseDistrict isEqualToString:@"1"] ? YES : NO;
+    if (isBoy) {
+        boyBt.selected = YES;
+        girlBt.selected = NO;
+    }else{
+        boyBt.selected = NO;
+        girlBt.selected = YES;
+    }
+
     
     UILabel *girlL = [[UILabel alloc] initWithFrame:CGRectMake(10+35, boyBt_Y+30-8, 100, 40)];
     girlL.textColor = [UIColor blackColor];
@@ -597,6 +613,12 @@
         [dataSourceDic setObject:serviceStr forKey:@"nurseGoodservice"];
 
     }
+    if (sender.tag == 101) {
+        NSLog(@"101");
+        
+    }
+    
+    
     if (windowView) {
         [windowView removeFromSuperview];
     }
@@ -824,6 +846,61 @@
     }];
 }
 
+- (void)ShowNurserInfo{
+    NSArray *nurseInfoArr = @[@"不满一年",@"1年",@"2年",@"3年",@"3-5年",@"10年以上"];
+    //serviceArr
+    windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
+    windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
+    [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
+    
+    
+    NSInteger addBgView_W = SCREENWIDTH -20;
+    NSInteger addBgView_H = 44*nurseInfoArr.count;
+    NSInteger addBgView_Y = (SCREENHEIGH-addBgView_H)/2.0;//SCREENHEIGH/2.0-addBgView_H/2.0-40;
+    UIView *addBgView = [[UIView alloc] initWithFrame:CGRectMake(10, addBgView_Y, addBgView_W, addBgView_H)];
+    addBgView.backgroundColor = [UIColor whiteColor];
+    [addBgView.layer setMasksToBounds:YES];
+    [addBgView.layer setCornerRadius:4];
+    addBgView.alpha = 1.0;
+    [windowView addSubview:addBgView];
+    
+    NSInteger titleH = 44;
+    NSInteger titleY = 5;
+    
+    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, titleY, 100, titleH)];
+    titleL.textColor = [UIColor blackColor];
+    titleL.textAlignment = NSTextAlignmentLeft;
+    titleL.font = [UIFont systemFontOfSize:18.0];
+    titleL.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:titleL];
+    titleL.text = @"请选择医护信息";
+    
+    titleY = 50;
+    UITableView *tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, titleY, addBgView_W, addBgView_H-50) style:UITableViewStylePlain];
+    tableview.tag = 501;
+    tableview.delegate = self;
+    tableview.dataSource = self;
+    [addBgView addSubview:tableview];
+    tableview.backgroundView = nil;
+    tableview.backgroundColor = [UIColor whiteColor];
+    [Tool setExtraCellLineHidden:tableview];
+    tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    NSInteger cancleBt_X = SCREENWIDTH-50-90;
+    NSInteger cancleBt_Y = CGRectGetMaxY(tableview.frame)+10;
+    NSInteger cancleBt_W = 40;
+    NSInteger cancleBt_H = 20;
+    
+    UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [okBt setTitle:@"确定" forState:UIControlStateNormal];
+    okBt.backgroundColor = [UIColor clearColor];
+    okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    okBt.tag = 101;
+    [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:okBt];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

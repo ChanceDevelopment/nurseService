@@ -8,6 +8,7 @@
 
 #import "MyFansVC.h"
 #import "HeBaseTableViewCell.h"
+#import "MJRefreshAutoNormalFooter.h"
 
 @interface MyFansVC ()
 {
@@ -72,9 +73,34 @@
     noDataView.frame = CGRectMake(noDataViewX, noDataViewY, noDataViewW, noDataViewW);
     noDataView.image = [UIImage imageNamed:@"img_no_data"];
     noDataView.hidden = YES;
-
+    
+    [tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    
+    self.tableview.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        self.tableview.footer.automaticallyHidden = YES;
+        self.tableview.footer.hidden = NO;
+        // 进入刷新状态后会自动调用这个block，加载更多
+        [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
+    }];
 }
 
+- (void)endRefreshing
+{
+    [self.tableview.footer endRefreshing];
+    self.tableview.footer.hidden = YES;
+    self.tableview.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        self.tableview.footer.automaticallyHidden = YES;
+        self.tableview.footer.hidden = NO;
+        // 进入刷新状态后会自动调用这个block，加载更多
+        [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
+    }];
+    
+    
+    //处理上拉后的逻辑
+    NSLog(@"endRefreshing");
+    [self getFansData];
+
+}
 - (void)getFansData{
 
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];

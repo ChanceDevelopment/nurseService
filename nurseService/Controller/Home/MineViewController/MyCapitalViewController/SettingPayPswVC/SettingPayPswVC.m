@@ -120,6 +120,7 @@ return self;
             NSLog(@"success");
             AddPaswordVC *addPaswordVC = [[AddPaswordVC alloc] init];
             addPaswordVC.hidesBottomBarWhenPushed = YES;
+            addPaswordVC.codeStr = codeTextField.text;
             [self.navigationController pushViewController:addPaswordVC animated:YES];
 
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){

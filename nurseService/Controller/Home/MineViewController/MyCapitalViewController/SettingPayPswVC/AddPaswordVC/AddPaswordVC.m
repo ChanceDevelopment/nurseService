@@ -7,6 +7,7 @@
 //
 
 #import "AddPaswordVC.h"
+#import "MyCapitalViewController.h"
 
 @interface AddPaswordVC ()
 @property (strong, nonatomic) IBOutlet UITextField *passwordTextField;
@@ -15,6 +16,7 @@
 
 @implementation AddPaswordVC
 @synthesize passwordTextField;
+@synthesize codeStr;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -61,7 +63,8 @@
     }
     
     NSString *nurseId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY]];
-    NSDictionary * params  = @{@"nurseId": nurseId,@"pwd":passwordTextField.text,@"account":@"",@"drawcode":@""};
+    NSDictionary * params  = @{@"nurseId": nurseId,@"pwd":passwordTextField.text,@"account":@"",@"drawcode":codeStr};
+    
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:BINDACCOUNTANDPAW params:params success:^(AFHTTPRequestOperation* operation,id response){
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSLog(@"respondString:%@",respondString);
@@ -85,7 +88,8 @@
 }
 
 - (void)backToRoot{
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToViewController:[[self.navigationController viewControllers] objectAtIndex:[[self.navigationController viewControllers] count] -3] animated:YES];
+
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

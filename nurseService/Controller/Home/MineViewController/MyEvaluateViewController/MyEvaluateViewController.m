@@ -95,7 +95,7 @@
     
     [self.view addSubview:self.navigationTabBar];
     [myTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-
+    
     self.myTableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         self.myTableView.footer.automaticallyHidden = YES;
         self.myTableView.footer.hidden = NO;

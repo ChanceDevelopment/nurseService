@@ -9,5 +9,6 @@
 #import "HeBaseViewController.h"
 
 @interface AddPaswordVC : HeBaseViewController
+@property (strong, nonatomic) NSString *codeStr;
 
 @end

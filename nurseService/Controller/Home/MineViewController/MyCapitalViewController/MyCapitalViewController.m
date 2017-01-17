@@ -187,8 +187,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self.view makeToast:@"功能未完善" duration:1.2 position:@"center"];
-    
     NSInteger index = indexPath.row;
     NSInteger sectionNum = indexPath.section;
     NSLog(@"section:%ld,index:%ld",sectionNum,index);
