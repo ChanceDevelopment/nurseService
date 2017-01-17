@@ -23,7 +23,7 @@
     NSMutableArray *serviceArr;
     NSMutableArray *serviceSelectArr;
     NSMutableDictionary *serviceIdDic;
-
+    NSArray *nurseInfoArr;
 
 }
 @property(strong,nonatomic)UIImage *userImage;
@@ -66,20 +66,18 @@
     serviceArr = [[NSMutableArray alloc] initWithCapacity:0];  //可提供服务
     serviceSelectArr = [[NSMutableArray alloc] initWithCapacity:0];
     serviceIdDic = [[NSMutableDictionary alloc] initWithCapacity:0];  //可提供服务
-
-
+    nurseInfoArr = @[@"不满一年",@"1年",@"2年",@"3年",@"3-5年",@"10年以上"];
+    dataArr = @[@"头像",@"昵称",@"手机号",@"身份证号",@"性别",@"我的优势",@"医护信息",@"常用地址",@"可提供服务"];
 }
 
 - (void)initView
 {
     [super initView];
-    dataArr = @[@"头像",@"昵称",@"手机号",@"身份证号",@"性别",@"我的优势",@"医护信息",@"常用地址",@"可提供服务"];
     NSDictionary *userInfoDic = [NSDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY]];
 //    NSString* temp = [NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseGoodservice"]];
 //    NSArray *arr = [temp componentsSeparatedByString:@","];
 //    NSString *t = [Tool convertHexStrToString:arr[0]];
     
-    [NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseGoodservice"]];
     dataSourceDic = [NSMutableDictionary dictionaryWithCapacity:8];
     [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseHeader"]] forKey:@"nurseHeader"];
     [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseNick"]] forKey:@"nurseNick"];
@@ -92,11 +90,8 @@
     [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseAddress"]] forKey:@"nurseAddress"];
     [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseYearsofservice"]] forKey:@"nurseYearsofservice"];
     
-
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
     [myTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-
-
 }
 
 //将十六进制的字符串转换成NSString则可使用如下方式:
@@ -143,7 +138,6 @@
         sexStr = @"2";
     }
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
-
     NSDictionary * params  = @{@"nurseId" : [NSString stringWithFormat:@"%@",userAccount],
                                @"nurseheader" : headerStr,
                                @"nurseNick" : [dataSourceDic valueForKey:@"nurseNick"],
@@ -188,6 +182,8 @@
 {
     if (tableView.tag == 500) {
         return serviceArr.count;
+    }else if (tableView.tag == 501) {
+        return nurseInfoArr.count;
     }
     return dataArr.count;
 }
@@ -237,6 +233,35 @@
         }
         
         return cell;
+    } else if (tableView.tag == 501) {
+        
+        HeBaseTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
+        if (!cell) {
+            cell = [[HeBaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier cellSize:cellSize];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        
+        UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, SCREENWIDTH-120, cellSize.height)];
+        tipLabel.backgroundColor = [UIColor clearColor];
+        tipLabel.text = nurseInfoArr[row];
+        tipLabel.font = [UIFont systemFontOfSize:15.0];
+        tipLabel.textColor = [UIColor grayColor];
+        [cell addSubview:tipLabel];
+        
+        CGFloat imageW = 25;
+        CGFloat imageX = 15;
+        UIImageView *selectImage = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, 9, imageW, imageW)];
+        [cell addSubview:selectImage];
+        selectImage.backgroundColor = [UIColor clearColor];
+        selectImage.userInteractionEnabled = YES;
+        selectImage.tag = row +50;
+        
+        selectImage.image = [UIImage imageNamed:@"abc_btn_radio"];
+        if ([nurseInfoArr[row] isEqualToString:[dataSourceDic valueForKey:@"nurseYearsofservice"]]) {
+            selectImage.image = [UIImage imageNamed:@"abc_btn_radio_on"];
+        }
+
+        return cell;
     }
     
     MyInfoTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
@@ -266,7 +291,7 @@
             nameStr=[dataSourceDic valueForKey:@"nurseSex"];
         }else if (row == 5){
             nameStr=[dataSourceDic valueForKey:@"nurseNote"];
-        }else if (row == 5){
+        }else if (row == 6){
             nameStr=[dataSourceDic valueForKey:@"nurseYearsofservice"];
         }else if (row == 7){
             nameStr=[dataSourceDic valueForKey:@"nurseAddress"];
@@ -284,6 +309,8 @@
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
     if (tableView.tag == 500) {
+        return 44;
+    }else if (tableView.tag == 501) {
         return 44;
     }
     
@@ -309,6 +336,12 @@
         [tableView reloadData];
         
         return;
+    }else if (tableView.tag == 501) {
+        
+        [dataSourceDic setValue:nurseInfoArr[row] forKey:@"nurseYearsofservice"];
+        [tableView reloadData];
+        
+        return;
     }
 //    NSInteger section = indexPath.section;
     currentRow = row;
@@ -323,21 +356,17 @@
         case 1:
         {
             [self showAddView];
-            
         }
             break;
         case 2:
         {
             [self showAddView];
-            
         }
             break;
         case 3:
         {
             [self showAddView];
-
         }
-//            NSLog(@"%ld",row);
             break;
         case 4:
         {
@@ -350,6 +379,9 @@
         }
             break;
         case 6:
+        {
+            [self ShowNurserInfo];
+        }
             NSLog(@"%ld",row);
             break;
         case 7:
@@ -610,12 +642,12 @@
         if (serviceStr.length > 0) {
             serviceStr = [serviceStr substringFromIndex:1];
         }
-        [dataSourceDic setObject:serviceStr forKey:@"nurseGoodservice"];
+        [dataSourceDic setValue:serviceStr forKey:@"nurseGoodservice"];
 
     }
     if (sender.tag == 101) {
         NSLog(@"101");
-        
+        [myTableView reloadData];
     }
     
     
@@ -847,7 +879,6 @@
 }
 
 - (void)ShowNurserInfo{
-    NSArray *nurseInfoArr = @[@"不满一年",@"1年",@"2年",@"3年",@"3-5年",@"10年以上"];
     //serviceArr
     windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
     windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
@@ -855,7 +886,7 @@
     
     
     NSInteger addBgView_W = SCREENWIDTH -20;
-    NSInteger addBgView_H = 44*nurseInfoArr.count;
+    NSInteger addBgView_H = 44*nurseInfoArr.count+100;
     NSInteger addBgView_Y = (SCREENHEIGH-addBgView_H)/2.0;//SCREENHEIGH/2.0-addBgView_H/2.0-40;
     UIView *addBgView = [[UIView alloc] initWithFrame:CGRectMake(10, addBgView_Y, addBgView_W, addBgView_H)];
     addBgView.backgroundColor = [UIColor whiteColor];
@@ -867,7 +898,7 @@
     NSInteger titleH = 44;
     NSInteger titleY = 5;
     
-    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, titleY, 100, titleH)];
+    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, titleY, 200, titleH)];
     titleL.textColor = [UIColor blackColor];
     titleL.textAlignment = NSTextAlignmentLeft;
     titleL.font = [UIFont systemFontOfSize:18.0];
@@ -876,7 +907,8 @@
     titleL.text = @"请选择医护信息";
     
     titleY = 50;
-    UITableView *tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, titleY, addBgView_W, addBgView_H-50) style:UITableViewStylePlain];
+    titleH = 44*nurseInfoArr.count;
+    UITableView *tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, titleY, addBgView_W, titleH) style:UITableViewStylePlain];
     tableview.tag = 501;
     tableview.delegate = self;
     tableview.dataSource = self;
@@ -886,12 +918,12 @@
     [Tool setExtraCellLineHidden:tableview];
     tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    NSInteger cancleBt_X = SCREENWIDTH-50-90;
+    NSInteger cancleBt_X = addBgView_W-90;
     NSInteger cancleBt_Y = CGRectGetMaxY(tableview.frame)+10;
     NSInteger cancleBt_W = 40;
     NSInteger cancleBt_H = 20;
     
-    UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
     [okBt setTitle:@"确定" forState:UIControlStateNormal];
     okBt.backgroundColor = [UIColor clearColor];
     okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];

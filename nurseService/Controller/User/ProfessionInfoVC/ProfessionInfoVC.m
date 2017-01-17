@@ -77,7 +77,7 @@
     [self initializaiton];
     [self initView];
     [self getAllServiceInfo];
-//    [self getAllHospitalAndMajorData];
+    [self getAllHospitalAndMajorData];
 }
 
 - (void)initializaiton
@@ -745,16 +745,19 @@
         }
         [serviceSelectArr addObject:serviceArr[row]];
         [tableView reloadData];
-        
         return;
-
     }else if (tableView.tag == 501){
         [postDic setObject:workUnitArr[row] forKey:@"NurseworkuUnit"];
+        if (nurseOfficeArr.count>0) {
+            [nurseOfficeArr removeAllObjects];
+        }
+        [nurseOfficeArr addObjectsFromArray:[nurseOfficeDic objectForKey:workUnitArr[row]]];
         
         [self closeWindowView];
         [workPlaceLable setText:workUnitArr[row]];
         return;
     }else if (tableView.tag == 502){
+        
         [postDic setObject:nurseOfficeArr[row] forKey:@"NurseOffice"];
         
         [self closeWindowView];
@@ -871,13 +874,7 @@
 
 - (void)postProfessionInfo{
     
-//    NSString *nurseTruename = nameTextField.text;
-//    NSString *nurseCard = idCardTextField.text;
-//    NSString *nursePhone = phoneTextField.text;
-//    NSString *NurseAddress = addressTextField.text;
-    
     NSString *nurseNumber = nurseNumberField.text;
-    
     NSString *nurseLicensepic = photoImageStr ? photoImageStr : @"";
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     NSDictionary * params  = @{@"NurseId" : userAccount,
@@ -1336,9 +1333,10 @@
     }];
 }
 
+
 //获取所有医院
 - (void)getAllHospitalAndMajorData{
-    return;
+
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:@"nurseAnduser/selecthospitalandmajor.action" params:nil success:^(AFHTTPRequestOperation* operation,id response){
         
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
@@ -1346,7 +1344,7 @@
         
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
-
+            
             NSArray *temp = [NSArray arrayWithArray:[respondDict objectForKey:@"json"]];
             for (int i = 0; i<temp.count; i++) {
                 
@@ -1362,9 +1360,9 @@
                         [nurseDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:key]] forKey:key];
                     }
                 }
-            
                 [workUnitArr addObject:[nurseDic objectForKey:@"hospitalName"]];
-                NSArray *tempMaj = [NSArray arrayWithArray:[nurseDic objectForKey:@"maj"]];
+                
+                NSMutableArray *tempMaj = [NSMutableArray arrayWithArray:[[nurseDic objectForKey:@"maj"] objectFromJSONString]];
                 NSMutableArray *hospitalArr = [[NSMutableArray alloc] initWithCapacity:0];
                 for (int j = 0; j < tempMaj.count; j++) {
                     [hospitalArr addObject:[tempMaj[j] objectForKey:@"majorName"]];
@@ -1372,20 +1370,16 @@
                 [nurseOfficeDic setObject:hospitalArr forKey:[nurseDic objectForKey:@"hospitalName"]];
                 
             }
-            NSLog(@"workUnitArr:%@",workUnitArr);
-            NSLog(@"nurseOfficeDic:%@",nurseOfficeDic);
             NSLog(@"success");
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
         }
-        //        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

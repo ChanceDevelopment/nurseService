@@ -632,7 +632,6 @@
 }
 
 
-
 - (void)getNurseData{
     NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:NURSEACCOUNTKEY];
     NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:USERPASSWORDKEY];
