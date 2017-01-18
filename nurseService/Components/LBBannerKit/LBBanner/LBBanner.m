@@ -136,7 +136,9 @@
     dispatch_async(network_queue, ^{
         for (NSString * imageURL in imageURLArray) {
             UIImage * image = [self loadMyImageFromNetwork:imageURL];
-            [self.images addObject:image];
+            if (image) {
+                [self.images addObject:image];
+            }
         }
         
         //缓存到本地
@@ -248,6 +250,8 @@
     self.systemPageCtrl = [[UIPageControl alloc] init];
     self.systemPageCtrl.frame = CGRectMake(0, self.height  - 20 - 40, self.width, 40);
     self.systemPageCtrl.enabled = NO;
+    self.systemPageCtrl.currentPageIndicatorTintColor = [UIColor colorWithRed:0.937 green:0.373 blue:0.373 alpha:1.00];
+    self.systemPageCtrl.pageIndicatorTintColor = [UIColor grayColor];
 //    [self.systemPageCtrl addTarget:self action:@selector(pageControlAction:) forControlEvents:UIControlEventValueChanged];
     [self addSubview:self.systemPageCtrl];
     [self insertSubview:self.systemPageCtrl aboveSubview:self.scrollView];

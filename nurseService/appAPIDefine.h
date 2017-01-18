@@ -104,7 +104,8 @@
 #define ORDERSTATENOW @"orderReceiver/OrderStateAccessNow.action"
 //2.5查询已完成订单
 #define ORDERSTATESUCCESS @"orderReceiver/OrderStateAccessSuccess.action"
-
+//帖子
+#define ESSENCEARTICLE @"post/selectPostThreeLevelDetailsInfo.action"
 
 //绑定角色
 #define BIND_PHONE_USER @"/bang_phone_user"

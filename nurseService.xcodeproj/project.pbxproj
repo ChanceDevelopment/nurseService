@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		57F511001E2F6514003D0A7A /* HomeWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F510FF1E2F6514003D0A7A /* HomeWebViewController.m */; };
 		AD13A66D1E2B8DAD002ADE2B /* MyFansVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD13A66B1E2B8DAD002ADE2B /* MyFansVC.m */; };
 		AD13A66E1E2B8DAD002ADE2B /* MyFansVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD13A66C1E2B8DAD002ADE2B /* MyFansVC.xib */; };
 		AD13A6711E2BB067002ADE2B /* icon_switch_close.png in Resources */ = {isa = PBXBuildFile; fileRef = AD13A66F1E2BB067002ADE2B /* icon_switch_close.png */; };
@@ -726,6 +727,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		57F510FE1E2F6514003D0A7A /* HomeWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeWebViewController.h; sourceTree = "<group>"; };
+		57F510FF1E2F6514003D0A7A /* HomeWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeWebViewController.m; sourceTree = "<group>"; };
 		AD13A66A1E2B8DAD002ADE2B /* MyFansVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFansVC.h; sourceTree = "<group>"; };
 		AD13A66B1E2B8DAD002ADE2B /* MyFansVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFansVC.m; sourceTree = "<group>"; };
 		AD13A66C1E2B8DAD002ADE2B /* MyFansVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyFansVC.xib; sourceTree = "<group>"; };
@@ -2480,6 +2483,8 @@
 				EAA4F3021E012A7000EF9E14 /* HomeViewController.h */,
 				EAA4F3031E012A7000EF9E14 /* HomeViewController.m */,
 				EAA4F3041E012A7000EF9E14 /* HomeViewController.xib */,
+				57F510FE1E2F6514003D0A7A /* HomeWebViewController.h */,
+				57F510FF1E2F6514003D0A7A /* HomeWebViewController.m */,
 			);
 			path = HomeViewController;
 			sourceTree = "<group>";
@@ -5251,6 +5256,7 @@
 				EAC2D9211D4B063B00E282A8 /* UIAlertView+RACSignalSupport.m in Sources */,
 				EAA655371E0627C400F424DD /* DFGridImageView.m in Sources */,
 				EAA4F3001E011ED100EF9E14 /* HeEnrollVC.m in Sources */,
+				57F511001E2F6514003D0A7A /* HomeWebViewController.m in Sources */,
 				ADDBEB971DFCE87E000BDA95 /* UIViewExt.m in Sources */,
 				EAC2D8AC1D4B063B00E282A8 /* MJRefreshBackNormalFooter.m in Sources */,
 				EAC2D8861D4B063B00E282A8 /* IQActionSheetPickerView.m in Sources */,
@@ -5714,8 +5720,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.channce.nurseService;
 				PRODUCT_NAME = "护士端";
-				PROVISIONING_PROFILE = "718ac37f-57dc-4593-99e3-4e3fb3dedba5";
-				PROVISIONING_PROFILE_SPECIFIER = 20161230_nurseService_Development;
+				PROVISIONING_PROFILE = "2e2586d7-b0d4-410d-a17a-04d881f713d1";
+				PROVISIONING_PROFILE_SPECIFIER = 20161019_nurseService_Development;
 			};
 			name = Debug;
 		};

@@ -73,20 +73,23 @@
         titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, titleLY, titleLW, 20)];
         titleL.textColor = [UIColor blackColor];
         titleL.text = @"骨科类护士";
+        titleL.numberOfLines = 0;
         titleL.font = [UIFont systemFontOfSize:14.0];
         titleL.backgroundColor = [UIColor clearColor];
         [bgView addSubview:titleL];
 
         
         CGFloat detailTextViewY = titleLY+20;
-        CGFloat detailTextViewW = SCREENWIDTH-10;
+        CGFloat detailTextViewW = SCREENWIDTH-20;
 
-        detailTextView = [[UITextView alloc] initWithFrame:CGRectMake(5, detailTextViewY, detailTextViewW, 150)];
+        detailTextView = [[UILabel alloc] initWithFrame:CGRectMake(10, detailTextViewY, detailTextViewW, 147)];
         [bgView addSubview:detailTextView];
         detailTextView.backgroundColor = [UIColor clearColor];
         detailTextView.font = [UIFont systemFontOfSize:12.0];
         detailTextView.text = @"#################################################";
-        
+        detailTextView.userInteractionEnabled = NO;
+        detailTextView.numberOfLines = 0;
+
         CGFloat timeLY = detailTextViewY+150;
         
         timeL = [[UILabel alloc] initWithFrame:CGRectMake(10, timeLY, 200, 20)];
@@ -102,6 +105,13 @@
         zanV.image = [UIImage imageNamed:@"icon_like"];
         zanV.userInteractionEnabled = YES;
         [bgView addSubview:zanV];
+
+        self.zanLabel = [[UILabel alloc]initWithFrame:CGRectMake(zanVX+22, timeLY, 200, 20)];
+        self.zanLabel.text = @"1";
+        _zanLabel.textColor = [UIColor grayColor];
+        _zanLabel.font = [UIFont systemFontOfSize:14.0];
+        _zanLabel.backgroundColor = [UIColor clearColor];
+        [bgView addSubview:_zanLabel];
         
         CGFloat mesVX = SCREENWIDTH - 50;
         UIImageView *mesV = [[UIImageView alloc] initWithFrame:CGRectMake(mesVX, timeLY, 20, 20)];
@@ -109,6 +119,12 @@
         mesV.image = [UIImage imageNamed:@"icon_comment"];
         mesV.userInteractionEnabled = YES;
         [bgView addSubview:mesV];
+        self.commentLabel = [[UILabel alloc]initWithFrame:CGRectMake(mesVX+22, timeLY, 200, 20)];
+        self.commentLabel.text = @"1";
+        _commentLabel.textColor = [UIColor grayColor];
+        _commentLabel.font = [UIFont systemFontOfSize:14.0];
+        _commentLabel.backgroundColor = [UIColor clearColor];
+        [bgView addSubview:_commentLabel];
         
     }
     return self;
