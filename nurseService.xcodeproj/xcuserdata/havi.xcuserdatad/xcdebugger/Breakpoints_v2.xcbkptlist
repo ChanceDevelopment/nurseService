@@ -26,7 +26,7 @@
                   moduleName = "&#x62a4;&#x58eb;&#x7aef;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/havi/Desktop/Company/nurseService/nurseService/Controller/Home/OrderViewController/OrderViewController.m"
-                  timestampString = "506428272.873653"
+                  timestampString = "506486342.154212"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "457"
@@ -41,7 +41,7 @@
                   moduleName = "&#x62a4;&#x58eb;&#x7aef;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/havi/Desktop/Company/nurseService/nurseService/Controller/Home/OrderViewController/OrderViewController.m"
-                  timestampString = "506428272.880723"
+                  timestampString = "506486342.158364"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "459"
@@ -90,44 +90,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/Home/HomeViewController/HomeViewController.m"
-            timestampString = "506428106.966487"
+            timestampString = "506486297.855717"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "213"
-            endingLineNumber = "213"
+            startingLineNumber = "255"
+            endingLineNumber = "255"
             landmarkName = "-getDataWithUrl:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "nurseService/Controller/Home/HomeViewController/HomeViewController.m"
-            timestampString = "506428106.966487"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "429"
-            endingLineNumber = "429"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "nurseService/Controller/Home/HomeViewController/HomeViewController.m"
-            timestampString = "506428265.476827"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
-            landmarkName = "-getRollPic"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

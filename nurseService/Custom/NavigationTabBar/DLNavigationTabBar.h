@@ -17,5 +17,6 @@ typedef void(^TabBarDidClickAtIndex)(NSInteger buttonIndex);
 @property(nonatomic,strong)UIColor *sliderBackgroundColor;
 @property(nonatomic,strong)UIColor *buttonNormalTitleColor;
 @property(nonatomic,strong)UIColor *buttonSelectedTileColor;
+- (void)setSubViewWithTitles:(NSArray *)titles;
 
 @end

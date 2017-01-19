@@ -107,6 +107,14 @@
 //帖子
 #define ESSENCEARTICLE @"post/selectPostThreeLevelDetailsInfo.action"
 
+#define ROLLPICTURE @"post/selectPostRollPicInfo.action"
+
+#define ALLPOSTINFODETAIL @"post/selectPostInfoByOneTOTwo.action"
+
+#define NURSESELECTPOST @"post/selectPostNursefFocus.action"
+
+#define kThreeLevelDetails @"post/selectPostThreeLevelDetailsInfoByPostTwoId.action"
+
 //绑定角色
 #define BIND_PHONE_USER @"/bang_phone_user"
 //绑定角色的时候获取验证码

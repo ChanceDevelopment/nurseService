@@ -41,6 +41,7 @@
 @property(strong,nonatomic)IBOutlet UITableView *tableview;
 @property(strong,nonatomic)IBOutlet UIView *footerView;
 @property (nonatomic, strong) LBBanner * banner;
+@property (nonatomic, strong) NSArray *nurseFocusArr;
 
 @end
 
@@ -108,6 +109,7 @@
     [self initView];
     [self.tableview.header beginRefreshing];
     [self getRollPic];
+    [self getNurseFoucesPostInfo];
 }
 
 - (void)initializaiton
@@ -132,17 +134,8 @@
             [self getDataWithUrl:ESSENCEARTICLE];
         }
             break;
-        case 1:
-        {
-            [self getDataWithUrl:ORDERSTATENOW];
-        }
-            break;
-        case 2:
-        {
-            [self getDataWithUrl:ORDERSTATESUCCESS];
-        }
-            break;
         default:
+            [self getDataWithUrl:kThreeLevelDetails];
             break;
     }
 
@@ -174,11 +167,45 @@
     }
 }
 
+- (void)getNurseFoucesPostInfo
+{
+    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+    NSDictionary * params=@{@"nurseId" : userAccount};
+
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:NURSESELECTPOST params:params success:^(AFHTTPRequestOperation* operation,id response){
+
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            if ([[respondDict valueForKey:@"json"] isMemberOfClass:[NSNull class]] || [respondDict valueForKey:@"json"] == nil) {
+                [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+                return ;
+            }else{
+                NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
+                NSMutableArray *arrName = @[].mutableCopy;
+                [arrName addObject:@"精华"];
+                self.nurseFocusArr = tempArr;
+                for (NSDictionary *dic in tempArr) {
+                    [arrName addObject:[dic objectForKey:@"postTwoLevelName"]];
+                }
+                [self.navigationTabBar setSubViewWithTitles:arrName];
+            }
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        }
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
+}
+
+
 - (void)getRollPic
 {
     NSDictionary * params;
-    NSString *url = @"post/selectPostRollPicInfo.action";
-    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:url params:params success:^(AFHTTPRequestOperation* operation,id response){
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:ROLLPICTURE params:params success:^(AFHTTPRequestOperation* operation,id response){
 
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
@@ -208,12 +235,15 @@
 
 - (void)getDataWithUrl:(NSString *)url{
 
-    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+//    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+
+
     NSDictionary * params;
     if (currentType == 0) {
-        params= @{@"pageNum" : [NSString stringWithFormat:@"%ld",currentPage]};
+        params= @{@"pageNum" : [NSString stringWithFormat:@"%d",(int)currentPage]};
     }else{
-        params= @{@"nurseId" : userAccount,@"pageNow" : [NSString stringWithFormat:@"%ld",currentPage]};
+        NSString *postTwoLevelId = [[self.nurseFocusArr objectAtIndex:currentType-1] objectForKey:@"postTwoLevelId"];
+        params= @{@"postTwoLevelId" : postTwoLevelId,@"pageNum" : [NSString stringWithFormat:@"%d",(int)currentPage]};
     }
 
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:url params:params success:^(AFHTTPRequestOperation* operation,id response){
@@ -224,71 +254,17 @@
             NSLog(@"success");
             if ([[respondDict valueForKey:@"json"] isMemberOfClass:[NSNull class]] || [respondDict valueForKey:@"json"] == nil) {
                 [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
-//                if (currentType != 2) {
-//                    noDataView.hidden = NO;
-//                    myTableView.hidden = YES;
-//                }
-
+                noDataView.hidden = NO;
+                tableview.hidden = YES;
                 return ;
             }else{
                 NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
-                switch (currentType) {
-                    case 0:
-                    {
-//                        CGFloat tableViewY = 44;
-//                        CGFloat tableViewH = self.view.frame.size.height-44-120-48+80;
-//                        tableview.frame = CGRectMake(0, tableViewY, SCREENWIDTH, tableViewH);
-                        if (tempArr.count >0){
-//                            if (_footerView == nil) {
-//                                [self initFooterView];
-//                            }
-                            noDataView.hidden = YES;
-                            tableview.hidden = NO;
-                        }else{
-                            noDataView.hidden = NO;
-                            tableview.hidden = YES;
-                        }
-                    }
-                        break;
-                    case 1:
-                    {
-
-                        CGFloat tableViewY = 44;
-                        CGFloat tableViewH = self.view.frame.size.height-44-48+80;
-//                        myTableView.frame = CGRectMake(0, tableViewY, SCREENWIDTH, tableViewH);
-//                        if (footerView) {
-//                            [footerView removeFromSuperview];
-//                            footerView = nil;
-//                        }
-//                        if (tempArr.count >0){
-//                            noDataView.hidden = YES;
-//                            myTableView.hidden = NO;
-//                        }else{
-//                            noDataView.hidden = NO;
-//                            myTableView.hidden = YES;
-//                        }
-                    }
-                        break;
-                    case 2:
-                    {
-//                        if (footerView) {
-//                            [footerView removeFromSuperview];
-//                            footerView = nil;
-//                        }
-//                        CGFloat tableViewY = 44;
-//                        CGFloat tableViewH = self.view.frame.size.height-44-48+50;
-//                        myTableView.frame = CGRectMake(0, tableViewY, SCREENWIDTH, tableViewH);
-//                        if (tempArr.count >0){
-//                            noDataView.hidden = YES;
-//                            myTableView.hidden = NO;
-//                        }else{
-//                            noDataView.hidden = NO;
-//                            myTableView.hidden = YES;
-//                        }
-                    }
-                        break;
-                    default:
-                        break;
+                if (tempArr.count >0){
+                    noDataView.hidden = YES;
+                    tableview.hidden = NO;
+                }else{
+                    noDataView.hidden = NO;
+                    tableview.hidden = YES;
                 }
 
                 if (tempArr.count >0) {
@@ -327,6 +303,16 @@
     UIView * tableviewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 180)];
     [tableviewHeader addSubview:_banner];
     self.tableview.tableHeaderView = _banner;
+
+    CGFloat noDataViewW = 50;
+    CGFloat noDataViewY = (self.view.frame.size.height-44-48-noDataViewW)/2.0;
+    CGFloat noDataViewX = (SCREENWIDTH-noDataViewW)/2.0;
+    noDataView = [[UIImageView alloc] init];
+    noDataView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:noDataView];
+    noDataView.frame = CGRectMake(noDataViewX, noDataViewY, noDataViewW, noDataViewW);
+    noDataView.image = [UIImage imageNamed:@"img_no_data"];
+    noDataView.hidden = YES;
     
     self.tableview.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block,刷新
@@ -380,12 +366,8 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSInteger row = indexPath.row;
-    
     static NSString *cellIndentifier = @"HomeTableViewCell";
     CGSize cellSize = [tableView rectForRowAtIndexPath:indexPath].size;
-    NSDictionary *dict = nil;
-    
     HomeTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell) {
         cell = [[HomeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier cellSize:cellSize];
@@ -394,11 +376,13 @@
     NSDictionary *dic = [dataArr objectAtIndex:indexPath.row];
     NSLog(@"信息是%@",dic);
     cell.detailTextView.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"postThreeLevelDetailsSpeak"]];
-    NSString *timeString = [self changeTimeToString:[dic objectForKey:@"postThreeLevelDetailsCreatetime"]];
-    NSRange range = [timeString rangeOfString:@"-"];
+    NSString *timeString = [self changeTimeToString:[NSString stringWithFormat:@"%@",[dic objectForKey:@"postThreeLevelDetailsCreatetime"]]];
+    if (timeString.length>0) {
+        NSRange range = [timeString rangeOfString:@"-"];
 
-    cell.timeL.text = [NSString stringWithFormat:@"发布于%@",[timeString substringWithRange:NSMakeRange(range.location+1, 11)]];
-    cell.nameL.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"postThreeLevelDetailsCreateter"]];
+        cell.timeL.text = [NSString stringWithFormat:@"发布于%@",[timeString substringWithRange:NSMakeRange(range.location+1, 11)]];
+    }
+    cell.nameL.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"postThreeLevelDetailsCreateter"]?@"小护健康":[dic objectForKey:@"postThreeLevelDetailsCreateter"]];
     cell.titleL.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"postThreeLevelDetailsTitle"]];
     cell.zanLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"postThreeLevelDetailsThingNumber"]];
     cell.backgroundColor = [UIColor colorWithWhite:244.0 / 255.0 alpha:1.0];
@@ -435,6 +419,9 @@
 
 - (NSString *)changeTimeToString:(NSString *)miloTime
 {
+    if ([miloTime isEqualToString:@"<null>"]){
+        return @"";
+    }
     NSTimeInterval time=[miloTime doubleValue]+28800;//因为时差问题要加8小时 == 28800 sec
     NSDate *detaildate=[NSDate dateWithTimeIntervalSince1970:time];
     NSLog(@"date:%@",[detaildate description]);

@@ -33,6 +33,15 @@
 
 -(void)setSubViewWithTitles:(NSArray *)titles
 {
+    if (_sliderView) {
+        [_sliderView removeFromSuperview];
+    }
+    NSArray *subViews = self.subviews;
+    for (UIView *view in subViews) {
+        if ([view isKindOfClass:[UIButton class]]) {
+            [view removeFromSuperview];
+        }
+    }
     self.buttonArray = [[NSMutableArray alloc] init];
     for (int buttonIndex = 0 ; buttonIndex < titles.count; buttonIndex++) {
         NSString *titleString = titles[buttonIndex];
