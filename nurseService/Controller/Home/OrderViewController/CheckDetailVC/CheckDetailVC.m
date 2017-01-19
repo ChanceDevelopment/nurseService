@@ -20,6 +20,8 @@
 @property (strong, nonatomic) UILabel *labelTitleNum;
 @property (strong, nonatomic) UILabel *orderTitleNum;
 @property (strong, nonatomic) PNLineChart *lineChart;
+@property (nonatomic, assign) int orderNum;
+@property (nonatomic, copy) NSString *checkNum;
 
 @end
 
@@ -177,12 +179,13 @@
             }else{
                 NSDictionary *tempDic = [[NSDictionary alloc] initWithDictionary:[respondDict valueForKey:@"json"]];
                 dataSourceDic = tempDic;
-                self.labelTitleNum.text = [NSString stringWithFormat:@"%@",[dataSourceDic objectForKey:@"totalPrice"]];
+
                 if ([[dataSourceDic valueForKey:@"nurseOrders"] count] > 0) {
                     NSArray *tempArr = [NSArray arrayWithArray:[dataSourceDic valueForKey:@"nurseOrders"]];
                     [ordersArr addObjectsFromArray:tempArr];
                 }
-                self.orderTitleNum.text = [NSString stringWithFormat:@"%d",(int)ordersArr.count];
+                self.orderNum = (int)ordersArr.count;
+                self.checkNum = [tempDic objectForKey:@"totalPrice"];
                 NSMutableArray *xData = @[].mutableCopy;
                 for (int i = 1; i<5; i++) {
                     [xData addObject:[NSString stringWithFormat:@"%@",[dataSourceDic valueForKey:[NSString stringWithFormat:@"weekRange%d",i]]]];
@@ -342,7 +345,7 @@
             priceLabel.backgroundColor = [UIColor clearColor];
             priceLabel.font = [UIFont systemFontOfSize:14.0];
 
-            NSString *priceString = [NSString stringWithFormat:@"+%@(其中包括平台奖励15元)",[dicInfo objectForKey:@"price"]];
+            NSString *priceString = [NSString stringWithFormat:@"+%.2f(其中包括平台奖励15元)",[[dicInfo objectForKey:@"price"] floatValue]];
             NSMutableAttributedString *textColor = [[NSMutableAttributedString alloc]initWithString:priceString];
             NSRange rangel = [priceString rangeOfString:@"("];
             [textColor addAttribute:NSForegroundColorAttributeName value:APPDEFAULTORANGE range:NSMakeRange(rangel.location, 13)];
@@ -441,7 +444,7 @@
 
             labelTitleNum = [[UILabel alloc] initWithFrame:CGRectMake(70.0f, 0.0f, 100.0f, 44.0f)];
             [labelTitleNum setBackgroundColor:[UIColor clearColor]];
-            labelTitleNum.text = @"520";
+            labelTitleNum.text = [NSString stringWithFormat:@"%.2f",[self.checkNum floatValue]];
             labelTitleNum.userInteractionEnabled = YES;
             labelTitleNum.font = [UIFont systemFontOfSize:14.0];
             labelTitleNum.textColor = APPDEFAULTORANGE;
@@ -457,7 +460,7 @@
 
             orderTitleNum = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH-50, 0.0f, 100.0f, 44.0f)];
             [orderTitleNum setBackgroundColor:[UIColor clearColor]];
-            orderTitleNum.text = @"30";
+            orderTitleNum.text = [NSString stringWithFormat:@"%d",self.orderNum];
             orderTitleNum.userInteractionEnabled = YES;
             orderTitleNum.font = [UIFont systemFontOfSize:14.0];
             orderTitleNum.textColor = APPDEFAULTORANGE;
