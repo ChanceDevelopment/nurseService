@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/Home/OrderViewController/CheckDetailVC/CheckDetailVC.m"
-            timestampString = "506500617.596086"
+            timestampString = "506508282.582188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "233"
-            endingLineNumber = "233"
+            startingLineNumber = "296"
+            endingLineNumber = "296"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/Home/OrderViewController/CheckDetailVC/CheckDetailVC.m"
-            timestampString = "506500641.889058"
+            timestampString = "506508282.582188"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
+            startingLineNumber = "313"
+            endingLineNumber = "313"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>

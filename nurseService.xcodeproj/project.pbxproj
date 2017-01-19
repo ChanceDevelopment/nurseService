@@ -11,6 +11,23 @@
 		57F511031E30859B003D0A7A /* icon_calendar_month.png in Resources */ = {isa = PBXBuildFile; fileRef = 57F511011E30859B003D0A7A /* icon_calendar_month.png */; };
 		57F511041E30859B003D0A7A /* icon_calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 57F511021E30859B003D0A7A /* icon_calendar.png */; };
 		57F511061E3087AC003D0A7A /* icon_look.png in Resources */ = {isa = PBXBuildFile; fileRef = 57F511051E3087AC003D0A7A /* icon_look.png */; };
+		57F5112A1E30A0D0003D0A7A /* PNBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F511091E30A0D0003D0A7A /* PNBar.m */; };
+		57F5112B1E30A0D0003D0A7A /* PNBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F5110B1E30A0D0003D0A7A /* PNBarChart.m */; };
+		57F5112C1E30A0D0003D0A7A /* PNChartLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F5110F1E30A0D0003D0A7A /* PNChartLabel.m */; };
+		57F5112D1E30A0D0003D0A7A /* PNCircleChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F511111E30A0D0003D0A7A /* PNCircleChart.m */; };
+		57F5112E1E30A0D0003D0A7A /* PNColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F511131E30A0D0003D0A7A /* PNColor.m */; };
+		57F5112F1E30A0D0003D0A7A /* PNGenericChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F511151E30A0D0003D0A7A /* PNGenericChart.m */; };
+		57F511301E30A0D0003D0A7A /* PNLineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F511171E30A0D0003D0A7A /* PNLineChart.m */; };
+		57F511311E30A0D0003D0A7A /* PNLineChartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F511191E30A0D0003D0A7A /* PNLineChartData.m */; };
+		57F511321E30A0D0003D0A7A /* PNLineChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F5111B1E30A0D0003D0A7A /* PNLineChartDataItem.m */; };
+		57F511331E30A0D0003D0A7A /* PNPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F5111D1E30A0D0003D0A7A /* PNPieChart.m */; };
+		57F511341E30A0D0003D0A7A /* PNPieChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F5111F1E30A0D0003D0A7A /* PNPieChartDataItem.m */; };
+		57F511351E30A0D0003D0A7A /* PNRadarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F511211E30A0D0003D0A7A /* PNRadarChart.m */; };
+		57F511361E30A0D0003D0A7A /* PNRadarChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F511231E30A0D0003D0A7A /* PNRadarChartDataItem.m */; };
+		57F511371E30A0D0003D0A7A /* PNScatterChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F511251E30A0D0003D0A7A /* PNScatterChart.m */; };
+		57F511381E30A0D0003D0A7A /* PNScatterChartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F511271E30A0D0003D0A7A /* PNScatterChartData.m */; };
+		57F511391E30A0D0003D0A7A /* PNScatterChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F511291E30A0D0003D0A7A /* PNScatterChartDataItem.m */; };
+		57F5113C1E30A3B3003D0A7A /* UICountingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F5113B1E30A3B3003D0A7A /* UICountingLabel.m */; };
 		AD13A66D1E2B8DAD002ADE2B /* MyFansVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD13A66B1E2B8DAD002ADE2B /* MyFansVC.m */; };
 		AD13A66E1E2B8DAD002ADE2B /* MyFansVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD13A66C1E2B8DAD002ADE2B /* MyFansVC.xib */; };
 		AD13A6711E2BB067002ADE2B /* icon_switch_close.png in Resources */ = {isa = PBXBuildFile; fileRef = AD13A66F1E2BB067002ADE2B /* icon_switch_close.png */; };
@@ -735,6 +752,42 @@
 		57F511011E30859B003D0A7A /* icon_calendar_month.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_calendar_month.png; sourceTree = "<group>"; };
 		57F511021E30859B003D0A7A /* icon_calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_calendar.png; sourceTree = "<group>"; };
 		57F511051E3087AC003D0A7A /* icon_look.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_look.png; sourceTree = "<group>"; };
+		57F511081E30A0D0003D0A7A /* PNBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNBar.h; sourceTree = "<group>"; };
+		57F511091E30A0D0003D0A7A /* PNBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNBar.m; sourceTree = "<group>"; };
+		57F5110A1E30A0D0003D0A7A /* PNBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNBarChart.h; sourceTree = "<group>"; };
+		57F5110B1E30A0D0003D0A7A /* PNBarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNBarChart.m; sourceTree = "<group>"; };
+		57F5110C1E30A0D0003D0A7A /* PNChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNChart.h; sourceTree = "<group>"; };
+		57F5110D1E30A0D0003D0A7A /* PNChartDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNChartDelegate.h; sourceTree = "<group>"; };
+		57F5110E1E30A0D0003D0A7A /* PNChartLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNChartLabel.h; sourceTree = "<group>"; };
+		57F5110F1E30A0D0003D0A7A /* PNChartLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNChartLabel.m; sourceTree = "<group>"; };
+		57F511101E30A0D0003D0A7A /* PNCircleChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNCircleChart.h; sourceTree = "<group>"; };
+		57F511111E30A0D0003D0A7A /* PNCircleChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNCircleChart.m; sourceTree = "<group>"; };
+		57F511121E30A0D0003D0A7A /* PNColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNColor.h; sourceTree = "<group>"; };
+		57F511131E30A0D0003D0A7A /* PNColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNColor.m; sourceTree = "<group>"; };
+		57F511141E30A0D0003D0A7A /* PNGenericChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNGenericChart.h; sourceTree = "<group>"; };
+		57F511151E30A0D0003D0A7A /* PNGenericChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNGenericChart.m; sourceTree = "<group>"; };
+		57F511161E30A0D0003D0A7A /* PNLineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNLineChart.h; sourceTree = "<group>"; };
+		57F511171E30A0D0003D0A7A /* PNLineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLineChart.m; sourceTree = "<group>"; };
+		57F511181E30A0D0003D0A7A /* PNLineChartData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNLineChartData.h; sourceTree = "<group>"; };
+		57F511191E30A0D0003D0A7A /* PNLineChartData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLineChartData.m; sourceTree = "<group>"; };
+		57F5111A1E30A0D0003D0A7A /* PNLineChartDataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNLineChartDataItem.h; sourceTree = "<group>"; };
+		57F5111B1E30A0D0003D0A7A /* PNLineChartDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNLineChartDataItem.m; sourceTree = "<group>"; };
+		57F5111C1E30A0D0003D0A7A /* PNPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNPieChart.h; sourceTree = "<group>"; };
+		57F5111D1E30A0D0003D0A7A /* PNPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNPieChart.m; sourceTree = "<group>"; };
+		57F5111E1E30A0D0003D0A7A /* PNPieChartDataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNPieChartDataItem.h; sourceTree = "<group>"; };
+		57F5111F1E30A0D0003D0A7A /* PNPieChartDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNPieChartDataItem.m; sourceTree = "<group>"; };
+		57F511201E30A0D0003D0A7A /* PNRadarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNRadarChart.h; sourceTree = "<group>"; };
+		57F511211E30A0D0003D0A7A /* PNRadarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNRadarChart.m; sourceTree = "<group>"; };
+		57F511221E30A0D0003D0A7A /* PNRadarChartDataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNRadarChartDataItem.h; sourceTree = "<group>"; };
+		57F511231E30A0D0003D0A7A /* PNRadarChartDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNRadarChartDataItem.m; sourceTree = "<group>"; };
+		57F511241E30A0D0003D0A7A /* PNScatterChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNScatterChart.h; sourceTree = "<group>"; };
+		57F511251E30A0D0003D0A7A /* PNScatterChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNScatterChart.m; sourceTree = "<group>"; };
+		57F511261E30A0D0003D0A7A /* PNScatterChartData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNScatterChartData.h; sourceTree = "<group>"; };
+		57F511271E30A0D0003D0A7A /* PNScatterChartData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNScatterChartData.m; sourceTree = "<group>"; };
+		57F511281E30A0D0003D0A7A /* PNScatterChartDataItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNScatterChartDataItem.h; sourceTree = "<group>"; };
+		57F511291E30A0D0003D0A7A /* PNScatterChartDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNScatterChartDataItem.m; sourceTree = "<group>"; };
+		57F5113A1E30A3B3003D0A7A /* UICountingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICountingLabel.h; sourceTree = "<group>"; };
+		57F5113B1E30A3B3003D0A7A /* UICountingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICountingLabel.m; sourceTree = "<group>"; };
 		AD13A66A1E2B8DAD002ADE2B /* MyFansVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFansVC.h; sourceTree = "<group>"; };
 		AD13A66B1E2B8DAD002ADE2B /* MyFansVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFansVC.m; sourceTree = "<group>"; };
 		AD13A66C1E2B8DAD002ADE2B /* MyFansVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyFansVC.xib; sourceTree = "<group>"; };
@@ -2033,6 +2086,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		57F511071E30A0D0003D0A7A /* PNChart */ = {
+			isa = PBXGroup;
+			children = (
+				57F511081E30A0D0003D0A7A /* PNBar.h */,
+				57F5113A1E30A3B3003D0A7A /* UICountingLabel.h */,
+				57F5113B1E30A3B3003D0A7A /* UICountingLabel.m */,
+				57F511091E30A0D0003D0A7A /* PNBar.m */,
+				57F5110A1E30A0D0003D0A7A /* PNBarChart.h */,
+				57F5110B1E30A0D0003D0A7A /* PNBarChart.m */,
+				57F5110C1E30A0D0003D0A7A /* PNChart.h */,
+				57F5110D1E30A0D0003D0A7A /* PNChartDelegate.h */,
+				57F5110E1E30A0D0003D0A7A /* PNChartLabel.h */,
+				57F5110F1E30A0D0003D0A7A /* PNChartLabel.m */,
+				57F511101E30A0D0003D0A7A /* PNCircleChart.h */,
+				57F511111E30A0D0003D0A7A /* PNCircleChart.m */,
+				57F511121E30A0D0003D0A7A /* PNColor.h */,
+				57F511131E30A0D0003D0A7A /* PNColor.m */,
+				57F511141E30A0D0003D0A7A /* PNGenericChart.h */,
+				57F511151E30A0D0003D0A7A /* PNGenericChart.m */,
+				57F511161E30A0D0003D0A7A /* PNLineChart.h */,
+				57F511171E30A0D0003D0A7A /* PNLineChart.m */,
+				57F511181E30A0D0003D0A7A /* PNLineChartData.h */,
+				57F511191E30A0D0003D0A7A /* PNLineChartData.m */,
+				57F5111A1E30A0D0003D0A7A /* PNLineChartDataItem.h */,
+				57F5111B1E30A0D0003D0A7A /* PNLineChartDataItem.m */,
+				57F5111C1E30A0D0003D0A7A /* PNPieChart.h */,
+				57F5111D1E30A0D0003D0A7A /* PNPieChart.m */,
+				57F5111E1E30A0D0003D0A7A /* PNPieChartDataItem.h */,
+				57F5111F1E30A0D0003D0A7A /* PNPieChartDataItem.m */,
+				57F511201E30A0D0003D0A7A /* PNRadarChart.h */,
+				57F511211E30A0D0003D0A7A /* PNRadarChart.m */,
+				57F511221E30A0D0003D0A7A /* PNRadarChartDataItem.h */,
+				57F511231E30A0D0003D0A7A /* PNRadarChartDataItem.m */,
+				57F511241E30A0D0003D0A7A /* PNScatterChart.h */,
+				57F511251E30A0D0003D0A7A /* PNScatterChart.m */,
+				57F511261E30A0D0003D0A7A /* PNScatterChartData.h */,
+				57F511271E30A0D0003D0A7A /* PNScatterChartData.m */,
+				57F511281E30A0D0003D0A7A /* PNScatterChartDataItem.h */,
+				57F511291E30A0D0003D0A7A /* PNScatterChartDataItem.m */,
+			);
+			name = PNChart;
+			path = nurseService/Helper/PNChart;
+			sourceTree = SOURCE_ROOT;
+		};
 		AD13A6691E2B8D99002ADE2B /* MyFansVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -2376,6 +2473,7 @@
 		ADDBEB291DFCE25C000BDA95 /* Untils */ = {
 			isa = PBXGroup;
 			children = (
+				57F511071E30A0D0003D0A7A /* PNChart */,
 			);
 			path = Untils;
 			sourceTree = "<group>";
@@ -5126,6 +5224,7 @@
 				EA1ADE991E1E14BD00A8422D /* MZTimerLabel.m in Sources */,
 				EAC2D9491D4B063B00E282A8 /* SRRefreshView.m in Sources */,
 				EAC2D95F1D4B063B00E282A8 /* TZImagePickerController.m in Sources */,
+				57F511341E30A0D0003D0A7A /* PNPieChartDataItem.m in Sources */,
 				EAC2D9051D4B063B00E282A8 /* RACMulticastConnection.m in Sources */,
 				EAC2D8B51D4B063B00E282A8 /* UIView+MJExtension.m in Sources */,
 				EAC2D97D1D4B063B00E282A8 /* User.m in Sources */,
@@ -5143,12 +5242,14 @@
 				EAC2D9061D4B063B00E282A8 /* RACObjCRuntime.m in Sources */,
 				EAA655411E0627C400F424DD /* DFBaseUserLineCell.m in Sources */,
 				EAC2D9141D4B063B00E282A8 /* RACStringSequence.m in Sources */,
+				57F5112F1E30A0D0003D0A7A /* PNGenericChart.m in Sources */,
 				ADDBEB561DFCE31B000BDA95 /* RECommonFunctions.m in Sources */,
 				EA1743471E1E33AF0038E805 /* pinyin.m in Sources */,
 				EAC2D8D91D4B063B00E282A8 /* NSArray+RACSequenceAdditions.m in Sources */,
 				EAA6546B1E06173200F424DD /* DLNavigationTabBar.m in Sources */,
 				EAA655181E0627C300F424DD /* DFTextImageLineItem.m in Sources */,
 				EAC2D8DD1D4B063B00E282A8 /* NSFileHandle+RACSupport.m in Sources */,
+				57F5112B1E30A0D0003D0A7A /* PNBarChart.m in Sources */,
 				EAC2D8D01D4B063B00E282A8 /* AHReach.m in Sources */,
 				EAC2D80E1D4B063B00E282A8 /* UIViewController+DismissKeyboard.m in Sources */,
 				EAA6550E1E0627C300F424DD /* DFBaseUserLineCellAdapter.m in Sources */,
@@ -5165,6 +5266,7 @@
 				EAC2D8341D4B063B00E282A8 /* ASINetworkQueue.m in Sources */,
 				EAC2D9121D4B063B00E282A8 /* RACSignalSequence.m in Sources */,
 				EAC2D92E1D4B063B00E282A8 /* UISwitch+RACSignalSupport.m in Sources */,
+				57F511321E30A0D0003D0A7A /* PNLineChartDataItem.m in Sources */,
 				EAC2D9391D4B063B00E282A8 /* SDImageCache.m in Sources */,
 				EAA655421E0627C400F424DD /* DFTextImageUserLineCell.m in Sources */,
 				ADB4CFF91E2DE929004ED2E3 /* AddPaswordVC.m in Sources */,
@@ -5188,6 +5290,7 @@
 				EAC2D8361D4B063B00E282A8 /* BrowserView.m in Sources */,
 				EA1742BE1E1E331B0038E805 /* README.md in Sources */,
 				EAC2D8811D4B063B00E282A8 /* FMDatabaseAdditions.m in Sources */,
+				57F511371E30A0D0003D0A7A /* PNScatterChart.m in Sources */,
 				EAC2D8091D4B063B00E282A8 /* NSDate+Category.m in Sources */,
 				AD8A0E801E254F3E0001CC02 /* NurseReportVC.m in Sources */,
 				EAC2D88F1D4B063B00E282A8 /* UIView+Hierarchy.m in Sources */,
@@ -5202,7 +5305,9 @@
 				EAC2D9841D4B063B00E282A8 /* qrspec.c in Sources */,
 				EAC2D89E1D4B063B00E282A8 /* MJPhotoProgressView.m in Sources */,
 				EA1742BC1E1E331B0038E805 /* NSString+MLLabel.m in Sources */,
+				57F511351E30A0D0003D0A7A /* PNRadarChart.m in Sources */,
 				EAC2D8181D4B063B00E282A8 /* AFHttpTool.m in Sources */,
+				57F511391E30A0D0003D0A7A /* PNScatterChartDataItem.m in Sources */,
 				EAC2D8321D4B063B00E282A8 /* ASIHTTPRequest.m in Sources */,
 				EAC2D8271D4B063B00E282A8 /* UIButton+AFNetworking.m in Sources */,
 				EA8C89311E2138BD0093657B /* HePaitentInfoVC.m in Sources */,
@@ -5250,6 +5355,7 @@
 				ADDBEB911DFCE87E000BDA95 /* LBKitConst.m in Sources */,
 				EAC2D8AB1D4B063B00E282A8 /* MJRefreshBackGifFooter.m in Sources */,
 				EAC2D91F1D4B063B00E282A8 /* RACValueTransformer.m in Sources */,
+				57F5112D1E30A0D0003D0A7A /* PNCircleChart.m in Sources */,
 				EAC2D9611D4B063B00E282A8 /* TZPhotoPreviewCell.m in Sources */,
 				EAA6553E1E0627C400F424DD /* DFLikeCommentToolbar.m in Sources */,
 				EAC2D96D1D4B063B00E282A8 /* VIPhotoView.m in Sources */,
@@ -5259,6 +5365,7 @@
 				EAC2D8381D4B063B00E282A8 /* CPTextViewPlaceholder.m in Sources */,
 				EAC2D81C1D4B063B00E282A8 /* AFNetworkReachabilityManager.m in Sources */,
 				EAC2D8291D4B063B00E282A8 /* UIProgressView+AFNetworking.m in Sources */,
+				57F5112A1E30A0D0003D0A7A /* PNBar.m in Sources */,
 				EAC2D8211D4B063B00E282A8 /* AFURLSessionManager.m in Sources */,
 				EAC2D8ED1D4B063B00E282A8 /* NSUserDefaults+RACSupport.m in Sources */,
 				EA1743441E1E33AF0038E805 /* DFSandboxHelper.m in Sources */,
@@ -5289,11 +5396,13 @@
 				AD13A66D1E2B8DAD002ADE2B /* MyFansVC.m in Sources */,
 				EAC2D8E01D4B063B00E282A8 /* NSNotificationCenter+RACSupport.m in Sources */,
 				EAA655331E0627C400F424DD /* DFActivityDetailLineCell.m in Sources */,
+				57F511311E30A0D0003D0A7A /* PNLineChartData.m in Sources */,
 				EAA655151E0627C300F424DD /* DFActivityLineItem.m in Sources */,
 				EAA6553A1E0627C400F424DD /* DFTextImageLineCell.m in Sources */,
 				EA17432F1E1E33AE0038E805 /* UIBarButtonItem+Lite.m in Sources */,
 				EAC2D9691D4B063B00E282A8 /* UIButton+Bootstrap.m in Sources */,
 				EAC2D9461D4B063B00E282A8 /* UIView+WebCacheOperation.m in Sources */,
+				57F5112C1E30A0D0003D0A7A /* PNChartLabel.m in Sources */,
 				EABFECAE1E1B8D4E009C27C5 /* MASConstraintMaker.m in Sources */,
 				EAA6547C1E061FDF00F424DD /* HeBaseTableViewCell.m in Sources */,
 				EABFECB41E1B8D4E009C27C5 /* View+MASAdditions.m in Sources */,
@@ -5330,6 +5439,7 @@
 				ADB49C6F1E18F369008DBCF6 /* OrderNowTableViewCell.m in Sources */,
 				EAC2D8E51D4B063B00E282A8 /* NSObject+RACPropertySubscribing.m in Sources */,
 				EAC2D8DC1D4B063B00E282A8 /* NSEnumerator+RACSequenceAdditions.m in Sources */,
+				57F5113C1E30A3B3003D0A7A /* UICountingLabel.m in Sources */,
 				EABFECB11E1B8D4E009C27C5 /* MASViewConstraint.m in Sources */,
 				EAC2D8FE1D4B063B00E282A8 /* RACEvent.m in Sources */,
 				EAC2D9291D4B063B00E282A8 /* UIImagePickerController+RACSignalSupport.m in Sources */,
@@ -5356,11 +5466,13 @@
 				EAC2D88B1D4B063B00E282A8 /* IQTextView.m in Sources */,
 				EA1743411E1E33AE0038E805 /* DFReachabilityUtil.m in Sources */,
 				EAC2D8F91D4B063B00E282A8 /* RACDynamicSignal.m in Sources */,
+				57F511361E30A0D0003D0A7A /* PNRadarChartDataItem.m in Sources */,
 				EABFECAD1E1B8D4E009C27C5 /* MASConstraint.m in Sources */,
 				EAC2D92F1D4B063B00E282A8 /* UITableViewCell+RACSignalSupport.m in Sources */,
 				EAC2D8941D4B063B00E282A8 /* README.md in Sources */,
 				EAC2D8E91D4B063B00E282A8 /* NSString+RACKeyPathUtilities.m in Sources */,
 				EAC2D8FC1D4B063B00E282A8 /* RACEmptySignal.m in Sources */,
+				57F511301E30A0D0003D0A7A /* PNLineChart.m in Sources */,
 				EAC2D90D1D4B063B00E282A8 /* RACSequence.m in Sources */,
 				EAC2D9781D4B063B00E282A8 /* AES128Util.m in Sources */,
 				EAC2D8F11D4B063B00E282A8 /* RACBlockTrampoline.m in Sources */,
@@ -5374,6 +5486,7 @@
 				EA472CC21E04E58900E0316F /* HeInstructionView.m in Sources */,
 				EAA655171E0627C300F424DD /* DFCollectActivityLineItem.m in Sources */,
 				EAA655211E0627C300F424DD /* DFFaceManager.m in Sources */,
+				57F511331E30A0D0003D0A7A /* PNPieChart.m in Sources */,
 				EAC2D8CD1D4B063B00E282A8 /* SIMenuTable.m in Sources */,
 				EAC2D9191D4B063B00E282A8 /* RACTargetQueueScheduler.m in Sources */,
 				EAC2D8EE1D4B063B00E282A8 /* RACArraySequence.m in Sources */,
@@ -5448,6 +5561,7 @@
 				EAC2D8D51D4B063B00E282A8 /* ODRefreshControl.m in Sources */,
 				EAC2D8F41D4B063B00E282A8 /* RACCompoundDisposable.m in Sources */,
 				EAC2D8261D4B063B00E282A8 /* UIAlertView+AFNetworking.m in Sources */,
+				57F511381E30A0D0003D0A7A /* PNScatterChartData.m in Sources */,
 				EAA655341E0627C400F424DD /* DFActivityLineCell.m in Sources */,
 				EA1743581E1E33AF0038E805 /* DFBaseStorageService.m in Sources */,
 				EAC2D8CF1D4B063B00E282A8 /* UIColor+Extension.m in Sources */,
@@ -5473,6 +5587,7 @@
 				EA1743461E1E33AF0038E805 /* MLLinkClickLabel.m in Sources */,
 				EAC2D9741D4B063B00E282A8 /* README.md in Sources */,
 				ADDBEB8F1DFCE87E000BDA95 /* LBBanner.m in Sources */,
+				57F5112E1E30A0D0003D0A7A /* PNColor.m in Sources */,
 				EAC2D9581D4B063B00E282A8 /* TSLocateView.m in Sources */,
 				ADDBEB571DFCE31B000BDA95 /* RESideMenu.m in Sources */,
 				EAA655101E0627C300F424DD /* DFUserLineCellAdapterManager.m in Sources */,

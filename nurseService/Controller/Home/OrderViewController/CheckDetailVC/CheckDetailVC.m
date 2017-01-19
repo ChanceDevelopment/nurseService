@@ -9,6 +9,7 @@
 #import "CheckDetailVC.h"
 #import "HeBaseTableViewCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "PNChart.h"
 
 @interface CheckDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -18,6 +19,7 @@
 @property (strong, nonatomic) UITableView *tableview;
 @property (strong, nonatomic) UILabel *labelTitleNum;
 @property (strong, nonatomic) UILabel *orderTitleNum;
+@property (strong, nonatomic) PNLineChart *lineChart;
 
 @end
 
@@ -83,6 +85,35 @@
     tableview.tableHeaderView = weekTitle;
     [self.view addSubview:tableview];
     
+}
+
+- (PNLineChart *)lineChart
+{
+    if (!_lineChart) {
+        _lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 150.0)];
+        _lineChart.yLabelFormat = @"%1.1f";
+        _lineChart.backgroundColor = [UIColor clearColor];
+        [_lineChart setXLabels:@[@"07/31-08/06",@"07/31-08/06",@"07/31-08/06",@"本周"]];
+        _lineChart.showCoordinateAxis = NO;
+        _lineChart.chartCavanWidth = SCREENWIDTH;
+
+            // added an examle to show how yGridLines can be enabled
+            // the color is set to clearColor so that the demo remains the same
+        _lineChart.yGridLinesColor = [UIColor clearColor];
+        _lineChart.showYGridLines = NO;
+        _lineChart.showGenYLabels = NO;
+        _lineChart.chartMarginRight = 0;
+        _lineChart.chartMarginLeft = 0;
+        _lineChart.xLabelWidth = SCREENWIDTH/4;
+
+            //Use yFixedValueMax and yFixedValueMin to Fix the Max and Min Y Value
+            //Only if you needed
+        _lineChart.yFixedValueMax = 300.0;
+        _lineChart.yFixedValueMin = 0.0;
+        [_lineChart strokeChart];
+
+    }
+    return _lineChart;
 }
 
 - (NSString *)getWeekTime
@@ -152,6 +183,37 @@
                     [ordersArr addObjectsFromArray:tempArr];
                 }
                 self.orderTitleNum.text = [NSString stringWithFormat:@"%d",(int)ordersArr.count];
+                NSMutableArray *xData = @[].mutableCopy;
+                for (int i = 1; i<5; i++) {
+                    [xData addObject:[NSString stringWithFormat:@"%@",[dataSourceDic valueForKey:[NSString stringWithFormat:@"weekRange%d",i]]]];
+                }
+                [self.lineChart setXLabels:xData];
+                NSMutableArray *yData = @[].mutableCopy;
+                for (int i = 1; i<5; i++) {
+                    [yData addObject:[NSString stringWithFormat:@"%@",[dataSourceDic valueForKey:[NSString stringWithFormat:@"totalPriceWeek%d",i]]]];
+                }
+                NSString *max = @"0";
+                for (NSString *num in yData) {
+                    if ([num floatValue]>[max floatValue]) {
+                        max = num;
+                    }
+                }
+                _lineChart.yFixedValueMax = [max floatValue]+20;
+                PNLineChartData *data01 = [PNLineChartData new];
+                _lineChart.chartData = @[data01];
+                data01.itemCount = yData.count;
+                data01.inflexionPointColor = APPDEFAULTORANGE;
+                data01.showPointLabel = YES;
+                data01.inflexionPointWidth = 2.5;
+                data01.pointLabelFont = [UIFont systemFontOfSize:14];
+                data01.color = APPDEFAULTORANGE;
+                data01.inflexionPointStyle = PNLineChartPointStyleCircle;
+                data01.getData = ^(NSUInteger index) {
+                    CGFloat yValue = [yData[index] floatValue];
+                    return [PNLineChartDataItem dataItemWithY:yValue];
+                };
+                [_lineChart strokeChart];
+
             }
             
             [tableview reloadData];
@@ -159,7 +221,7 @@
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
         }
-        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+//        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
@@ -208,6 +270,7 @@
     switch (section) {
         case 0:
         {
+            [cell addSubview:self.lineChart];
         }
             break;
         case 1:
