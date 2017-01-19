@@ -836,13 +836,13 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [formatter setTimeStyle:NSDateFormatterShortStyle];
-    [formatter setDateFormat:@"YYYY-MM-dd HH:mm"];
+    [formatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
     
     NSTimeZone* timeZone = [NSTimeZone timeZoneWithName:@"Asia/Shanghai"];
     [formatter setTimeZone:timeZone];
-    NSString *timeString = [NSString stringWithFormat:@"%lld",timesp];
-    NSDate *date = [formatter dateFromString:timeString];
-    return date;
+    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:timesp];
+
+    return confromTimesp;
 }
 
 + (NSString *)convertTimespToString:(long long)timesp dateFormate:(NSString *)dateFormate

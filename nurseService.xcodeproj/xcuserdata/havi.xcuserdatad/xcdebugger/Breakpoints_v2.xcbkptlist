@@ -10,70 +10,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/Home/OrderViewController/OrderViewController.m"
-            timestampString = "506404315.905147"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "456"
-            endingLineNumber = "456"
-            landmarkName = "-getDataWithUrl:"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[OrderViewController getDataWithUrl:]"
-                  moduleName = "&#x62a4;&#x58eb;&#x7aef;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/havi/Desktop/Company/nurseService/nurseService/Controller/Home/OrderViewController/OrderViewController.m"
-                  timestampString = "506486342.154212"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "457"
-                  endingLineNumber = "457"
-                  offsetFromSymbolStart = "972">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__38-[OrderViewController getDataWithUrl:]_block_invoke"
-                  moduleName = "&#x62a4;&#x58eb;&#x7aef;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/havi/Desktop/Company/nurseService/nurseService/Controller/Home/OrderViewController/OrderViewController.m"
-                  timestampString = "506486342.158364"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "459"
-                  endingLineNumber = "459"
-                  offsetFromSymbolStart = "100">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "nurseService/Controller/Home/OrderViewController/OrderViewController.m"
-            timestampString = "506404319.341627"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "461"
-            endingLineNumber = "461"
-            landmarkName = "-getDataWithUrl:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "nurseService/Controller/Home/OrderViewController/OrderViewController.m"
             timestampString = "506424298.541024"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -86,7 +22,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/Home/HomeViewController/HomeViewController.m"
@@ -96,6 +32,38 @@
             startingLineNumber = "255"
             endingLineNumber = "255"
             landmarkName = "-getDataWithUrl:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "nurseService/Controller/Home/OrderViewController/CheckDetailVC/CheckDetailVC.m"
+            timestampString = "506500617.596086"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "nurseService/Controller/Home/OrderViewController/CheckDetailVC/CheckDetailVC.m"
+            timestampString = "506500641.889058"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "250"
+            endingLineNumber = "250"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

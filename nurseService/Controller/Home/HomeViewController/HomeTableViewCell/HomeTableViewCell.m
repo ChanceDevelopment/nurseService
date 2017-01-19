@@ -47,7 +47,7 @@
         
         nameL = [[UILabel alloc] initWithFrame:CGRectMake(nameLX, nameLY, nameLW, 20)];
         nameL.userInteractionEnabled = YES;
-        nameL.textColor = [UIColor blueColor];
+        nameL.textColor = [UIColor colorWithRed:0.082 green:0.494 blue:0.984 alpha:1.00];
         nameL.text = @"张三";
         nameL.font = [UIFont systemFontOfSize:15.0];
         nameL.backgroundColor = [UIColor clearColor];

@@ -376,12 +376,20 @@
     NSDictionary *dic = [dataArr objectAtIndex:indexPath.row];
     NSLog(@"信息是%@",dic);
     cell.detailTextView.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"postThreeLevelDetailsSpeak"]];
-    NSString *timeString = [self changeTimeToString:[NSString stringWithFormat:@"%@",[dic objectForKey:@"postThreeLevelDetailsCreatetime"]]];
-    if (timeString.length>0) {
-        NSRange range = [timeString rangeOfString:@"-"];
-
-        cell.timeL.text = [NSString stringWithFormat:@"发布于%@",[timeString substringWithRange:NSMakeRange(range.location+1, 11)]];
+    id zoneCreatetimeObj = [dic objectForKey:@"postThreeLevelDetailsCreatetime"];
+    if ([zoneCreatetimeObj isMemberOfClass:[NSNull class]] || zoneCreatetimeObj == nil) {
+        NSTimeInterval  timeInterval = [[NSDate date] timeIntervalSince1970];
+        zoneCreatetimeObj = [NSString stringWithFormat:@"%.0f000",timeInterval];
     }
+    long long timestamp = [zoneCreatetimeObj longLongValue];
+    NSString *zoneCreatetime = [NSString stringWithFormat:@"%lld",timestamp];
+    if ([zoneCreatetime length] > 3) {
+            //时间戳
+        zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
+    }
+    NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM-dd HH:MM"];
+
+    cell.timeL.text = [NSString stringWithFormat:@"发布于%@",[stopTimeStr substringToIndex:5]];
     cell.nameL.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"postThreeLevelDetailsCreateter"]?@"小护健康":[dic objectForKey:@"postThreeLevelDetailsCreateter"]];
     cell.titleL.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"postThreeLevelDetailsTitle"]];
     cell.zanLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"postThreeLevelDetailsThingNumber"]];
@@ -415,23 +423,6 @@
     webViewController.urlString = url;
     [self.navigationController pushViewController:webViewController animated:YES];
 
-}
-
-- (NSString *)changeTimeToString:(NSString *)miloTime
-{
-    if ([miloTime isEqualToString:@"<null>"]){
-        return @"";
-    }
-    NSTimeInterval time=[miloTime doubleValue]+28800;//因为时差问题要加8小时 == 28800 sec
-    NSDate *detaildate=[NSDate dateWithTimeIntervalSince1970:time];
-    NSLog(@"date:%@",[detaildate description]);
-        //实例化一个NSDateFormatter对象
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        //设定时间格式,这里可以设置成自己需要的格式
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-
-    NSString *currentDateStr = [dateFormatter stringFromDate: detaildate];
-    return currentDateStr;
 }
 
 - (void)searchAction{

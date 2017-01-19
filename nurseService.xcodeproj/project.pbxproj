@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		57F511001E2F6514003D0A7A /* HomeWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F510FF1E2F6514003D0A7A /* HomeWebViewController.m */; };
+		57F511031E30859B003D0A7A /* icon_calendar_month.png in Resources */ = {isa = PBXBuildFile; fileRef = 57F511011E30859B003D0A7A /* icon_calendar_month.png */; };
+		57F511041E30859B003D0A7A /* icon_calendar.png in Resources */ = {isa = PBXBuildFile; fileRef = 57F511021E30859B003D0A7A /* icon_calendar.png */; };
+		57F511061E3087AC003D0A7A /* icon_look.png in Resources */ = {isa = PBXBuildFile; fileRef = 57F511051E3087AC003D0A7A /* icon_look.png */; };
 		AD13A66D1E2B8DAD002ADE2B /* MyFansVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD13A66B1E2B8DAD002ADE2B /* MyFansVC.m */; };
 		AD13A66E1E2B8DAD002ADE2B /* MyFansVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD13A66C1E2B8DAD002ADE2B /* MyFansVC.xib */; };
 		AD13A6711E2BB067002ADE2B /* icon_switch_close.png in Resources */ = {isa = PBXBuildFile; fileRef = AD13A66F1E2BB067002ADE2B /* icon_switch_close.png */; };
@@ -729,6 +732,9 @@
 /* Begin PBXFileReference section */
 		57F510FE1E2F6514003D0A7A /* HomeWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeWebViewController.h; sourceTree = "<group>"; };
 		57F510FF1E2F6514003D0A7A /* HomeWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeWebViewController.m; sourceTree = "<group>"; };
+		57F511011E30859B003D0A7A /* icon_calendar_month.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_calendar_month.png; sourceTree = "<group>"; };
+		57F511021E30859B003D0A7A /* icon_calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_calendar.png; sourceTree = "<group>"; };
+		57F511051E3087AC003D0A7A /* icon_look.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_look.png; sourceTree = "<group>"; };
 		AD13A66A1E2B8DAD002ADE2B /* MyFansVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFansVC.h; sourceTree = "<group>"; };
 		AD13A66B1E2B8DAD002ADE2B /* MyFansVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFansVC.m; sourceTree = "<group>"; };
 		AD13A66C1E2B8DAD002ADE2B /* MyFansVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyFansVC.xib; sourceTree = "<group>"; };
@@ -2428,6 +2434,9 @@
 		ADDBEB4B1DFCE26F000BDA95 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				57F511011E30859B003D0A7A /* icon_calendar_month.png */,
+				57F511051E3087AC003D0A7A /* icon_look.png */,
+				57F511021E30859B003D0A7A /* icon_calendar.png */,
 				ADB4CFED1E2D1CDD004ED2E3 /* delete.png */,
 				ADB4CFEB1E2CBE9E004ED2E3 /* icon_hook.png */,
 				AD8A0E6B1E240D580001CC02 /* icon_comment.png */,
@@ -4895,6 +4904,7 @@
 				ADB49C661E164BEB008DBCF6 /* DrawCashViewController.xib in Resources */,
 				EA1743501E1E33AF0038E805 /* ClippedExpression.bundle in Resources */,
 				AD30138C1DFCF4F300D26E09 /* icon_set.png in Resources */,
+				57F511031E30859B003D0A7A /* icon_calendar_month.png in Resources */,
 				AD3013841DFCF4F200D26E09 /* icon_invite.png in Resources */,
 				AD8A0EA61E26215E0001CC02 /* icon_add_photo_violet.png in Resources */,
 				ADCD25B11E0C2E7300FBCF26 /* icon_star_yellow.png in Resources */,
@@ -4935,6 +4945,7 @@
 				EAC2D86B1D4B063B00E282A8 /* down_dark.png in Resources */,
 				EAC2D9901D4B063C00E282A8 /* README.txt in Resources */,
 				EA472CD51E04E71B00E0316F /* TOWebViewControllerLocalizable.strings in Resources */,
+				57F511061E3087AC003D0A7A /* icon_look.png in Resources */,
 				ADB49C5C1E164526008DBCF6 /* icon_financial_details.png in Resources */,
 				ADCD25AD1E0C2CCE00FBCF26 /* MyEvaluateViewController.xib in Resources */,
 				EAC2D8971D4B063B00E282A8 /* MBProgressHUD.bundle in Resources */,
@@ -5018,6 +5029,7 @@
 				EAC2D8731D4B063B00E282A8 /* i2KEPCSingleComponentPickerView.xib in Resources */,
 				EAC2D9981D4B063C00E282A8 /* zbar-helpicons.png in Resources */,
 				EAC2D8371D4B063B00E282A8 /* BrowserView.xib in Resources */,
+				57F511041E30859B003D0A7A /* icon_calendar.png in Resources */,
 				EA1ADE8B1E1DFC5600A8422D /* img_no_data.png in Resources */,
 				AD8A0E6A1E240D4F0001CC02 /* icon_like.png in Resources */,
 				AD8A0E771E24E36C0001CC02 /* icon_dot_violet_select.png in Resources */,
