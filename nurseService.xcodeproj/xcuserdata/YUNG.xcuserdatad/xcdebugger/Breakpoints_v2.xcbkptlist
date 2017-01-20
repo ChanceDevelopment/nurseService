@@ -908,11 +908,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/Home/MineViewController/MyCapitalViewController/ExchangeDetailVC/ExchangeDetailVC.m"
-            timestampString = "506352292.915897"
+            timestampString = "506637972.204839"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
             landmarkName = "-getData"
             landmarkType = "7">
          </BreakpointContent>
@@ -924,11 +924,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/Home/MineViewController/MyCapitalViewController/ExchangeDetailVC/ExchangeDetailVC.m"
-            timestampString = "506352292.915897"
+            timestampString = "506637972.204839"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "-getData"
             landmarkType = "7">
          </BreakpointContent>
@@ -1233,7 +1233,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "301"
             endingLineNumber = "301"
-            landmarkName = "-getDataWithUrl:"
+            landmarkName = "-getRollPic"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
