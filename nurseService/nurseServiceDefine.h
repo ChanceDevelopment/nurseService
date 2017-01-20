@@ -141,7 +141,14 @@ alpha:1.0]
 //图片加载出错的时候默认图
 #define DEFAULTERRORIMAGE @"errorImage"
 
+<<<<<<< HEAD
 #define kUserFoucus @"userFocusKey"
+=======
+//当清理所有的推送标签的时候默认的标签
+#define DEFAULTPUSHTAG @"xTdn8EVY3TeyCXrdkjaMdHOv"
+
+
+>>>>>>> origin/master
 //登录的广播
 #define LOGINSTATEKEY @"loginStateKey"
 #define LOGINOUTKEY   @"loginOut"       //退出登录

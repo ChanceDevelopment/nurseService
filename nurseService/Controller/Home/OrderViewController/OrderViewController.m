@@ -164,7 +164,8 @@
 {
     [super initView];
     [self.view addSubview:self.navigationTabBar];
-    
+    self.view.backgroundColor = [UIColor colorWithWhite:244.0 / 255.0 alpha:1.0];
+
     CGFloat tableViewY = 44;
     CGFloat tableViewH = self.view.frame.size.height-44-120-48+80;
     
@@ -185,7 +186,6 @@
     noDataView.image = [UIImage imageNamed:@"img_no_data"];
     noDataView.hidden = YES;
     
-    self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
     myTableView = [[UITableView alloc] init];
     myTableView.frame = CGRectMake(0, tableViewY, SCREENWIDTH, tableViewH);
     myTableView.delegate = self;
@@ -476,11 +476,13 @@
     }else{
         params= @{@"nurseId" : userAccount,@"pageNow" : [NSString stringWithFormat:@"%ld",currentPage]};
     }
-    
+    NSLog(@"params:%@",params);
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:url params:params success:^(AFHTTPRequestOperation* operation,id response){
         
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        NSLog(@"respondDict:%@",respondDict);
+
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
             if ([[respondDict valueForKey:@"json"] isMemberOfClass:[NSNull class]] || [respondDict valueForKey:@"json"] == nil) {
@@ -735,7 +737,6 @@
     if (dataArr.count > 0) {
         userInfoDic = [NSDictionary dictionaryWithDictionary:[dataArr objectAtIndex:row]];
         dict = [NSMutableDictionary dictionaryWithDictionary:[Tool deleteNullFromDic:userInfoDic]];
-        currentDic = dict;
     }
     if (currentType == 0) {
         OrderRecTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
@@ -821,7 +822,12 @@
         };
         cell.showUserInfoBlock = ^(){
             NSLog(@"showUserInfoBlock");
-            [weakSelf showPaitentInfoWith:dict];
+//            [weakSelf showPaitentInfoWith:dict];
+            HePaitentInfoVC *paitentInfoVC = [[HePaitentInfoVC alloc] init];
+            paitentInfoVC.userInfoDict = [[NSDictionary alloc] initWithDictionary:dict];
+            paitentInfoVC.isFromNowOrder = NO;
+            paitentInfoVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:paitentInfoVC animated:YES];
         };
 
         return  cell;
@@ -893,10 +899,12 @@
         };
         cell.cancleRequstBlock = ^(){
             NSLog(@"cancleRequstBlock");
+            currentDic = dict;
             [weakSelf showCancleAlertView];
         };
         cell.nextStepBlock = ^(){
             NSLog(@"nextStepBlock");
+            currentDic = dict;
             [weakSelf showAlertViewWithTag:orderIndex];
         };
         cell.locationBlock = ^(){
@@ -906,69 +914,160 @@
         };
         cell.showUserInfoBlock = ^(){
             NSLog(@"showUserInfoBlock");
-            [weakSelf showPaitentInfoWith:dict];
+//            [weakSelf showPaitentInfoWith:dict];
+            HePaitentInfoVC *paitentInfoVC = [[HePaitentInfoVC alloc] init];
+            paitentInfoVC.userInfoDict = [[NSDictionary alloc] initWithDictionary:dict];
+            paitentInfoVC.isFromNowOrder = YES;
+            paitentInfoVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:paitentInfoVC animated:YES];
         };
         
         return  cell;
     }else if(currentType == 2){
-        OrderFinishedTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
+        
+        HeBaseTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
         if (!cell) {
-            cell = [[OrderFinishedTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier cellSize:cellSize];
+            cell = [[HeBaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier cellSize:cellSize];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         cell.backgroundColor = [UIColor colorWithWhite:244.0 / 255.0 alpha:1.0];
         
+        BOOL isCancleOrder = [[dict valueForKey:@"orderSendState"] integerValue] == 4 ? YES : NO;
+        CGFloat bgViewH = isCancleOrder ? 120 : 150;
+        
+        UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, SCREENWIDTH-10, bgViewH)];
+        bgView.backgroundColor = [UIColor whiteColor];
+        [cell addSubview:bgView];
+        [bgView.layer setMasksToBounds:YES];
+        bgView.layer.cornerRadius = 4.0;
+        
+        
+        UILabel *serviceContentL = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 200, 44)];
+        serviceContentL.textColor = APPDEFAULTORANGE;
+        serviceContentL.font = [UIFont systemFontOfSize:15.0];
+        serviceContentL.backgroundColor = [UIColor clearColor];
+        serviceContentL.adjustsFontSizeToFitWidth = YES;
+        [bgView addSubview:serviceContentL];
+        
         NSString *content = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendServicecontent"]];
         NSArray *contentArr = [content componentsSeparatedByString:@":"];
+        serviceContentL.text = contentArr[1];
         
-        cell.serviceContentL.text = contentArr[1];
+        UILabel *orderStateL = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH-20-40, 0, 40, 50)];
+        orderStateL.textColor = [UIColor grayColor];
+        orderStateL.font = [UIFont systemFontOfSize:12.0];
+        orderStateL.backgroundColor = [UIColor clearColor];
+        [bgView addSubview:orderStateL];
+        
         NSString *state = @"";
-        switch ([[dict valueForKey:@"orderSendState"] integerValue]) {
-
-            case 4:
-                state = @"已取消";
-                cell.orderFinshTime.text = [NSString stringWithFormat:@"取消时间：%@",[self getTimeWith:[dict valueForKey:@"orderSendFinishOrderTime"]]];
-                break;
-            default:
-                state = @"已完成";
-                cell.orderFinshTime.text = [NSString stringWithFormat:@"完成时间：%@",[self getTimeWith:[dict valueForKey:@"orderSendFinishOrderTime"]]];
-                break;
-        }
-        cell.orderStateL.text = state;
-        
-        cell.orderIdNum.text = [NSString stringWithFormat:@"订单编号：%@",[dict valueForKey:@"orderSendNumbers"]];
-        cell.orderReceiveTime.text = [NSString stringWithFormat:@"接单时间：%@",[self getTimeWith:[dict objectForKey:@"orderSendGetOrderTime"]]];
-
-        cell.orderMoney.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
-        if ([[dict valueForKey:@"isEvaluate"] isEqualToString:@"1"]) {
-            [cell.evaluateBt setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        if (isCancleOrder) {
+            state = @"已取消";
         }else{
-            [cell.evaluateBt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            state = @"已完成";
         }
-        cell.reportBlock = ^(){
-        NSLog(@"报告");
-            NurseReportVC *nurseReportVC = [[NurseReportVC alloc] init];
-            nurseReportVC.hidesBottomBarWhenPushed = YES;
-            nurseReportVC.infoData = currentDic;
-            nurseReportVC.isDetail = YES;
-            [self.navigationController pushViewController:nurseReportVC animated:YES];
-        };
-        cell.evaluateBlock = ^(){
-            if ([[dict valueForKey:@"isEvaluate"] isEqualToString:@"1"]) {
-                return ;
-            }
-            NSLog(@"评价");
-            HeCommentNurseVC *commentNurseVC = [[HeCommentNurseVC alloc] init];
-            commentNurseVC.nurseDict = dict;
-            commentNurseVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:commentNurseVC animated:YES];
-         };
+        orderStateL.text = state;
         
+        UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(10, 44, SCREENWIDTH-20, 1)];
+        [bgView addSubview:line];
+        line.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
+        
+        UILabel *orderIdNum = [[UILabel alloc] initWithFrame:CGRectMake(10, 45, SCREENWIDTH-30, 20)];
+        orderIdNum.textColor = [UIColor blackColor];
+        orderIdNum.font = [UIFont systemFontOfSize:12.0];
+        orderIdNum.backgroundColor = [UIColor clearColor];
+        [bgView addSubview:orderIdNum];
+        orderIdNum.text = [NSString stringWithFormat:@"订单编号：%@",[dict valueForKey:@"orderSendNumbers"]];
+
+        UILabel *orderReceiveTime = [[UILabel alloc] initWithFrame:CGRectMake(10, 65, 200, 20)];
+        orderReceiveTime.textColor = [UIColor blackColor];
+        orderReceiveTime.font = [UIFont systemFontOfSize:12.0];
+        orderReceiveTime.backgroundColor = [UIColor clearColor];
+        [bgView addSubview:orderReceiveTime];
+        orderReceiveTime.text = [NSString stringWithFormat:@"接单时间：%@",[self getTimeWith:[dict objectForKey:@"orderSendGetOrderTime"]]];
+        
+        UILabel *orderFinshTime = [[UILabel alloc] initWithFrame:CGRectMake(10, 85, 200, 20)];
+        orderFinshTime.textColor = [UIColor blackColor];
+        orderFinshTime.font = [UIFont systemFontOfSize:12.0];
+        orderFinshTime.backgroundColor = [UIColor clearColor];
+        [bgView addSubview:orderFinshTime];
+        if (isCancleOrder) {
+            orderFinshTime.text = [NSString stringWithFormat:@"取消时间：%@",[self getTimeWith:[dict valueForKey:@"orderSendFinishOrderTime"]]];
+        }else{
+            orderFinshTime.text = [NSString stringWithFormat:@"完成时间：%@",[self getTimeWith:[dict valueForKey:@"orderSendFinishOrderTime"]]];
+            
+        }
+        
+        UILabel *orderMoney = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH-150, 65, 130, 30)];
+        orderMoney.textColor = [UIColor orangeColor];
+        orderMoney.textAlignment = NSTextAlignmentRight;
+        orderMoney.font = [UIFont systemFontOfSize:15.0];
+        orderMoney.backgroundColor = [UIColor clearColor];
+        orderMoney.adjustsFontSizeToFitWidth = YES;
+        [bgView addSubview:orderMoney];
+        orderMoney.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
+
+        
+        UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectMake(5, 111, SCREENWIDTH-20, 1)];
+        [bgView addSubview:line1];
+        line1.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
+        
+        BOOL isEvaluate = [[dict valueForKey:@"isEvaluate"] isEqualToString:@"1"] ? YES : NO;
+        if (!isCancleOrder) {
+            UIButton *reportBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 111, SCREENWIDTH/2.0-5, 35)];
+            [reportBt setTitle:@"护理报告" forState:UIControlStateNormal];
+            [reportBt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            reportBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+            reportBt.backgroundColor = [UIColor clearColor];
+            reportBt.tag = row;
+            [reportBt addTarget:self action:@selector(reportAction:) forControlEvents:UIControlEventTouchUpInside];
+            [bgView addSubview:reportBt];
+            
+            UILabel *line2 = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH/2.0-5, 113, 1, 30)];
+            [bgView addSubview:line2];
+            line2.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
+            
+            UIButton *evaluateBt = [[UIButton alloc] initWithFrame:CGRectMake(SCREENWIDTH/2.0-5, 111, SCREENWIDTH/2.0-5, 35)];
+            [evaluateBt setTitle:@"去评价" forState:UIControlStateNormal];
+            [evaluateBt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            evaluateBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+            evaluateBt.backgroundColor = [UIColor clearColor];
+            evaluateBt.tag = row;
+            [evaluateBt addTarget:self action:@selector(evaluateAction:) forControlEvents:UIControlEventTouchUpInside];
+            [bgView addSubview:evaluateBt];
+            
+            if (isEvaluate) {
+                [evaluateBt setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+                evaluateBt.enabled = NO;
+            }
+        }
         return cell;
     }
     return nil;
 }
+- (void)reportAction:(UIButton *)sender{
+    NSLog(@"报告");
+    NSInteger index = sender.tag;
+    NSDictionary *tempDict = [NSDictionary dictionaryWithDictionary:[dataArr objectAtIndex:index]];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[Tool deleteNullFromDic:tempDict]];
+        
+    NurseReportVC *nurseReportVC = [[NurseReportVC alloc] init];
+    nurseReportVC.hidesBottomBarWhenPushed = YES;
+    nurseReportVC.infoData = dict;
+    nurseReportVC.isDetail = YES;
+    [self.navigationController pushViewController:nurseReportVC animated:YES];
+}
 
+- (void)evaluateAction:(UIButton *)sender{
+    NSLog(@"评价");
+    NSInteger index = sender.tag;
+    NSDictionary *tempDict = [NSDictionary dictionaryWithDictionary:[dataArr objectAtIndex:index]];
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[Tool deleteNullFromDic:tempDict]];
+    
+    HeCommentNurseVC *commentNurseVC = [[HeCommentNurseVC alloc] init];
+    commentNurseVC.nurseDict = dict;
+    commentNurseVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:commentNurseVC animated:YES];
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -1114,7 +1213,7 @@
     cancleBt.backgroundColor = [UIColor clearColor];
     cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    cancleBt.tag = 0;
+    cancleBt.tag = 1000;
     [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
     [addBgView addSubview:cancleBt];
     
@@ -1176,7 +1275,7 @@
     cancleBt.backgroundColor = [UIColor clearColor];
     cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    cancleBt.tag = 0;
+    cancleBt.tag = 1000;
     [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
     [addBgView addSubview:cancleBt];
     

@@ -1177,12 +1177,13 @@
 //初始化推送服务
 + (void)initPush
 {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *account = [defaults objectForKey:USERIDKEY];//本地存储;
-    
-    NSArray *objectarray = [NSArray arrayWithObject:account];
+    NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+    if (userId == nil) {
+        userId = DEFAULTPUSHTAG;
+    }
+    NSArray *objectarray = [NSArray arrayWithObject:userId];
     AppDelegate *appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    [JPUSHService setTags:nil alias:account callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:appdelegate];
+    [JPUSHService setTags:[[NSSet alloc] initWithArray:objectarray] alias:userId callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:appdelegate];
     
 }
 

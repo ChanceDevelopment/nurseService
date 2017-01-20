@@ -10,5 +10,6 @@
 
 @interface HePaitentInfoVC : HeBaseViewController
 @property(strong,nonatomic)NSDictionary *userInfoDict;
+@property(assign,nonatomic)BOOL isFromNowOrder;
 
 @end
