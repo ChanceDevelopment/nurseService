@@ -141,6 +141,7 @@ alpha:1.0]
 //图片加载出错的时候默认图
 #define DEFAULTERRORIMAGE @"errorImage"
 
+#define kUserFoucus @"userFocusKey"
 //登录的广播
 #define LOGINSTATEKEY @"loginStateKey"
 #define LOGINOUTKEY   @"loginOut"       //退出登录

@@ -19,6 +19,7 @@
 #import <ShareSDK/ShareSDK+Base.h>
 #import "MyCapitalViewController.h"
 #import "MyFansVC.h"
+#import "HeMineTableCell.h"
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>
 {
@@ -120,7 +121,7 @@
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
     
     myTableView.showsVerticalScrollIndicator = NO;
-    myTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     myTableView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH-50);
     myTableView.backgroundView = nil;
     myTableView.backgroundColor = [UIColor clearColor];
@@ -170,19 +171,29 @@
     [portrait sd_setImageWithURL:[NSURL URLWithString:userHeader] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];
     
     //用户名
-    CGFloat labelX = SCREENWIDTH/2.0-150;
+    CGFloat labelX = 0;
     CGFloat labelY = imageY+imageDia+5;
     CGFloat labelH = 25;
-    CGFloat labelW = 150;
+    CGFloat labelW = SCREENWIDTH;
     
     userNameL = [[UILabel alloc] init];
-    userNameL.textAlignment = NSTextAlignmentRight;
+    userNameL.textAlignment = NSTextAlignmentCenter;
     userNameL.backgroundColor = [UIColor clearColor];
     userNameL.font = [UIFont systemFontOfSize:15.0];
     userNameL.textColor = [UIColor whiteColor];
     userNameL.frame = CGRectMake(labelX, labelY, labelW, labelH);
     [headerView addSubview:userNameL];
-    userNameL.text = [NSString stringWithFormat:@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseNick"]];
+    
+    NSString *nurseNick = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseNick"];
+    if ([nurseNick isMemberOfClass:[NSNull class]] || nurseNick == nil) {
+        nurseNick = @"";
+    }
+    id nurseSex = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseSex"];
+    NSString *nurseSexStr = @"女";
+    if ([nurseSex integerValue] == ENUM_SEX_Boy) {
+        nurseSexStr = @"男";
+    }
+    userNameL.text = [NSString stringWithFormat:@"%@    %@",nurseNick,nurseSexStr];
     
     CGFloat sexX = SCREENWIDTH/2.0+10;
     CGFloat sexY = labelY;
@@ -193,7 +204,7 @@
     sexL.font = [UIFont systemFontOfSize:15.0];
     sexL.textColor = [UIColor whiteColor];
     sexL.frame = CGRectMake(sexX, sexY, sexW, labelH);
-    [headerView addSubview:sexL];
+//    [headerView addSubview:sexL];
     sexL.text = [[NSString stringWithFormat:@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseSex"]] isEqualToString:@"1"] ? @"男" : @"女";
     
     CGFloat healthX = 30;
@@ -210,7 +221,7 @@
     healthL = [[UILabel alloc] init];
     healthL.textAlignment = NSTextAlignmentLeft;
     healthL.backgroundColor = [UIColor clearColor];
-    healthL.font = [UIFont systemFontOfSize:15.0];
+    healthL.font = [UIFont systemFontOfSize:13.0];
     healthL.textColor = [UIColor whiteColor];
     healthL.frame = CGRectMake(healthL_X, healthL_Y, healthL_W, labelH);
     [headerView addSubview:healthL];
@@ -227,7 +238,7 @@
     nameL = [[UILabel alloc] init];
     nameL.textAlignment = NSTextAlignmentLeft;
     nameL.backgroundColor = [UIColor clearColor];
-    nameL.font = [UIFont systemFontOfSize:15.0];
+    nameL.font = [UIFont systemFontOfSize:13.0];
     nameL.textColor = [UIColor whiteColor];
     nameL.frame = CGRectMake(nameL_X, nameL_Y, nameL_W, labelH);
     [headerView addSubview:nameL];
@@ -257,7 +268,7 @@
         
         UIButton *titleBt = [[UIButton alloc] initWithFrame:CGRectMake(titleX+i*titleW, titleY, titleW, titleH)];
         [titleBt setTitle:titleArr[i] forState:UIControlStateNormal];
-        titleBt.titleLabel.font = [UIFont systemFontOfSize:18.0];
+        titleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
         titleBt.backgroundColor = [UIColor clearColor];
         titleBt.tag = 100+i;
         [titleBt addTarget:self action:@selector(clickTitleBtAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -358,9 +369,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIndentifier = @"cellIndentifier";
-    UITableViewCell *userCell = [tableView cellForRowAtIndexPath:indexPath];
+    HeMineTableCell *userCell = [tableView cellForRowAtIndexPath:indexPath];
     if (!userCell) {
-        userCell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
+        userCell = [[HeMineTableCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
     }
     NSInteger row = indexPath.row;
     NSInteger section = indexPath.section;

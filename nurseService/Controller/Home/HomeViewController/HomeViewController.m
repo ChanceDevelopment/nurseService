@@ -26,6 +26,7 @@
 #import "HeSysbsModel.h"
 #import "DFBaseLineCell.h"
 #import "HomeTableViewCell.h"
+#import "MLLabel+Size.h"
 
 @interface HomeViewController ()<LBBannerDelegate,UITableViewDelegate,UITableViewDataSource,ViewControllerDelegate>
 {
@@ -45,6 +46,7 @@
 @property (nonatomic, strong) NSArray *nurseFocusArr;
 @property (nonatomic, strong) NSArray *barTitleArr;
 @property (nonatomic, strong) NSArray *allPostTag;
+@property(nonatomic,strong)NSCache *imageCache;
 
 @end
 
@@ -91,7 +93,11 @@
 -(DLNavigationTabBar *)navigationTabBar
 {
     if (!_navigationTabBar) {
-        self.navigationTabBar = [[DLNavigationTabBar alloc] initWithTitles:@[@"精华",@"问题",@"神经内科",@"心血管"]];
+        NSArray *focus = [[NSUserDefaults standardUserDefaults] objectForKey:kUserFoucus];
+        if ([focus count] == 0) {
+            focus = @[@"精华",@"问题"];
+        }
+        self.navigationTabBar = [[DLNavigationTabBar alloc] initWithTitles:focus];
         self.navigationTabBar.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
         self.navigationTabBar.frame = CGRectMake(0, 0, SCREENWIDTH-44, 44);
         self.navigationTabBar.sliderBackgroundColor = APPDEFAULTORANGE;
@@ -119,6 +125,7 @@
 
 - (void)initializaiton
 {
+    _imageCache = [[NSCache alloc] init];
     currentPage = 0;
     currentType = 0;
     dataArr = [[NSMutableArray alloc] initWithCapacity:0];
@@ -137,6 +144,15 @@
         case 0:
         {
             [self getDataWithUrl:ESSENCEARTICLE];
+            break;
+        }
+        case 1:
+        {
+            noDataView.hidden = NO;
+            tableview.hidden = YES;
+            [dataArr removeAllObjects];
+            [tableview reloadData];
+            [self showHint:@"问题贴暂未开通"];
         }
             break;
         default:
@@ -218,14 +234,52 @@
                 NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
                 NSMutableArray *arrName = @[].mutableCopy;
                 [arrName addObject:@"精华"];
+                if ([arrName count] > 1) {
+                    [arrName insertObject:@"问题" atIndex:1];
+                }
+                else{
+                    [arrName addObject:@"问题"];
+                }
                 self.nurseFocusArr = tempArr;
                 for (NSDictionary *dic in tempArr) {
-                    [arrName addObject:[dic objectForKey:@"postTwoLevelName"]];
+                    NSString *postTwoLevelName = dic[@"postTwoLevelName"];
+                    if ([postTwoLevelName isMemberOfClass:[NSNull class]] || postTwoLevelName == nil) {
+                        postTwoLevelName = @"";
+                    }
+                    [arrName addObject:postTwoLevelName];
                 }
-                self.barTitleArr = arrName;
+                [[NSUserDefaults standardUserDefaults] setObject:arrName forKey:kUserFoucus];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                
+                self.barTitleArr = [[NSArray alloc] initWithArray:arrName];
                 [self.navigationTabBar setSubViewWithTitles:arrName];
             }
-        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+        }
+        else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"300"]){
+            NSArray *tempArr = [NSArray array];
+            NSMutableArray *arrName = @[].mutableCopy;
+            [arrName addObject:@"精华"];
+            if ([arrName count] > 1) {
+                [arrName insertObject:@"问题" atIndex:1];
+            }
+            else{
+                [arrName addObject:@"问题"];
+            }
+            self.nurseFocusArr = tempArr;
+            for (NSDictionary *dic in tempArr) {
+                NSString *postTwoLevelName = dic[@"postTwoLevelName"];
+                if ([postTwoLevelName isMemberOfClass:[NSNull class]] || postTwoLevelName == nil) {
+                    postTwoLevelName = @"";
+                }
+                [arrName addObject:postTwoLevelName];
+            }
+            [[NSUserDefaults standardUserDefaults] setObject:arrName forKey:kUserFoucus];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            self.barTitleArr = [[NSArray alloc] initWithArray:arrName];
+            [self.navigationTabBar setSubViewWithTitles:arrName];
+        }
+        else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
             [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         }
@@ -276,7 +330,18 @@
     if (currentType == 0) {
         params= @{@"pageNum" : [NSString stringWithFormat:@"%d",(int)currentPage]};
     }else{
-        NSString *postTwoLevelId = [[self.nurseFocusArr objectAtIndex:currentType-1] objectForKey:@"postTwoLevelId"];
+        NSDictionary *dict = nil;
+        @try {
+            dict = [self.nurseFocusArr objectAtIndex:currentType - 2];
+        } @catch (NSException *exception) {
+            
+        } @finally {
+            
+        }
+        NSString *postTwoLevelId = dict[@"postTwoLevelId"];
+        if ([postTwoLevelId isMemberOfClass:[NSNull class]] || postTwoLevelId == nil) {
+            postTwoLevelId = @"";
+        }
         params= @{@"postTwoLevelId" : postTwoLevelId,@"pageNum" : [NSString stringWithFormat:@"%d",(int)currentPage]};
     }
 
@@ -326,13 +391,30 @@
 - (void)initView
 {
     [super initView];
+    
+    tableview.backgroundView = nil;
+    tableview.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
+    [Tool setExtraCellLineHidden:tableview];
+    tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     [self.view addSubview:self.navigationTabBar];
-    UIButton *tagButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    tagButton.frame = CGRectMake(SCREENWIDTH-44, 0, 44, 44);
+    
+    UIView *btView = [[UIView alloc] initWithFrame:CGRectMake(SCREENWIDTH - 44, 0, 44, 44)];
+    btView .backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
+    [self.view addSubview:btView];
+    
+    UIButton *tagButton = [[UIButton alloc] init];
+    
+    CGFloat buttonH = 25;
+    CGFloat buttonW = 25;
+    CGFloat buttonX = (44 - buttonW) / 2.0;
+    CGFloat buttonY = (44 - buttonH) / 2.0;
+    
+    tagButton.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
     tagButton.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
     [tagButton setImage:[UIImage imageNamed:@"icon_arrow_down.png"] forState:UIControlStateNormal];
     [tagButton addTarget:self action:@selector(showTag:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:tagButton];
+    [btView addSubview:tagButton];
     
     NSArray * imageNames = @[@"index1", @"index2"];
     self.banner = [[LBBanner alloc] initWithImageNames:imageNames andFrame:CGRectMake(0, 0, SCREENWIDTH, 180)];
@@ -344,14 +426,16 @@
     [tableviewHeader addSubview:_banner];
     self.tableview.tableHeaderView = _banner;
 
-    CGFloat noDataViewW = 50;
-    CGFloat noDataViewY = (self.view.frame.size.height-44-48-noDataViewW)/2.0;
+    UIImage *image = [UIImage imageNamed:@"img_no_data"];
+    CGFloat noDataViewW = 100;
+    CGFloat noDataViewH = image.size.height / image.size.width * noDataViewW;
+    CGFloat noDataViewY = (self.view.frame.size.height-44-48-noDataViewW)/2.0 - 30;
     CGFloat noDataViewX = (SCREENWIDTH-noDataViewW)/2.0;
     noDataView = [[UIImageView alloc] init];
     noDataView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:noDataView];
-    noDataView.frame = CGRectMake(noDataViewX, noDataViewY, noDataViewW, noDataViewW);
-    noDataView.image = [UIImage imageNamed:@"img_no_data"];
+    noDataView.frame = CGRectMake(noDataViewX, noDataViewY, noDataViewW, noDataViewH);
+    noDataView.image = image;
     noDataView.hidden = YES;
     
     self.tableview.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -413,9 +497,47 @@
         cell = [[HomeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier cellSize:cellSize];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    NSDictionary *dic = [dataArr objectAtIndex:indexPath.row];
+    NSDictionary *dic = nil;
+    @try {
+        dic = [dataArr objectAtIndex:indexPath.row];
+    } @catch (NSException *exception) {
+        
+    } @finally {
+        
+    }
     NSLog(@"信息是%@",dic);
-    cell.detailTextView.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"postThreeLevelDetailsSpeak"]];
+    
+    NSString *postThreeLevelDetailsTitle = dic[@"postThreeLevelDetailsTitle"];
+    if ([postThreeLevelDetailsTitle isMemberOfClass:[NSNull class]] || postThreeLevelDetailsTitle == nil) {
+        postThreeLevelDetailsTitle = @"";
+    }
+    CGSize titleSize = [MLLabel getViewSizeByString:postThreeLevelDetailsTitle maxWidth:SCREENWIDTH - 20 font:cell.titleL.font lineHeight:1.2f lines:0];
+    if (titleSize.height < 30) {
+        titleSize.height = 30;
+    }
+    CGRect titleFrame = cell.titleL.frame;
+    titleFrame.size.width = titleSize.width;
+    titleFrame.size.height = titleSize.height;
+    cell.titleL.frame = titleFrame;
+    
+    cell.titleL.text = [NSString stringWithFormat:@"%@",postThreeLevelDetailsTitle];
+    
+    NSString *postThreeLevelDetailsSpeak = [dic objectForKey:@"postThreeLevelDetailsSpeak"];
+    if ([postThreeLevelDetailsSpeak isMemberOfClass:[NSNull class]]) {
+        postThreeLevelDetailsSpeak = @"";
+    }
+    CGRect detailFrame = cell.detailTextView.frame;
+    CGSize mySize = [MLLabel getViewSizeByString:postThreeLevelDetailsSpeak maxWidth:cell.detailTextView.frame.size.width font:cell.detailTextView.font lineHeight:1.2f lines:0];
+    if (mySize.height < 30) {
+        mySize.height = 30;
+    }
+    detailFrame.origin.y = CGRectGetMaxY(cell.titleL.frame) + 5;
+    detailFrame.size.width = mySize.width;
+    detailFrame.size.height = mySize.height;
+    cell.detailTextView.frame = detailFrame;
+    cell.detailTextView.text = [NSString stringWithFormat:@"%@",postThreeLevelDetailsSpeak];
+    
+
     id zoneCreatetimeObj = [dic objectForKey:@"postThreeLevelDetailsCreatetime"];
     if ([zoneCreatetimeObj isMemberOfClass:[NSNull class]] || zoneCreatetimeObj == nil) {
         NSTimeInterval  timeInterval = [[NSDate date] timeIntervalSince1970];
@@ -431,12 +553,12 @@
 
     cell.timeL.text = [NSString stringWithFormat:@"发布于%@",[stopTimeStr substringToIndex:5]];
     cell.nameL.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"postThreeLevelDetailsCreateter"]?@"小护健康":[dic objectForKey:@"postThreeLevelDetailsCreateter"]];
-    cell.titleL.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"postThreeLevelDetailsTitle"]];
-    cell.zanLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"postThreeLevelDetailsThingNumber"]];
+    
+    
+//    cell.zanLabel.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"postThreeLevelDetailsThingNumber"]];
     cell.backgroundColor = [UIColor colorWithWhite:244.0 / 255.0 alpha:1.0];
 
     return cell;
-    return nil;
 }
 
 
@@ -444,9 +566,34 @@
 {
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
-
+    NSDictionary *dict = nil;
+    @try {
+        dict = dataArr[row];
+    } @catch (NSException *exception) {
+        
+    } @finally {
+        
+    }
+    NSString *postThreeLevelDetailsSpeak = [dict objectForKey:@"postThreeLevelDetailsSpeak"];
+    if ([postThreeLevelDetailsSpeak isMemberOfClass:[NSNull class]]) {
+        postThreeLevelDetailsSpeak = @"";
+    }
+    CGSize mySize = [MLLabel getViewSizeByString:postThreeLevelDetailsSpeak maxWidth:SCREENWIDTH - 20 font:[UIFont systemFontOfSize:14.0] lineHeight:1.2f lines:0];
+    if (mySize.height < 30) {
+        mySize.height = 30;
+    }
     
-    return 260;
+    NSString *postThreeLevelDetailsTitle = dict[@"postThreeLevelDetailsTitle"];
+    if ([postThreeLevelDetailsTitle isMemberOfClass:[NSNull class]] || postThreeLevelDetailsTitle == nil) {
+        postThreeLevelDetailsTitle = @"";
+    }
+    CGSize titleSize = [MLLabel getViewSizeByString:postThreeLevelDetailsTitle maxWidth:SCREENWIDTH - 20 font:[UIFont systemFontOfSize:15.0] lineHeight:1.2f lines:0];
+    if (titleSize.height < 30) {
+        titleSize.height = 30;
+    }
+    
+    
+    return 135 + (mySize.height + 10) + (titleSize.height - 30);
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -514,21 +661,45 @@
     }
     NSArray *tagArr = [tags componentsSeparatedByString:@" "];
 
-    NSString *postTwoLevelId = @"";
+    NSMutableString *postTwoLevelId = [[NSMutableString alloc] initWithCapacity:0];
     for (NSInteger i = 0; i < tagArr.count; i++) {
         for (int j = 0; j < self.allPostTag.count; j++) {
             NSDictionary *postDic = [NSDictionary dictionaryWithDictionary:self.allPostTag[j]];
-            if ([tagArr[i] isEqualToString:[postDic valueForKey:@"postOneLevelName"]]) {
-                
-                postTwoLevelId = [postTwoLevelId stringByAppendingFormat:@",%@",[postDic valueForKey:@"postOneLevelId"]];
+            NSString *postTwoInfo = postDic[@"postTwoInfo"];
+            if ([postTwoInfo isMemberOfClass:[NSNull class]] || postTwoInfo == nil) {
+                postTwoInfo = @"";
             }
+            NSArray *postTwoInfoArray = [postTwoInfo objectFromJSONString];
+            for (NSDictionary *dict in postTwoInfoArray) {
+                NSString *tagName = tagArr[i];
+                NSString *PostTwoLevelName = [dict valueForKey:@"PostTwoLevelName"];
+                if ([PostTwoLevelName isMemberOfClass:[NSNull class]] || PostTwoLevelName == nil) {
+                    PostTwoLevelName = @"";
+                }
+                if ([tagName isEqualToString:PostTwoLevelName]) {
+                    NSString *tempPostTwoLevelId = [dict valueForKey:@"PostTwoLevelId"];
+                    if ([tempPostTwoLevelId isMemberOfClass:[NSNull class]] || tempPostTwoLevelId == nil) {
+                        tempPostTwoLevelId = @"";
+                    }
+                    if (postTwoLevelId.length == 0) {
+                        [postTwoLevelId appendString:tempPostTwoLevelId];
+                    }
+                    else{
+                        [postTwoLevelId appendFormat:@",%@",tempPostTwoLevelId];
+                    }
+                    break;
+                }
+            }
+            
         }
     }
     
-    if (postTwoLevelId.length > 0) {
-        postTwoLevelId = [postTwoLevelId substringFromIndex:1];
+//    if (postTwoLevelId.length > 0) {
+//        postTwoLevelId = [postTwoLevelId substringFromIndex:1];
+//    }
+    if (postTwoLevelId.length == 0 || postTwoLevelId == nil) {
+        postTwoLevelId = [[NSMutableString alloc] initWithString:@""];
     }
-    
     [self upladAllTagsWith:postTwoLevelId];
 }
 

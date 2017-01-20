@@ -90,7 +90,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    self.inputHeight = 50;
+    self.inputHeight = 20;
     self.view.backgroundColor = [UIColor lightGrayColor];
     [self addSubviews];
     self.tableView.dataSource = self;
@@ -120,14 +120,15 @@
 - (void)addNavBarRightButton {
     
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    btn.titleLabel.font = [UIFont systemFontOfSize:16.0];
     [btn setTitle:@"完成" forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [btn setTitleColor:APPDEFAULTORANGE forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(didFinishBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
     UILabel *title = [[UILabel alloc]init];
     title.frame = CGRectMake(0, 0, 60, 44);
-    title.font = APPDEFAULTTITLETEXTFONT;
-    title.textColor = APPDEFAULTTITLECOLOR;
+    title.font = [UIFont systemFontOfSize:20.0];
+    title.textColor = APPDEFAULTORANGE;
     title.text = @"我的关注";
     self.navigationItem.titleView = title;
 }

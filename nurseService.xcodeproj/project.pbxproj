@@ -241,6 +241,8 @@
 		EA472CD81E04E71B00E0316F /* TOWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA472CD01E04E71B00E0316F /* TOWebViewController.m */; };
 		EA472CD91E04E71B00E0316F /* UIImage+TOWebViewControllerIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = EA472CD21E04E71B00E0316F /* UIImage+TOWebViewControllerIcons.m */; };
 		EA4D13C01E03CCF900BBE450 /* navigationBar_back_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4D13BF1E03CCF900BBE450 /* navigationBar_back_icon.png */; };
+		EA662E3B1E3278A4007F1A09 /* appIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = EA662E3A1E3278A4007F1A09 /* appIcon.png */; };
+		EA662E3E1E3299BD007F1A09 /* HeMineTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA662E3D1E3299BD007F1A09 /* HeMineTableCell.m */; };
 		EA8C892C1E2135460093657B /* HeUserLocatiVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8C892A1E2135460093657B /* HeUserLocatiVC.m */; };
 		EA8C892D1E2135460093657B /* HeUserLocatiVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA8C892B1E2135460093657B /* HeUserLocatiVC.xib */; };
 		EA8C89311E2138BD0093657B /* HePaitentInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EA8C892F1E2138BD0093657B /* HePaitentInfoVC.m */; };
@@ -1127,6 +1129,9 @@
 		EA472CD31E04E71B00E0316F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TOWebViewControllerLocalizable.strings"; sourceTree = "<group>"; };
 		EA472CD41E04E71B00E0316F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/TOWebViewControllerLocalizable.strings"; sourceTree = "<group>"; };
 		EA4D13BF1E03CCF900BBE450 /* navigationBar_back_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navigationBar_back_icon.png; sourceTree = "<group>"; };
+		EA662E3A1E3278A4007F1A09 /* appIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appIcon.png; sourceTree = "<group>"; };
+		EA662E3C1E3299BD007F1A09 /* HeMineTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeMineTableCell.h; sourceTree = "<group>"; };
+		EA662E3D1E3299BD007F1A09 /* HeMineTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeMineTableCell.m; sourceTree = "<group>"; };
 		EA8C89291E2135460093657B /* HeUserLocatiVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeUserLocatiVC.h; sourceTree = "<group>"; };
 		EA8C892A1E2135460093657B /* HeUserLocatiVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeUserLocatiVC.m; sourceTree = "<group>"; };
 		EA8C892B1E2135460093657B /* HeUserLocatiVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeUserLocatiVC.xib; sourceTree = "<group>"; };
@@ -2632,6 +2637,7 @@
 		ADDBEB4B1DFCE26F000BDA95 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				EA662E3A1E3278A4007F1A09 /* appIcon.png */,
 				57F5114D1E31BDAF003D0A7A /* icon_arrow_down.png */,
 				57F5114E1E31BDAF003D0A7A /* icon_arrow_up.png */,
 				57F511011E30859B003D0A7A /* icon_calendar_month.png */,
@@ -3234,6 +3240,8 @@
 				EAA654781E061FDF00F424DD /* HeBaseTableViewCell.h */,
 				EAA654791E061FDF00F424DD /* HeBaseTableViewCell.m */,
 				EAA6547A1E061FDF00F424DD /* HeBaseTableViewCell.xib */,
+				EA662E3C1E3299BD007F1A09 /* HeMineTableCell.h */,
+				EA662E3D1E3299BD007F1A09 /* HeMineTableCell.m */,
 			);
 			path = BaseView;
 			sourceTree = "<group>";
@@ -5218,6 +5226,7 @@
 				EA472CB11E04DCF500E0316F /* icon_add_photo_violet.png in Resources */,
 				EAA655251E0627C300F424DD /* AlbumLike@3x.png in Resources */,
 				EAA6552F1E0627C400F424DD /* LikeCmtBg@2x.png in Resources */,
+				EA662E3B1E3278A4007F1A09 /* appIcon.png in Resources */,
 				EAA4F3101E012A9600EF9E14 /* OrderViewController.xib in Resources */,
 				EAA655261E0627C300F424DD /* AlbumOperateMore@2x.png in Resources */,
 				ADB49C5E1E164526008DBCF6 /* icon_withdrawals.png in Resources */,
@@ -5395,6 +5404,7 @@
 				EAC2D8EA1D4B063B00E282A8 /* NSString+RACSequenceAdditions.m in Sources */,
 				EAC2D8361D4B063B00E282A8 /* BrowserView.m in Sources */,
 				EA1742BE1E1E331B0038E805 /* README.md in Sources */,
+				EA662E3E1E3299BD007F1A09 /* HeMineTableCell.m in Sources */,
 				EAC2D8811D4B063B00E282A8 /* FMDatabaseAdditions.m in Sources */,
 				57F511371E30A0D0003D0A7A /* PNScatterChart.m in Sources */,
 				EAC2D8091D4B063B00E282A8 /* NSDate+Category.m in Sources */,
