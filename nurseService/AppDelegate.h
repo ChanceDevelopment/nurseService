@@ -13,7 +13,7 @@
 
 static NSString *appKey = @"f3df690c367e49335b6eca7b";
 static NSString *channel = @"AppStore";
-static BOOL isProduction = FALSE;
+static BOOL isProduction = TRUE;
 @interface AppDelegate : UIResponder <UIApplicationDelegate,RESideMenuDelegate,BMKGeneralDelegate,JPUSHRegisterDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
