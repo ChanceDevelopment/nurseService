@@ -134,7 +134,7 @@
     }
     NSString *nurseId = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     
-    NSString *personId = [NSString stringWithFormat:@"%@",nurseDict[@"personId"]];
+    NSString *userid = [NSString stringWithFormat:@"%@",nurseDict[@"orderOrdersendid"]];
     
     if ([nurseId isMemberOfClass:[NSNull class]] || nurseId == nil) {
         nurseId = @"";
@@ -145,7 +145,7 @@
     }
     
     NSString *mark = [NSString stringWithFormat:@"%ld",currentRank];
-    NSDictionary * params  = @{@"userId":personId,@"nurseId":nurseId,@"sendId":sendId,@"info":content,@"mark":mark};
+    NSDictionary * params  = @{@"userId":userid,@"nurseId":nurseId,@"sendId":sendId,@"info":content,@"mark":mark};
     [self showHudInView:self.view hint:@"评价中..."];
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:ADDNURSEEVALUATE params:params success:^(AFHTTPRequestOperation* operation,id response){
         [self hideHud];

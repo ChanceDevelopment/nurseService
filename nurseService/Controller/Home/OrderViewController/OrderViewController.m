@@ -39,7 +39,6 @@
     
     UILabel *badge;
     NSMutableArray *badgeDataArr;
-    NSInteger currentBadgePage;
     
 }
 @property(nonatomic,strong)DLNavigationTabBar *navigationTabBar;
@@ -107,7 +106,7 @@
         [self.navigationTabBar addSubview:badge];
         badge.frame = CGRectMake(0, 0, 12, 12);
         badge.textAlignment = NSTextAlignmentCenter;
-        badge.center = CGPointMake(SCREENWIDTH/2.0+35, 10);
+        badge.center = CGPointMake(SCREENWIDTH/2.0+35, 12);
         badge.layer.cornerRadius = CGRectGetWidth(badge.frame) / 2;
         badge.layer.masksToBounds = YES;//very important
         badge.font = [UIFont systemFontOfSize:10.0];
@@ -139,10 +138,6 @@
 - (void)viewWillAppear:(BOOL)animated{
     [self getReceiveOrderSwitchState];
     
-    if (badgeDataArr.count > 0) {
-        [badgeDataArr removeAllObjects];
-    }
-    currentBadgePage = 0;
     [self getBadgeNums];
 }
 
@@ -651,6 +646,7 @@
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
             [self reloadData];
+
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
         }
@@ -908,15 +904,14 @@
         cell.serviceContentL.text = contentArr[1];
         NSString *state = @"";
         switch ([[dict valueForKey:@"orderSendState"] integerValue]) {
+
             case 4:
-                state = @"已完成";
-                cell.orderFinshTime.text = [NSString stringWithFormat:@"完成时间：%@",[self getTimeWith:[dict valueForKey:@"orderSendFinishOrderTime"]]];
-                break;
-            case 5:
                 state = @"已取消";
                 cell.orderFinshTime.text = [NSString stringWithFormat:@"取消时间：%@",[self getTimeWith:[dict valueForKey:@"orderSendFinishOrderTime"]]];
                 break;
             default:
+                state = @"已完成";
+                cell.orderFinshTime.text = [NSString stringWithFormat:@"完成时间：%@",[self getTimeWith:[dict valueForKey:@"orderSendFinishOrderTime"]]];
                 break;
         }
         cell.orderStateL.text = state;
@@ -972,7 +967,7 @@
         return 240;
     }
     if (currentType == 2) {
-        if ([[dict valueForKey:@"orderSendState"] integerValue] == 5) {
+        if ([[dict valueForKey:@"orderSendState"] integerValue] == 4) {
             //已取消
             return 130;
         }
@@ -1247,11 +1242,13 @@
         case 0:
         {
             [self getDataWithUrl:ORDERLOOKRECEIVER];
+            [self getBadgeNums];
         }
             break;
         case 1:
         {
             [self getDataWithUrl:ORDERSTATENOW];
+            [self getBadgeNums];
         }
             break;
         case 2:
@@ -1316,8 +1313,11 @@
 }
 
 - (void)getBadgeNums{
+    if (badgeDataArr.count > 0) {
+        [badgeDataArr removeAllObjects];
+    }
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
-    NSDictionary *params= @{@"nurseId" : userAccount,@"pageNow" : [NSString stringWithFormat:@"%ld",currentBadgePage]};
+    NSDictionary *params= @{@"nurseId" : userAccount,@"pageNow" : @"0"};
 
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:ORDERSTATENOW params:params success:^(AFHTTPRequestOperation* operation,id response){
         
