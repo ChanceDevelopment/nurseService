@@ -691,8 +691,10 @@ didReceiveResponse:(NSURLResponse *)response
     self.responseData = [self.outputStream propertyForKey:NSStreamDataWrittenToMemoryStreamKey];
     
     NSString *result = [Tool replaceUnicode:self.responseString];
-    self.responseString = [[NSString alloc] initWithString:result];
-    
+    if (result) {
+        self.responseString = [[NSString alloc] initWithString:result];
+    }
+
     self.responseData = [self.responseString dataUsingEncoding:NSUTF8StringEncoding];
     [self.outputStream close];
     if (self.responseData) {
