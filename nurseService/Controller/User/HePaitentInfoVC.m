@@ -23,7 +23,7 @@
 @synthesize keyDataSource;
 @synthesize userInfoDict;
 @synthesize userInfoDetailDict;
-
+@synthesize isFromNowOrder;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -73,19 +73,26 @@
 - (void)getPaitentInfo
 {
     [self showHudInView:tableview hint:@"获取中..."];
-    
-    NSString *personId = [userInfoDict valueForKey:@"orderSendUsername"];
-    NSArray *personIdArr = [personId componentsSeparatedByString:@","];
-    @try {
-        personId = personIdArr[0];
-    } @catch (NSException *exception) {
-    } @finally {
+
+    NSString *personId = @"";
+
+    if (isFromNowOrder) {
+        //进行中
+        personId = [userInfoDict valueForKey:@"personId"];
         
+    }else{
+        personId = [userInfoDict valueForKey:@"orderSendUsername"];
+        NSArray *personIdArr = [personId componentsSeparatedByString:@","];
+        @try {
+            personId = personIdArr[0];
+        } @catch (NSException *exception) {
+        } @finally {
+        }
     }
-    
     if ([personId isMemberOfClass:[NSNull class]] || personId == nil) {
         personId = @"";
     }
+    
     NSDictionary * params = @{@"personId":personId};
     NSString *url = [NSString stringWithFormat:@"protected/selectprotectedbyid.action"];
     

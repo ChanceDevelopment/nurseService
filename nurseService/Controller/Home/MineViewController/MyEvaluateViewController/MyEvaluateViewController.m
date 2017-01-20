@@ -80,7 +80,7 @@
     [self getDataWithType:currentType];
     dataArr = [[NSMutableArray alloc] initWithCapacity:0];
     
-    self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
+    self.view.backgroundColor = [UIColor colorWithWhite:244.0 / 255.0 alpha:1.0];
     
     CGFloat noDataViewW = 50;
     CGFloat noDataViewY = (self.view.frame.size.height-44-48-noDataViewW)/2.0;
@@ -94,7 +94,10 @@
     noDataView.hidden = YES;
     
     [self.view addSubview:self.navigationTabBar];
+    
     [myTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    myTableView.backgroundView = nil;
+    myTableView.backgroundColor = self.view.backgroundColor;
     
     self.myTableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         self.myTableView.footer.automaticallyHidden = YES;

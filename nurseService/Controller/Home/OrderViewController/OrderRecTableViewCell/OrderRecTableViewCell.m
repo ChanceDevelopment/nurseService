@@ -38,7 +38,7 @@
         
         CGFloat serviceContentLX = 10;
         CGFloat serviceContentLY = 5;
-        CGFloat serviceContentLW = SCREENWIDTH - 170;
+        CGFloat serviceContentLW = SCREENWIDTH - 180;
         CGFloat serviceContentLH = 35;
         
         serviceContentL = [[UILabel alloc] initWithFrame:CGRectMake(serviceContentLX+30, serviceContentLY, serviceContentLW, serviceContentLH)];
@@ -49,8 +49,8 @@
         [bgView addSubview:serviceContentL];
         serviceContentL.adjustsFontSizeToFitWidth = YES;
 
-        
-        UILabel *payTip = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH-150, 5, 50, 35)];
+        CGFloat payTipX = CGRectGetMaxX(serviceContentL.frame);
+        UILabel *payTip = [[UILabel alloc] initWithFrame:CGRectMake(payTipX, 5, 50, 35)];
         payTip.textColor = [UIColor grayColor];
         payTip.userInteractionEnabled = YES;
         payTip.textAlignment = NSTextAlignmentRight;
@@ -59,7 +59,8 @@
         payTip.backgroundColor = [UIColor clearColor];
         [bgView addSubview:payTip];
 
-        orderMoney = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH-100, 5, 60, 35)];
+        CGFloat orderMoneyX = CGRectGetMaxX(payTip.frame);
+        orderMoney = [[UILabel alloc] initWithFrame:CGRectMake(orderMoneyX, 5, 55, 35)];
         orderMoney.textColor = [UIColor orangeColor];
         orderMoney.font = [UIFont systemFontOfSize:12.0];
         orderMoney.backgroundColor = [UIColor clearColor];

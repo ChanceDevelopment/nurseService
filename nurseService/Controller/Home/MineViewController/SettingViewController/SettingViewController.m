@@ -140,9 +140,11 @@
 - (void)clickBtAction:(UIButton *)sender{
     
     if (sender.tag == 1) {
+        
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERIDKEY];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:USERACCOUNTKEY];
         [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@NO];
+        [Tool initPush];
     }
     if (windowView) {
         [windowView removeFromSuperview];
