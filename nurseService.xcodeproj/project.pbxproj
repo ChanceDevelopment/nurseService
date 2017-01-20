@@ -28,6 +28,11 @@
 		57F511381E30A0D0003D0A7A /* PNScatterChartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F511271E30A0D0003D0A7A /* PNScatterChartData.m */; };
 		57F511391E30A0D0003D0A7A /* PNScatterChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F511291E30A0D0003D0A7A /* PNScatterChartDataItem.m */; };
 		57F5113C1E30A3B3003D0A7A /* UICountingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F5113B1E30A3B3003D0A7A /* UICountingLabel.m */; };
+		57F511441E31B0FA003D0A7A /* TTGroupTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F5113F1E31B0FA003D0A7A /* TTGroupTagView.m */; };
+		57F511451E31B0FA003D0A7A /* TTTagView.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F511411E31B0FA003D0A7A /* TTTagView.m */; };
+		57F511461E31B0FA003D0A7A /* TagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F511431E31B0FA003D0A7A /* TagViewController.m */; };
+		57F5114F1E31BDAF003D0A7A /* icon_arrow_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 57F5114D1E31BDAF003D0A7A /* icon_arrow_down.png */; };
+		57F511501E31BDAF003D0A7A /* icon_arrow_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 57F5114E1E31BDAF003D0A7A /* icon_arrow_up.png */; };
 		AD0F506E1E31867700BEA52D /* UIBarButtonItem+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0F50621E31867600BEA52D /* UIBarButtonItem+WZLBadge.m */; };
 		AD0F506F1E31867700BEA52D /* UITabBarItem+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0F50641E31867700BEA52D /* UITabBarItem+WZLBadge.m */; };
 		AD0F50701E31867700BEA52D /* CAAnimation+WAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0F50671E31867700BEA52D /* CAAnimation+WAnimation.m */; };
@@ -792,6 +797,14 @@
 		57F511291E30A0D0003D0A7A /* PNScatterChartDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNScatterChartDataItem.m; sourceTree = "<group>"; };
 		57F5113A1E30A3B3003D0A7A /* UICountingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICountingLabel.h; sourceTree = "<group>"; };
 		57F5113B1E30A3B3003D0A7A /* UICountingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICountingLabel.m; sourceTree = "<group>"; };
+		57F5113E1E31B0FA003D0A7A /* TTGroupTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTGroupTagView.h; sourceTree = "<group>"; };
+		57F5113F1E31B0FA003D0A7A /* TTGroupTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTGroupTagView.m; sourceTree = "<group>"; };
+		57F511401E31B0FA003D0A7A /* TTTagView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTagView.h; sourceTree = "<group>"; };
+		57F511411E31B0FA003D0A7A /* TTTagView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTagView.m; sourceTree = "<group>"; };
+		57F511421E31B0FA003D0A7A /* TagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagViewController.h; sourceTree = "<group>"; };
+		57F511431E31B0FA003D0A7A /* TagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagViewController.m; sourceTree = "<group>"; };
+		57F5114D1E31BDAF003D0A7A /* icon_arrow_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_arrow_down.png; sourceTree = "<group>"; };
+		57F5114E1E31BDAF003D0A7A /* icon_arrow_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_arrow_up.png; sourceTree = "<group>"; };
 		AD0F50611E31867600BEA52D /* UIBarButtonItem+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+WZLBadge.h"; sourceTree = "<group>"; };
 		AD0F50621E31867600BEA52D /* UIBarButtonItem+WZLBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+WZLBadge.m"; sourceTree = "<group>"; };
 		AD0F50631E31867600BEA52D /* UITabBarItem+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+WZLBadge.h"; sourceTree = "<group>"; };
@@ -2144,6 +2157,20 @@
 			path = nurseService/Helper/PNChart;
 			sourceTree = SOURCE_ROOT;
 		};
+		57F5113D1E31B0FA003D0A7A /* TTTagView */ = {
+			isa = PBXGroup;
+			children = (
+				57F5113E1E31B0FA003D0A7A /* TTGroupTagView.h */,
+				57F5113F1E31B0FA003D0A7A /* TTGroupTagView.m */,
+				57F511401E31B0FA003D0A7A /* TTTagView.h */,
+				57F511411E31B0FA003D0A7A /* TTTagView.m */,
+				57F511421E31B0FA003D0A7A /* TagViewController.h */,
+				57F511431E31B0FA003D0A7A /* TagViewController.m */,
+			);
+			name = TTTagView;
+			path = nurseService/Helper/TTTagView;
+			sourceTree = SOURCE_ROOT;
+		};
 		AD0F505F1E31867600BEA52D /* WZLBadge */ = {
 			isa = PBXGroup;
 			children = (
@@ -2536,6 +2563,7 @@
 		ADDBEB291DFCE25C000BDA95 /* Untils */ = {
 			isa = PBXGroup;
 			children = (
+				57F5113D1E31B0FA003D0A7A /* TTTagView */,
 				57F511071E30A0D0003D0A7A /* PNChart */,
 			);
 			path = Untils;
@@ -2596,6 +2624,8 @@
 		ADDBEB4B1DFCE26F000BDA95 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				57F5114D1E31BDAF003D0A7A /* icon_arrow_down.png */,
+				57F5114E1E31BDAF003D0A7A /* icon_arrow_up.png */,
 				57F511011E30859B003D0A7A /* icon_calendar_month.png */,
 				57F511051E3087AC003D0A7A /* icon_look.png */,
 				57F511021E30859B003D0A7A /* icon_calendar.png */,
@@ -5132,6 +5162,7 @@
 				EAC2D8C71D4B063B00E282A8 /* arrow_down1@2x.png in Resources */,
 				EAC2D9521D4B063B00E282A8 /* btn_020.press@2x.png in Resources */,
 				EA8C89321E2138BD0093657B /* HePaitentInfoVC.xib in Resources */,
+				57F5114F1E31BDAF003D0A7A /* icon_arrow_down.png in Resources */,
 				AD8BB13B1E0A0F0E004064F9 /* icon_integral.png in Resources */,
 				EABFECAB1E1B8D4E009C27C5 /* LICENSE in Resources */,
 				ADDBEB931DFCE87E000BDA95 /* index_banner2@2x.jpg in Resources */,
@@ -5238,6 +5269,7 @@
 				EAC2D8C81D4B063B00E282A8 /* arrow_down@2x.png in Resources */,
 				EAC2D98C1D4B063B00E282A8 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				EA8C89AD1E21DE2E0093657B /* tabbar_normal_background.png in Resources */,
+				57F511501E31BDAF003D0A7A /* icon_arrow_up.png in Resources */,
 				EAC2D9351D4B063B00E282A8 /* sharemore_pic@2x.png in Resources */,
 				EA1743561E1E33AF0038E805 /* success@2x.png in Resources */,
 				EA472CB21E04DCF500E0316F /* icon_add_photo.png in Resources */,
@@ -5306,6 +5338,7 @@
 				EAC2D80F1D4B063B00E282A8 /* UIViewController+HUD.m in Sources */,
 				EAC2D9061D4B063B00E282A8 /* RACObjCRuntime.m in Sources */,
 				EAA655411E0627C400F424DD /* DFBaseUserLineCell.m in Sources */,
+				57F511441E31B0FA003D0A7A /* TTGroupTagView.m in Sources */,
 				EAC2D9141D4B063B00E282A8 /* RACStringSequence.m in Sources */,
 				57F5112F1E30A0D0003D0A7A /* PNGenericChart.m in Sources */,
 				ADDBEB561DFCE31B000BDA95 /* RECommonFunctions.m in Sources */,
@@ -5642,6 +5675,7 @@
 				EAC2D8A31D4B063B00E282A8 /* MJRefreshAutoFooter.m in Sources */,
 				EAC2D90C1D4B063B00E282A8 /* RACScopedDisposable.m in Sources */,
 				EAC2D8DF1D4B063B00E282A8 /* NSInvocation+RACTypeParsing.m in Sources */,
+				57F511461E31B0FA003D0A7A /* TagViewController.m in Sources */,
 				EAC2D42D1D4B031500E282A8 /* AppDelegate.m in Sources */,
 				EAA655381E0627C400F424DD /* DFImageUnitView.m in Sources */,
 				EAC2D8E21D4B063B00E282A8 /* NSObject+RACDescription.m in Sources */,
@@ -5703,6 +5737,7 @@
 				EAC2D9171D4B063B00E282A8 /* RACSubscriptingAssignmentTrampoline.m in Sources */,
 				EAA655061E0627C300F424DD /* DFActivityDetailLineCellAdapter.m in Sources */,
 				EA1743491E1E33AF0038E805 /* DFTableViewEGORefreshControl.m in Sources */,
+				57F511451E31B0FA003D0A7A /* TTTagView.m in Sources */,
 				EA1742B71E1E331B0038E805 /* MLTextAttachment.m in Sources */,
 				EAC2D94A1D4B063B00E282A8 /* SRSlimeView.m in Sources */,
 				EAC2D94F1D4B063B00E282A8 /* SVProgressHUD.m in Sources */,

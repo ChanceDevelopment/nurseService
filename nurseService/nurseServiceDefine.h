@@ -6,6 +6,17 @@
 //  Copyright © 2016年 iMac. All rights reserved.
 //
 
+#define kColorRGBA(c,a) [UIColor colorWithRed:((c>>16)&0xFF)/255.0	\
+green:((c>>8)&0xFF)/255.0	\
+blue:(c&0xFF)/255.0         \
+alpha:a]
+#define kColorRGB(c)    [UIColor colorWithRed:((c>>16)&0xFF)/255.0	\
+green:((c>>8)&0xFF)/255.0	\
+blue:(c&0xFF)/255.0         \
+alpha:1.0]
+
+#define     kCurrentFloatDevice     [[[UIDevice currentDevice]systemVersion]floatValue]
+
 #ifndef nurseServiceDefine_h
 #define nurseServiceDefine_h
 
@@ -161,5 +172,6 @@ typedef enum{
     eOrderStatusTypeStart,
     eOrderStatusTypeFinish
 } eOrderStatusType;
+
 
 #endif /* nurseServiceDefine_h */

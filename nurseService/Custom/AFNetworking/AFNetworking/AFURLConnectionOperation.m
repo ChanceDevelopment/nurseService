@@ -692,7 +692,7 @@ didReceiveResponse:(NSURLResponse *)response
     
     NSString *result = [Tool replaceUnicode:self.responseString];
     if (result) {
-        self.responseString = [[NSString alloc] initWithString:result];
+         self.responseString = [[NSString alloc] initWithString:result];
     }
 
     self.responseData = [self.responseString dataUsingEncoding:NSUTF8StringEncoding];

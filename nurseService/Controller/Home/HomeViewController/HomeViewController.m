@@ -18,6 +18,7 @@
 #import "DFActivityLineItem.h"
 //#import "HeDistributeVC.h"
 //#import "HeActivityDetailVC.h"
+#import "TagViewController.h"
 #import "HomeWebViewController.h"
 #import "DFLineJoinItem.h"
 #import "ActivityLogModel.h"
@@ -26,7 +27,7 @@
 #import "DFBaseLineCell.h"
 #import "HomeTableViewCell.h"
 
-@interface HomeViewController ()<LBBannerDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface HomeViewController ()<LBBannerDelegate,UITableViewDelegate,UITableViewDataSource,ViewControllerDelegate>
 {
     NSInteger currentPage;
     NSInteger currentType;
@@ -42,6 +43,8 @@
 @property(strong,nonatomic)IBOutlet UIView *footerView;
 @property (nonatomic, strong) LBBanner * banner;
 @property (nonatomic, strong) NSArray *nurseFocusArr;
+@property (nonatomic, strong) NSArray *barTitleArr;
+@property (nonatomic, strong) NSArray *allPostTag;
 
 @end
 
@@ -90,7 +93,7 @@
     if (!_navigationTabBar) {
         self.navigationTabBar = [[DLNavigationTabBar alloc] initWithTitles:@[@"精华",@"问题",@"神经内科",@"心血管"]];
         self.navigationTabBar.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
-        self.navigationTabBar.frame = CGRectMake(0, 0, SCREENWIDTH, 44);
+        self.navigationTabBar.frame = CGRectMake(0, 0, SCREENWIDTH-44, 44);
         self.navigationTabBar.sliderBackgroundColor = APPDEFAULTORANGE;
         self.navigationTabBar.buttonNormalTitleColor = [UIColor grayColor];
         self.navigationTabBar.buttonSelectedTileColor = APPDEFAULTORANGE;
@@ -110,6 +113,7 @@
     [self.tableview.header beginRefreshing];
     [self getRollPic];
     [self getNurseFoucesPostInfo];
+    [self getAllTag];
 }
 
 - (void)initializaiton
@@ -167,6 +171,34 @@
     }
 }
 
+- (void)getAllTag
+{
+
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:ALLPOSTINFODETAIL params:nil success:^(AFHTTPRequestOperation* operation,id response){
+
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            if ([[respondDict valueForKey:@"json"] isMemberOfClass:[NSNull class]] || [respondDict valueForKey:@"json"] == nil) {
+                [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+                return ;
+            }else{
+                NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
+                NSLog(@"所有的tag%@",tempArr);
+                self.allPostTag = tempArr;
+            }
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        }
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
+
+}
+
 - (void)getNurseFoucesPostInfo
 {
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
@@ -189,6 +221,7 @@
                 for (NSDictionary *dic in tempArr) {
                     [arrName addObject:[dic objectForKey:@"postTwoLevelName"]];
                 }
+                self.barTitleArr = arrName;
                 [self.navigationTabBar setSubViewWithTitles:arrName];
             }
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
@@ -293,6 +326,12 @@
 {
     [super initView];
     [self.view addSubview:self.navigationTabBar];
+    UIButton *tagButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    tagButton.frame = CGRectMake(SCREENWIDTH-44, 0, 44, 44);
+    tagButton.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
+    [tagButton setImage:[UIImage imageNamed:@"icon_arrow_down.png"] forState:UIControlStateNormal];
+    [tagButton addTarget:self action:@selector(showTag:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:tagButton];
     
     NSArray * imageNames = @[@"index1", @"index2"];
     self.banner = [[LBBanner alloc] initWithImageNames:imageNames andFrame:CGRectMake(0, 0, SCREENWIDTH, 180)];
@@ -438,6 +477,41 @@
 }
 
 
+
+- (void)showTag:(UIButton *)sender
+{
+    TagViewController *VC = [[TagViewController alloc] init];
+    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:VC];
+    NSMutableString *string = [[NSMutableString alloc]initWithString:@""];
+    for (int i = 0;i<self.barTitleArr.count;i++) {
+        NSString *title = self.barTitleArr[i];
+        if (i==0) {
+            continue;
+        }
+        if (i == self.barTitleArr.count -1) {
+            [string appendFormat:@"%@",title];
+        }else{
+            [string appendFormat:@"%@ ",title];
+        }
+    }
+    VC.bqlabStr = string;
+    VC.tagListArr = self.allPostTag;
+    VC.delegate = self;
+    [self presentViewController:navi animated:YES completion:nil];
+
+}
+
+#pragma mark - 实现标签页的代理方法(传回来的标签字符串)
+- (void)updateTagsLabelWithTagsString:(NSString *)tags {
+
+    NSLog(@"回掉tag %@",tags);
+
+}
+
+- (void)upladAllTags
+{
+    
+}
 
 /*
 #pragma mark - Navigation
