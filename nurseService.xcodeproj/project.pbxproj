@@ -2223,6 +2223,7 @@
 		AD13A6691E2B8D99002ADE2B /* MyFansVC */ = {
 			isa = PBXGroup;
 			children = (
+				ADCAF4361E31A9940081E944 /* NurseInfoVC */,
 				AD13A66A1E2B8DAD002ADE2B /* MyFansVC.h */,
 				AD13A66B1E2B8DAD002ADE2B /* MyFansVC.m */,
 				AD13A66C1E2B8DAD002ADE2B /* MyFansVC.xib */,
@@ -2525,6 +2526,13 @@
 				ADB4CFF81E2DE929004ED2E3 /* AddPaswordVC.xib */,
 			);
 			path = AddPaswordVC;
+			sourceTree = "<group>";
+		};
+		ADCAF4361E31A9940081E944 /* NurseInfoVC */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NurseInfoVC;
 			sourceTree = "<group>";
 		};
 		ADCD25A21E0C0E5700FBCF26 /* MyEvaluateViewController */ = {
@@ -5916,6 +5924,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "nurseService/护士端.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer: jun zhou (ZM3AW8VQ6N)";
 				DEVELOPMENT_TEAM = E6CUH72B23;
@@ -5959,6 +5968,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "nurseService/护士端.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
@@ -6087,6 +6097,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "nurseService/护士端.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hangzhou Chance Network Technology Co.,Ltd (E6CUH72B23)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou Chance Network Technology Co.,Ltd (E6CUH72B23)";

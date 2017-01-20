@@ -348,7 +348,51 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 - (IBAction)commitAction:(UIButton *)sender {
+
+    if ([feedbackField.text isEqualToString:@""]) {
+        [self.view makeToast:@"请输入您的意见" duration:1.2 position:@"center"];
+        return;
+    }
+
+    NSString *pic = @"";
+    for (int i = 0; i < detailImageArr.count; i++) {
+        NSString *temp = [NSString stringWithFormat:@"%@",detailImageArr[i]];
+        pic = [pic stringByAppendingString:temp];
+    }
+    if (pic.length > 0) {
+        pic = [pic substringFromIndex:1];
+    }
+    
+    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+    NSDictionary * params  = @{@"userId" : [NSString stringWithFormat:@"%@",userAccount],
+                               @"identity" : @"1",
+                               @"content" : feedbackField.text,
+                               @"complaintPic" : pic};
+    
+    NSLog(@"%@",params);
+    [self showHudInView:self.view hint:@"提交中..."];
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:@"nurseAnduser/complaintAdd.action" params:params success:^(AFHTTPRequestOperation* operation,id response){
+        [self hideHud];
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            [self performSelector:@selector(backToRootView) withObject:nil afterDelay:1.2f];
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
+        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self hideHud];
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
+}
+
+- (void)backToRootView{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

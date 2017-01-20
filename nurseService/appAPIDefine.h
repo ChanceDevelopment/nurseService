@@ -69,6 +69,8 @@
 //6.4 填写护理报告
 #define SELECTREPORTDETAILSTAY @"selectReportdetailsStay.action"
 
+//8.2 护士对用户的评价
+#define ADDNURSEEVALUATE @"nurseevaluate/addnurseevaluate.action"
 //9.1绑定支付密码和账号
 #define BINDACCOUNTANDPAW @"nurseAnduser/BindAccountAndPassword.action"
 //9.3查询我的粉丝

@@ -111,7 +111,7 @@
 
             [[NSUserDefaults standardUserDefaults] synchronize];//强制写入,保存数据
             
-            NSString *nurseDistrict = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseDistrict"];
+            NSString *nurseDistrict = [NSString stringWithFormat:@"%@",[nurseDic valueForKey:@"nurseDistrict"]];
             BOOL isDistrict = [nurseDistrict isEqualToString:@"0"] ? YES : NO;
             if (isDistrict) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@YES];
