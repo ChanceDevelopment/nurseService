@@ -1179,22 +1179,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "nurseService/AppDelegate.m"
-            timestampString = "506569013.208175"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "246"
-            endingLineNumber = "246"
-            landmarkName = "-loginStateChange:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/Home/OrderViewController/OrderViewController.m"
             timestampString = "506586128.02941"
             startingColumnNumber = "9223372036854775807"
@@ -1281,6 +1265,22 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "578"
             endingLineNumber = "578"
+            landmarkName = "-getDataWithUrl:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "nurseService/Controller/Home/HomeViewController/HomeViewController.m"
+            timestampString = "506593756.240853"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "301"
+            endingLineNumber = "301"
             landmarkName = "-getDataWithUrl:"
             landmarkType = "7">
          </BreakpointContent>

@@ -134,8 +134,10 @@
 
 #pragma mark - 确定按钮的点击事件
 - (void)didFinishBtnClick:(UIButton *)btn {
-    
     NSString *tags = [self.selectedTags componentsJoinedByString:@" "];
+
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"selectItemsNotification" object:tags];
+
     if ([self.delegate respondsToSelector:@selector(updateTagsLabelWithTagsString:)]) {
         [self.delegate updateTagsLabelWithTagsString:tags];
     }

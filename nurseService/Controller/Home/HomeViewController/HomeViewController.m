@@ -110,10 +110,11 @@
     // Do any additional setup after loading the view from its nib.
     [self initializaiton];
     [self initView];
+    [self getAllTag];
     [self.tableview.header beginRefreshing];
     [self getRollPic];
     [self getNurseFoucesPostInfo];
-    [self getAllTag];
+    
 }
 
 - (void)initializaiton
@@ -505,13 +506,57 @@
 - (void)updateTagsLabelWithTagsString:(NSString *)tags {
 
     NSLog(@"回掉tag %@",tags);
-
-}
-
-- (void)upladAllTags
-{
     
+    
+    if ([tags isEqualToString:@""]) {
+        [self upladAllTagsWith:@""];
+        return;
+    }
+    NSArray *tagArr = [tags componentsSeparatedByString:@" "];
+
+    NSString *postTwoLevelId = @"";
+    for (NSInteger i = 0; i < tagArr.count; i++) {
+        for (int j = 0; j < self.allPostTag.count; j++) {
+            NSDictionary *postDic = [NSDictionary dictionaryWithDictionary:self.allPostTag[j]];
+            if ([tagArr[i] isEqualToString:[postDic valueForKey:@"postOneLevelName"]]) {
+                
+                postTwoLevelId = [postTwoLevelId stringByAppendingFormat:@",%@",[postDic valueForKey:@"postOneLevelId"]];
+            }
+        }
+    }
+    
+    if (postTwoLevelId.length > 0) {
+        postTwoLevelId = [postTwoLevelId substringFromIndex:1];
+    }
+    
+    [self upladAllTagsWith:postTwoLevelId];
 }
+
+//提交所选标签
+- (void)upladAllTagsWith:(NSString *)postTwoLevelId{
+    NSString *nurseId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY]];
+    
+    NSDictionary * params = @{@"nurseId" : nurseId,@"postTwoLevelId" : postTwoLevelId};
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:@"post/AddPostNursefFocus.action" params:params success:^(AFHTTPRequestOperation* operation,id response){
+        
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            
+            [self getNurseFoucesPostInfo];
+        
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        }
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
+}
+
 
 /*
 #pragma mark - Navigation
