@@ -73,7 +73,16 @@
 - (void)getPaitentInfo
 {
     [self showHudInView:tableview hint:@"获取中..."];
-    NSString *personId = userInfoDict[@"personId"];
+    
+    NSString *personId = [userInfoDict valueForKey:@"orderSendUsername"];
+    NSArray *personIdArr = [personId componentsSeparatedByString:@","];
+    @try {
+        personId = personIdArr[0];
+    } @catch (NSException *exception) {
+    } @finally {
+        
+    }
+    
     if ([personId isMemberOfClass:[NSNull class]] || personId == nil) {
         personId = @"";
     }

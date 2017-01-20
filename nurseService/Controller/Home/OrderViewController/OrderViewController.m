@@ -238,7 +238,7 @@
     self.myTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block,刷新
         [self.myTableView.header performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
-        [self reloadData];
+        [self reloadOrderData];
     }];
     
     self.myTableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
@@ -423,7 +423,7 @@
         NSLog(@"关闭接单");
     }
     
-    [self reloadData];
+    [self reloadOrderData];
     
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     NSString *receiveState = mySwitch.isSelected ? @"0" : @"1";    //0可接1不可接
@@ -493,7 +493,6 @@
                     noDataView.hidden = NO;
                     myTableView.hidden = YES;
                 }
-
                 return ;
             }else{
                 NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
@@ -557,7 +556,10 @@
                 }
                 
                 if (tempArr.count >0) {
-                    currentPage++;
+                    if (currentType != 1) {
+                        currentPage++;
+                    }
+
                     [dataArr addObjectsFromArray:tempArr];
                     [myTableView reloadData];
                 }else{
@@ -593,7 +595,7 @@
         [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
-            [self reloadData];
+            [self reloadOrderData];
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
         }
@@ -619,7 +621,7 @@
         [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:2.0 position:@"center"];
         
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
-            [self reloadData];
+            [self reloadOrderData];
             NSLog(@"success");
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
@@ -645,7 +647,7 @@
         [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
-            [self reloadData];
+            [self reloadOrderData];
 
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
@@ -794,7 +796,16 @@
         }
         cell.addressL.text = [NSString stringWithFormat:@"%@",addressStr];
         NSString *sex = [[dict valueForKey:@"orderSendSex"] integerValue]==1 ? @"男" : @"女";
-        cell.userInfoL.text = [NSString stringWithFormat:@"%@ %@ %@岁",[dict valueForKey:@"orderSendUsername"],sex,[dict valueForKey:@"orderSendAge"]];
+
+        NSString *nameStr = [dict valueForKey:@"orderSendUsername"];
+        NSArray *nameArr = [nameStr componentsSeparatedByString:@","];
+        @try {
+            nameStr = nameArr[1];
+        } @catch (NSException *exception) {
+        } @finally {
+            
+        }
+        cell.userInfoL.text = [NSString stringWithFormat:@"%@ %@ %@岁",nameStr,sex,[dict valueForKey:@"orderSendAge"]];
         cell.remarkInfoL.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendNote"]];
         
         __weak typeof(self) weakSelf = self;
@@ -859,7 +870,16 @@
         }
         cell.addressL.text = [NSString stringWithFormat:@"%@",addressStr];
         NSString *sex = [[dict valueForKey:@"orderSendSex"] integerValue] == 1 ? @"男" : @"女";
-        cell.userInfoL.text = [NSString stringWithFormat:@"%@ %@ %@岁",[dict valueForKey:@"orderSendUsername"],sex,[dict valueForKey:@"orderSendAge"]];
+        
+        NSString *nameStr = [dict valueForKey:@"orderSendUsername"];
+        NSArray *nameArr = [nameStr componentsSeparatedByString:@","];
+        @try {
+            nameStr = nameArr[1];
+        } @catch (NSException *exception) {
+        } @finally {
+            
+        }
+        cell.userInfoL.text = [NSString stringWithFormat:@"%@ %@ %@岁",nameStr,sex,[dict valueForKey:@"orderSendAge"]];
         
         NSArray  *orderStateStr = @[@"联系客户",@"出发",@"开始服务",@"填写报告"];
         NSInteger orderIndex = [[dict valueForKey:@"orderReceivestate"] integerValue];
@@ -1223,7 +1243,7 @@
         [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
-            [self reloadData];
+            [self reloadOrderData];
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
         }
@@ -1233,7 +1253,7 @@
     }];
 }
 
-- (void)reloadData{
+- (void)reloadOrderData{
     currentPage = 0;
     if (dataArr && dataArr.count > 0) {
         [dataArr removeAllObjects];
@@ -1282,7 +1302,7 @@
                 [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:RECEIVEORDERSTATE];
             }
             [self resetSetSwitchBtState];
-            [self reloadData];
+            [self reloadOrderData];
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
         }
@@ -1313,9 +1333,6 @@
 }
 
 - (void)getBadgeNums{
-    if (badgeDataArr.count > 0) {
-        [badgeDataArr removeAllObjects];
-    }
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     NSDictionary *params= @{@"nurseId" : userAccount,@"pageNow" : @"0"};
 
@@ -1329,6 +1346,9 @@
                 [self setBadgeTextWith:badgeDataArr.count];
                 return ;
             }else{
+                if (badgeDataArr.count > 0) {
+                    [badgeDataArr removeAllObjects];
+                }
                 NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
                 if (tempArr.count >0) {
                     [badgeDataArr addObjectsFromArray:tempArr];
