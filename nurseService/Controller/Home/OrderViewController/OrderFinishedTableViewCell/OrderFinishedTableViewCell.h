@@ -15,6 +15,8 @@
 @property (nonatomic,strong)UILabel *orderReceiveTime;
 @property (nonatomic,strong)UILabel *orderFinshTime;
 @property (nonatomic,strong)UILabel *orderMoney;
+@property (nonatomic,strong)UIButton *evaluateBt;
+
 @property (nonatomic,strong) void(^reportBlock)();
 @property (nonatomic,strong) void(^evaluateBlock)();
 

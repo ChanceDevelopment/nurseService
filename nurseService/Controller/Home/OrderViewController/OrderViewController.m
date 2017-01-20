@@ -103,11 +103,11 @@
         
         //设置红点
         badge = [[UILabel alloc] init];
-        badge.backgroundColor = [UIColor redColor];
+        badge.backgroundColor = APPDEFAULTTITLECOLOR;
         [self.navigationTabBar addSubview:badge];
         badge.frame = CGRectMake(0, 0, 12, 12);
         badge.textAlignment = NSTextAlignmentCenter;
-        badge.center = CGPointMake(SCREENWIDTH/2.0+35, 22);
+        badge.center = CGPointMake(SCREENWIDTH/2.0+35, 10);
         badge.layer.cornerRadius = CGRectGetWidth(badge.frame) / 2;
         badge.layer.masksToBounds = YES;//very important
         badge.font = [UIFont systemFontOfSize:10.0];
@@ -128,6 +128,7 @@
     badge.text = (value >= 99 ?
                   [NSString stringWithFormat:@"%@+", @(99)] :
                   [NSString stringWithFormat:@"%@", @(value)]);
+    badge.hidden = NO;
     if (value <= 0) {
         badge.hidden = YES;
     }
@@ -571,10 +572,14 @@
                 
             }
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            myTableView.hidden = YES;
+            noDataView .hidden = NO;
             NSLog(@"faile");
             [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         }
     } failure:^(NSError* err){
+        myTableView.hidden = YES;
+        noDataView .hidden = NO;
         NSLog(@"err:%@",err);
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
@@ -903,31 +908,28 @@
         cell.serviceContentL.text = contentArr[1];
         NSString *state = @"";
         switch ([[dict valueForKey:@"orderSendState"] integerValue]) {
-            case 0:
-                state = @"已接单";
-                break;
-            case 1:
-                state = @"已沟通";
-                break;
-            case 2:
-                state = @"已出发";
-                break;
-            case 3:
-                state = @"开始服务";
-                break;
             case 4:
                 state = @"已完成";
+                cell.orderFinshTime.text = [NSString stringWithFormat:@"完成时间：%@",[self getTimeWith:[dict valueForKey:@"orderSendFinishOrderTime"]]];
                 break;
-                
+            case 5:
+                state = @"已取消";
+                cell.orderFinshTime.text = [NSString stringWithFormat:@"取消时间：%@",[self getTimeWith:[dict valueForKey:@"orderSendFinishOrderTime"]]];
+                break;
             default:
                 break;
         }
         cell.orderStateL.text = state;
         
-        cell.orderIdNum.text = [NSString stringWithFormat:@"订单编号：%@",[dict valueForKey:@"orderSendId"]];
-        cell.orderReceiveTime.text = [self getTimeWith:[dict objectForKey:@"orderSendGetOrderTime"]];
-        cell.orderFinshTime.text = [self getTimeWith:[dict valueForKey:@"orderSendFinishOrderTime"]];
+        cell.orderIdNum.text = [NSString stringWithFormat:@"订单编号：%@",[dict valueForKey:@"orderSendNumbers"]];
+        cell.orderReceiveTime.text = [NSString stringWithFormat:@"接单时间：%@",[self getTimeWith:[dict objectForKey:@"orderSendGetOrderTime"]]];
+
         cell.orderMoney.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
+        if ([[dict valueForKey:@"isEvaluate"] isEqualToString:@"1"]) {
+            [cell.evaluateBt setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        }else{
+            [cell.evaluateBt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        }
         cell.reportBlock = ^(){
         NSLog(@"报告");
             NurseReportVC *nurseReportVC = [[NurseReportVC alloc] init];
@@ -937,7 +939,10 @@
             [self.navigationController pushViewController:nurseReportVC animated:YES];
         };
         cell.evaluateBlock = ^(){
-        NSLog(@"评价");
+            if ([[dict valueForKey:@"isEvaluate"] isEqualToString:@"1"]) {
+                return ;
+            }
+            NSLog(@"评价");
             HeCommentNurseVC *commentNurseVC = [[HeCommentNurseVC alloc] init];
             commentNurseVC.nurseDict = dict;
             commentNurseVC.hidesBottomBarWhenPushed = YES;
@@ -955,8 +960,22 @@
     NSInteger section = indexPath.section;
     NSInteger row = indexPath.row;
     
+    NSDictionary *userInfoDic = nil;
+    NSMutableDictionary *dict = nil;
+    if (dataArr.count > 0) {
+        userInfoDic = [NSDictionary dictionaryWithDictionary:[dataArr objectAtIndex:row]];
+        dict = [NSMutableDictionary dictionaryWithDictionary:[Tool deleteNullFromDic:userInfoDic]];
+        currentDic = dict;
+    }
+    
     if (currentType == 0) {
         return 240;
+    }
+    if (currentType == 2) {
+        if ([[dict valueForKey:@"orderSendState"] integerValue] == 5) {
+            //已取消
+            return 130;
+        }
     }
     
     return 160;

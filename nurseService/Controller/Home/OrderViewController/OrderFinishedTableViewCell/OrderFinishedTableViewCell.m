@@ -15,6 +15,7 @@
 @synthesize orderFinshTime;
 @synthesize orderMoney;
 @synthesize orderStateL;
+@synthesize evaluateBt;
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier cellSize:(CGSize)cellsize
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier cellSize:cellsize];
@@ -84,7 +85,7 @@
         [bgView addSubview:line2];
         line2.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
         
-        UIButton *evaluateBt = [[UIButton alloc] initWithFrame:CGRectMake(SCREENWIDTH/2.0-5, 111, SCREENWIDTH/2.0-5, 35)];
+        evaluateBt = [[UIButton alloc] initWithFrame:CGRectMake(SCREENWIDTH/2.0-5, 111, SCREENWIDTH/2.0-5, 35)];
         [evaluateBt setTitle:@"去评价" forState:UIControlStateNormal];
         [evaluateBt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         evaluateBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
