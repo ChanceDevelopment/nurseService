@@ -510,9 +510,6 @@
                             }
                             noDataView.hidden = YES;
                             myTableView.hidden = NO;
-                        }else{
-                            noDataView.hidden = NO;
-                            myTableView.hidden = YES;
                         }
                     }
                         break;
@@ -526,12 +523,9 @@
                             [footerView removeFromSuperview];
                             footerView = nil;
                         }
-                        if (tempArr.count >0){
+                        if (tempArr.count > 0){
                             noDataView.hidden = YES;
                             myTableView.hidden = NO;
-                        }else{
-                            noDataView.hidden = NO;
-                            myTableView.hidden = YES;
                         }
                     }
                         break;
@@ -547,9 +541,6 @@
                         if (tempArr.count >0){
                             noDataView.hidden = YES;
                             myTableView.hidden = NO;
-                        }else{
-                            noDataView.hidden = NO;
-                            myTableView.hidden = YES;
                         }
                     }
                         break;
@@ -557,7 +548,7 @@
                         break;
                 }
                 
-                if (tempArr.count >0) {
+                if (tempArr.count > 0) {
                     if (currentType != 1) {
                         currentPage++;
                     }
@@ -565,6 +556,10 @@
                     [dataArr addObjectsFromArray:tempArr];
                     [myTableView reloadData];
                 }else{
+                    if (currentPage == 0 && tempArr.count == 0) {
+                        noDataView.hidden = NO;
+                        myTableView.hidden = YES;
+                    }
                     [myTableView reloadData];
                     return;
                 }
@@ -1085,6 +1080,10 @@
     if (currentType == 0) {
         return 240;
     }
+    if (currentType == 1) {
+        return 180;
+    }
+    
     if (currentType == 2) {
         if ([[dict valueForKey:@"orderSendState"] integerValue] == 4) {
             //已取消
@@ -1401,7 +1400,7 @@
                 [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:RECEIVEORDERSTATE];
             }
             [self resetSetSwitchBtState];
-            [self reloadOrderData];
+//            [self reloadOrderData];
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
         }

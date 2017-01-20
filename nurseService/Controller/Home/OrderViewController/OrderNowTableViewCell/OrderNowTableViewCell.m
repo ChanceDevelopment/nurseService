@@ -23,7 +23,7 @@
     if (self) {
         
         CGFloat bgView_W = SCREENWIDTH-10;
-        UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, bgView_W, 150)];
+        UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(5, 0, bgView_W, 170)];
         bgView.backgroundColor = [UIColor whiteColor];
         bgView.userInteractionEnabled = YES;
         [self addSubview:bgView];
@@ -33,7 +33,7 @@
         CGFloat serviceContentLX = 10;
         CGFloat serviceContentLY = 5;
         CGFloat serviceContentLW = SCREENWIDTH - serviceContentLX;
-        CGFloat serviceContentLH = 44;
+        CGFloat serviceContentLH = 35;
         
         serviceContentL = [[UILabel alloc] initWithFrame:CGRectMake(serviceContentLX, serviceContentLY, serviceContentLW, serviceContentLH)];
         serviceContentL.userInteractionEnabled = YES;
@@ -43,7 +43,7 @@
         serviceContentL.backgroundColor = [UIColor clearColor];
         [bgView addSubview:serviceContentL];
         
-        UIImageView *rightV = [[UIImageView alloc] initWithFrame:CGRectMake(bgView_W-30, 14, 20, 20)];
+        UIImageView *rightV = [[UIImageView alloc] initWithFrame:CGRectMake(bgView_W-30, 10, 20, 20)];
         rightV.backgroundColor = [UIColor clearColor];
         rightV.image = [UIImage imageNamed:@"icon_into_right"];
         rightV.userInteractionEnabled = YES;
@@ -98,14 +98,16 @@
         [bgView addSubview:line1];
         line1.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
         
-        UILabel *userTip = [[UILabel alloc] initWithFrame:CGRectMake(10, 91, 200, 20)];
+        CGFloat lineY = CGRectGetMaxY(line1.frame);
+        
+        UILabel *userTip = [[UILabel alloc] initWithFrame:CGRectMake(10, lineY, 200, 35)];
         userTip.textColor = [UIColor blackColor];
         userTip.text = @"患者信息";
         userTip.font = [UIFont systemFontOfSize:12.0];
         userTip.backgroundColor = [UIColor clearColor];
         [bgView addSubview:userTip];
 
-        userInfoL = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH-160, 91, 130, 20)];
+        userInfoL = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH-160, lineY, 130, 35)];
         userInfoL.textColor = [UIColor blackColor];
         userInfoL.userInteractionEnabled = YES;
         userInfoL.font = [UIFont systemFontOfSize:12.0];
@@ -113,7 +115,7 @@
         userInfoL.backgroundColor = [UIColor clearColor];
         [bgView addSubview:userInfoL];
 
-        UIImageView *rightV1 = [[UIImageView alloc] initWithFrame:CGRectMake(bgView_W-20, 96, 10, 10)];
+        UIImageView *rightV1 = [[UIImageView alloc] initWithFrame:CGRectMake(bgView_W-20, lineY+13, 10, 10)];
         rightV1.backgroundColor = [UIColor clearColor];
         rightV1.image = [UIImage imageNamed:@"icon_into_right"];
         rightV1.userInteractionEnabled = YES;
@@ -122,7 +124,12 @@
         UITapGestureRecognizer *userInfoTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showUserInfo)];
         [userInfoL addGestureRecognizer:userInfoTap];
         
-        UILabel *cancleL = [[UILabel alloc] initWithFrame:CGRectMake(0, 111, 90, 35)];
+        lineY = CGRectGetMaxY(userTip.frame);
+        UILabel *line3 = [[UILabel alloc] initWithFrame:CGRectMake(5, lineY, bgView_W-10, 1)];
+        [bgView addSubview:line3];
+        line3.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
+        
+        UILabel *cancleL = [[UILabel alloc] initWithFrame:CGRectMake(0, lineY, 90, 35)];
         cancleL.textColor = [UIColor grayColor];
         cancleL.userInteractionEnabled = YES;
         cancleL.textAlignment = NSTextAlignmentCenter;
@@ -134,12 +141,12 @@
         UITapGestureRecognizer *cancleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cancleRequst)];
         [cancleL addGestureRecognizer:cancleTap];
 
-        UILabel *line2 = [[UILabel alloc] initWithFrame:CGRectMake(90, 113, 1, 30)];
+        UILabel *line2 = [[UILabel alloc] initWithFrame:CGRectMake(90, lineY+2, 1, 30)];
         [bgView addSubview:line2];
         line2.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
 
         CGFloat nextStepW = (SCREENWIDTH-100)*2/5.0;
-        UILabel *nextStepL = [[UILabel alloc] initWithFrame:CGRectMake(90, 111, nextStepW, 35)];
+        UILabel *nextStepL = [[UILabel alloc] initWithFrame:CGRectMake(90, lineY, nextStepW, 35)];
         nextStepL.textColor = [UIColor blackColor];
         nextStepL.userInteractionEnabled = YES;
         nextStepL.textAlignment = NSTextAlignmentRight;
@@ -150,7 +157,7 @@
 
         CGFloat oderStateX = 90 + nextStepW;
         CGFloat oderStateW = (SCREENWIDTH-100)*3/5.0;
-        oderStateL = [[UILabel alloc] initWithFrame:CGRectMake(oderStateX, 111, oderStateW, 35)];
+        oderStateL = [[UILabel alloc] initWithFrame:CGRectMake(oderStateX, lineY, oderStateW, 35)];
         oderStateL.textColor = [UIColor grayColor];
         oderStateL.userInteractionEnabled = YES;
         oderStateL.font = [UIFont systemFontOfSize:12.0];
