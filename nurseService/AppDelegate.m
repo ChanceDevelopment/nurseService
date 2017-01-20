@@ -124,8 +124,8 @@ BMKMapManager* _mapManager;
         NSLog(@"iOS10 收到远程通知:%@", userInfo);
         //        [rootViewController addNotificationCount];
         
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:body delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
-        [alert show];
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:body delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+//        [alert show];
         
     }
     else {

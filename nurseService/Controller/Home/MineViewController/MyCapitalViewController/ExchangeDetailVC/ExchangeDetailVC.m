@@ -47,7 +47,7 @@
     // Do any additional setup after loading the view from its nib.
     [self initializaiton];
     [self initView];
-//    [self getData];
+    [self getData];
 }
 
 - (void)initializaiton
@@ -66,6 +66,7 @@
     tableview.backgroundColor = self.view.backgroundColor;
     tableview.backgroundView = nil;
     [Tool setExtraCellLineHidden:tableview];
+    [tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
     
     CGFloat noDataViewW = 50;
@@ -79,12 +80,13 @@
     noDataView.image = [UIImage imageNamed:@"img_no_data"];
     noDataView.hidden = YES;
     
-    [tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
     self.tableview.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         self.tableview.footer.automaticallyHidden = YES;
         self.tableview.footer.hidden = NO;
         // 进入刷新状态后会自动调用这个block，加载更多
+        //处理上拉后的逻辑
+        [self getData];
         [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
     }];
 
@@ -100,8 +102,7 @@
         // 进入刷新状态后会自动调用这个block，加载更多
         [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
     }];
-    //处理上拉后的逻辑
-    [self getData];
+
 }
 
 
@@ -132,8 +133,10 @@
                     noDataView.hidden = YES;
                     tableview.hidden = NO;
                 }else{
-                    tableview.hidden = YES;
-                    noDataView.hidden = NO;
+                    if (currentPage == 0 && tempArr.count == 0) {
+                        noDataView.hidden = NO;
+                        tableview.hidden = YES;
+                    }
                     return ;
                 }
             }
@@ -153,7 +156,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;//dataArr.count;
+    return dataArr.count;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
