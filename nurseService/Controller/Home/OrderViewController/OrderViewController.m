@@ -22,17 +22,25 @@
 #import "NurseReportVC.h"
 #import "CheckDetailVC.h"
 #import "HeCommentNurseVC.h"
+#import "WZLBadgeImport.h"
+
 
 @interface OrderViewController ()<UITableViewDelegate,UITableViewDataSource>{
     NSInteger currentPage;
     NSInteger currentType;
     NSMutableArray *dataArr;
+
     UIView *receiveOrderView;
     UIView *windowView;
     NSDictionary *currentDic;
     UIImageView *noDataView;
     UIButton *switchBt;
     UILabel *titleLabel;
+    
+    UILabel *badge;
+    NSMutableArray *badgeDataArr;
+    NSInteger currentBadgePage;
+    
 }
 @property(nonatomic,strong)DLNavigationTabBar *navigationTabBar;
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
@@ -92,6 +100,22 @@
         self.navigationTabBar.sliderBackgroundColor = APPDEFAULTORANGE;
         self.navigationTabBar.buttonNormalTitleColor = [UIColor grayColor];
         self.navigationTabBar.buttonSelectedTileColor = APPDEFAULTORANGE;
+        
+        //设置红点
+        badge = [[UILabel alloc] init];
+        badge.backgroundColor = [UIColor redColor];
+        [self.navigationTabBar addSubview:badge];
+        badge.frame = CGRectMake(0, 0, 12, 12);
+        badge.textAlignment = NSTextAlignmentCenter;
+        badge.center = CGPointMake(SCREENWIDTH/2.0+35, 22);
+        badge.layer.cornerRadius = CGRectGetWidth(badge.frame) / 2;
+        badge.layer.masksToBounds = YES;//very important
+        badge.font = [UIFont systemFontOfSize:10.0];
+        badge.hidden = NO;
+        badge.textColor = [UIColor whiteColor];
+        badge.adjustsFontSizeToFitWidth = YES;
+        [self setBadgeTextWith:9];
+
         __weak typeof(self) weakSelf = self;
         [self.navigationTabBar setDidClickAtIndex:^(NSInteger index){
             [weakSelf navigationDidSelectedControllerIndex:index];
@@ -100,8 +124,25 @@
     return _navigationTabBar;
 }
 
+- (void)setBadgeTextWith:(NSInteger)value{
+    badge.text = (value >= 99 ?
+                  [NSString stringWithFormat:@"%@+", @(99)] :
+                  [NSString stringWithFormat:@"%@", @(value)]);
+    if (value <= 0) {
+        badge.hidden = YES;
+    }
+}
+
+
+
 - (void)viewWillAppear:(BOOL)animated{
     [self getReceiveOrderSwitchState];
+    
+    if (badgeDataArr.count > 0) {
+        [badgeDataArr removeAllObjects];
+    }
+    currentBadgePage = 0;
+    [self getBadgeNums];
 }
 
 - (void)viewDidLoad {
@@ -109,23 +150,24 @@
     // Do any additional setup after loading the view from its nib.
     [self initializaiton];
     [self initView];
+    [self getDataWithUrl:ORDERLOOKRECEIVER];
 }
 
 - (void)initializaiton
 {
     [super initializaiton];
+    currentPage = 0;
+    currentType = 0;
+    dataArr = [[NSMutableArray alloc] initWithCapacity:0];
+    currentDic = [[NSDictionary alloc] init];
+    badgeDataArr = [[NSMutableArray alloc] initWithCapacity:0];
+
 }
 
 - (void)initView
 {
     [super initView];
     [self.view addSubview:self.navigationTabBar];
-    
-    currentPage = 0;
-    currentType = 0;
-    dataArr = [[NSMutableArray alloc] initWithCapacity:0];
-    currentDic = [[NSDictionary alloc] init];
-
     
     CGFloat tableViewY = 44;
     CGFloat tableViewH = self.view.frame.size.height-44-120-48+80;
@@ -188,18 +230,6 @@
     
     [switchBt addTarget:self action:@selector(receiveOrderSwitchChangeValue:) forControlEvents:UIControlEventTouchUpInside];
     [receiveOrderView addSubview:switchBt];
-//
-//    ZJSwitch *receiveOrderSwitch = [[ZJSwitch alloc] initWithFrame:CGRectMake(receiveOrderX, receiveOrderY, receiveOrderW, receiveOrderH)];
-//    receiveOrderSwitch.on = [[NSUserDefaults standardUserDefaults] objectForKey:RECEIVEORDERSTATE];
-//    [receiveOrderSwitch addTarget:self action:@selector(receiveOrderSwitchChangeValue:) forControlEvents:UIControlEventValueChanged];
-//    receiveOrderSwitch.tintColor = APPDEFAULTORANGE;
-//    receiveOrderSwitch.onTintColor = APPDEFAULTORANGE;
-//    receiveOrderSwitch.thumbTintColor = [UIColor whiteColor];
-//    receiveOrderSwitch.layer.borderWidth = 0.5;
-//    receiveOrderSwitch.layer.borderColor = APPDEFAULTORANGE.CGColor;
-//    [receiveOrderView addSubview:receiveOrderSwitch];
-    
-    
     
     UIBarButtonItem *receiveOrderItem = [[UIBarButtonItem alloc] initWithCustomView:receiveOrderView];
     self.navigationItem.rightBarButtonItem = receiveOrderItem;
@@ -222,9 +252,6 @@
         [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
     }];
     
-    
-    [self getDataWithUrl:ORDERLOOKRECEIVER];
-
 }
 
 - (void)initFooterView{
@@ -1268,6 +1295,39 @@
     time = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"yyyy/MM/dd HH:MM:SS"];
     return time;
 }
+
+- (void)getBadgeNums{
+    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+    NSDictionary *params= @{@"nurseId" : userAccount,@"pageNow" : [NSString stringWithFormat:@"%ld",currentBadgePage]};
+
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:ORDERSTATENOW params:params success:^(AFHTTPRequestOperation* operation,id response){
+        
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            if ([[respondDict valueForKey:@"json"] isMemberOfClass:[NSNull class]] || [respondDict valueForKey:@"json"] == nil) {
+                [self setBadgeTextWith:badgeDataArr.count];
+            }else{
+                NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
+                if (tempArr.count >0) {
+                    currentBadgePage++;
+                    [badgeDataArr addObjectsFromArray:tempArr];
+                    [self getBadgeNums];
+                }else{
+                    [self setBadgeTextWith:badgeDataArr.count];
+                }
+            }
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+            [self setBadgeTextWith:0];
+        }
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

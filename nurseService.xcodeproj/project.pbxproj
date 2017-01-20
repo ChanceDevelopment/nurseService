@@ -28,6 +28,10 @@
 		57F511381E30A0D0003D0A7A /* PNScatterChartData.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F511271E30A0D0003D0A7A /* PNScatterChartData.m */; };
 		57F511391E30A0D0003D0A7A /* PNScatterChartDataItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F511291E30A0D0003D0A7A /* PNScatterChartDataItem.m */; };
 		57F5113C1E30A3B3003D0A7A /* UICountingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F5113B1E30A3B3003D0A7A /* UICountingLabel.m */; };
+		AD0F506E1E31867700BEA52D /* UIBarButtonItem+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0F50621E31867600BEA52D /* UIBarButtonItem+WZLBadge.m */; };
+		AD0F506F1E31867700BEA52D /* UITabBarItem+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0F50641E31867700BEA52D /* UITabBarItem+WZLBadge.m */; };
+		AD0F50701E31867700BEA52D /* CAAnimation+WAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0F50671E31867700BEA52D /* CAAnimation+WAnimation.m */; };
+		AD0F50711E31867700BEA52D /* UIView+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0F506C1E31867700BEA52D /* UIView+WZLBadge.m */; };
 		AD13A66D1E2B8DAD002ADE2B /* MyFansVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD13A66B1E2B8DAD002ADE2B /* MyFansVC.m */; };
 		AD13A66E1E2B8DAD002ADE2B /* MyFansVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD13A66C1E2B8DAD002ADE2B /* MyFansVC.xib */; };
 		AD13A6711E2BB067002ADE2B /* icon_switch_close.png in Resources */ = {isa = PBXBuildFile; fileRef = AD13A66F1E2BB067002ADE2B /* icon_switch_close.png */; };
@@ -788,6 +792,16 @@
 		57F511291E30A0D0003D0A7A /* PNScatterChartDataItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNScatterChartDataItem.m; sourceTree = "<group>"; };
 		57F5113A1E30A3B3003D0A7A /* UICountingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICountingLabel.h; sourceTree = "<group>"; };
 		57F5113B1E30A3B3003D0A7A /* UICountingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICountingLabel.m; sourceTree = "<group>"; };
+		AD0F50611E31867600BEA52D /* UIBarButtonItem+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+WZLBadge.h"; sourceTree = "<group>"; };
+		AD0F50621E31867600BEA52D /* UIBarButtonItem+WZLBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+WZLBadge.m"; sourceTree = "<group>"; };
+		AD0F50631E31867600BEA52D /* UITabBarItem+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+WZLBadge.h"; sourceTree = "<group>"; };
+		AD0F50641E31867700BEA52D /* UITabBarItem+WZLBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITabBarItem+WZLBadge.m"; sourceTree = "<group>"; };
+		AD0F50661E31867700BEA52D /* CAAnimation+WAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CAAnimation+WAnimation.h"; sourceTree = "<group>"; };
+		AD0F50671E31867700BEA52D /* CAAnimation+WAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CAAnimation+WAnimation.m"; sourceTree = "<group>"; };
+		AD0F50691E31867700BEA52D /* WZLBadgeProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZLBadgeProtocol.h; sourceTree = "<group>"; };
+		AD0F506B1E31867700BEA52D /* UIView+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WZLBadge.h"; sourceTree = "<group>"; };
+		AD0F506C1E31867700BEA52D /* UIView+WZLBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WZLBadge.m"; sourceTree = "<group>"; };
+		AD0F506D1E31867700BEA52D /* WZLBadgeImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WZLBadgeImport.h; sourceTree = "<group>"; };
 		AD13A66A1E2B8DAD002ADE2B /* MyFansVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFansVC.h; sourceTree = "<group>"; };
 		AD13A66B1E2B8DAD002ADE2B /* MyFansVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFansVC.m; sourceTree = "<group>"; };
 		AD13A66C1E2B8DAD002ADE2B /* MyFansVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyFansVC.xib; sourceTree = "<group>"; };
@@ -2130,6 +2144,55 @@
 			path = nurseService/Helper/PNChart;
 			sourceTree = SOURCE_ROOT;
 		};
+		AD0F505F1E31867600BEA52D /* WZLBadge */ = {
+			isa = PBXGroup;
+			children = (
+				AD0F50601E31867600BEA52D /* BarItem */,
+				AD0F50651E31867700BEA52D /* CategorySupport */,
+				AD0F50681E31867700BEA52D /* Protocol */,
+				AD0F506A1E31867700BEA52D /* View */,
+				AD0F506D1E31867700BEA52D /* WZLBadgeImport.h */,
+			);
+			path = WZLBadge;
+			sourceTree = "<group>";
+		};
+		AD0F50601E31867600BEA52D /* BarItem */ = {
+			isa = PBXGroup;
+			children = (
+				AD0F50611E31867600BEA52D /* UIBarButtonItem+WZLBadge.h */,
+				AD0F50621E31867600BEA52D /* UIBarButtonItem+WZLBadge.m */,
+				AD0F50631E31867600BEA52D /* UITabBarItem+WZLBadge.h */,
+				AD0F50641E31867700BEA52D /* UITabBarItem+WZLBadge.m */,
+			);
+			path = BarItem;
+			sourceTree = "<group>";
+		};
+		AD0F50651E31867700BEA52D /* CategorySupport */ = {
+			isa = PBXGroup;
+			children = (
+				AD0F50661E31867700BEA52D /* CAAnimation+WAnimation.h */,
+				AD0F50671E31867700BEA52D /* CAAnimation+WAnimation.m */,
+			);
+			path = CategorySupport;
+			sourceTree = "<group>";
+		};
+		AD0F50681E31867700BEA52D /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				AD0F50691E31867700BEA52D /* WZLBadgeProtocol.h */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		AD0F506A1E31867700BEA52D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AD0F506B1E31867700BEA52D /* UIView+WZLBadge.h */,
+				AD0F506C1E31867700BEA52D /* UIView+WZLBadge.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		AD13A6691E2B8D99002ADE2B /* MyFansVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -2481,6 +2544,7 @@
 		ADDBEB2E1DFCE267000BDA95 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				AD0F505F1E31867600BEA52D /* WZLBadge */,
 				AD5CD6D31E0FB13F0025517E /* DelMenuItem */,
 				AD8BB1161E092857004064F9 /* UIViewToast */,
 				ADDBEB7A1DFCE87E000BDA95 /* LBBannerKit */,
@@ -5209,6 +5273,7 @@
 				EAC2D96B1D4B063B00E282A8 /* UUDatePicker.m in Sources */,
 				EA1743301E1E33AE0038E805 /* UIButton+Corner.m in Sources */,
 				EAA655191E0627C300F424DD /* DFUserActivityDetailLineItem.m in Sources */,
+				AD0F506E1E31867700BEA52D /* UIBarButtonItem+WZLBadge.m in Sources */,
 				EAC2D8F81D4B063B00E282A8 /* RACDynamicSequence.m in Sources */,
 				EAA6553B1E0627C400F424DD /* DFUserActivityDetailLineCell.m in Sources */,
 				EA17433D1E1E33AE0038E805 /* MP3Converter.m in Sources */,
@@ -5319,6 +5384,7 @@
 				EAC2D92A1D4B063B00E282A8 /* UIRefreshControl+RACCommandSupport.m in Sources */,
 				ADDBEB581DFCE31B000BDA95 /* UIViewController+RESideMenu.m in Sources */,
 				EAC2D9071D4B063B00E282A8 /* RACPassthroughSubscriber.m in Sources */,
+				AD0F50711E31867700BEA52D /* UIView+WZLBadge.m in Sources */,
 				EAC2D80B1D4B063B00E282A8 /* NSString+change.m in Sources */,
 				EAC2D8911D4B063B00E282A8 /* UIWindow+Hierarchy.m in Sources */,
 				EABFECAC1E1B8D4E009C27C5 /* MASCompositeConstraint.m in Sources */,
@@ -5561,6 +5627,7 @@
 				EAC2D8D51D4B063B00E282A8 /* ODRefreshControl.m in Sources */,
 				EAC2D8F41D4B063B00E282A8 /* RACCompoundDisposable.m in Sources */,
 				EAC2D8261D4B063B00E282A8 /* UIAlertView+AFNetworking.m in Sources */,
+				AD0F50701E31867700BEA52D /* CAAnimation+WAnimation.m in Sources */,
 				57F511381E30A0D0003D0A7A /* PNScatterChartData.m in Sources */,
 				EAA655341E0627C400F424DD /* DFActivityLineCell.m in Sources */,
 				EA1743581E1E33AF0038E805 /* DFBaseStorageService.m in Sources */,
@@ -5593,6 +5660,7 @@
 				EAA655101E0627C300F424DD /* DFUserLineCellAdapterManager.m in Sources */,
 				ADB49C651E164BEB008DBCF6 /* DrawCashViewController.m in Sources */,
 				EAC2D95D1D4B063B00E282A8 /* TZImageManager.m in Sources */,
+				AD0F506F1E31867700BEA52D /* UITabBarItem+WZLBadge.m in Sources */,
 				EAC2D97B1D4B063B00E282A8 /* UIImageUploader.m in Sources */,
 				ADDBEB481DFCE267000BDA95 /* RDVTabBarController.m in Sources */,
 				AD8BB1191E092857004064F9 /* UIView+Toast.m in Sources */,

@@ -47,7 +47,7 @@
     // Do any additional setup after loading the view from its nib.
     [self initializaiton];
     [self initView];
-    [self getFansData];
+//    [self getFansData];
 }
 
 - (void)initializaiton
@@ -146,7 +146,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return dataArr.count;
+    return 3;//dataArr.count;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -160,13 +160,76 @@
     
     static NSString *cellIndentifier = @"OrderFinishedTableViewCell";
     CGSize cellSize = [tableView rectForRowAtIndexPath:indexPath].size;
-    //    NSDictionary *dict = [NSDictionary dictionaryWithDictionary:infoDic];
+    NSDictionary *dict = [NSDictionary dictionaryWithDictionary:dataArr[row]];
     
     HeBaseTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell) {
         cell = [[HeBaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier cellSize:cellSize];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    CGFloat itemX = 10;
+    CGFloat itemY = 15;
+    CGFloat itemW = 40;
+    UIImageView *headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(itemX, itemY, itemW, itemW)];
+    headImageView.backgroundColor = [UIColor clearColor];
+    headImageView.layer.masksToBounds = YES;
+    headImageView.image = [UIImage imageNamed:@"defalut_icon"];
+    headImageView.contentMode = UIViewContentModeScaleAspectFill;
+    headImageView.layer.borderWidth = 0.0;
+    headImageView.layer.cornerRadius = 40 / 2.0;
+    headImageView.layer.masksToBounds = YES;
+    [cell addSubview:headImageView];
+    NSString *userHeader = [NSString stringWithFormat:@"%@%@",PIC_URL,[dict valueForKey:@"userHeader"]];
+    [headImageView sd_setImageWithURL:[NSURL URLWithString:userHeader] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];
+
+    itemX = CGRectGetMaxX(headImageView.frame);
+    itemY = 0;
+    itemW = 180;
+    UILabel *nameL = [[UILabel alloc] initWithFrame:CGRectMake(itemX, itemY, itemW, 30)];
+    nameL.textColor = [UIColor blackColor];
+    nameL.font = [UIFont systemFontOfSize:15.0];
+    nameL.backgroundColor = [UIColor clearColor];
+    nameL.adjustsFontSizeToFitWidth = YES;
+    nameL.text = [dict valueForKey:@"nurseNick"];
+    [cell addSubview:nameL];
+    
+    itemX = CGRectGetMaxX(nameL.frame);
+    itemW = 100;
+    UILabel *workL = [[UILabel alloc] initWithFrame:CGRectMake(itemX, itemY, itemW, 30)];
+    workL.textColor = [UIColor blackColor];
+    workL.font = [UIFont systemFontOfSize:15.0];
+    workL.backgroundColor = [UIColor clearColor];
+    workL.adjustsFontSizeToFitWidth = YES;
+    workL.text = [dict valueForKey:@"workUnit"];
+    [cell addSubview:workL];
+    
+    itemX = CGRectGetMaxX(headImageView.frame)+5;
+    itemY = CGRectGetMaxY(nameL.frame)-5;
+    itemW = 200;
+    UILabel *stateL = [[UILabel alloc] initWithFrame:CGRectMake(itemX, itemY, itemW, 25)];
+    stateL.textColor = [UIColor blackColor];
+    stateL.font = [UIFont systemFontOfSize:12.0];
+    stateL.backgroundColor = [UIColor clearColor];
+//    stateL.text =@"国家卫委认证  已实名认证";
+    [cell addSubview:stateL];
+    
+    itemY = CGRectGetMaxY(stateL.frame)-5;
+    UILabel *noteL = [[UILabel alloc] initWithFrame:CGRectMake(itemX, itemY, itemW, 25)];
+    noteL.textColor = [UIColor blackColor];
+    noteL.font = [UIFont systemFontOfSize:12.0];
+    noteL.backgroundColor = [UIColor clearColor];
+    noteL.text = [dict valueForKey:@"nurseNote"];
+    [cell addSubview:noteL];
+
+    itemX = SCREENWIDTH -30;
+    itemY = 25;
+    itemW = 20;
+    UIImageView *rightV = [[UIImageView alloc] initWithFrame:CGRectMake(itemX, itemY, itemW, itemW)];
+    rightV.backgroundColor = [UIColor clearColor];
+    rightV.image = [UIImage imageNamed:@"icon_into_right"];
+    rightV.userInteractionEnabled = YES;
+    [cell addSubview:rightV];
+    
     
     
     return cell;

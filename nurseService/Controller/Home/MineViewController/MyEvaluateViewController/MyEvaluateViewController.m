@@ -161,6 +161,7 @@
 - (void)navigationDidSelectedControllerIndex:(NSInteger)index {
     NSLog(@"index = %ld",index);
     currentType = index;
+    currentPage = 0;
     if (dataArr) {
         [dataArr removeAllObjects];
     }
@@ -200,12 +201,18 @@
     cell.telephoneNum.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"userPhone"]];
     cell.evaluateInfo.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"evaluateContent"]];
 
-    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateStyle:NSDateFormatterMediumStyle];
-    [formatter setTimeStyle:NSDateFormatterShortStyle];
-    [formatter setDateFormat:@"yyyy/MM/dd HH:MM"];
-    NSDate *datea = [NSDate dateWithTimeIntervalSince1970:[[dict valueForKey:@"evaluateCreatetime"] longValue]];
-    NSString *dateString = [formatter stringFromDate:datea];
+    id zoneCreatetimeObj = [dict objectForKey:@"evaluateCreatetime"];
+    if ([zoneCreatetimeObj isMemberOfClass:[NSNull class]] || zoneCreatetimeObj == nil) {
+        NSTimeInterval  timeInterval = [[NSDate date] timeIntervalSince1970];
+        zoneCreatetimeObj = [NSString stringWithFormat:@"%.0f000",timeInterval];
+    }
+    long long timestamp = [zoneCreatetimeObj longLongValue];
+    NSString *zoneCreatetime = [NSString stringWithFormat:@"%lld",timestamp];
+    if ([zoneCreatetime length] > 3) {
+        //时间戳
+        zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
+    }
+    NSString *dateString = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"yyyy/MM/dd HH:MM"];
     cell.time.text = dateString;
     
     NSInteger starNum = [[dict valueForKey:@"evaluateMark"] integerValue];

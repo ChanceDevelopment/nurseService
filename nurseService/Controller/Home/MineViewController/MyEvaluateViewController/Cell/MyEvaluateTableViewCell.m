@@ -41,6 +41,7 @@
         time = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH-135, 40, 130, 30)];
         time.textColor = [UIColor grayColor];
         time.textAlignment = NSTextAlignmentRight;
+        time.adjustsFontSizeToFitWidth = YES;
         time.font = [UIFont systemFontOfSize:15.0];
         time.backgroundColor = [UIColor clearColor];
         [self addSubview:time];
