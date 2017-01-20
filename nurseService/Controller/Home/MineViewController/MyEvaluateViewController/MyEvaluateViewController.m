@@ -103,6 +103,10 @@
         self.myTableView.footer.automaticallyHidden = YES;
         self.myTableView.footer.hidden = NO;
         // 进入刷新状态后会自动调用这个block，加载更多
+        
+        //处理上拉后的逻辑
+        NSLog(@"endRefreshing");
+        [self getDataWithType:currentType];
         [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
     }];
     
@@ -118,14 +122,6 @@
         // 进入刷新状态后会自动调用这个block，加载更多
         [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
     }];
-    
-    
-    //处理上拉后的逻辑
-    NSLog(@"endRefreshing");
-    [self getDataWithType:currentType];
-    
-    
-    
 }
 - (void)getDataWithType:(NSInteger)type{
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
@@ -139,20 +135,28 @@
             NSLog(@"success");
             NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
             if (tempArr.count > 0) {
-                currentPage++;
-                
                 [dataArr addObjectsFromArray:tempArr];
                 [myTableView reloadData];
                 noDataView.hidden = YES;
                 myTableView.hidden = NO;
+                
+                currentPage++;
+                [myTableView reloadData];
             }else{
-                myTableView.hidden = YES;
-                noDataView.hidden = NO;
-                return ;
+                
+                if(currentPage == 0 && tempArr.count == 0){
+                    myTableView.hidden = YES;
+                    noDataView.hidden = NO;
+                    return ;
+                }
             }
+            
+
 
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
+            myTableView.hidden = YES;
+            noDataView.hidden = NO;
             [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         }
     } failure:^(NSError* err){
