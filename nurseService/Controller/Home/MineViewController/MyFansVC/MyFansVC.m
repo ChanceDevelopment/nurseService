@@ -47,7 +47,7 @@
     // Do any additional setup after loading the view from its nib.
     [self initializaiton];
     [self initView];
-//    [self getFansData];
+    [self getFansData];
 }
 
 - (void)initializaiton
@@ -146,7 +146,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;//dataArr.count;
+    return dataArr.count;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -160,8 +160,14 @@
     
     static NSString *cellIndentifier = @"OrderFinishedTableViewCell";
     CGSize cellSize = [tableView rectForRowAtIndexPath:indexPath].size;
-    NSDictionary *dict = [NSDictionary dictionaryWithDictionary:dataArr[row]];
-    
+    NSDictionary *dict;
+    @try {
+        dict = [NSDictionary dictionaryWithDictionary:dataArr[row]];
+    } @catch (NSException *exception) {
+        
+    } @finally {
+        
+    }
     HeBaseTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell) {
         cell = [[HeBaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier cellSize:cellSize];
@@ -182,7 +188,7 @@
     NSString *userHeader = [NSString stringWithFormat:@"%@%@",PIC_URL,[dict valueForKey:@"userHeader"]];
     [headImageView sd_setImageWithURL:[NSURL URLWithString:userHeader] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];
 
-    itemX = CGRectGetMaxX(headImageView.frame);
+    itemX = CGRectGetMaxX(headImageView.frame)+10;
     itemY = 0;
     itemW = 180;
     UILabel *nameL = [[UILabel alloc] initWithFrame:CGRectMake(itemX, itemY, itemW, 30)];
@@ -203,7 +209,7 @@
     workL.text = [dict valueForKey:@"workUnit"];
     [cell addSubview:workL];
     
-    itemX = CGRectGetMaxX(headImageView.frame)+5;
+    itemX = CGRectGetMaxX(headImageView.frame)+10;
     itemY = CGRectGetMaxY(nameL.frame)-5;
     itemW = 200;
     UILabel *stateL = [[UILabel alloc] initWithFrame:CGRectMake(itemX, itemY, itemW, 25)];

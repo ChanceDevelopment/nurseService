@@ -114,7 +114,7 @@
         badge.hidden = NO;
         badge.textColor = [UIColor whiteColor];
         badge.adjustsFontSizeToFitWidth = YES;
-        [self setBadgeTextWith:9];
+        [self setBadgeTextWith:0];
 
         __weak typeof(self) weakSelf = self;
         [self.navigationTabBar setDidClickAtIndex:^(NSInteger index){
@@ -1308,16 +1308,15 @@
             NSLog(@"success");
             if ([[respondDict valueForKey:@"json"] isMemberOfClass:[NSNull class]] || [respondDict valueForKey:@"json"] == nil) {
                 [self setBadgeTextWith:badgeDataArr.count];
+                return ;
             }else{
                 NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
                 if (tempArr.count >0) {
-                    currentBadgePage++;
                     [badgeDataArr addObjectsFromArray:tempArr];
-                    [self getBadgeNums];
-                }else{
-                    [self setBadgeTextWith:badgeDataArr.count];
                 }
+                [self setBadgeTextWith:badgeDataArr.count];
             }
+
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
             [self setBadgeTextWith:0];
