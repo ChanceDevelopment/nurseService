@@ -227,7 +227,6 @@
 		EA1ADE931E1DFCDD00A8422D /* icon_rightarrow_violet.png in Resources */ = {isa = PBXBuildFile; fileRef = EA1ADE911E1DFCDD00A8422D /* icon_rightarrow_violet.png */; };
 		EA1ADE951E1DFCE800A8422D /* icon_leftarrow_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = EA1ADE941E1DFCE800A8422D /* icon_leftarrow_gray.png */; };
 		EA1ADE991E1E14BD00A8422D /* MZTimerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1ADE981E1E14BD00A8422D /* MZTimerLabel.m */; };
-		EA472CB11E04DCF500E0316F /* icon_add_photo_violet.png in Resources */ = {isa = PBXBuildFile; fileRef = EA472CAF1E04DCF500E0316F /* icon_add_photo_violet.png */; };
 		EA472CB21E04DCF500E0316F /* icon_add_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = EA472CB01E04DCF500E0316F /* icon_add_photo.png */; };
 		EA472CB51E04DE5500E0316F /* unselect_box.png in Resources */ = {isa = PBXBuildFile; fileRef = EA472CB31E04DE5500E0316F /* unselect_box.png */; };
 		EA472CB61E04DE5500E0316F /* select_box.png in Resources */ = {isa = PBXBuildFile; fileRef = EA472CB41E04DE5500E0316F /* select_box.png */; };
@@ -1102,7 +1101,6 @@
 		EA1ADE941E1DFCE800A8422D /* icon_leftarrow_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_leftarrow_gray.png; sourceTree = "<group>"; };
 		EA1ADE971E1E14BD00A8422D /* MZTimerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MZTimerLabel.h; sourceTree = "<group>"; };
 		EA1ADE981E1E14BD00A8422D /* MZTimerLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MZTimerLabel.m; sourceTree = "<group>"; };
-		EA472CAF1E04DCF500E0316F /* icon_add_photo_violet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_add_photo_violet.png; sourceTree = "<group>"; };
 		EA472CB01E04DCF500E0316F /* icon_add_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_add_photo.png; sourceTree = "<group>"; };
 		EA472CB31E04DE5500E0316F /* unselect_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unselect_box.png; sourceTree = "<group>"; };
 		EA472CB41E04DE5500E0316F /* select_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = select_box.png; sourceTree = "<group>"; };
@@ -3203,7 +3201,6 @@
 			children = (
 				EA472CB31E04DE5500E0316F /* unselect_box.png */,
 				EA472CB41E04DE5500E0316F /* select_box.png */,
-				EA472CAF1E04DCF500E0316F /* icon_add_photo_violet.png */,
 				EA472CB01E04DCF500E0316F /* icon_add_photo.png */,
 				EA4D13BF1E03CCF900BBE450 /* navigationBar_back_icon.png */,
 				EAA4F33B1E024D0F00EF9E14 /* icon_closeeyes.png */,
@@ -5223,7 +5220,6 @@
 				EAC2D87C1D4B063B00E282A8 /* whiteArrow.png in Resources */,
 				AD8BB12F1E096E9B004064F9 /* icon_name_authent.png in Resources */,
 				EAC2D8A21D4B063B00E282A8 /* LICENSE in Resources */,
-				EA472CB11E04DCF500E0316F /* icon_add_photo_violet.png in Resources */,
 				EAA655251E0627C300F424DD /* AlbumLike@3x.png in Resources */,
 				EAA6552F1E0627C400F424DD /* LikeCmtBg@2x.png in Resources */,
 				EA662E3B1E3278A4007F1A09 /* appIcon.png in Resources */,

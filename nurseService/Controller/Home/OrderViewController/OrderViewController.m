@@ -387,7 +387,7 @@
 {
     if (button.tag == 0) {
         NSLog(@"取消");
-        [self showCancleAlertView];
+        [self cancleExclusiveOrder];
     }
     else if (button.tag == 1){
         NSLog(@"接单");
@@ -488,7 +488,7 @@
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
             if ([[respondDict valueForKey:@"json"] isMemberOfClass:[NSNull class]] || [respondDict valueForKey:@"json"] == nil) {
-                [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+//                [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
                 if (footerView) {
                     [footerView removeFromSuperview];
                     footerView = nil;
@@ -602,8 +602,6 @@
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
         }
-        
-        
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
@@ -691,14 +689,6 @@
 }
 
 
-- (void)showPaitentInfoWith:(NSDictionary *)paitentInfoDict
-{
-    HePaitentInfoVC *paitentInfoVC = [[HePaitentInfoVC alloc] init];
-    paitentInfoVC.userInfoDict = [[NSDictionary alloc] initWithDictionary:paitentInfoDict];
-    paitentInfoVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:paitentInfoVC animated:YES];
-}
-
 - (void)showOrderDetailWithOrder:(NSDictionary *)orderDict
 {
     HeOrderDetailVC *orderDetailVC = [[HeOrderDetailVC alloc] init];
@@ -719,6 +709,11 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (currentType == 0 && dataArr.count > 0) {
+        tableView.scrollEnabled = NO;
+        return 1;
+    }
+    tableView.scrollEnabled = YES;
     return dataArr.count;
 }
 
@@ -823,7 +818,6 @@
         };
         cell.showUserInfoBlock = ^(){
             NSLog(@"showUserInfoBlock");
-//            [weakSelf showPaitentInfoWith:dict];
             HePaitentInfoVC *paitentInfoVC = [[HePaitentInfoVC alloc] init];
             paitentInfoVC.userInfoDict = [[NSDictionary alloc] initWithDictionary:dict];
             paitentInfoVC.isFromNowOrder = NO;
@@ -901,7 +895,7 @@
         cell.cancleRequstBlock = ^(){
             NSLog(@"cancleRequstBlock");
             currentDic = dict;
-            [weakSelf showCancleAlertView];
+            [weakSelf showCancleAlertView:row];
         };
         cell.nextStepBlock = ^(){
             NSLog(@"nextStepBlock");
@@ -915,7 +909,6 @@
         };
         cell.showUserInfoBlock = ^(){
             NSLog(@"showUserInfoBlock");
-//            [weakSelf showPaitentInfoWith:dict];
             HePaitentInfoVC *paitentInfoVC = [[HePaitentInfoVC alloc] init];
             paitentInfoVC.userInfoDict = [[NSDictionary alloc] initWithDictionary:dict];
             paitentInfoVC.isFromNowOrder = YES;
@@ -1168,7 +1161,7 @@
     NSLog(@"searchAction");
 }
 
-- (void)showCancleAlertView{
+- (void)showCancleAlertView:(NSInteger)index{
     
     windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
     windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
@@ -1197,7 +1190,7 @@
     NSInteger addTextField_W =SCREENWIDTH-40;
     
     UILabel *infoTip= [[UILabel alloc] initWithFrame:CGRectMake(10, addTextField_Y, addTextField_W, addTextField_H)];//高度--44
-    infoTip.font = [UIFont systemFontOfSize:12.0];
+    infoTip.font = [UIFont systemFontOfSize:14.0];
     infoTip.numberOfLines = 0;
     infoTip.backgroundColor = [UIColor clearColor];
     [addBgView addSubview:infoTip];
@@ -1219,7 +1212,7 @@
     cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     cancleBt.tag = 1000;
-    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [cancleBt addTarget:self action:@selector(clickCancleBtAction:) forControlEvents:UIControlEventTouchUpInside];
     [addBgView addSubview:cancleBt];
     
     UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
@@ -1227,8 +1220,8 @@
     okBt.backgroundColor = [UIColor clearColor];
     okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    okBt.tag = 100;
-    [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    okBt.tag = 1000+index;
+    [okBt addTarget:self action:@selector(clickCancleBtAction:) forControlEvents:UIControlEventTouchUpInside];
     [addBgView addSubview:okBt];
     
     
@@ -1295,19 +1288,31 @@
     
     
 }
+
+- (void)clickCancleBtAction:(UIButton *)sender{
+    // "请求取消"
+    NSInteger rowNum = sender.tag-1000;
+    [self sendCancleOrderWithOrderId:[dataArr[rowNum] valueForKey:@"orderSendId"]];
+    if (windowView) {
+        [windowView removeFromSuperview];
+    }
+}
+
 - (void)clickBtAction:(UIButton *)sender{
     NSLog(@"tag:%ld",sender.tag);
-    if (sender.tag == 100) {
-// "请求取消";
-        if (dataArr.count > 0) {
-            if ([[dataArr[0] valueForKey:@"orderSendType"] isEqualToString:@"1"]) {
-                [self cancleExclusiveOrder];
-            }else{
-                [self sendCancleOrderWithOrderId:[dataArr[0] valueForKey:@"orderSendId"]];
-            }
-        }
-//        [self sendCancleOrderWithOrderId:[currentDic valueForKey:@"orderSendId"]];
-    }else if(sender.tag == 0){
+//    if (sender.tag == 100) {
+
+//        [self sendCancleOrderWithOrderId:[dataArr[0] valueForKey:@"orderSendId"]];
+
+//        if (dataArr.count > 0) {
+//            if ([[dataArr[0] valueForKey:@"orderSendType"] isEqualToString:@"1"]) {
+//                [self cancleExclusiveOrder];
+//            }else{
+//                [self sendCancleOrderWithOrderId:[dataArr[0] valueForKey:@"orderSendId"]];
+//            }
+//        }
+//    }else
+    if(sender.tag == 0){
         [self updateOrderStateWithOrderState:sender.tag];
 // "执行下一步：联系客户";
     }else if(sender.tag == 1){

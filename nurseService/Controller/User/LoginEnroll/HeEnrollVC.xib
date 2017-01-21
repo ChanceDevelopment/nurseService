@@ -176,7 +176,7 @@
                                 <action selector="agreeButtonClick:" destination="-1" eventType="touchUpInside" id="Bhc-c3-2Wz"/>
                             </connections>
                         </button>
-                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="《护士上门用户协议》" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="at7-ih-xUA">
+                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="《安心护免责条款》" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="at7-ih-xUA">
                             <rect key="frame" x="239" y="349" width="116" height="20"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="20" id="Bnn-Dp-7fQ"/>

@@ -86,7 +86,7 @@
     [super initializaiton];
     statusArray = @[@"基本信息",@"专业信息",@"等待审核"];
     isShowLanguage = NO;
-    postDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"",@"NurseLanguage",@"",@"NurseGoodservice",@"",@"NurseNote", nil];
+    postDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"",@"NurseLanguage",@"",@"NurseGoodservice",@"",@"NurseNote",@"",@"NurseworkuUnit", nil];
     languageDic = [[NSMutableDictionary alloc] initWithCapacity:0];
     workUnitArr = [[NSMutableArray alloc] initWithCapacity:0];  //所有医院
     nurseOfficeArr = [[NSMutableArray alloc] initWithCapacity:0];
@@ -664,7 +664,7 @@
     NSInteger row = indexPath.row;
    
     if (tableView.tag == 500 || tableView.tag == 501 || tableView.tag == 502) {
-        return 44;
+        return 50;
     }
     switch (row) {
         case 0:
@@ -906,9 +906,10 @@
                                @"NurseNote" : NurseNote,
                                @"NurseGoodservice" : NurseGoodservice,
                                @"NurseNurseLicensepic" : nurseLicensepic};
-    
+    [self showHudInView:self.view hint:@"提交中..."];
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:NURSEINFOIDENTIFY params:params success:^(AFHTTPRequestOperation* operation,id response){
-        
+        [self hideHud];
+
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
@@ -921,6 +922,8 @@
         [self performSelector:@selector(goToHomeView) withObject:nil afterDelay:1.2];
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
+        [self hideHud];
+
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
 }

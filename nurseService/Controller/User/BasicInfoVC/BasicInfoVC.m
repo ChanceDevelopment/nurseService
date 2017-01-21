@@ -260,8 +260,9 @@
                                @"NurseEmail" : NurseEmail,
                                @"NurseCardpic" : [postDic objectForKey:@"NurseCardpic"]};
     NSLog(@"%@",params);
+    [self showHudInView:self.view hint:@"提交中..."];
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:MODIFYUSERINFO params:params success:^(AFHTTPRequestOperation* operation,id response){
-        
+        [self hideHud];
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
         if ([[[respondDict objectForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
@@ -273,6 +274,7 @@
         [self performSelector:@selector(goToProfessionInfoVC) withObject:nil afterDelay:0];
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
+        [self hideHud];
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
     

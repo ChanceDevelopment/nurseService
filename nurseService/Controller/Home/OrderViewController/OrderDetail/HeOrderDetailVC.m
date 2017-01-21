@@ -125,8 +125,8 @@
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             [self performSelector:@selector(backToRootView) withObject:nil afterDelay:1.2];
             NSLog(@"faile");
+            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         }
-        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
@@ -277,6 +277,8 @@
             // "执行下一步：填写报告";
             NurseReportVC *nurseReportVC = [[NurseReportVC alloc] init];
             nurseReportVC.hidesBottomBarWhenPushed = YES;
+            nurseReportVC.infoData = infoDic;
+            nurseReportVC.isDetail = NO;
             [self.navigationController pushViewController:nurseReportVC animated:YES];
         }
     }
@@ -518,7 +520,7 @@
                     CGFloat orderNoLabelY = 0;
                     UILabel *orderNoLabel = [[UILabel alloc] initWithFrame:CGRectMake(orderNoLabelX, orderNoLabelY, orderNoLabelW, orderNoLabelH)];
                     orderNoLabel.font = [UIFont fontWithName:@"Helvetica" size:13.0];
-                    orderNoLabel.text = [NSString stringWithFormat:@"订单编号: %@",[dict valueForKey:@"orderSendId"]];
+                    orderNoLabel.text = [NSString stringWithFormat:@"订单编号: %@",[dict valueForKey:@"orderSendNumbers"]];
                     
                     [cell addSubview:orderNoLabel];
                     
@@ -757,14 +759,30 @@
         NSLog(@"respondString:%@",respondString);
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
         
-        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
+            switch (orderState) {
+                case 0:
+                    [self.view makeToast:@"联系客户后，请出发" duration:1.2 position:@"center"];
+                    break;
+                case 1:
+                    [self.view makeToast:@"出发后，请开始服务" duration:1.2 position:@"center"];
+                    break;
+                case 2:
+                    [self.view makeToast:@"服务完成后，请填写护理报告" duration:1.2 position:@"center"];
+                    break;
+                    
+                default:
+                    break;
+            }
             
             [self getOrderDetailData];
             
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
+            
+            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+
         }
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
@@ -778,6 +796,7 @@
     HePaitentInfoVC *paitentInfoVC = [[HePaitentInfoVC alloc] init];
     paitentInfoVC.userInfoDict = [[NSDictionary alloc] initWithDictionary:paitentInfoDict];
     paitentInfoVC.hidesBottomBarWhenPushed = YES;
+    paitentInfoVC.isFromNowOrder = YES;
     [self.navigationController pushViewController:paitentInfoVC animated:YES];
 }
 
