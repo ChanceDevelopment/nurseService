@@ -63,15 +63,16 @@
     [super initView];
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
 
-    CGFloat noDataViewW = 50;
-    CGFloat noDataViewY = (self.view.frame.size.height-44-48-noDataViewW)/2.0;
+    UIImage *image = [UIImage imageNamed:@"img_no_data"];
+    CGFloat noDataViewW = 100;
+    CGFloat noDataViewH = image.size.height / image.size.width * noDataViewW;
+    CGFloat noDataViewY = (self.view.frame.size.height-44-48-noDataViewW)/2.0 - 30;
     CGFloat noDataViewX = (SCREENWIDTH-noDataViewW)/2.0;
-    
     noDataView = [[UIImageView alloc] init];
     noDataView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:noDataView];
-    noDataView.frame = CGRectMake(noDataViewX, noDataViewY, noDataViewW, noDataViewW);
-    noDataView.image = [UIImage imageNamed:@"img_no_data"];
+    noDataView.frame = CGRectMake(noDataViewX, noDataViewY, noDataViewW, noDataViewH);
+    noDataView.image = image;
     noDataView.hidden = YES;
     
     [tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];

@@ -8,9 +8,10 @@
 
 #import "HeCommentNurseVC.h"
 #import "IQTextView.h"
+#import "SAMTextView.h"
 
 @interface HeCommentNurseVC ()
-@property(strong,nonatomic)IBOutlet IQTextView *textView;
+@property(strong,nonatomic)IBOutlet SAMTextView *textView;
 @property(strong,nonatomic)IBOutlet UIImageView *nurseImage;
 @property(strong,nonatomic)IBOutlet UILabel *nurseLabel;
 @property(strong,nonatomic)IBOutlet UIView *markView;
@@ -65,14 +66,14 @@
     nurseImage.layer.masksToBounds = YES;
     nurseImage.layer.cornerRadius = 30;
     
-    NSString *nurseHeader = nurseDict[@"nurseHeader"];
+    NSString *nurseHeader = nurseDict[@"orderSendUserpic"];
     if ([nurseHeader isMemberOfClass:[NSNull class]] || nurseHeader == nil) {
         nurseHeader = @"";
     }
     nurseHeader = [NSString stringWithFormat:@"%@/%@",HYTIMAGEURL,nurseHeader];
     [nurseImage sd_setImageWithURL:[NSURL URLWithString:nurseHeader] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];
     
-    NSString *nurseNick = nurseDict[@"nurseNick"];
+    NSString *nurseNick = nurseDict[@"orderSendUsername"];
     if ([nurseNick isMemberOfClass:[NSNull class]]) {
         nurseNick = @"";
     }
@@ -154,7 +155,7 @@
         if ([[respondDict valueForKey:@"errorCode"] integerValue] == REQUESTCODE_SUCCEED){
             
             [self showHint:@"评价成功"];
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateOrder" object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateOrder" object:nil];
             [self performSelector:@selector(backToLastView) withObject:nil afterDelay:0.8];
         }
         else{

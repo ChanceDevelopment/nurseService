@@ -69,17 +69,17 @@
     [tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
     
-    CGFloat noDataViewW = 50;
-    CGFloat noDataViewY = (self.view.frame.size.height-44-48-noDataViewW)/2.0;
+    UIImage *image = [UIImage imageNamed:@"img_no_data"];
+    CGFloat noDataViewW = 100;
+    CGFloat noDataViewH = image.size.height / image.size.width * noDataViewW;
+    CGFloat noDataViewY = (self.view.frame.size.height-44-48-noDataViewW)/2.0 - 30;
     CGFloat noDataViewX = (SCREENWIDTH-noDataViewW)/2.0;
-    
     noDataView = [[UIImageView alloc] init];
     noDataView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:noDataView];
-    noDataView.frame = CGRectMake(noDataViewX, noDataViewY, noDataViewW, noDataViewW);
-    noDataView.image = [UIImage imageNamed:@"img_no_data"];
+    noDataView.frame = CGRectMake(noDataViewX, noDataViewY, noDataViewW, noDataViewH);
+    noDataView.image = image;
     noDataView.hidden = YES;
-    
     
     self.tableview.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         self.tableview.footer.automaticallyHidden = YES;
@@ -109,16 +109,16 @@
 - (void)getData{
     
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
-    NSDictionary * params  = @{@"userId": userId,@"pageNum" : [NSString stringWithFormat:@"%ld",currentPage]};
+    NSDictionary * params  = @{@"NurseId": userId,@"pageNum" : [NSString stringWithFormat:@"%ld",currentPage]};
     
-    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:@"nurseAnduser/selectCapitalUserPoolInfo.action" params:params success:^(AFHTTPRequestOperation* operation,id response){
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:@"nurseAnduser/CapitalInfoByNurseId.action" params:params success:^(AFHTTPRequestOperation* operation,id response){
         
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]||[[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"300"]) {
             NSLog(@"success");
+            
             if ([[respondDict valueForKey:@"json"] isMemberOfClass:[NSNull class]] || [respondDict valueForKey:@"json"] == nil) {
-                [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
                 
                 noDataView.hidden = NO;
                 tableview.hidden = YES;
@@ -142,7 +142,11 @@
             }
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
-            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+            NSString *data = [NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]];
+            if ([data isMemberOfClass:[NSNull class]] || data == nil) {
+                data = ERRORREQUESTTIP;
+            }
+            [self.view makeToast:data duration:1.2 position:@"center"];
         }
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
@@ -171,6 +175,13 @@
     static NSString *cellIndentifier = @"HeBaseTableViewCell";
     CGSize cellSize = [tableView rectForRowAtIndexPath:indexPath].size;
     NSDictionary *dict = nil;//[NSDictionary dictionaryWithDictionary:dataArr[row]];
+    @try {
+        dict = dataArr[row];
+    } @catch (NSException *exception) {
+        
+    } @finally {
+        
+    }
     
     HeBaseTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell) {
@@ -181,7 +192,8 @@
     cell.backgroundColor = [UIColor clearColor];
     
     CGFloat bgView_W = SCREENWIDTH-10;
-    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(5, 10, bgView_W, 70)];
+    CGFloat bgView_H = 70;
+    UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(5, 10, bgView_W, bgView_H)];
     bgView.backgroundColor = [UIColor whiteColor];
     bgView.userInteractionEnabled = YES;
     [cell addSubview:bgView];
@@ -190,21 +202,26 @@
     
     CGFloat serviceContentLX = 10;
     CGFloat serviceContentLY = 0;
-    CGFloat serviceContentLW = SCREENWIDTH - 160;
-    CGFloat serviceContentLH = 70;
+    CGFloat serviceContentLW = bgView_W / 2.0 + 20;
+    CGFloat serviceContentLH = bgView_H;
     
     UILabel *capitalUserPoolSpeakL = [[UILabel alloc] initWithFrame:CGRectMake(serviceContentLX, serviceContentLY, serviceContentLW, serviceContentLH)];
     capitalUserPoolSpeakL.userInteractionEnabled = YES;
     capitalUserPoolSpeakL.textColor = APPDEFAULTORANGE;
-    capitalUserPoolSpeakL.font = [UIFont systemFontOfSize:15.0];
+    capitalUserPoolSpeakL.font = [UIFont systemFontOfSize:17.0];
     capitalUserPoolSpeakL.backgroundColor = [UIColor clearColor];
     [bgView addSubview:capitalUserPoolSpeakL];
     capitalUserPoolSpeakL.textColor = [UIColor blackColor];
     capitalUserPoolSpeakL.numberOfLines = 0;
-    capitalUserPoolSpeakL.text = [dict valueForKey:@"capitalUserPoolSpeak"];
     
-    serviceContentLX = SCREENWIDTH - 165;
-    serviceContentLW = 150;
+    NSString *capitalNursePoolSpeak = dict[@"capitalNursePoolSpeak"];
+    if ([capitalNursePoolSpeak isMemberOfClass:[NSNull class]] || capitalNursePoolSpeak == nil) {
+        capitalNursePoolSpeak = @"";
+    }
+    capitalUserPoolSpeakL.text = capitalNursePoolSpeak;
+    
+    serviceContentLX = CGRectGetMaxX(capitalUserPoolSpeakL.frame) + 5;
+    serviceContentLW = bgView_W - serviceContentLX - 10;
     serviceContentLH = 40;
     UILabel *moneyL = [[UILabel alloc] initWithFrame:CGRectMake(serviceContentLX, serviceContentLY+5, serviceContentLW, serviceContentLH)];
     moneyL.userInteractionEnabled = YES;
@@ -215,10 +232,14 @@
     moneyL.textColor = [UIColor redColor];
     moneyL.textAlignment = NSTextAlignmentRight;
     NSString *money = @"";
-    if ([[dict valueForKey:@"capitalUserPoolMoney"] integerValue] > 0) {
-        money = [NSString stringWithFormat:@"+%@元",[dict valueForKey:@"capitalUserPoolMoney"]];
+    id capitalNursePoolMoneyObj = dict[@"capitalNursePoolMoney"];
+    if ([capitalNursePoolMoneyObj isMemberOfClass:[NSNull class]] || capitalNursePoolMoneyObj == nil) {
+        capitalNursePoolMoneyObj = @"";
+    }
+    if ([capitalNursePoolMoneyObj integerValue] > 0) {
+        money = [NSString stringWithFormat:@"+%.2f元",[capitalNursePoolMoneyObj floatValue]];
     }else{
-        money = [NSString stringWithFormat:@"-%@元",[dict valueForKey:@"capitalUserPoolMoney"]];
+        money = [NSString stringWithFormat:@"-%.2f元",[capitalNursePoolMoneyObj floatValue]];
     }
     moneyL.text = money;
     
@@ -226,13 +247,13 @@
     UILabel *timeL = [[UILabel alloc] initWithFrame:CGRectMake(serviceContentLX, serviceContentLY, serviceContentLW, serviceContentLH)];
     timeL.userInteractionEnabled = YES;
     timeL.textColor = APPDEFAULTORANGE;
-    timeL.font = [UIFont systemFontOfSize:12.0];
+    timeL.font = [UIFont systemFontOfSize:13.0];
     timeL.backgroundColor = [UIColor clearColor];
     [bgView addSubview:timeL];
     timeL.textAlignment = NSTextAlignmentRight;
     timeL.textColor = [UIColor grayColor];
     
-    id zoneCreatetimeObj = [dict objectForKey:@"capitalUserPoolCreatetime"];
+    id zoneCreatetimeObj = [dict objectForKey:@"capitalNursePoolCreatetime"];
     if ([zoneCreatetimeObj isMemberOfClass:[NSNull class]] || zoneCreatetimeObj == nil) {
         NSTimeInterval  timeInterval = [[NSDate date] timeIntervalSince1970];
         zoneCreatetimeObj = [NSString stringWithFormat:@"%.0f000",timeInterval];
@@ -243,7 +264,7 @@
         //时间戳
         zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
     }
-    NSString *time = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM-dd"];
+    NSString *time = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd"];
     
     timeL.text = time;
     

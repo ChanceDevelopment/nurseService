@@ -157,6 +157,8 @@
     dataArr = [[NSMutableArray alloc] initWithCapacity:0];
     currentDic = [[NSDictionary alloc] init];
     badgeDataArr = [[NSMutableArray alloc] initWithCapacity:0];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateOrder:) name:@"updateOrder" object:nil];
 
 }
 
@@ -170,20 +172,16 @@
     CGFloat tableViewH = self.view.frame.size.height-44-120-48+80;
     
 
-    CGFloat noDataViewW = 50;
-    CGFloat noDataViewY = (self.view.frame.size.height-44-48-noDataViewW)/2.0;
+    UIImage *image = [UIImage imageNamed:@"img_no_data"];
+    CGFloat noDataViewW = 100;
+    CGFloat noDataViewH = image.size.height / image.size.width * noDataViewW;
+    CGFloat noDataViewY = (self.view.frame.size.height-44-48-noDataViewW)/2.0 - 30;
     CGFloat noDataViewX = (SCREENWIDTH-noDataViewW)/2.0;
-    
-    UIView *bgView = [[UIView alloc] init];
-    bgView.frame  = CGRectMake(0, tableViewY, SCREENWIDTH, tableViewH);
-    [self.view addSubview:bgView];
-    bgView.backgroundColor = [UIColor colorWithWhite:244.0 / 255.0 alpha:1.0];
-
     noDataView = [[UIImageView alloc] init];
     noDataView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:noDataView];
-    noDataView.frame = CGRectMake(noDataViewX, noDataViewY, noDataViewW, noDataViewW);
-    noDataView.image = [UIImage imageNamed:@"img_no_data"];
+    noDataView.frame = CGRectMake(noDataViewX, noDataViewY, noDataViewW, noDataViewH);
+    noDataView.image = image;
     noDataView.hidden = YES;
     
     myTableView = [[UITableView alloc] init];
@@ -237,7 +235,7 @@
     
     self.myTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block,刷新
-        [self.myTableView.header performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
+        [self.myTableView.header performSelector:@selector(endRefreshing) withObject:nil afterDelay:0.5];
         [self reloadOrderData];
     }];
     
@@ -380,6 +378,10 @@
     [timer3 start];*/
 }
 
+- (void)updateOrder:(NSNotification *)notification
+{
+    [self navigationDidSelectedControllerIndex:currentType];
+}
 
 - (void)buttonClick:(UIButton *)button
 {
@@ -497,7 +499,11 @@
                 }
                 return ;
             }else{
-                NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
+                id jsonArray = [respondDict valueForKey:@"json"];
+                if ([jsonArray isMemberOfClass:[NSNull class]] || jsonArray == nil) {
+                    jsonArray = [NSArray array];
+                }
+                NSArray *tempArr = [NSArray arrayWithArray:jsonArray];
                 switch (currentType) {
                     case 0:
                     {
@@ -1003,7 +1009,7 @@
 
         
         UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectMake(5, 111, SCREENWIDTH-20, 1)];
-        [bgView addSubview:line1];
+//        [bgView addSubview:line1];
         line1.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
         
         BOOL isEvaluate = [[dict valueForKey:@"isEvaluate"] isEqualToString:@"1"] ? YES : NO;
@@ -1447,6 +1453,10 @@
                 if (badgeDataArr.count > 0) {
                     [badgeDataArr removeAllObjects];
                 }
+                id jsonArray = [respondDict valueForKey:@"json"];
+                if ([jsonArray isMemberOfClass:[NSNull class]] || jsonArray == nil) {
+                    jsonArray = [NSArray array];
+                }
                 NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
                 if (tempArr.count >0) {
                     [badgeDataArr addObjectsFromArray:tempArr];
@@ -1467,6 +1477,11 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateOrder" object:nil];
 }
 
 /*
