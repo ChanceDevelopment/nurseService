@@ -148,10 +148,7 @@ alpha:1.0]
 #define DEFAULTPUSHTAG @"xTdn8EVY3TeyCXrdkjaMdHOv"
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
 //登录的广播
 #define LOGINSTATEKEY @"loginStateKey"
 #define LOGINOUTKEY   @"loginOut"       //退出登录

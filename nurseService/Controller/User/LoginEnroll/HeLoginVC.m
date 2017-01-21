@@ -65,7 +65,12 @@
 
 - (IBAction)loginButtonClick:(id)sender
 {
-    
+    if ([accountField isFirstResponder]) {
+        [accountField resignFirstResponder];
+    }
+    if ([passwordField isFirstResponder]) {
+        [passwordField resignFirstResponder];
+    }
     NSString *account = [accountField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSString *password = passwordField.text;
     if (account == nil || [account isEqualToString:@""]) {

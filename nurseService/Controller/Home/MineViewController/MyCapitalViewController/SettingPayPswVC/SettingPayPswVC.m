@@ -61,8 +61,10 @@ return self;
     
     codeBt.layer.borderWidth = 1.0;
     codeBt.layer.cornerRadius = 5.0;
-    codeBt.layer.backgroundColor = APPDEFAULTORANGE.CGColor;
+//    codeBt.layer.backgroundColor = APPDEFAULTORANGE.CGColor;
     codeBt.layer.masksToBounds = YES;
+    [codeBt setBackgroundImage:[Tool buttonImageFromColor:APPDEFAULTORANGE withImageSize:codeBt.frame.size] forState:UIControlStateNormal];
+    codeBt.layer.borderColor = [UIColor clearColor].CGColor;
     
     NSDictionary *userInfoDic = [NSDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY]];
 
@@ -74,7 +76,8 @@ return self;
 
 - (IBAction)getCodeClick:(id)sender {
 
-    [sender startWithTime:60 title:@"获取验证码" countDownTitle:@"s" mainColor:APPDEFAULTORANGE countColor:[UIColor lightGrayColor]];
+    
+    [sender startWithTime:60 title:@"获取验证码" countDownTitle:@"s" mainColor:APPDEFAULTORANGE countColor:[UIColor colorWithWhite:237.0 / 255.0 alpha:1.0]];
     
     //获取注册手机号的验证码
     NSString *nurseId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY]];

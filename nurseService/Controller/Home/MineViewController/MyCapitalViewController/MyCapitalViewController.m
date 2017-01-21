@@ -67,7 +67,7 @@
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
     
     myTableView.showsVerticalScrollIndicator = NO;
-    myTableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     myTableView.frame = CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH-50);
     myTableView.backgroundView = nil;
     myTableView.backgroundColor = [UIColor clearColor];

@@ -207,32 +207,41 @@
 //    [headerView addSubview:sexL];
     sexL.text = [[NSString stringWithFormat:@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseSex"]] isEqualToString:@"1"] ? @"男" : @"女";
     
-    CGFloat healthX = 30;
-    CGFloat healthY = labelY +30;
+    CGFloat healthX = 5;
     CGFloat healthW = 15;
+    CGFloat healthY = (labelH - 15) / 2.0;
+    
     healthImageView = [[UIImageView alloc] initWithFrame:CGRectMake(healthX, healthY, healthW, healthW)];
     healthImageView.backgroundColor = [UIColor clearColor];
     healthImageView.image = [UIImage imageNamed:@"icon_health_authent"];
     [headerView addSubview:healthImageView];
 
-    CGFloat healthL_X = healthX+20;
-    CGFloat healthL_Y = healthY-5;
+    CGFloat healthL_X = 25;
+    CGFloat healthL_Y = 0;
     CGFloat healthL_W = 120;
     healthL = [[UILabel alloc] init];
     healthL.textAlignment = NSTextAlignmentLeft;
     healthL.backgroundColor = [UIColor clearColor];
     healthL.font = [UIFont systemFontOfSize:13.0];
     healthL.textColor = [UIColor whiteColor];
+    healthL.text = @"国家卫计委认证";
+    CGSize size = [MLLabel getViewSizeByString:healthL.text maxWidth:healthL_W font:healthL.font lineHeight:1.2f lines:0];
+    healthL_W = size.width;
     healthL.frame = CGRectMake(healthL_X, healthL_Y, healthL_W, labelH);
     [headerView addSubview:healthL];
-    healthL.text = @"国家卫计委认证";
     
-    nameImageView = [[UIImageView alloc] initWithFrame:CGRectMake(healthL_X+healthL_W+10, healthY, healthW, healthW)];
+    CGFloat nameImageViewX = 5;
+    CGFloat nameImageViewH = 15;
+    CGFloat nameImageViewW = 15;
+    CGFloat nameImageViewY = (labelH - nameImageViewH) / 2.0;
+    
+    nameImageView = [[UIImageView alloc] initWithFrame:CGRectMake(nameImageViewX, nameImageViewY, nameImageViewW, nameImageViewH)];
     nameImageView.backgroundColor = [UIColor clearColor];
     nameImageView.image = [UIImage imageNamed:@"icon_name_authent"];
     [headerView addSubview:nameImageView];
     
-    CGFloat nameL_X = healthL_X+healthL_W+healthW+15;
+    
+    CGFloat nameL_X = 25;
     CGFloat nameL_Y = healthL_Y;
     CGFloat nameL_W = 90;
     nameL = [[UILabel alloc] init];
@@ -240,9 +249,43 @@
     nameL.backgroundColor = [UIColor clearColor];
     nameL.font = [UIFont systemFontOfSize:13.0];
     nameL.textColor = [UIColor whiteColor];
+    nameL.text = @"实名认证";
+    size = [MLLabel getViewSizeByString:nameL.text maxWidth:nameL_W font:nameL.font lineHeight:1.2f lines:0];
+    nameL_W = size.width;
     nameL.frame = CGRectMake(nameL_X, nameL_Y, nameL_W, labelH);
     [headerView addSubview:nameL];
-    nameL.text = @"实名认证";
+    
+    CGFloat labelDistance = 10;
+    CGFloat healViewX = 0;
+    CGFloat healViewY = CGRectGetMaxY(userNameL.frame) + 5;
+    CGFloat healViewW = healthL_W + 10 + healthW;
+    CGFloat healViewH = 25;
+    
+    UIView *healBgView = [[UIView alloc] initWithFrame:CGRectMake(healViewX, healViewY, healViewW, healViewH)];
+    [healBgView addSubview:healthL];
+    [healBgView addSubview:healthImageView];
+    
+    CGFloat nameBgViewX = 0;
+    CGFloat nameBgViewY = CGRectGetMaxY(userNameL.frame) + 5;
+    CGFloat nameBgViewW = nameL_W + 10 + nameImageViewW;
+    CGFloat nameBgViewH = 25;
+    
+    UIView *nameBgView = [[UIView alloc] initWithFrame:CGRectMake(nameBgViewX, nameBgViewY, nameBgViewW, nameBgViewH)];
+    [nameBgView addSubview:nameL];
+    [nameBgView addSubview:nameImageView];
+    
+    CGFloat bgViewX = (SCREENWIDTH - (nameBgViewW + healViewW + labelDistance)) / 2.0;
+    CGRect healBgViewFrame = healBgView.frame;
+    healBgViewFrame.origin.x = bgViewX;
+    healBgView.frame = healBgViewFrame;
+    
+    CGRect nameBgViewFrame = nameBgView.frame;
+    nameBgViewFrame.origin.x = CGRectGetMaxX(healBgView.frame) + labelDistance;
+    nameBgView.frame = nameBgViewFrame;
+    
+    [headerView addSubview:healBgView];
+    [headerView addSubview:nameBgView];
+    
     
     NSString *nurseDistrict = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseDistrict"];
     

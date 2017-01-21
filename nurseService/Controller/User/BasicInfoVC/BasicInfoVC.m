@@ -59,6 +59,7 @@
         
         NSMutableArray *buttons = [[NSMutableArray alloc] init];
         UIButton *saveBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 25)];
+        saveBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
         [saveBt setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         [saveBt setTitle:@"保存" forState:UIControlStateNormal];
         saveBt.layer.cornerRadius = 4.0;//2.0是圆角的弧度，根据需求自己更改

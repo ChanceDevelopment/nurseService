@@ -58,6 +58,7 @@
         [saveBt setTitle:@"保存" forState:UIControlStateNormal];
         saveBt.layer.cornerRadius = 4.0;//2.0是圆角的弧度，根据需求自己更改
         saveBt.layer.borderWidth = 1.0f;
+        saveBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
         saveBt.layer.borderColor = [[UIColor colorWithRed:152.0 / 255.0 green:67.0 / 255.0 blue:141.0 / 255.0 alpha:1.0] CGColor];
         [saveBt addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
         saveBt.backgroundColor = [UIColor clearColor];
@@ -876,14 +877,34 @@
     
     NSString *nurseNumber = nurseNumberField.text;
     NSString *nurseLicensepic = photoImageStr ? photoImageStr : @"";
+    NSString *NurseworkuUnit = [postDic objectForKey:@"NurseworkuUnit"];
+    if (!NurseworkuUnit) {
+        NurseworkuUnit = @"";
+    }
+    NSString *NurseOffice = [postDic objectForKey:@"NurseOffice"];
+    if (!NurseOffice) {
+        NurseOffice = @"";
+    }
+    NSString *NurseLanguage = [postDic objectForKey:@"NurseLanguage"];
+    if (!NurseLanguage) {
+        NurseLanguage = @"";
+    }
+    NSString *NurseNote = [postDic objectForKey:@"NurseNote"];
+    if (!NurseNote) {
+        NurseNote = @"";
+    }
+    NSString *NurseGoodservice = [postDic objectForKey:@"NurseGoodservice"];
+    if (!NurseGoodservice) {
+        NurseGoodservice = @"";
+    }
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     NSDictionary * params  = @{@"NurseId" : userAccount,
-                               @"NurseLanguage" : [postDic objectForKey:@"NurseLanguage"],
-                               @"NurseworkuUnit" : [postDic objectForKey:@"NurseworkuUnit"],
-                               @"NurseOffice" : [postDic objectForKey:@"NurseOffice"],
+                               @"NurseLanguage" : NurseLanguage,
+                               @"NurseworkuUnit" : NurseworkuUnit,
+                               @"NurseOffice" : NurseOffice,
                                @"NurseNumber" : nurseNumber,
-                               @"NurseNote" : [postDic objectForKey:@"NurseNote"],
-                               @"NurseGoodservice" : [postDic objectForKey:@"NurseGoodservice"],
+                               @"NurseNote" : NurseNote,
+                               @"NurseGoodservice" : NurseGoodservice,
                                @"NurseNurseLicensepic" : nurseLicensepic};
     
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:NURSEINFOIDENTIFY params:params success:^(AFHTTPRequestOperation* operation,id response){
