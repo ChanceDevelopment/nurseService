@@ -74,7 +74,7 @@
         [bgView addSubview:rightV];
         
         UITapGestureRecognizer *showOrderDetailTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showOrderDetail)];
-        [serviceContentL addGestureRecognizer:showOrderDetailTap];
+        [rightV addGestureRecognizer:showOrderDetailTap];
         
         UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(5, 44, bgView_W-10, 1)];
         [bgView addSubview:line];

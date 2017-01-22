@@ -44,6 +44,9 @@
     [self initLocationService];
     //获取用户的地理位置
     [self getLocation];
+    //获取接单按钮状态
+    [self getReceiveOrderSwitchState];
+
     
 }
 
@@ -183,6 +186,37 @@
         NSLog(@"err:%@",err);
     }];
  
+}
+
+//获取是否接单状态
+- (void)getReceiveOrderSwitchState{
+    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+    NSDictionary * params  = @{@"nurseId": userAccount};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:ORDERRECEIVESTATE params:params success:^(AFHTTPRequestOperation* operation,id response){
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSLog(@"respondString:%@",respondString);
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            if ([[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"json"]] isEqualToString:@"0"]) {
+                /*
+                 0.接
+                 1.不接
+                 */
+                [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:RECEIVEORDERSTATE];
+            }else{
+                [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:RECEIVEORDERSTATE];
+            }
+            
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
+        
+        
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
 }
 
 - (void)clearInfo

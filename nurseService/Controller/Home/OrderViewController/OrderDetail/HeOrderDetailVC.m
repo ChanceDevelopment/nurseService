@@ -450,7 +450,16 @@
                     CGFloat subTitleLabelW = SCREENWIDTH - subTitleLabelX - 40;
                     UILabel *subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(subTitleLabelX, subTitleLabelY, subTitleLabelW, subTitleLabelH)];
                     subTitleLabel.backgroundColor = [UIColor clearColor];
-                    subTitleLabel.text = [NSString stringWithFormat:@"%@ %@ %@岁",[dict valueForKey:@"orderSendUsername"],sex,[dict valueForKey:@"orderSendAge"]];
+                    
+                    NSString *nameStr = [dict valueForKey:@"orderSendUsername"];
+                    NSArray *nameArr = [nameStr componentsSeparatedByString:@","];
+                    @try {
+                        nameStr = nameArr[0];
+                    } @catch (NSException *exception) {
+                    } @finally {
+                        
+                    }
+                    subTitleLabel.text = [NSString stringWithFormat:@"%@ %@ %@岁",nameStr,sex,[dict valueForKey:@"orderSendAge"]];
                     subTitleLabel.textAlignment = NSTextAlignmentRight;
                     subTitleLabel.font = [UIFont systemFontOfSize:15.0];
                     subTitleLabel.textColor = [UIColor blackColor];

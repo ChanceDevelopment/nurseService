@@ -387,7 +387,8 @@
 {
     if (button.tag == 0) {
         NSLog(@"取消");
-        [self cancleExclusiveOrder];
+        [self cancleOrderAction];
+//        [self cancleExclusiveOrder]
     }
     else if (button.tag == 1){
         NSLog(@"接单");
@@ -460,7 +461,8 @@
 }
 
 - (void)getDataWithUrl:(NSString *)url{
-    if (!switchBt.isSelected && currentType == 0) {
+    BOOL isOn = [[[NSUserDefaults standardUserDefaults] objectForKey:RECEIVEORDERSTATE] boolValue];
+    if (!isOn && currentType == 0) {
         
         if (footerView) {
             [footerView removeFromSuperview];
@@ -622,7 +624,17 @@
         [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:2.0 position:@"center"];
         
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
-            [self reloadOrderData];
+//            [self reloadOrderData];
+            [dataArr removeObjectAtIndex:0];
+            [myTableView reloadData];
+            if (dataArr.count == 0) {
+                if (footerView) {
+                    [footerView removeFromSuperview];
+                    footerView = nil;
+                }
+                noDataView.hidden = NO;
+                myTableView.hidden = YES;
+            }
             NSLog(@"success");
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
@@ -1285,10 +1297,25 @@
     okBt.tag = orderSendState;
     [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
     [addBgView addSubview:okBt];
-    
-    
 }
 
+//正接单取消订单
+- (void)cancleOrderAction{
+    
+    if (dataArr.count > 0) {
+        if ([[dataArr[0] valueForKey:@"orderSendType"] isEqualToString:@"1"]) {
+            [self cancleExclusiveOrder];
+        }else{
+            [dataArr addObject:dataArr[0]];
+            [dataArr removeObjectAtIndex:0];
+            [myTableView reloadData];
+            
+//            [self sendCancleOrderWithOrderId:[dataArr[0] valueForKey:@"orderSendId"]];
+        }
+    }
+}
+
+//取消进行中的订单
 - (void)clickCancleBtAction:(UIButton *)sender{
     // "请求取消"
     NSInteger rowNum = sender.tag-1000;
@@ -1301,9 +1328,9 @@
 - (void)clickBtAction:(UIButton *)sender{
     NSLog(@"tag:%ld",sender.tag);
 //    if (sender.tag == 100) {
-
+//
 //        [self sendCancleOrderWithOrderId:[dataArr[0] valueForKey:@"orderSendId"]];
-
+//
 //        if (dataArr.count > 0) {
 //            if ([[dataArr[0] valueForKey:@"orderSendType"] isEqualToString:@"1"]) {
 //                [self cancleExclusiveOrder];
