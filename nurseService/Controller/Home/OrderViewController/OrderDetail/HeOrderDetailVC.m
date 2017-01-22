@@ -567,7 +567,7 @@
                     UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
                     [cancelButton setTitle:@"请求取消" forState:UIControlStateNormal];
                     [cancelButton.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
-                    [cancelButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+                    [cancelButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
                     [cancelButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
                     cancelButton.tag = 0;
                     [cell addSubview:cancelButton];
@@ -589,7 +589,7 @@
                     UIButton *nextButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
                     [nextButton setTitle:@"下一步" forState:UIControlStateNormal];
                     [nextButton.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
-                    [nextButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                    [nextButton setTitleColor:APPDEFAULTORANGE forState:UIControlStateNormal];
                     nextButton.backgroundColor = [UIColor clearColor];
                     [nextButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
                     nextButton.tag = 1;

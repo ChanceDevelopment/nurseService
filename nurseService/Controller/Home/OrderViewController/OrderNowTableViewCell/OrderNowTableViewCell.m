@@ -130,7 +130,7 @@
         line3.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
         
         UILabel *cancleL = [[UILabel alloc] initWithFrame:CGRectMake(0, lineY, 90, 35)];
-        cancleL.textColor = [UIColor grayColor];
+        cancleL.textColor = [UIColor redColor];
         cancleL.userInteractionEnabled = YES;
         cancleL.textAlignment = NSTextAlignmentCenter;
         cancleL.font = [UIFont systemFontOfSize:12.0];
@@ -147,7 +147,7 @@
 
         CGFloat nextStepW = (SCREENWIDTH-100)*2/5.0;
         UILabel *nextStepL = [[UILabel alloc] initWithFrame:CGRectMake(90, lineY, nextStepW, 35)];
-        nextStepL.textColor = [UIColor blackColor];
+        nextStepL.textColor = APPDEFAULTORANGE;
         nextStepL.userInteractionEnabled = YES;
         nextStepL.textAlignment = NSTextAlignmentRight;
         nextStepL.font = [UIFont systemFontOfSize:12.0];

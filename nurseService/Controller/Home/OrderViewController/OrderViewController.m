@@ -267,7 +267,7 @@
 
     
     UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
-    cancelButton.backgroundColor = APPDEFAULTORANGE;
+    cancelButton.backgroundColor = [UIColor redColor];
     //    [cancelButton setTitleColor: forState:UIControlStateNormal];
     cancelButton.tag = 0;
     [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
@@ -277,7 +277,7 @@
     
     buttonX = SCREENWIDTH/2.0 + 1;
     UIButton *receiveButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
-    receiveButton.backgroundColor = APPDEFAULTORANGE;
+    receiveButton.backgroundColor = [UIColor greenColor];
     //    [receiveButton setTitleColor:APPDEFAULTORANGE forState:UIControlStateNormal];
     receiveButton.tag = 1;
     [receiveButton setTitle:@"接单" forState:UIControlStateNormal];
