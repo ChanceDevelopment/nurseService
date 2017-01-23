@@ -14,5 +14,6 @@
 
 @property (nonatomic)UIColor* progressViewColor;
 @property (strong, nonatomic) UIProgressView *progressView;
+@property (strong, nonatomic) NSDictionary *dataDic;
 
 @end

@@ -608,6 +608,7 @@
     HomeWebViewController* webViewController = [[HomeWebViewController alloc] init];
     webViewController.hidesBottomBarWhenPushed = YES;
     webViewController.urlString = url;
+    webViewController.dataDic = dic;
     [self.navigationController pushViewController:webViewController animated:YES];
 
 }
