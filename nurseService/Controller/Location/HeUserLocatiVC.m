@@ -105,7 +105,7 @@
     _mapView.showsUserLocation = YES;
     if (editLocation) {
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] init];
-        rightItem.title = @"确定";
+        rightItem.title = @"确认";
         rightItem.target = self;
         rightItem.action = @selector(commitAddress:);
         self.navigationItem.rightBarButtonItem = rightItem;

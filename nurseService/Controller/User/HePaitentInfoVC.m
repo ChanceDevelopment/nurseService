@@ -102,7 +102,25 @@
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
         if ([[respondDict valueForKey:@"errorCode"] integerValue] == REQUESTCODE_SUCCEED) {
             NSLog(@"success");
-            userInfoDetailDict = respondDict[@"json"];
+            
+            NSDictionary *userInfoDic = [NSDictionary dictionaryWithDictionary:[respondDict valueForKey:@"json"]];
+            NSMutableDictionary *nurseDic = [NSMutableDictionary dictionaryWithCapacity:0];
+            for (NSString *key in [userInfoDic allKeys]) {
+                
+                if ([[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:key]] isEqualToString:@"<null>"]) {
+                    NSLog(@"key:%@",key);
+                    [nurseDic setValue:@"" forKey:key];
+                }else if ([[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:key]] isEqualToString:@"(null)"]) {
+                    NSLog(@"key:%@",key);
+                    [nurseDic setValue:@"" forKey:key];
+                }else{
+                    [nurseDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:key]] forKey:key];
+                }
+            }
+            
+            
+            userInfoDetailDict = nurseDic;
+            
             if ([userInfoDetailDict isMemberOfClass:[NSNull class]]) {
                 userInfoDetailDict = nil;
             }

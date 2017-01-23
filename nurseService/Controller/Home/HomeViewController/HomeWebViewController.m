@@ -44,14 +44,12 @@
         
         NSMutableArray *buttons = [[NSMutableArray alloc] init];
         UIButton *shareBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
-        [shareBt setBackgroundImage:[UIImage imageNamed:@"icon_scan"] forState:UIControlStateNormal];
+        [shareBt setBackgroundImage:[UIImage imageNamed:@"icon_share"] forState:UIControlStateNormal];
         [shareBt addTarget:self action:@selector(shareAction) forControlEvents:UIControlEventTouchUpInside];
         shareBt.backgroundColor = [UIColor clearColor];
         UIBarButtonItem *scanItem = [[UIBarButtonItem alloc] initWithCustomView:shareBt];
         [buttons addObject:scanItem];
         
-        UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithCustomView:shareBt];
-        [buttons addObject:searchItem];
         self.navigationItem.rightBarButtonItems = buttons;
 
     }

@@ -233,6 +233,13 @@
         make.center.equalTo(self.myTableView);
     }];
     
+    [self initHeadViewAndFootView];
+    
+
+    
+}
+
+- (void)initHeadViewAndFootView{
     self.myTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block,刷新
         [self.myTableView.header performSelector:@selector(endRefreshing) withObject:nil afterDelay:0.5];
@@ -245,7 +252,19 @@
         // 进入刷新状态后会自动调用这个block，加载更多
         [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
     }];
+}
+
+- (void)removeHeadViewAndFootView{
+//    if (self.myTableView.footer) {
+//        [self.myTableView.footer removeFromSuperview];
+//    }
+//    if (self.myTableView.header) {
+//        [self.myTableView.header removeFromSuperview];
+//    }
     
+    self.myTableView.footer.hidden = YES;
+    self.myTableView.header.hidden = YES;
+
 }
 
 - (void)initFooterView{
@@ -471,6 +490,12 @@
         noDataView.hidden = NO;
         myTableView.hidden = YES;
         return;
+    }
+    
+    if (currentType == 0) {
+//        [self removeHeadViewAndFootView];
+    }else{
+//        [self initHeadViewAndFootView];
     }
     
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
@@ -850,7 +875,7 @@
         
         cell.serviceContentL.text = contentArr[1];
         
-        id zoneCreatetimeObj = [dict objectForKey:@"orderSendFinishOrderTime"];
+        id zoneCreatetimeObj = [dict objectForKey:@"orderSendBegintime"];
         if ([zoneCreatetimeObj isMemberOfClass:[NSNull class]] || zoneCreatetimeObj == nil) {
             NSTimeInterval  timeInterval = [[NSDate date] timeIntervalSince1970];
             zoneCreatetimeObj = [NSString stringWithFormat:@"%.0f000",timeInterval];
@@ -1012,13 +1037,14 @@
         [bgView addSubview:orderMoney];
         orderMoney.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
 
-        
-        UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectMake(5, 111, SCREENWIDTH-20, 1)];
-//        [bgView addSubview:line1];
-        line1.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
-        
+    
         BOOL isEvaluate = [[dict valueForKey:@"isEvaluate"] isEqualToString:@"1"] ? YES : NO;
         if (!isCancleOrder) {
+            
+            UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectMake(5, 111, SCREENWIDTH-20, 1)];
+            [bgView addSubview:line1];
+            line1.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
+            
             UIButton *reportBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 111, SCREENWIDTH/2.0-5, 35)];
             [reportBt setTitle:@"护理报告" forState:UIControlStateNormal];
             [reportBt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];

@@ -20,6 +20,7 @@
 #import "MyCapitalViewController.h"
 #import "MyFansVC.h"
 #import "HeMineTableCell.h"
+#import "HeBaseTableViewCell.h"
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>
 {
@@ -33,6 +34,13 @@
     UILabel *healthL;
     UIImageView *nameImageView;
     UILabel *nameL;
+    UIView *windowView;
+    
+    NSMutableArray *serviceArr;
+    NSMutableArray *serviceSelectArr;
+    NSMutableDictionary *serviceIdDic;
+
+
 }
 
 @property(strong,nonatomic)IBOutlet UITableView *myTableView;
@@ -93,7 +101,10 @@
 //    iconArr = @[@[@"icon_mycollection",@"icon_publish",@"icon_mycomment"],@[@"icon_patient",@"icon_follow",@"icon_fans"],@[@"icon_schedule",@"icon_service",@"icon_myadd"],@[@"icon_invite",@"icon_set",@"icon_set"]];
     iconArr = @[@"icon_mycomment",@"icon_fans",@"icon_schedule",@"icon_invite",@"icon_set"];
 //    tableItemArr = @[@[@"        我的收藏",@"        我的发表",@"        我的评论"],@[@"        我的患者",@"        我的关注",@"        我的粉丝"],@[@"        我的排班表",@"        我的服务",@"        我的常用地址"],@[@"        邀请好友",@"        我的二维码",@"        设置"]];
-    tableItemArr =@[@"        我的评论",@"        我的粉丝",@"        我的排班表",@"        邀好友",@"        设置"];
+    tableItemArr =@[@"        我的评论",@"        我的粉丝",@"        我的服务",@"        邀好友",@"        设置"];
+    serviceArr = [[NSMutableArray alloc] initWithCapacity:0];  //可提供服务
+    serviceSelectArr = [[NSMutableArray alloc] initWithCapacity:0];
+    serviceIdDic = [[NSMutableDictionary alloc] initWithCapacity:0];  //可提供服务
 }
 
 - (void)reloadViewData{
@@ -401,24 +412,64 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if (tableView.tag == 500) {
+        return serviceArr.count;
+    }
     return iconArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSInteger row = indexPath.row;
     static NSString *cellIndentifier = @"cellIndentifier";
+    CGSize cellSize = [tableView rectForRowAtIndexPath:indexPath].size;
+    NSInteger section = indexPath.section;
+    
+    if (tableView.tag == 500) {
+        
+        HeBaseTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
+        if (!cell) {
+            cell = [[HeBaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier cellSize:cellSize];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        
+        UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, SCREENWIDTH-20, cellSize.height)];
+        tipLabel.backgroundColor = [UIColor clearColor];
+        tipLabel.text = serviceArr[row];
+        tipLabel.textAlignment = NSTextAlignmentCenter;
+        tipLabel.font = [UIFont systemFontOfSize:15.0];
+        tipLabel.textColor = [UIColor grayColor];
+        [cell addSubview:tipLabel];
+        
+        CGFloat imageW = 20;
+        CGFloat imageX = SCREENWIDTH-100;
+        
+        UIImageView *selectImage = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, 12, imageW, imageW)];
+        [cell addSubview:selectImage];
+        selectImage.backgroundColor = [UIColor clearColor];
+        selectImage.userInteractionEnabled = YES;
+        selectImage.tag = row +50;
+        
+        for (NSString *serviceStr in serviceSelectArr) {
+            if ([serviceStr isEqualToString:serviceArr[row]]) {
+                selectImage.image = [UIImage imageNamed:@"icon_hook"];
+            }
+        }
+        
+        return cell;
+    }
+    
     HeMineTableCell *userCell = [tableView cellForRowAtIndexPath:indexPath];
     if (!userCell) {
         userCell = [[HeMineTableCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier];
     }
-    NSInteger row = indexPath.row;
-    NSInteger section = indexPath.section;
-    CGSize cellSize = [tableView rectForRowAtIndexPath:indexPath].size;
+    
     CGFloat iconY = 10;
     CGFloat iconH = cellSize.height - 2 * iconY;
     CGFloat iconX = 10;
@@ -472,6 +523,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (tableView.tag == 500) {
+        return 44;
+    }
     return 50;
 }
 
@@ -501,8 +555,9 @@
                 }
                     break;
                 case 2:
-                {//我的排班表
-                    [self.view makeToast:@"功能未完善" duration:1.2 position:@"center"];
+                {//我的服务
+//                    [self showAlertView];
+//                    [self.view makeToast:@"功能未完善" duration:1.2 position:@"center"];
                 }
                     break;
                 case 3:
@@ -755,6 +810,168 @@
 //    }];
 
 }
+
+- (void)showAlertView{
+    windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
+    windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
+    [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
+    
+    NSInteger addBgView_W = SCREENWIDTH -20;
+    NSInteger addBgView_H = 160;
+    NSInteger addBgView_Y = SCREENHEIGH/2.0-addBgView_H/2.0-40;
+    UIView *addBgView = [[UIView alloc] initWithFrame:CGRectMake(10, addBgView_Y, addBgView_W, addBgView_H)];
+    addBgView.backgroundColor = [UIColor whiteColor];
+    [addBgView.layer setMasksToBounds:YES];
+    [addBgView.layer setCornerRadius:4];
+    addBgView.alpha = 1.0;
+    [windowView addSubview:addBgView];
+    
+    
+    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 40)];
+    titleL.textColor = [UIColor blackColor];
+    titleL.textAlignment = NSTextAlignmentLeft;
+    titleL.font = [UIFont systemFontOfSize:18.0];
+    titleL.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:titleL];
+    titleL.text = @"提示";
+    
+    NSInteger addTextField_H = 44;
+    NSInteger addTextField_Y = 50;
+    NSInteger addTextField_W =SCREENWIDTH-40;
+    
+    UILabel *tipLable = [[UILabel alloc] initWithFrame:CGRectMake(10, addTextField_Y, addTextField_W, addTextField_H)];//高度--44
+    tipLable.font = [UIFont systemFontOfSize:15.0];
+    tipLable.backgroundColor = [UIColor clearColor];
+    tipLable.numberOfLines = 0;
+    tipLable.text = @"提交新的服务认证需要重新审核，未审核通过前无法接单，是否确认";
+    [addBgView addSubview:tipLable];
+
+    NSInteger cancleBt_X = SCREENWIDTH-20-10-90;
+    NSInteger cancleBt_Y = addTextField_Y+44+30;
+    NSInteger cancleBt_W = 40;
+    NSInteger cancleBt_H = 20;
+    
+    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
+    cancleBt.backgroundColor = [UIColor clearColor];
+    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    cancleBt.tag = 0;
+    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:cancleBt];
+    
+    UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [okBt setTitle:@"确认" forState:UIControlStateNormal];
+    okBt.backgroundColor = [UIColor clearColor];
+    okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    okBt.tag = 1;
+    [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:okBt];
+    
+    
+}
+- (void)clickBtAction:(UIButton *)sender{
+    
+    if (sender.tag == 1) {
+        [self getAllServiceInfo];
+    }
+    if (windowView) {
+        [windowView removeFromSuperview];
+    }
+    NSLog(@"tag:%ld",sender.tag);
+}
+
+- (void)showServiceAlertView{
+    
+    //serviceArr
+    windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
+    windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
+    [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
+    
+    
+    NSInteger addBgView_W = SCREENWIDTH -20;
+    NSInteger addBgView_H = 44*serviceArr.count;
+    NSInteger addBgView_Y = (SCREENHEIGH-addBgView_H)/2.0;//SCREENHEIGH/2.0-addBgView_H/2.0-40;
+    UIView *addBgView = [[UIView alloc] initWithFrame:CGRectMake(10, addBgView_Y, addBgView_W, addBgView_H)];
+    addBgView.backgroundColor = [UIColor whiteColor];
+    [addBgView.layer setMasksToBounds:YES];
+    [addBgView.layer setCornerRadius:4];
+    addBgView.alpha = 1.0;
+    [windowView addSubview:addBgView];
+    
+    UITableView *tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 10, addBgView_W, addBgView_H-50) style:UITableViewStylePlain];
+    tableview.tag = 500;
+    tableview.delegate = self;
+    tableview.dataSource = self;
+    [addBgView addSubview:tableview];
+    tableview.backgroundView = nil;
+    tableview.backgroundColor = [UIColor whiteColor];
+    [Tool setExtraCellLineHidden:tableview];
+    tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    NSInteger cancleBt_X = SCREENWIDTH-50-90;
+    NSInteger cancleBt_Y = CGRectGetMaxY(tableview.frame)+10;
+    NSInteger cancleBt_W = 40;
+    NSInteger cancleBt_H = 20;
+    
+    UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [okBt setTitle:@"确定" forState:UIControlStateNormal];
+    okBt.backgroundColor = [UIColor clearColor];
+    okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    okBt.tag = 100;
+    [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:okBt];
+    
+}
+
+//获取所有的服务
+- (void)getAllServiceInfo{
+    
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:@"content/SelectContentAllinfo.action" params:nil success:^(AFHTTPRequestOperation* operation,id response){
+        
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSArray *temp = [NSArray arrayWithArray:[respondDict objectForKey:@"json"]];
+            if (serviceArr.count > 0) {
+                [serviceArr removeAllObjects];
+            }
+            if ([[serviceIdDic allKeys] count] > 0) {
+                [serviceIdDic removeAllObjects];
+            }
+            for (int i = 0; i<temp.count; i++) {
+                NSDictionary *tempDic = [NSDictionary dictionaryWithDictionary:temp[i]];
+                [serviceArr addObject:[tempDic objectForKey:@"manageNursingContentName"]];
+                [serviceIdDic setObject:[tempDic objectForKey:@"manageNursingContentId"] forKey:[tempDic objectForKey:@"manageNursingContentName"]];
+                
+            }
+            NSLog(@"success");
+            [self showServiceAlertView];
+            NSString *serviceStr = @"";
+            for (NSString *value in serviceSelectArr) {
+                NSString *serviceItem = [NSString stringWithFormat:@"%@",[serviceIdDic objectForKey:value]];
+                serviceStr = [serviceStr stringByAppendingFormat:@",%@",serviceItem];;
+            }
+            
+            if (serviceStr.length > 0) {
+                serviceStr = [serviceStr substringFromIndex:1];
+            }
+//            [dataSourceDic setValue:serviceStr forKey:@"nurseGoodservice"];
+            
+            [myTableView reloadData];
+            
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

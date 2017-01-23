@@ -203,7 +203,7 @@
     [addBgView addSubview:cancleBt];
     
     UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
-    [okBt setTitle:@"确定" forState:UIControlStateNormal];
+    [okBt setTitle:@"确认" forState:UIControlStateNormal];
     okBt.backgroundColor = [UIColor clearColor];
     okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];

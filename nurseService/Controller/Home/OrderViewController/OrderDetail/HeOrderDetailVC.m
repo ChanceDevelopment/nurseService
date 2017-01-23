@@ -19,6 +19,7 @@
 @interface HeOrderDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 {
     CGFloat imageScrollViewHeigh;
+    UIView *windowView;
 }
 @property(strong,nonatomic)IBOutlet UITableView *tableview;
 @property(strong,nonatomic)IBOutlet UIView *statusView;
@@ -591,8 +592,8 @@
                     [nextButton.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
                     [nextButton setTitleColor:APPDEFAULTORANGE forState:UIControlStateNormal];
                     nextButton.backgroundColor = [UIColor clearColor];
-                    [nextButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-                    nextButton.tag = 1;
+                    [nextButton addTarget:self action:@selector(showAlertViewWithTag:) forControlEvents:UIControlEventTouchUpInside];
+                    nextButton.tag = orderIndex;
                     [cell addSubview:nextButton];
                     
                     CGFloat sepLineX = buttonX;
@@ -787,6 +788,8 @@
             
             [self getOrderDetailData];
             
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateOrder" object:nil];
+            
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
             
@@ -816,6 +819,95 @@
     userLocationVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:userLocationVC animated:YES];
 }
+
+
+- (void)showAlertViewWithTag:(UIButton *)sender{
+    NSInteger tag = sender.tag;
+    windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
+    windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
+    [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
+    
+    NSInteger addBgView_W = SCREENWIDTH -20;
+    NSInteger addBgView_H = 90;
+    NSInteger addBgView_Y = SCREENHEIGH/2.0-addBgView_H/2.0-40;
+    UIView *addBgView = [[UIView alloc] initWithFrame:CGRectMake(10, addBgView_Y, addBgView_W, addBgView_H)];
+    addBgView.backgroundColor = [UIColor whiteColor];
+    [addBgView.layer setMasksToBounds:YES];
+    [addBgView.layer setCornerRadius:4];
+    addBgView.alpha = 1.0;
+    [windowView addSubview:addBgView];
+    
+    NSInteger addTextField_H = 44;
+    NSInteger addTextField_Y = 10;
+    NSInteger addTextField_W =SCREENWIDTH-40;
+    
+    UILabel *infoTip= [[UILabel alloc] initWithFrame:CGRectMake(10, addTextField_Y, addTextField_W, addTextField_H)];//高度--44
+    infoTip.font = [UIFont systemFontOfSize:12.0];
+    infoTip.numberOfLines = 0;
+    infoTip.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:infoTip];
+    NSInteger orderSendState = tag;  //0已接单1已沟通2已出发3开始服务4已完成
+    if(orderSendState == 0){
+        infoTip.text = @"执行下一步：联系客户";
+    }else if(orderSendState == 1){
+        infoTip.text = @"执行下一步：出发";
+    }else if(orderSendState == 2){
+        infoTip.text = @"执行下一步：开始服务";
+    }else if(orderSendState == 3){
+        infoTip.text = @"执行下一步：填写报告";
+    }
+    
+    NSInteger cancleBt_X = SCREENWIDTH-20-10-90;
+    NSInteger cancleBt_Y = addTextField_Y+50;
+    NSInteger cancleBt_W = 40;
+    NSInteger cancleBt_H = 20;
+    
+    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
+    cancleBt.backgroundColor = [UIColor clearColor];
+    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    cancleBt.tag = 1000;
+    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:cancleBt];
+    
+    UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [okBt setTitle:@"确认" forState:UIControlStateNormal];
+    okBt.backgroundColor = [UIColor clearColor];
+    okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    okBt.tag = orderSendState;
+    [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:okBt];
+}
+
+
+- (void)clickBtAction:(UIButton *)sender{
+    NSLog(@"tag:%ld",sender.tag);
+    if(sender.tag == 0){
+        [self updateOrderStateWithOrderState:sender.tag];
+        // "执行下一步：联系客户";
+    }else if(sender.tag == 1){
+        [self updateOrderStateWithOrderState:sender.tag];
+        // "执行下一步：出发";
+    }else if(sender.tag == 2){
+        [self updateOrderStateWithOrderState:sender.tag];
+        // "执行下一步：开始服务";
+    }else if(sender.tag == 3){
+        // "执行下一步：填写报告";
+        NurseReportVC *nurseReportVC = [[NurseReportVC alloc] init];
+        nurseReportVC.hidesBottomBarWhenPushed = YES;
+        nurseReportVC.infoData = infoDic;
+        nurseReportVC.isDetail = NO;
+        [self.navigationController pushViewController:nurseReportVC animated:YES];
+    }
+    
+    if (windowView) {
+        [windowView removeFromSuperview];
+    }
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
