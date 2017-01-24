@@ -9,7 +9,7 @@
 #import "HeLoginVC.h"
 #import "HeEnrollVC.h"
 #import "BasicInfoVC.h"
-
+#import "HeForGetPasswordVC.h"
 @interface HeLoginVC ()<UITextFieldDelegate>
 @property(strong,nonatomic)IBOutlet UITextField *accountField;
 @property(strong,nonatomic)IBOutlet UITextField *passwordField;
@@ -161,6 +161,9 @@
 
 //忘记密码
 - (IBAction)forgetPassword:(id)sender {
+    HeForGetPasswordVC *heForGetPasswordVC = [[HeForGetPasswordVC alloc] init];
+    heForGetPasswordVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:heForGetPasswordVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

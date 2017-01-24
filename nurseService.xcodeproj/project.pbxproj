@@ -105,6 +105,10 @@
 		AD8BB13B1E0A0F0E004064F9 /* icon_integral.png in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB1371E0A0F0E004064F9 /* icon_integral.png */; };
 		AD8BB1431E0A3745004064F9 /* RankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB1411E0A3745004064F9 /* RankTableViewCell.m */; };
 		AD9E2B071E366EAF00ADA3BE /* icon_share.png in Resources */ = {isa = PBXBuildFile; fileRef = AD9E2B061E366EAF00ADA3BE /* icon_share.png */; };
+		AD9E2B0C1E370DA300ADA3BE /* HeForGetPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9E2B0A1E370DA300ADA3BE /* HeForGetPasswordVC.m */; };
+		AD9E2B0D1E370DA300ADA3BE /* HeForGetPasswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD9E2B0B1E370DA300ADA3BE /* HeForGetPasswordVC.xib */; };
+		AD9E2B121E370E4500ADA3BE /* HeModifyPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9E2B101E370E4500ADA3BE /* HeModifyPasswordVC.m */; };
+		AD9E2B131E370E4500ADA3BE /* HeModifyPasswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD9E2B111E370E4500ADA3BE /* HeModifyPasswordVC.xib */; };
 		ADB49C531E163CA3008DBCF6 /* icon_rank_1.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB49C501E163CA3008DBCF6 /* icon_rank_1.png */; };
 		ADB49C541E163CA3008DBCF6 /* icon_rank_2.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB49C511E163CA3008DBCF6 /* icon_rank_2.png */; };
 		ADB49C551E163CA3008DBCF6 /* icon_rank_3.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB49C521E163CA3008DBCF6 /* icon_rank_3.png */; };
@@ -903,6 +907,12 @@
 		AD8BB1401E0A3745004064F9 /* RankTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankTableViewCell.h; sourceTree = "<group>"; };
 		AD8BB1411E0A3745004064F9 /* RankTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankTableViewCell.m; sourceTree = "<group>"; };
 		AD9E2B061E366EAF00ADA3BE /* icon_share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_share.png; sourceTree = "<group>"; };
+		AD9E2B091E370DA300ADA3BE /* HeForGetPasswordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeForGetPasswordVC.h; sourceTree = "<group>"; };
+		AD9E2B0A1E370DA300ADA3BE /* HeForGetPasswordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeForGetPasswordVC.m; sourceTree = "<group>"; };
+		AD9E2B0B1E370DA300ADA3BE /* HeForGetPasswordVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeForGetPasswordVC.xib; sourceTree = "<group>"; };
+		AD9E2B0F1E370E4500ADA3BE /* HeModifyPasswordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeModifyPasswordVC.h; sourceTree = "<group>"; };
+		AD9E2B101E370E4500ADA3BE /* HeModifyPasswordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeModifyPasswordVC.m; sourceTree = "<group>"; };
+		AD9E2B111E370E4500ADA3BE /* HeModifyPasswordVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeModifyPasswordVC.xib; sourceTree = "<group>"; };
 		ADB49C501E163CA3008DBCF6 /* icon_rank_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_rank_1.png; sourceTree = "<group>"; };
 		ADB49C511E163CA3008DBCF6 /* icon_rank_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_rank_2.png; sourceTree = "<group>"; };
 		ADB49C521E163CA3008DBCF6 /* icon_rank_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_rank_3.png; sourceTree = "<group>"; };
@@ -2400,6 +2410,7 @@
 		AD8BB1201E09363B004064F9 /* SettingViewController */ = {
 			isa = PBXGroup;
 			children = (
+				AD9E2B0E1E370E4500ADA3BE /* HeModifyPasswordVC */,
 				AD5CD6CD1E0FAA710025517E /* FeedbackViewController */,
 				AD8BB1211E09363B004064F9 /* SettingViewController.h */,
 				AD8BB1221E09363B004064F9 /* SettingViewController.m */,
@@ -2437,6 +2448,26 @@
 				AD8BB1411E0A3745004064F9 /* RankTableViewCell.m */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		AD9E2B081E370DA300ADA3BE /* HeForGetPasswordVC */ = {
+			isa = PBXGroup;
+			children = (
+				AD9E2B091E370DA300ADA3BE /* HeForGetPasswordVC.h */,
+				AD9E2B0A1E370DA300ADA3BE /* HeForGetPasswordVC.m */,
+				AD9E2B0B1E370DA300ADA3BE /* HeForGetPasswordVC.xib */,
+			);
+			path = HeForGetPasswordVC;
+			sourceTree = "<group>";
+		};
+		AD9E2B0E1E370E4500ADA3BE /* HeModifyPasswordVC */ = {
+			isa = PBXGroup;
+			children = (
+				AD9E2B0F1E370E4500ADA3BE /* HeModifyPasswordVC.h */,
+				AD9E2B101E370E4500ADA3BE /* HeModifyPasswordVC.m */,
+				AD9E2B111E370E4500ADA3BE /* HeModifyPasswordVC.xib */,
+			);
+			path = HeModifyPasswordVC;
 			sourceTree = "<group>";
 		};
 		ADB49C561E164526008DBCF6 /* myCapital */ = {
@@ -3176,6 +3207,7 @@
 		EAA4F2F61E011EA600EF9E14 /* User */ = {
 			isa = PBXGroup;
 			children = (
+				AD9E2B081E370DA300ADA3BE /* HeForGetPasswordVC */,
 				AD8A0E9A1E260E1D0001CC02 /* ProfessionInfoVC */,
 				AD8A0E8E1E260E070001CC02 /* BasicInfoVC */,
 				EAA4F2F71E011EA600EF9E14 /* LoginEnroll */,
@@ -5121,6 +5153,7 @@
 				AD5CD6DC1E0FBCB70025517E /* cancle.png in Resources */,
 				EA1742BD1E1E331B0038E805 /* LICENSE in Resources */,
 				EAC2D8871D4B063B00E282A8 /* IQActionSheetPickerView.xib in Resources */,
+				AD9E2B0D1E370DA300ADA3BE /* HeForGetPasswordVC.xib in Resources */,
 				EAC2D8761D4B063B00E282A8 /* blueArrow.png in Resources */,
 				EAC2D9571D4B063B00E282A8 /* ProvincesAndCities.plist in Resources */,
 				EAC2D9891D4B063B00E282A8 /* ShareSDKUI.bundle in Resources */,
@@ -5171,6 +5204,7 @@
 				EABFEC491E1B8674009C27C5 /* HeOrderDetailVC.xib in Resources */,
 				EA1743511E1E33AF0038E805 /* Expression.plist in Resources */,
 				EAC2D9971D4B063C00E282A8 /* zbar-help.html in Resources */,
+				AD9E2B131E370E4500ADA3BE /* HeModifyPasswordVC.xib in Resources */,
 				ADB49C551E163CA3008DBCF6 /* icon_rank_3.png in Resources */,
 				EA8C892D1E2135460093657B /* HeUserLocatiVC.xib in Resources */,
 				EAA4F3061E012A7000EF9E14 /* HomeViewController.xib in Resources */,
@@ -5373,6 +5407,7 @@
 				EAA655071E0627C300F424DD /* DFActivityLineCellAdapter.m in Sources */,
 				EAC2D82E1D4B063B00E282A8 /* ASIDataCompressor.m in Sources */,
 				EAC2D8A91D4B063B00E282A8 /* MJRefreshAutoNormalFooter.m in Sources */,
+				AD9E2B121E370E4500ADA3BE /* HeModifyPasswordVC.m in Sources */,
 				EA17434B1E1E33AF0038E805 /* DFTableViewNativeRefreshControl.m in Sources */,
 				EABFECB61E1B8D4E009C27C5 /* README.md in Sources */,
 				EAC2D9271D4B063B00E282A8 /* UIDatePicker+RACSignalSupport.m in Sources */,
@@ -5467,6 +5502,7 @@
 				EAC2D89F1D4B063B00E282A8 /* MJPhotoToolbar.m in Sources */,
 				EA17435A1E1E33AF0038E805 /* DFUserDefaultStorageService.m in Sources */,
 				EAC2D8B21D4B063B00E282A8 /* MJRefreshConst.m in Sources */,
+				AD9E2B0C1E370DA300ADA3BE /* HeForGetPasswordVC.m in Sources */,
 				EAC2D9861D4B063B00E282A8 /* split.c in Sources */,
 				EAC2D8CE1D4B063B00E282A8 /* SINavigationMenuView.m in Sources */,
 				ADDBEB911DFCE87E000BDA95 /* LBKitConst.m in Sources */,

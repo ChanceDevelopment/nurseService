@@ -80,7 +80,7 @@
     
     getCodeButton.layer.borderWidth = 1.0;
     getCodeButton.layer.cornerRadius = 5.0;
-    getCodeButton.layer.backgroundColor = APPDEFAULTORANGE.CGColor;
+    getCodeButton.layer.borderColor = APPDEFAULTORANGE.CGColor;
     getCodeButton.layer.masksToBounds = YES;
     
 }
@@ -99,7 +99,7 @@
         return;
     }
     
-    [sender startWithTime:60 title:@"获取验证码" countDownTitle:@"s" mainColor:APPDEFAULTORANGE countColor:[UIColor lightGrayColor]];
+    [sender startWithTime:60 title:@"获取验证码" countDownTitle:@"s" mainColor:[UIColor whiteColor] countColor:[UIColor whiteColor]];
 
     //获取注册手机号的验证码
     NSString *phoneNumber = accountField.text;

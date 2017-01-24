@@ -9,6 +9,7 @@
 #import "SettingViewController.h"
 #import "FeedbackViewController.h"
 #import "Tool.h"
+#import "HeModifyPasswordVC.h"
 
 @interface SettingViewController ()
 {
@@ -153,6 +154,9 @@
 }
 //修改密码
 - (IBAction)changepassword:(id)sender {
+    HeModifyPasswordVC *heModifyPasswordVC = [[HeModifyPasswordVC alloc] init];
+    heModifyPasswordVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:heModifyPasswordVC animated:YES];
 }
 
 /*
