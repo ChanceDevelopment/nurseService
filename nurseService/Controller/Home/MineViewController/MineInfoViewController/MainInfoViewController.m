@@ -287,6 +287,11 @@
             nameStr=[dataSourceDic valueForKey:@"nursePhone"];
         }else if (row == 3){
             nameStr=[dataSourceDic valueForKey:@"nurseCard"];
+//            if (![nameStr isEqualToString:@""]) {
+//                NSMutableString *string1 = [[NSMutableString alloc] initWithString:nameStr];
+//                [string1 replaceCharactersInRange:NSMakeRange(8, 13) withString:@"******"];
+//                nameStr = string1;
+//            }
         }else if (row == 4){
             nameStr=[dataSourceDic valueForKey:@"nurseSex"];
         }else if (row == 5){

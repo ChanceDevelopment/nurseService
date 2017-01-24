@@ -109,6 +109,7 @@
 		AD9E2B0D1E370DA300ADA3BE /* HeForGetPasswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD9E2B0B1E370DA300ADA3BE /* HeForGetPasswordVC.xib */; };
 		AD9E2B121E370E4500ADA3BE /* HeModifyPasswordVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD9E2B101E370E4500ADA3BE /* HeModifyPasswordVC.m */; };
 		AD9E2B131E370E4500ADA3BE /* HeModifyPasswordVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD9E2B111E370E4500ADA3BE /* HeModifyPasswordVC.xib */; };
+		AD9E2B151E376B2100ADA3BE /* img_no_data_refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = AD9E2B141E376B2100ADA3BE /* img_no_data_refresh.png */; };
 		ADB49C531E163CA3008DBCF6 /* icon_rank_1.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB49C501E163CA3008DBCF6 /* icon_rank_1.png */; };
 		ADB49C541E163CA3008DBCF6 /* icon_rank_2.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB49C511E163CA3008DBCF6 /* icon_rank_2.png */; };
 		ADB49C551E163CA3008DBCF6 /* icon_rank_3.png in Resources */ = {isa = PBXBuildFile; fileRef = ADB49C521E163CA3008DBCF6 /* icon_rank_3.png */; };
@@ -913,6 +914,7 @@
 		AD9E2B0F1E370E4500ADA3BE /* HeModifyPasswordVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeModifyPasswordVC.h; sourceTree = "<group>"; };
 		AD9E2B101E370E4500ADA3BE /* HeModifyPasswordVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeModifyPasswordVC.m; sourceTree = "<group>"; };
 		AD9E2B111E370E4500ADA3BE /* HeModifyPasswordVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeModifyPasswordVC.xib; sourceTree = "<group>"; };
+		AD9E2B141E376B2100ADA3BE /* img_no_data_refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_no_data_refresh.png; sourceTree = "<group>"; };
 		ADB49C501E163CA3008DBCF6 /* icon_rank_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_rank_1.png; sourceTree = "<group>"; };
 		ADB49C511E163CA3008DBCF6 /* icon_rank_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_rank_2.png; sourceTree = "<group>"; };
 		ADB49C521E163CA3008DBCF6 /* icon_rank_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_rank_3.png; sourceTree = "<group>"; };
@@ -2522,6 +2524,7 @@
 		ADB49C731E1947C5008DBCF6 /* order */ = {
 			isa = PBXGroup;
 			children = (
+				AD9E2B141E376B2100ADA3BE /* img_no_data_refresh.png */,
 				ADB4CFFB1E2E86C2004ED2E3 /* icon_collection_full.png */,
 				ADB4CFFC1E2E86C2004ED2E3 /* icon_collection.png */,
 				AD13A66F1E2BB067002ADE2B /* icon_switch_close.png */,
@@ -5310,6 +5313,7 @@
 				ADCD25B01E0C2E7300FBCF26 /* icon_star_normal.png in Resources */,
 				EAA655221E0627C300F424DD /* AlbumComment@2x.png in Resources */,
 				EA472CB51E04DE5500E0316F /* unselect_box.png in Resources */,
+				AD9E2B151E376B2100ADA3BE /* img_no_data_refresh.png in Resources */,
 				AD8BB12E1E096E9B004064F9 /* icon_health_authent.png in Resources */,
 				ADB49C541E163CA3008DBCF6 /* icon_rank_2.png in Resources */,
 				EAA4F3151E012AA800EF9E14 /* RankViewController.xib in Resources */,

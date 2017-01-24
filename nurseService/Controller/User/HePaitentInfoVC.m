@@ -54,7 +54,7 @@
 - (void)initializaiton
 {
     [super initializaiton];
-    dataSource = @[@"姓名",@"性别",@"身份证号",@"年龄",@"监护人",@"联系电话",@"关系",@"地址",@"病史备注"];
+    dataSource = @[@"姓名",@"性别",@"身份证号",@"年龄",@"用户",@"联系电话",@"关系",@"地址",@"病史备注"];
     keyDataSource = @[@"protectedPersonName",@"protectedPersonSex",@"protectedPersonCard",@"protectedPersonAge",@"protectedPersonGuardian",@"protectedPersonPhone",@"protectedPersonNexus",@"protectedAddress",@"protectedPersonNote"];
 }
 
@@ -209,6 +209,10 @@
             
         }
         content = addressStr;
+    }else if (([contentKey isEqualToString:@"protectedPersonGuardian"])){
+        NSDictionary *userInfoDic = [NSDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY]];
+
+        content = [NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseNick"]];
     }
     UILabel *contentLabel = [[UILabel alloc] init];
     contentLabel.textAlignment = NSTextAlignmentRight;

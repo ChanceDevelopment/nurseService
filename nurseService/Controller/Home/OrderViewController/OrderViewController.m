@@ -39,6 +39,8 @@
     
     UILabel *badge;
     NSMutableArray *badgeDataArr;
+    MZTimerLabel *timer3;
+    UILabel *noDataTip;
     
 }
 @property(nonatomic,strong)DLNavigationTabBar *navigationTabBar;
@@ -183,6 +185,18 @@
     noDataView.frame = CGRectMake(noDataViewX, noDataViewY, noDataViewW, noDataViewH);
     noDataView.image = image;
     noDataView.hidden = YES;
+    noDataView.userInteractionEnabled = YES;
+    
+    UITapGestureRecognizer *clickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickReloadOrderList)];
+    [noDataView addGestureRecognizer:clickTap];
+//    noDataViewY = CGRectGetMaxY(noDataView.frame);
+//    noDataTip = [[UILabel alloc] init];
+//    noDataTip.frame = CGRectMake(noDataViewX, noDataViewY, noDataViewW, 20);
+//    [noDataTip setBackgroundColor:[UIColor clearColor]];
+//    [self.view addSubview:noDataTip];
+//    noDataTip.text = @"暂无数据";
+//    noDataTip.textAlignment = NSTextAlignmentCenter;
+//    
     
     myTableView = [[UITableView alloc] init];
     myTableView.frame = CGRectMake(0, tableViewY, SCREENWIDTH, tableViewH);
@@ -286,7 +300,6 @@
     
     UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
     cancelButton.backgroundColor = [UIColor redColor];
-    //    [cancelButton setTitleColor: forState:UIControlStateNormal];
     cancelButton.tag = 0;
     [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
     [cancelButton.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
@@ -317,13 +330,12 @@
     timeLabel.textAlignment = NSTextAlignmentCenter;
     [footerView addSubview:timeLabel];
     
-    MZTimerLabel *timer3 = [[MZTimerLabel alloc] initWithLabel:timeLabel andTimerType:MZTimerLabelTypeTimer];
+    timer3 = [[MZTimerLabel alloc] initWithLabel:timeLabel andTimerType:MZTimerLabelTypeTimer];
     timer3.timeFormat = @"mm:ss";
     [timer3 setCountDownTime:60 * 5];
+    timer3.resetTimerAfterFinish = YES;
     [timer3 start];
 
-    
-    
     /*
     CGFloat receiveIconW = 60;
     CGFloat receiveIconH = 60;
@@ -478,6 +490,22 @@
     switchBt.selected = [[NSUserDefaults standardUserDefaults] objectForKey:RECEIVEORDERSTATE];
 }
 
+- (void)showNodataView:(BOOL)isShow{
+    if (isShow) {
+        if (currentType == 0) {
+            noDataView.image = [UIImage imageNamed:@"img_no_data_refresh"];
+        }else{
+            noDataView.image = [UIImage imageNamed:@"img_no_data"];
+        }
+        noDataView.hidden = NO;
+        myTableView.hidden = YES;
+    }else{
+        noDataView.hidden = YES;
+        myTableView.hidden = NO;
+    }
+}
+
+
 - (void)getDataWithUrl:(NSString *)url{
     BOOL isOn = [[[NSUserDefaults standardUserDefaults] objectForKey:RECEIVEORDERSTATE] boolValue];
     if (!isOn && currentType == 0) {
@@ -486,17 +514,13 @@
             [footerView removeFromSuperview];
             footerView = nil;
         }
-        noDataView.hidden = NO;
-        myTableView.hidden = YES;
+//        noDataView.hidden = NO;
+//        myTableView.hidden = YES;
+        [self showNodataView:YES];
         return;
     }
     
-    if (currentType == 0) {
-//        [self removeHeadViewAndFootView];
-    }else{
-//        [self initHeadViewAndFootView];
-    }
-    
+
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     NSDictionary * params;
     if (currentType == 0) {
@@ -526,8 +550,9 @@
                     footerView = nil;
                 }
                 if (currentType != 2) {
-                    noDataView.hidden = NO;
-                    myTableView.hidden = YES;
+                    [self showNodataView:YES];
+//                    noDataView.hidden = NO;
+//                    myTableView.hidden = YES;
                 }
                 return ;
             }else{
@@ -546,8 +571,9 @@
                             if (footerView == nil) {
                                 [self initFooterView];
                             }
-                            noDataView.hidden = YES;
-                            myTableView.hidden = NO;
+                            [self showNodataView:NO];
+//                            noDataView.hidden = YES;
+//                            myTableView.hidden = NO;
                         }
                     }
                         break;
@@ -562,8 +588,9 @@
                             footerView = nil;
                         }
                         if (tempArr.count > 0){
-                            noDataView.hidden = YES;
-                            myTableView.hidden = NO;
+                            [self showNodataView:NO];
+//                            noDataView.hidden = YES;
+//                            myTableView.hidden = NO;
                         }
                     }
                         break;
@@ -577,8 +604,10 @@
                         CGFloat tableViewH = self.view.frame.size.height-44-48+50;
                         myTableView.frame = CGRectMake(0, tableViewY, SCREENWIDTH, tableViewH);
                         if (tempArr.count >0){
-                            noDataView.hidden = YES;
-                            myTableView.hidden = NO;
+                            [self showNodataView:NO];
+
+//                            noDataView.hidden = YES;
+//                            myTableView.hidden = NO;
                         }
                     }
                         break;
@@ -595,8 +624,10 @@
                     [myTableView reloadData];
                 }else{
                     if (currentPage == 0 && tempArr.count == 0) {
-                        noDataView.hidden = NO;
-                        myTableView.hidden = YES;
+                        [self showNodataView:YES];
+
+//                        noDataView.hidden = NO;
+//                        myTableView.hidden = YES;
                     }
                     [myTableView reloadData];
                     return;
@@ -604,14 +635,17 @@
                 
             }
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
-            myTableView.hidden = YES;
-            noDataView .hidden = NO;
+//            myTableView.hidden = YES;
+//            noDataView .hidden = NO;
+            [self showNodataView:YES];
+
             NSLog(@"faile");
             [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         }
     } failure:^(NSError* err){
-        myTableView.hidden = YES;
-        noDataView .hidden = NO;
+        [self showNodataView:YES];
+//        myTableView.hidden = YES;
+//        noDataView .hidden = NO;
         NSLog(@"err:%@",err);
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
@@ -651,7 +685,7 @@
         NSLog(@"respondString:%@",respondString);
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
         
-        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:2.0 position:@"center"];
+//        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:2.0 position:@"center"];
         
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
 //            [self reloadOrderData];
@@ -664,6 +698,8 @@
                 }
                 noDataView.hidden = NO;
                 myTableView.hidden = YES;
+            }else{
+                [timer3 reset];
             }
             NSLog(@"success");
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
@@ -691,7 +727,7 @@
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
             [self reloadOrderData];
-
+            [timer3 reset];
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
         }
@@ -878,7 +914,12 @@
         NSString *content = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendServicecontent"]];
         NSArray *contentArr = [content componentsSeparatedByString:@":"];
         
-        cell.serviceContentL.text = contentArr[1];
+        @try {
+            cell.serviceContentL.text = contentArr[1];
+        } @catch (NSException *exception) {
+        } @finally {
+            
+        }
         
         id zoneCreatetimeObj = [dict objectForKey:@"orderSendBegintime"];
         if ([zoneCreatetimeObj isMemberOfClass:[NSNull class]] || zoneCreatetimeObj == nil) {
@@ -987,8 +1028,13 @@
         
         NSString *content = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendServicecontent"]];
         NSArray *contentArr = [content componentsSeparatedByString:@":"];
-        serviceContentL.text = contentArr[1];
-        
+        @try {
+            serviceContentL.text = contentArr[1];
+        } @catch (NSException *exception) {
+        } @finally {
+            
+        }
+
         UILabel *orderStateL = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH-20-40, 0, 40, 50)];
         orderStateL.textColor = [UIColor grayColor];
         orderStateL.font = [UIFont systemFontOfSize:12.0];
@@ -1335,12 +1381,17 @@
     
     if (dataArr.count > 0) {
         if ([[dataArr[0] valueForKey:@"orderSendType"] isEqualToString:@"1"]) {
-            [self cancleExclusiveOrder];
+            //专属订单
+            [self cancleExclusiveOrderAlertView];
         }else{
-            [dataArr addObject:dataArr[0]];
+//            [dataArr addObject:dataArr[0]];
             [dataArr removeObjectAtIndex:0];
+            if (dataArr.count == 0) {
+                [self showNodataView:YES];
+            }
             [myTableView reloadData];
-            
+            [timer3 reset];
+
 //            [self sendCancleOrderWithOrderId:[dataArr[0] valueForKey:@"orderSendId"]];
         }
     }
@@ -1407,7 +1458,7 @@
         NSLog(@"respondString:%@",respondString);
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
         
-        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+//        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
             [self reloadOrderData];
@@ -1540,6 +1591,88 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+- (void)cancleExclusiveOrderAlertView{
+    
+    windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
+    windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
+    [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
+    
+    NSInteger addBgView_W = SCREENWIDTH -20;
+    NSInteger addBgView_H = 160;
+    NSInteger addBgView_Y = SCREENHEIGH/2.0-addBgView_H/2.0-40;
+    UIView *addBgView = [[UIView alloc] initWithFrame:CGRectMake(10, addBgView_Y, addBgView_W, addBgView_H)];
+    addBgView.backgroundColor = [UIColor whiteColor];
+    [addBgView.layer setMasksToBounds:YES];
+    [addBgView.layer setCornerRadius:4];
+    addBgView.alpha = 1.0;
+    [windowView addSubview:addBgView];
+    
+    
+    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 40)];
+    titleL.textColor = [UIColor blackColor];
+    titleL.textAlignment = NSTextAlignmentLeft;
+    titleL.font = [UIFont systemFontOfSize:18.0];
+    titleL.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:titleL];
+    
+    NSInteger addTextField_H = 44;
+    NSInteger addTextField_Y = 50;
+    NSInteger addTextField_W =SCREENWIDTH-40;
+    
+    UILabel *infoTip= [[UILabel alloc] initWithFrame:CGRectMake(10, addTextField_Y, addTextField_W, addTextField_H)];//高度--44
+    infoTip.font = [UIFont systemFontOfSize:14.0];
+    infoTip.numberOfLines = 0;
+    infoTip.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:infoTip];
+    
+    titleL.text = @"请求取消";
+    infoTip.text = @"若取消订单,你将无法获取酬劳,你确定要取消这笔订单吗？";
+    
+    
+    NSInteger wordNum_Y = addTextField_Y+44;
+    
+    NSInteger cancleBt_X = SCREENWIDTH-20-10-90;
+    NSInteger cancleBt_Y = wordNum_Y+30;
+    NSInteger cancleBt_W = 40;
+    NSInteger cancleBt_H = 20;
+    
+    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
+    cancleBt.backgroundColor = [UIColor clearColor];
+    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    cancleBt.tag = 0;
+    [cancleBt addTarget:self action:@selector(cancleExclusiveOrderAlertAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:cancleBt];
+    
+    UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [okBt setTitle:@"确定" forState:UIControlStateNormal];
+    okBt.backgroundColor = [UIColor clearColor];
+    okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    okBt.tag = 1;
+    [okBt addTarget:self action:@selector(cancleExclusiveOrderAlertAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:okBt];
+    
+    
+}
+
+- (void)cancleExclusiveOrderAlertAction:(UIButton *)sender{
+    if (sender.tag == 1) {
+        [self cancleExclusiveOrder];
+    }
+    if (windowView) {
+        [windowView removeFromSuperview];
+    }
+}
+
+- (void)clickReloadOrderList{
+    if (currentType == 0) {
+        [self reloadOrderData];
+    }
 }
 
 - (void)dealloc

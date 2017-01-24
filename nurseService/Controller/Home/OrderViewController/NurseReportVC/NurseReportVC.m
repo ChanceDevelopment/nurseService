@@ -77,8 +77,10 @@
 }
 - (void)backItemClick:(id)sender{
     if (!isDetail) {
-        [self showAlertView];
+//        [self showAlertView];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateOrder" object:nil];
     }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)showAlertView{
