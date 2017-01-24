@@ -640,14 +640,14 @@
             [self showNodataView:YES];
 
             NSLog(@"faile");
-            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+//            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         }
     } failure:^(NSError* err){
         [self showNodataView:YES];
 //        myTableView.hidden = YES;
 //        noDataView .hidden = NO;
         NSLog(@"err:%@",err);
-        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+//        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
 }
 //取消订单
@@ -1387,6 +1387,10 @@
 //            [dataArr addObject:dataArr[0]];
             [dataArr removeObjectAtIndex:0];
             if (dataArr.count == 0) {
+                if (footerView) {
+                    [footerView removeFromSuperview];
+                    footerView = nil;
+                }
                 [self showNodataView:YES];
             }
             [myTableView reloadData];
