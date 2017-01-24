@@ -195,7 +195,17 @@
     
     static NSString *cellIndentifier = @"MyEvaluateTableViewCell";
     CGSize cellSize = [tableView rectForRowAtIndexPath:indexPath].size;
-    NSDictionary *dict = [NSDictionary dictionaryWithDictionary:[dataArr objectAtIndex:row]];
+    NSDictionary *tempDict = [NSDictionary dictionaryWithDictionary:[dataArr objectAtIndex:row]];
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:0];
+    for (NSString *key in [tempDict allKeys]) {
+        if ([[NSString stringWithFormat:@"%@",[tempDict valueForKey:key]] isEqualToString:@"<null>"]) {
+            NSLog(@"key:%@",key);
+            [dict setValue:@"" forKey:key];
+        }else{
+            [dict setValue:[NSString stringWithFormat:@"%@",[tempDict valueForKey:key]] forKey:key];
+        }
+    }
     
     MyEvaluateTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell) {
@@ -205,9 +215,8 @@
     
     NSString *userHeader = [NSString stringWithFormat:@"%@%@",PIC_URL,[dict valueForKey:@"userHeader"]];
     [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:userHeader] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];
-    
     cell.telephoneNum.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"userPhone"]];
-    
+    cell.serviceType.text = [NSString stringWithFormat:@"护理项:%@",[dict valueForKey:@"manageNursingContenName"]];
     cell.evaluateInfo.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"evaluateContent"]];
 
     id zoneCreatetimeObj = [dict objectForKey:@"evaluateCreatetime"];

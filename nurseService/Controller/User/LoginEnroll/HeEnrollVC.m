@@ -164,10 +164,10 @@
         [self showHint:@"请阅读《护士上门用户协议》"];
         return;
     }
-//    if (userImage == nil) {
-//        [self showHint:@"请设置头像"];
-//        return;
-//    }
+    if (userImage == nil) {
+        [self showHint:@"请设置头像"];
+        return;
+    }
     
     NSString *headImageStr = @"";
     if (userImage != nil) {

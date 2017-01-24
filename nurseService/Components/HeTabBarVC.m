@@ -374,8 +374,9 @@
     if (!longitude) {
         longitude = @"";
     }
+    //经度latitude   维度 longitude
     
-    NSDictionary * params  = @{@"nurseid":userid,@"latitude": latitude,@"longitude":longitude};
+    NSDictionary * params  = @{@"nurseid":userid,@"latitude":longitude ,@"longitude":latitude};
     
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:NURSELATIUDE params:params success:^(AFHTTPRequestOperation* operation,id response){
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];

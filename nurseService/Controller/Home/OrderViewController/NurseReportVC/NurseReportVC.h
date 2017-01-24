@@ -13,6 +13,6 @@
     NSDictionary *infoData;
 }
 @property (strong, nonatomic)NSDictionary *infoData;
-@property (assign, nonatomic)BOOL isDetail;
+@property (assign, nonatomic)BOOL isDetail; //YES 详情展示
 
 @end

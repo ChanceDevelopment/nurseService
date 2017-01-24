@@ -9,7 +9,7 @@
 #import "MyEvaluateTableViewCell.h"
 
 @implementation MyEvaluateTableViewCell
-@synthesize headImageView,telephoneNum,evaluateInfo,time;
+@synthesize headImageView,telephoneNum,evaluateInfo,time,serviceType;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier cellSize:(CGSize)cellsize
 {
@@ -27,29 +27,31 @@
         headImageView.layer.masksToBounds = YES;
         [self addSubview:headImageView];
         
-        pointY = 0;
+        pointY = 7;
         telephoneNum = [[UILabel alloc] initWithFrame:CGRectMake(55, pointY, 120, 25)];
         telephoneNum.textColor = [UIColor blackColor];
         telephoneNum.font = [UIFont systemFontOfSize:15.0];
         telephoneNum.backgroundColor = [UIColor clearColor];
         [self addSubview:telephoneNum];
         
-        pointY = 20;
-        UILabel *serviceType = [[UILabel alloc] initWithFrame:CGRectMake(55, pointY, 200, 25)];
-        serviceType.textColor = [UIColor blackColor];
-        serviceType.text = @"护理项:111111111";
+        pointY = CGRectGetMaxY(telephoneNum.frame)-3;
+        serviceType = [[UILabel alloc] initWithFrame:CGRectMake(55, pointY, 200, 25)];
+        serviceType.textColor = [UIColor grayColor];
         serviceType.font = [UIFont systemFontOfSize:15.0];
         serviceType.backgroundColor = [UIColor clearColor];
         [self addSubview:serviceType];
         
-        pointY = 40;
-        evaluateInfo = [[UILabel alloc] initWithFrame:CGRectMake(55, pointY, 120, 44)];
+        pointY = CGRectGetMaxY(headImageView.frame)-10;
+        evaluateInfo = [[UILabel alloc] initWithFrame:CGRectMake(10, pointY, SCREENWIDTH-20, 44)];
         evaluateInfo.textColor = [UIColor blackColor];
+        evaluateInfo.numberOfLines = 2;
+        evaluateInfo.adjustsFontSizeToFitWidth = YES;
         evaluateInfo.font = [UIFont systemFontOfSize:15.0];
         evaluateInfo.backgroundColor = [UIColor clearColor];
         [self addSubview:evaluateInfo];
-        
-        time = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH-135, 40, 130, 30)];
+
+        pointY = pointY+35;
+        time = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH-135, pointY, 130, 20)];
         time.textColor = [UIColor grayColor];
         time.textAlignment = NSTextAlignmentRight;
         time.adjustsFontSizeToFitWidth = YES;
@@ -57,7 +59,8 @@
         time.backgroundColor = [UIColor clearColor];
         [self addSubview:time];
         
-        UILabel *offLine = [[UILabel alloc] initWithFrame:CGRectMake(0, 69, SCREENWIDTH, 1)];
+        pointY = 99;
+        UILabel *offLine = [[UILabel alloc] initWithFrame:CGRectMake(0, pointY, SCREENWIDTH, 1)];
         offLine.backgroundColor = [UIColor grayColor];
         [self addSubview:offLine];
     }

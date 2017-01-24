@@ -11,6 +11,7 @@
 @interface MyEvaluateTableViewCell : HeBaseTableViewCell
 @property (nonatomic,strong)UIImageView *headImageView;
 @property (nonatomic,strong)UILabel *telephoneNum;
+@property (nonatomic,strong)UILabel *serviceType;
 @property (nonatomic,strong)UILabel *evaluateInfo;
 @property (nonatomic,strong)UILabel *time;
 @end

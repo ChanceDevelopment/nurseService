@@ -138,7 +138,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [self getReceiveOrderSwitchState];
     
-    [self getBadgeNums];
+//    [self getBadgeNums];
 }
 
 - (void)viewDidLoad {
@@ -269,11 +269,10 @@
 
 - (void)initFooterView{
     
-    CGFloat tableViewY = 44;
-    CGFloat tableViewH = self.view.frame.size.height-44-120-48;
+    CGFloat selectViewH = 44;
+    CGFloat footerViewY = selectViewH + 240;
+    CGFloat footerViewH = self.view.frame.size.height-footerViewY;//120;
     
-    CGFloat footerViewY = tableViewY + tableViewH;
-    CGFloat footerViewH = 120;
     footerView = [[UIView alloc] init];
     footerView.frame = CGRectMake(0, footerViewY, SCREENWIDTH, footerViewH);
     [self.view addSubview:footerView];
@@ -282,7 +281,7 @@
     CGFloat buttonH = 50;
     CGFloat buttonW = 100;
     CGFloat buttonX = SCREENWIDTH/2.0-buttonW-1;
-    CGFloat buttonY = 30;
+    CGFloat buttonY = footerViewH-100;//30;
 
     
     UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
@@ -514,6 +513,12 @@
 
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
+            
+            if (currentType == 0 || currentType == 1) {
+                //每次刷新正接单 进行中 刷新数量
+                [self getBadgeNums];
+            }
+            
             if ([[respondDict valueForKey:@"json"] isMemberOfClass:[NSNull class]] || [respondDict valueForKey:@"json"] == nil) {
 //                [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
                 if (footerView) {
@@ -622,7 +627,7 @@
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSLog(@"respondString:%@",respondString);
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
-        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+//        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
             [self reloadOrderData];
@@ -1424,13 +1429,13 @@
         case 0:
         {
             [self getDataWithUrl:ORDERLOOKRECEIVER];
-            [self getBadgeNums];
+//            [self getBadgeNums];
         }
             break;
         case 1:
         {
             [self getDataWithUrl:ORDERSTATENOW];
-            [self getBadgeNums];
+//            [self getBadgeNums];
         }
             break;
         case 2:
@@ -1504,13 +1509,13 @@
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
+            if (badgeDataArr.count > 0) {
+                [badgeDataArr removeAllObjects];
+            }
             if ([[respondDict valueForKey:@"json"] isMemberOfClass:[NSNull class]] || [respondDict valueForKey:@"json"] == nil) {
                 [self setBadgeTextWith:badgeDataArr.count];
                 return ;
             }else{
-                if (badgeDataArr.count > 0) {
-                    [badgeDataArr removeAllObjects];
-                }
                 id jsonArray = [respondDict valueForKey:@"json"];
                 if ([jsonArray isMemberOfClass:[NSNull class]] || jsonArray == nil) {
                     jsonArray = [NSArray array];
