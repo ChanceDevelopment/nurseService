@@ -57,7 +57,7 @@
     // Do any additional setup after loading the view from its nib.
     [self initializaiton];
     [self initView];
-    [self getAllServiceInfo];
+//    [self getAllServiceInfo];
 }
 
 - (void)initializaiton
@@ -67,7 +67,7 @@
     serviceSelectArr = [[NSMutableArray alloc] initWithCapacity:0];
     serviceIdDic = [[NSMutableDictionary alloc] initWithCapacity:0];  //可提供服务
     nurseInfoArr = @[@"不满一年",@"1年",@"2年",@"3年",@"3-5年",@"10年以上"];
-    dataArr = @[@"头像",@"昵称",@"手机号",@"身份证号",@"性别",@"我的优势",@"医护信息",@"常用地址",@"可提供服务"];
+    dataArr = @[@"头像",@"昵称",@"手机号",@"身份证号",@"性别",@"我的优势",@"医护信息",@"常用地址"];
 }
 
 - (void)initView
@@ -147,7 +147,7 @@
                                @"nurseAddress" : [dataSourceDic valueForKey:@"nurseAddress"],
                                @"cardCd" : [dataSourceDic valueForKey:@"nurseCard"],
                                @"nurseInfo" : [dataSourceDic valueForKey:@"nurseYearsofservice"],
-                               @"goosServices" : [dataSourceDic valueForKey:@"nurseGoodservice"]};
+                               @"goosServices" : @""};
 
     NSLog(@"%@",params);
     [self showHudInView:self.view hint:@"保存中..."];

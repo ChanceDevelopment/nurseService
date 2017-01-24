@@ -539,6 +539,22 @@
     switch (sectionNum) {
         case 0:
         {
+            if (tableView.tag == 500) {
+                for (int i = 0; i < serviceSelectArr.count; i++) {
+                    if ([serviceSelectArr[i] isEqualToString:serviceArr[index]]) {
+                        //移除
+                        [serviceSelectArr removeObjectAtIndex:i];
+                        
+                        [tableView reloadData];
+                        return;
+                    }
+                }
+                [serviceSelectArr addObject:serviceArr[index]];
+                [tableView reloadData];
+                
+                return;
+            }
+            
             switch (index) {
                 case 0:
                 {//我的评论
@@ -556,7 +572,7 @@
                     break;
                 case 2:
                 {//我的服务
-//                    [self showAlertView];
+                    [self showAlertView];
 //                    [self.view makeToast:@"功能未完善" duration:1.2 position:@"center"];
                 }
                     break;
@@ -876,6 +892,43 @@
     if (sender.tag == 1) {
         [self getAllServiceInfo];
     }
+    if (sender.tag == 100) {
+        NSString *serviceStr = @"";
+        for (NSString *value in serviceSelectArr) {
+            NSString *serviceItem = [NSString stringWithFormat:@"%@",[serviceIdDic objectForKey:value]];
+            serviceStr = [serviceStr stringByAppendingFormat:@",%@",serviceItem];;
+        }
+        
+        if (serviceStr.length > 0) {
+            serviceStr = [serviceStr substringFromIndex:1];
+        }
+        NSLog(@"%@",serviceStr);
+
+        //        [dataSourceDic setValue:serviceStr forKey:@"nurseGoodservice"];
+        NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+        NSDictionary * params  = @{@"nurseId" : [NSString stringWithFormat:@"%@",userAccount],
+                                   @"contentId" : serviceStr};
+        
+        NSLog(@"%@",params);
+        [self showHudInView:self.view hint:@"保存中..."];
+        [AFHttpTool requestWihtMethod:RequestMethodTypePost url:@"content/SelectGoodServiceForNurse.action" params:params success:^(AFHTTPRequestOperation* operation,id response){
+            [self hideHud];
+            NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+            NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+            if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+                NSLog(@"success");
+                
+            }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+                NSLog(@"faile");
+                [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+
+            }
+        } failure:^(NSError* err){
+            NSLog(@"err:%@",err);
+            [self hideHud];
+            [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+        }];
+    }
     if (windowView) {
         [windowView removeFromSuperview];
     }
@@ -915,6 +968,17 @@
     NSInteger cancleBt_W = 40;
     NSInteger cancleBt_H = 20;
     
+
+    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
+    cancleBt.backgroundColor = [UIColor clearColor];
+    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    cancleBt.tag = 0;
+    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:cancleBt];
+
+    
     UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
     [okBt setTitle:@"确定" forState:UIControlStateNormal];
     okBt.backgroundColor = [UIColor clearColor];
@@ -948,7 +1012,6 @@
                 
             }
             NSLog(@"success");
-            [self showServiceAlertView];
             NSString *serviceStr = @"";
             for (NSString *value in serviceSelectArr) {
                 NSString *serviceItem = [NSString stringWithFormat:@"%@",[serviceIdDic objectForKey:value]];
@@ -959,7 +1022,8 @@
                 serviceStr = [serviceStr substringFromIndex:1];
             }
 //            [dataSourceDic setValue:serviceStr forKey:@"nurseGoodservice"];
-            
+            [self showServiceAlertView];
+
             [myTableView reloadData];
             
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){

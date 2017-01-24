@@ -151,6 +151,9 @@
     }
     NSLog(@"tag:%ld",sender.tag);
 }
+//修改密码
+- (IBAction)changepassword:(id)sender {
+}
 
 /*
 #pragma mark - Navigation

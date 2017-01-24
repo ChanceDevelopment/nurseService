@@ -16,7 +16,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier cellSize:cellsize];
     if (self) {
         
-        headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 15, 40, 40)];
+        CGFloat pointY = 15;
+        headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, pointY, 40, 40)];
         headImageView.backgroundColor = [UIColor clearColor];
         headImageView.layer.masksToBounds = YES;
         headImageView.image = [UIImage imageNamed:@"defalut_icon"];
@@ -26,13 +27,23 @@
         headImageView.layer.masksToBounds = YES;
         [self addSubview:headImageView];
         
-        telephoneNum = [[UILabel alloc] initWithFrame:CGRectMake(55, 0, 120, 25)];
+        pointY = 0;
+        telephoneNum = [[UILabel alloc] initWithFrame:CGRectMake(55, pointY, 120, 25)];
         telephoneNum.textColor = [UIColor blackColor];
         telephoneNum.font = [UIFont systemFontOfSize:15.0];
         telephoneNum.backgroundColor = [UIColor clearColor];
         [self addSubview:telephoneNum];
         
-        evaluateInfo = [[UILabel alloc] initWithFrame:CGRectMake(55, 20, 120, 44)];
+        pointY = 20;
+        UILabel *serviceType = [[UILabel alloc] initWithFrame:CGRectMake(55, pointY, 200, 25)];
+        serviceType.textColor = [UIColor blackColor];
+        serviceType.text = @"护理项:111111111";
+        serviceType.font = [UIFont systemFontOfSize:15.0];
+        serviceType.backgroundColor = [UIColor clearColor];
+        [self addSubview:serviceType];
+        
+        pointY = 40;
+        evaluateInfo = [[UILabel alloc] initWithFrame:CGRectMake(55, pointY, 120, 44)];
         evaluateInfo.textColor = [UIColor blackColor];
         evaluateInfo.font = [UIFont systemFontOfSize:15.0];
         evaluateInfo.backgroundColor = [UIColor clearColor];

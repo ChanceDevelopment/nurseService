@@ -159,6 +159,10 @@
     return YES;
 }
 
+//忘记密码
+- (IBAction)forgetPassword:(id)sender {
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

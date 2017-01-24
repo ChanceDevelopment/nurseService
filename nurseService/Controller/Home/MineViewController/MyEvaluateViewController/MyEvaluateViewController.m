@@ -207,6 +207,7 @@
     [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:userHeader] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];
     
     cell.telephoneNum.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"userPhone"]];
+    
     cell.evaluateInfo.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"evaluateContent"]];
 
     id zoneCreatetimeObj = [dict objectForKey:@"evaluateCreatetime"];
@@ -247,7 +248,7 @@
     NSInteger row = indexPath.row;
     
     
-    return 70;
+    return 100;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
