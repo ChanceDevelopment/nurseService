@@ -96,14 +96,10 @@
 //    tipLabel.text = @"服务完成后，请填写护理报告";
 //    [footerView addSubview:tipLabel];
     
-    CGFloat scrollX = 5;
-    CGFloat scrollY = 5;
-    CGFloat scrollW = SCREENWIDTH - 2 * scrollX;
-    CGFloat scrollH = imageScrollViewHeigh;
-    photoScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(scrollX, scrollY, scrollW, scrollH)];
-    [paperArray addObject:@"123"];
 
-    [self addPhotoScrollView];
+//    [paperArray addObject:@"123"];
+
+//    [self addPhotoScrollView];
     
 }
 
@@ -120,6 +116,26 @@
             }else{
                 infoDic = [[NSDictionary alloc] initWithDictionary:[respondDict valueForKey:@"json"]];
                 [self addStatueViewWithStatus:[[infoDic valueForKey:@"orderReceivestate"] integerValue]];
+
+                NSString *picStr = [NSString stringWithFormat:@"%@",[infoDic valueForKey:@"orderSendUserpic"]];
+
+                CGFloat scrollX = 5;
+                CGFloat scrollY = 5;
+                CGFloat scrollW = SCREENWIDTH - 2 * scrollX;
+                CGFloat scrollH = imageScrollViewHeigh;
+                
+                if ([picStr isEqualToString:@"<null>"]) {
+                    imageScrollViewHeigh = 0;
+                }else{
+                    if (paperArray.count > 0) {
+                        [paperArray removeAllObjects];
+                    }
+                    NSArray *tempArr = [picStr componentsSeparatedByString:@","];
+                    [paperArray addObjectsFromArray:tempArr];
+                }
+                photoScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(scrollX, scrollY, scrollW, scrollH)];
+                
+                [self addPhotoScrollView];
                 [tableview reloadData];
             }
             NSLog(@"success");
