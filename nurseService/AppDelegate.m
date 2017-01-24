@@ -73,8 +73,7 @@ BMKMapManager* _mapManager;
     completionHandler(UIBackgroundFetchResultNoData);
     
     NSLog(@"iOS7及以上系统，收到通知:%@", userInfo);
-    
-    //    [self performSelector:@selector(receiveNotification:) withObject:userInfo afterDelay:0.5];
+    //[self performSelector:@selector(receiveNotification:) withObject:userInfo afterDelay:0.5];
 }
 #endif
 
