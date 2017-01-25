@@ -63,6 +63,8 @@
     [self initializaiton];
     [self initView];
     [self getOrderDetailData];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getOrderDetailData) name:@"refreshOrderDetailNotification" object:nil];  //refreshOrderDetail
 }
 
 - (void)initializaiton
@@ -150,7 +152,13 @@
     }];
 }
 
+- (void)backItemClick:(id)sender{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"updateOrder" object:nil];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)backToRootView{
+
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -589,7 +597,7 @@
                     cancelButton.tag = 0;
                     [cell addSubview:cancelButton];
                     
-                    NSArray  *orderStateStr = @[@"联系客户",@"出发",@"开始服务",@"填写报告"];
+                    NSArray  *orderStateStr = @[@"联系客户",@"出发",@"开始服务",@"填写报告",@"已完成"];
                     NSInteger orderIndex = [[dict valueForKey:@"orderReceivestate"] integerValue];
                     
                     buttonX = CGRectGetMaxX(cancelButton.frame);
@@ -611,6 +619,14 @@
                     [nextButton addTarget:self action:@selector(showAlertViewWithTag:) forControlEvents:UIControlEventTouchUpInside];
                     nextButton.tag = orderIndex;
                     [cell addSubview:nextButton];
+                    if (orderIndex >= 4) {
+                        nextButton.enabled = NO;
+                        [nextButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+                        
+                        cancelButton.enabled = NO;
+                        [cancelButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+                        
+                    }
                     
                     CGFloat sepLineX = buttonX;
                     CGFloat sepLineY = 3;
@@ -621,10 +637,16 @@
                     sepLine.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
                     [cell addSubview:sepLine];
                     
-                    NSArray *tipArr = @[@"1.仔细查看订单内容；\n2.仔细查看服务内容、备注内容；\n注：要求接单后尽快与病人确认。",@"1、电话联系用户，核对\n 1)服务时间、地点\n 2)病人信息、服务内容，备注：如需要请病人补充；\n 3）过敏史，传染病史；\n 4）病人自备材料及要求采购材料。",@"1、电话联系用户，确定是否在家。告知预计到达时间，及病人自备材料；\n2、核对所带设备、材料",@"1、自我介绍；\n2、说明服务内容及流程；\n3、开始服务"];
+                    NSArray *tipArr = @[@"1.仔细查看订单内容；\n2.仔细查看服务内容、备注内容；\n注：要求接单后尽快与病人确认。",@"1、电话联系用户，核对\n 1)服务时间、地点\n 2)病人信息、服务内容，备注：如需要请病人补充；\n 3）过敏史，传染病史；\n 4）病人自备材料及要求采购材料。",@"1、电话联系用户，确定是否在家。告知预计到达时间，及病人自备材料；\n2、核对所带设备、材料",@"1、自我介绍；\n2、说明服务内容及流程；\n3、开始服务",@""];
                     UITextView *tipTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, buttonY+buttonH, SCREENWIDTH-20, 90)];
                     tipTextView.font = [UIFont systemFontOfSize:10.0];
-                    tipTextView.text = tipArr[orderIndex];
+                    @try {
+                        tipTextView.text = tipArr[orderIndex];
+                    } @catch (NSException *exception) {
+                        
+                    } @finally {
+                        
+                    }
                     tipTextView.textColor = [UIColor grayColor];
                     tipTextView.backgroundColor = [UIColor clearColor];
                     [cell addSubview:tipTextView];
@@ -755,12 +777,13 @@
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSLog(@"respondString:%@",respondString);
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
-        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
 //            [self getOrderDetailData];
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
+            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+
         }
         
         
@@ -804,7 +827,7 @@
             
             [self getOrderDetailData];
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateOrder" object:nil];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateOrder" object:nil];
             
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
@@ -922,6 +945,10 @@
         [windowView removeFromSuperview];
     }
     
+}
+
+- (void)refreshOrderDetail{
+    [self updateOrderStateWithOrderState:4];
 }
 
 - (void)didReceiveMemoryWarning {

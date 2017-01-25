@@ -78,7 +78,15 @@
 - (void)backItemClick:(id)sender{
     if (!isDetail) {
 //        [self showAlertView];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"updateOrder" object:nil];
+        NSLog(@"%ld",[[self.navigationController viewControllers] count]);
+        if ([[self.navigationController viewControllers] count] == 2) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateOrder" object:nil];
+        }
+        
+        if ([[self.navigationController viewControllers] count] == 3) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshOrderDetailNotification" object:nil];
+        }
+
     }
     [self.navigationController popViewControllerAnimated:YES];
 }

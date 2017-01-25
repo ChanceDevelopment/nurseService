@@ -123,6 +123,11 @@
     return string;
 }
 - (IBAction)saveAction:(UIButton *)sender {
+    
+    if ([[dataSourceDic valueForKey:@"nurseNick"] isEqualToString:@""]) {
+        [self showHint:@"昵称不可为空"];
+        return;
+    }
     [self sendDataToServe];
 }
 

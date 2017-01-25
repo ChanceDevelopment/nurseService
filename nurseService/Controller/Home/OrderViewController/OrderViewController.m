@@ -723,7 +723,7 @@
         NSLog(@"respondString:%@",respondString);
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
         
-        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+//        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
             [self reloadOrderData];
@@ -955,10 +955,10 @@
         cell.addressL.text = [NSString stringWithFormat:@"%@",addressStr];
         NSString *sex = [[dict valueForKey:@"orderSendSex"] integerValue] == 1 ? @"男" : @"女";
         
-        NSString *nameStr = [dict valueForKey:@"orderSendUsername"];
-        NSArray *nameArr = [nameStr componentsSeparatedByString:@","];
+        NSString *nameStr = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendUsername"]];
+//        NSArray *nameArr = [nameStr componentsSeparatedByString:@","];
         @try {
-            nameStr = nameArr[1];
+//            nameStr = nameArr[1];
         } @catch (NSException *exception) {
         } @finally {
             
@@ -967,7 +967,15 @@
         
         NSArray  *orderStateStr = @[@"联系客户",@"出发",@"开始服务",@"填写报告"];
         NSInteger orderIndex = [[dict valueForKey:@"orderReceivestate"] integerValue];
-        cell.oderStateL.text = [NSString stringWithFormat:@"(%@)",orderStateStr[orderIndex]];
+    
+        @try {
+            cell.oderStateL.text = [NSString stringWithFormat:@"(%@)",orderStateStr[orderIndex]];
+        } @catch (NSException *exception) {
+            
+        } @finally {
+            
+        }
+
     
         __weak typeof(self) weakSelf = self;
         
