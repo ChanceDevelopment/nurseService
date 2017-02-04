@@ -417,7 +417,7 @@
                         //时间戳
                         zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
                     }
-                    NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd HH:MM"];
+                    NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd EEEE HH:MM"];
                     
                     CGFloat timeLabelX = 10;
                     CGFloat timeLabelW = SCREENWIDTH - 2 * timeLabelX;
@@ -569,7 +569,7 @@
                         //时间戳
                         zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
                     }
-                    NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd HH:MM"];
+                    NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd EEEE HH:MM"];
                     
                     CGFloat timeLabelX = 10;
                     CGFloat timeLabelW = SCREENWIDTH - 2 * timeLabelX;

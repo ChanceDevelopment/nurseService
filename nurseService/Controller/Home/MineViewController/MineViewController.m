@@ -867,21 +867,21 @@
     NSInteger cancleBt_W = 40;
     NSInteger cancleBt_H = 20;
     
-    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
-    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
-    cancleBt.backgroundColor = [UIColor clearColor];
-    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
-    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    cancleBt.tag = 0;
-    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
-    [addBgView addSubview:cancleBt];
+//    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
+//    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
+//    cancleBt.backgroundColor = [UIColor clearColor];
+//    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+//    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+//    cancleBt.tag = 0;
+//    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+//    [addBgView addSubview:cancleBt];
     
     UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
     [okBt setTitle:@"确认" forState:UIControlStateNormal];
     okBt.backgroundColor = [UIColor clearColor];
     okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    okBt.tag = 1;
+    okBt.tag = 0;
     [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
     [addBgView addSubview:okBt];
     

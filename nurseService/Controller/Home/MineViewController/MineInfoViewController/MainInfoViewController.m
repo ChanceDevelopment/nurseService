@@ -435,10 +435,11 @@
     NSInteger boyBt_Y = 50;
     boyBt = [[UIButton alloc] init];
     [boyBt setFrame:CGRectMake(10, boyBt_Y, boyBt_W, boyBt_W)];
-    [boyBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio_on"] forState:UIControlStateNormal];
+    boyBt.userInteractionEnabled = YES;
+    [boyBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio_on"] forState:UIControlStateSelected];
     [boyBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio"] forState:UIControlStateNormal];
     boyBt.tag = 1;
-    boyBt.enabled = NO;
+    boyBt.backgroundColor = [UIColor clearColor];
     [boyBt addTarget:self action:@selector(chooseSexAction:) forControlEvents:UIControlEventTouchUpInside];
     [addBgView addSubview:boyBt];
     
@@ -451,22 +452,27 @@
 
     girlBt = [[UIButton alloc] init];
     [girlBt setFrame:CGRectMake(10, boyBt_Y+30, boyBt_W, boyBt_W)];
-    [girlBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio_on"] forState:UIControlStateNormal];
+    girlBt.userInteractionEnabled = YES;
+    girlBt.backgroundColor = [UIColor clearColor];
+    [girlBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio_on"] forState:UIControlStateSelected];
     [girlBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio"] forState:UIControlStateNormal];
     girlBt.tag = 2;
-    
     [girlBt addTarget:self action:@selector(chooseSexAction:) forControlEvents:UIControlEventTouchUpInside];
-    girlBt.enabled = YES;
+//    girlBt.enabled = YES;
     [addBgView addSubview:girlBt];
     
     NSString *nurseDistrict = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseDistrict"];
     BOOL isBoy = [nurseDistrict isEqualToString:@"1"] ? YES : NO;
     if (isBoy) {
         boyBt.selected = YES;
+//        boyBt.enabled = NO;
         girlBt.selected = NO;
+//        girlBt.enabled = YES;
     }else{
         boyBt.selected = NO;
         girlBt.selected = YES;
+//        boyBt.enabled = YES;
+//        girlBt.enabled = NO;
     }
 
     
@@ -478,7 +484,7 @@
     girlL.text = @"女";
     
     NSInteger cancleBt_X = SCREENWIDTH-20-10-90;
-    NSInteger cancleBt_Y = addBgView_Y - 30;
+    NSInteger cancleBt_Y = addBgView_H - 30;
     NSInteger cancleBt_W = 40;
     NSInteger cancleBt_H = 20;
     UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
@@ -502,6 +508,20 @@
 }
 
 - (void )chooseSexAction:(UIButton *)sender{
+    
+    if (sender.selected == YES) {
+        return;
+    }
+    boyBt.selected = !boyBt.isSelected;
+    girlBt.selected = !girlBt.isSelected;
+    if (boyBt.selected) {
+        NSLog(@"男");
+//        [postDic setValue:@"1" forKey:@"NurseSex"];
+    }else{
+//        [postDic setValue:@"2" forKey:@"NurseSex"];
+        NSLog(@"女");
+    }
+    /*
     if (sender.tag == 1) {
         if ([boyBt isEnabled]) {
             [boyBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio_on"] forState:UIControlStateNormal];
@@ -519,7 +539,7 @@
             
         }
     }
-    
+     */
 }
 
 - (void)showAddView{
@@ -637,7 +657,7 @@
         }else if(currentRow == 7){
             [dataSourceDic setValue:addTextField.text forKey:@"nurseAddress"];;
         }else if (currentRow == 4){
-            NSString *sex = [girlBt isEnabled] ? @"男" : @"女";
+            NSString *sex = ![girlBt isSelected] ? @"男" : @"女";
             [dataSourceDic setValue:sex forKey:@"nurseSex"];
         }
         [myTableView reloadData];
@@ -928,7 +948,7 @@
     [Tool setExtraCellLineHidden:tableview];
     tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    NSInteger cancleBt_X = addBgView_W-90;
+    NSInteger cancleBt_X = addBgView_W-60;
     NSInteger cancleBt_Y = CGRectGetMaxY(tableview.frame)+10;
     NSInteger cancleBt_W = 40;
     NSInteger cancleBt_H = 20;

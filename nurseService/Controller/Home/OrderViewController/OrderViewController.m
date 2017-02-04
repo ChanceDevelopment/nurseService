@@ -723,13 +723,14 @@
         NSLog(@"respondString:%@",respondString);
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
         
-//        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
             [self reloadOrderData];
             [timer3 reset];
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
+            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+            [self reloadOrderData];
         }
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
@@ -849,7 +850,7 @@
             //时间戳
             zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
         }
-        NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd HH:MM"];
+        NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd EEEE HH:MM"];
         
         cell.stopTimeL.text = stopTimeStr;
         cell.orderMoney.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
@@ -932,7 +933,7 @@
             //时间戳
             zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
         }
-        NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd HH:MM"];
+        NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd EEEE HH:MM"];
         
         cell.stopTimeL.text = stopTimeStr;
         cell.orderMoney.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
