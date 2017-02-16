@@ -138,7 +138,9 @@
     NSString *userPhone = accountField.text;
     NSString *code = codeField.text;
     NSString *password = passwordField.text;
-    NSString *nick = nickField.text;
+    NSString *inviteCode = inviteCodeField.text;
+    
+//    NSString *nick = nickField.text;
     
     if ((userPhone == nil || [userPhone isEqualToString:@""])) {
         [self showHint:@"请输入手机号"];
@@ -156,28 +158,35 @@
         [self showHint:@"请输入密码"];
         return;
     }
-    if (nick == nil || [nick isEqualToString:@""]) {
-        [self showHint:@"请输入昵称"];
-        return;
+    if (inviteCode == nil) {
+        inviteCode = @"";
     }
+//    if (nick == nil || [nick isEqualToString:@""]) {
+//        [self showHint:@"请输入昵称"];
+//        return;
+//    }
+    
     if (agreeButton.selected == NO) {
-        [self showHint:@"请阅读《护士上门用户协议》"];
-        return;
-    }
-    if (userImage == nil) {
-        [self showHint:@"请设置头像"];
+        [self showHint:@"请阅读《护士上门用户协议》"]; //安心护免责条款
         return;
     }
     
-    NSString *headImageStr = @"";
-    if (userImage != nil) {
-        headImageStr = encodedImageStr;
-    }
+    
+//    if (userImage == nil) {
+//        [self showHint:@"请设置头像"];
+//        return;
+//    }
+    
+//    NSString *headImageStr = @"";
+//    if (userImage != nil) {
+//        headImageStr = encodedImageStr;
+//    }
     
     NSDictionary * params  = @{@"NurseName": userPhone,
                                @"NursePwd" : password,
-                               @"NurseNick" : nick,
-                               @"NurseHeader" : headImageStr,
+                               @"NurseNick" : @"",
+                               @"NurseHeader" : @"",
+                               @"invitationcode" : inviteCode,
                                @"code" : code};
     [self showHudInView:self.view hint:@"注册中..."];
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:REGISTERURL params:params success:^(AFHTTPRequestOperation* operation,id response){
@@ -185,13 +194,13 @@
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSLog(@"respondString:%@",respondString);
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
-        
-        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+    
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
             [self performSelector:@selector(backToLoginView) withObject:nil afterDelay:1.2];
             
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
             NSLog(@"faile");
         }
 
@@ -205,14 +214,6 @@
 
 - (void)backToLoginView{
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-//选择上传头像
-- (IBAction)uploadButtonClick:(id)sender
-{
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"来自相册",@"来自拍照", nil];
-    sheet.tag = 2;
-    [sheet showInView:sender];
 }
 
 - (IBAction)scanNurseProtocol:(id)sender
@@ -254,6 +255,19 @@
     if ([inviteCodeField isFirstResponder]) {
         [inviteCodeField resignFirstResponder];
     }
+}
+
+
+
+
+
+
+//选择上传头像
+- (IBAction)uploadButtonClick:(id)sender
+{
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"来自相册",@"来自拍照", nil];
+    sheet.tag = 2;
+    [sheet showInView:sender];
 }
 
 #pragma mark UIActionSheetDelegate

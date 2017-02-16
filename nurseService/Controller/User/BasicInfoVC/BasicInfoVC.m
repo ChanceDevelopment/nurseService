@@ -54,23 +54,23 @@
         self.navigationItem.titleView = label;
         label.text = @"基本信息";
         [label sizeToFit];
-        self.title = @"首页";
+        self.title = @"基本信息";
         self.navigationItem.titleView.backgroundColor = [UIColor clearColor];
         
-        NSMutableArray *buttons = [[NSMutableArray alloc] init];
-        UIButton *saveBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 25)];
-        saveBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
-        [saveBt setTitleColor:APPDEFAULTORANGE forState:UIControlStateNormal];
-        [saveBt setTitle:@"保存" forState:UIControlStateNormal];
-        saveBt.layer.cornerRadius = 4.0;//2.0是圆角的弧度，根据需求自己更改
-        saveBt.layer.borderWidth = 1.0f;
-        saveBt.layer.borderColor = [[UIColor colorWithRed:152.0 / 255.0 green:67.0 / 255.0 blue:141.0 / 255.0 alpha:1.0] CGColor];
-        [saveBt addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
-        saveBt.backgroundColor = [UIColor clearColor];
-        
-        UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithCustomView:saveBt];
-        [buttons addObject:searchItem];
-        self.navigationItem.rightBarButtonItems = buttons;
+//        NSMutableArray *buttons = [[NSMutableArray alloc] init];
+//        UIButton *saveBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 25)];
+//        saveBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+//        [saveBt setTitleColor:APPDEFAULTORANGE forState:UIControlStateNormal];
+//        [saveBt setTitle:@"保存" forState:UIControlStateNormal];
+//        saveBt.layer.cornerRadius = 4.0;//2.0是圆角的弧度，根据需求自己更改
+//        saveBt.layer.borderWidth = 1.0f;
+//        saveBt.layer.borderColor = [[UIColor colorWithRed:152.0 / 255.0 green:67.0 / 255.0 blue:141.0 / 255.0 alpha:1.0] CGColor];
+//        [saveBt addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
+//        saveBt.backgroundColor = [UIColor clearColor];
+//        
+//        UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithCustomView:saveBt];
+//        [buttons addObject:searchItem];
+//        self.navigationItem.rightBarButtonItems = buttons;
         
         
     }
@@ -343,7 +343,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 9;
+    return 5;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -369,23 +369,69 @@
         case 0:
         {
             CGFloat headImageW = 60;
-            headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, headImageW, headImageW)];
+            CGFloat imageX = SCREENWIDTH/2.0-headImageW-30;
+            
+            UIImageView *userImageView = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, 10, headImageW, headImageW)];
+            [cell addSubview:userImageView];
+            userImageView.userInteractionEnabled = YES;
+            userImageView.backgroundColor = [UIColor grayColor];
+            userImageView.image = [UIImage imageNamed:@"icon_add_photo_violet"];
+            
+            UITapGestureRecognizer *userClickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userClickImageAction)];
+            [userImageView addGestureRecognizer:userClickTap];
+            
+            CGFloat userLabelX = 20+headImageW;
+            CGFloat userLabelY = CGRectGetMaxY(userImageView.frame)+13;
+            UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(userLabelX, userLabelY, 100, 25)];
+            userLabel.center = CGPointMake(imageX+headImageW/2.0, userLabelY);
+            userLabel.textAlignment = NSTextAlignmentCenter;
+            userLabel.backgroundColor = [UIColor clearColor];
+            userLabel.text = @"上传头像";
+            userLabel.font = [UIFont systemFontOfSize:15.0];
+            userLabel.textColor = [UIColor blackColor];
+            [cell addSubview:userLabel];
+            
+            imageX = SCREENWIDTH/2.0+30;
+            headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, 10, headImageW, headImageW)];
             [cell addSubview:headImageView];
             headImageView.userInteractionEnabled = YES;
             headImageView.backgroundColor = [UIColor grayColor];
             headImageView.image = [UIImage imageNamed:@"icon_add_photo_violet"];
-            
             UITapGestureRecognizer *clickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickHeadImageAction)];
             [headImageView addGestureRecognizer:clickTap];
             
             CGFloat tipLabelX = 20+headImageW;
-            CGFloat tipLabelY = 10+headImageW/2.0-22;
+            CGFloat tipLabelY = CGRectGetMaxY(headImageView.frame);
             UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(tipLabelX, tipLabelY, 150, 44)];
+            tipLabel.center = CGPointMake(imageX+headImageW/2.0, userLabelY);
+            tipLabel.textAlignment = NSTextAlignmentCenter;
             tipLabel.backgroundColor = [UIColor clearColor];
-            tipLabel.text = @"请上传个人工作照";
+            tipLabel.text = @"上传个人照片";
             tipLabel.font = [UIFont systemFontOfSize:15.0];
             tipLabel.textColor = [UIColor blackColor];
             [cell addSubview:tipLabel];
+            
+            CGFloat tipX = 10;
+            CGFloat tipY = CGRectGetMaxY(userLabel.frame);
+            CGFloat tipW = SCREENWIDTH-20;
+            
+            UILabel *tipLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(tipX, tipY, tipW, 25)];
+            tipLabel1.backgroundColor = [UIColor clearColor];
+            tipLabel1.text = @"*头像可方便用户识别，也可保护您肖像隐私";
+            tipLabel1.font = [UIFont systemFontOfSize:13.0];
+            tipLabel1.textColor = [UIColor grayColor];
+            [cell addSubview:tipLabel1];
+            
+            tipY = CGRectGetMaxY(tipLabel1.frame)-10;
+            UILabel *tipLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(tipX, tipY, tipW, 50)];
+            tipLabel2.numberOfLines = 0;
+            tipLabel2.backgroundColor = [UIColor clearColor];
+            tipLabel2.text = @"*请上传清晰正面头像，职业且富有亲和力的形象更容易获得信赖";
+            tipLabel2.font = [UIFont systemFontOfSize:13.0];
+            tipLabel2.textColor = [UIColor grayColor];
+            [cell addSubview:tipLabel2];
+            
+            
             break;
         }
         case 1:
@@ -401,6 +447,7 @@
             CGFloat nameTextFieldW = 200;
             
             nameTextField = [[UITextField alloc] initWithFrame:CGRectMake(nameTextFieldX, 0, nameTextFieldW, cellSize.height)];
+            nameTextField.placeholder = @"请输入您的真实姓名";
             nameTextField.font = [UIFont systemFontOfSize:15.0];
             nameTextField.textAlignment = NSTextAlignmentRight;
             nameTextField.textColor = [UIColor blackColor];
@@ -412,54 +459,54 @@
             [cell addSubview:nameTextField];
             break;
         }
+//        case 2:
+//        {
+//            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
+//            tipLabel.backgroundColor = [UIColor clearColor];
+//            tipLabel.text = @"性别";
+//            tipLabel.font = [UIFont systemFontOfSize:15.0];
+//            tipLabel.textColor = [UIColor grayColor];
+//            [cell addSubview:tipLabel];
+//            
+//            CGFloat imageW = 10;
+//            CGFloat imageX = SCREENWIDTH-150;
+//            manSelectBt = [[UIButton alloc] initWithFrame:CGRectMake(imageX, 17, imageW, imageW)];
+//            [cell addSubview:manSelectBt];
+//            manSelectBt.backgroundColor = [UIColor clearColor];
+//            manSelectBt.userInteractionEnabled = YES;
+//            [manSelectBt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_select"] forState:UIControlStateSelected];
+//            manSelectBt.tag = 1;
+//            manSelectBt.selected = YES;
+//            [manSelectBt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_unselect"] forState:UIControlStateNormal];
+//            [manSelectBt addTarget:self action:@selector(changeSexChoose:) forControlEvents:UIControlEventTouchUpInside];
+//            
+//            womanSelectBt = [[UIButton alloc] initWithFrame:CGRectMake(imageX+70, 17, imageW, imageW)];
+//            [cell addSubview:womanSelectBt];
+//            womanSelectBt.backgroundColor = [UIColor clearColor];
+//            womanSelectBt.userInteractionEnabled  = YES;
+//            [womanSelectBt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_unselect"] forState:UIControlStateNormal];
+//            [womanSelectBt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_select"] forState:UIControlStateSelected];
+//            womanSelectBt.tag = 2;
+//            womanSelectBt.selected = NO;
+//            [womanSelectBt addTarget:self action:@selector(changeSexChoose:) forControlEvents:UIControlEventTouchUpInside];
+//            
+//            UILabel *tipManLabel = [[UILabel alloc] initWithFrame:CGRectMake(imageX+20, 0, 30, cellSize.height)];
+//            tipManLabel.backgroundColor = [UIColor clearColor];
+//            tipManLabel.text = @"男";
+//            tipManLabel.font = [UIFont systemFontOfSize:15.0];
+//            tipManLabel.textColor = [UIColor grayColor];
+//            [cell addSubview:tipManLabel];
+//
+//            UILabel *tipWomanLabel = [[UILabel alloc] initWithFrame:CGRectMake(imageX+90, 0, 30, cellSize.height)];
+//            tipWomanLabel.backgroundColor = [UIColor clearColor];
+//            tipWomanLabel.text = @"女";
+//            tipWomanLabel.font = [UIFont systemFontOfSize:15.0];
+//            tipWomanLabel.textColor = [UIColor grayColor];
+//            [cell addSubview:tipWomanLabel];
+//            
+//            break;
+//        }
         case 2:
-        {
-            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-            tipLabel.backgroundColor = [UIColor clearColor];
-            tipLabel.text = @"性别";
-            tipLabel.font = [UIFont systemFontOfSize:15.0];
-            tipLabel.textColor = [UIColor grayColor];
-            [cell addSubview:tipLabel];
-            
-            CGFloat imageW = 10;
-            CGFloat imageX = SCREENWIDTH-150;
-            manSelectBt = [[UIButton alloc] initWithFrame:CGRectMake(imageX, 17, imageW, imageW)];
-            [cell addSubview:manSelectBt];
-            manSelectBt.backgroundColor = [UIColor clearColor];
-            manSelectBt.userInteractionEnabled = YES;
-            [manSelectBt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_select"] forState:UIControlStateSelected];
-            manSelectBt.tag = 1;
-            manSelectBt.selected = YES;
-            [manSelectBt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_unselect"] forState:UIControlStateNormal];
-            [manSelectBt addTarget:self action:@selector(changeSexChoose:) forControlEvents:UIControlEventTouchUpInside];
-            
-            womanSelectBt = [[UIButton alloc] initWithFrame:CGRectMake(imageX+70, 17, imageW, imageW)];
-            [cell addSubview:womanSelectBt];
-            womanSelectBt.backgroundColor = [UIColor clearColor];
-            womanSelectBt.userInteractionEnabled  = YES;
-            [womanSelectBt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_unselect"] forState:UIControlStateNormal];
-            [womanSelectBt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_select"] forState:UIControlStateSelected];
-            womanSelectBt.tag = 2;
-            womanSelectBt.selected = NO;
-            [womanSelectBt addTarget:self action:@selector(changeSexChoose:) forControlEvents:UIControlEventTouchUpInside];
-            
-            UILabel *tipManLabel = [[UILabel alloc] initWithFrame:CGRectMake(imageX+20, 0, 30, cellSize.height)];
-            tipManLabel.backgroundColor = [UIColor clearColor];
-            tipManLabel.text = @"男";
-            tipManLabel.font = [UIFont systemFontOfSize:15.0];
-            tipManLabel.textColor = [UIColor grayColor];
-            [cell addSubview:tipManLabel];
-
-            UILabel *tipWomanLabel = [[UILabel alloc] initWithFrame:CGRectMake(imageX+90, 0, 30, cellSize.height)];
-            tipWomanLabel.backgroundColor = [UIColor clearColor];
-            tipWomanLabel.text = @"女";
-            tipWomanLabel.font = [UIFont systemFontOfSize:15.0];
-            tipWomanLabel.textColor = [UIColor grayColor];
-            [cell addSubview:tipWomanLabel];
-            
-            break;
-        }
-        case 3:
         {
             UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
             tipLabel.backgroundColor = [UIColor clearColor];
@@ -472,6 +519,7 @@
             CGFloat nameTextFieldW = 200;
             
             idCardTextField = [[UITextField alloc] initWithFrame:CGRectMake(nameTextFieldX, 0, nameTextFieldW, cellSize.height)];
+            idCardTextField.placeholder = @"请输入您的身份证号";
             idCardTextField.font = [UIFont systemFontOfSize:15.0];
             idCardTextField.textAlignment = NSTextAlignmentRight;
             idCardTextField.textColor = [UIColor blackColor];
@@ -483,102 +531,146 @@
             [cell addSubview:idCardTextField];
             break;
         }
-        case 4:
+//        case 4:
+//        {
+//            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
+//            tipLabel.backgroundColor = [UIColor clearColor];
+//            tipLabel.text = @"联系电话";
+//            tipLabel.font = [UIFont systemFontOfSize:15.0];
+//            tipLabel.textColor = [UIColor grayColor];
+//            [cell addSubview:tipLabel];
+//            
+//            CGFloat nameTextFieldX = SCREENWIDTH-210;
+//            CGFloat nameTextFieldW = 200;
+//            
+//            phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(nameTextFieldX, 0, nameTextFieldW, cellSize.height)];
+//            phoneTextField.font = [UIFont systemFontOfSize:15.0];
+//            phoneTextField.textAlignment = NSTextAlignmentRight;
+//            phoneTextField.textColor = [UIColor blackColor];
+//            phoneTextField.backgroundColor = [UIColor clearColor];
+//            phoneTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+//            phoneTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+//            phoneTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+//            phoneTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+//            [cell addSubview:phoneTextField];
+//            break;
+//        }
+//        case 5:
+//        {
+//            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
+//            tipLabel.backgroundColor = [UIColor clearColor];
+//            tipLabel.text = @"常住地址";
+//            tipLabel.font = [UIFont systemFontOfSize:15.0];
+//            tipLabel.textColor = [UIColor grayColor];
+//            [cell addSubview:tipLabel];
+//            
+//            CGFloat nameTextFieldX = SCREENWIDTH-210;
+//            CGFloat nameTextFieldW = 200;
+//            
+//            addressTextField = [[UITextField alloc] initWithFrame:CGRectMake(nameTextFieldX, 0, nameTextFieldW, cellSize.height)];
+//            addressTextField.font = [UIFont systemFontOfSize:15.0];
+//            addressTextField.textAlignment = NSTextAlignmentRight;
+//            addressTextField.textColor = [UIColor blackColor];
+//            addressTextField.backgroundColor = [UIColor clearColor];
+//            addressTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+//            addressTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+//            addressTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+//            addressTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+//            [cell addSubview:addressTextField];
+//            break;
+//        }
+//        case 6:
+//        {
+//            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
+//            tipLabel.backgroundColor = [UIColor clearColor];
+//            tipLabel.text = @"邮箱";
+//            tipLabel.font = [UIFont systemFontOfSize:15.0];
+//            tipLabel.textColor = [UIColor grayColor];
+//            [cell addSubview:tipLabel];
+//            
+//            CGFloat nameTextFieldX = SCREENWIDTH-210;
+//            CGFloat nameTextFieldW = 200;
+//            
+//            mailTextField = [[UITextField alloc] initWithFrame:CGRectMake(nameTextFieldX, 0, nameTextFieldW, cellSize.height)];
+//            mailTextField.font = [UIFont systemFontOfSize:15.0];
+//            mailTextField.textAlignment = NSTextAlignmentRight;
+//            mailTextField.textColor = [UIColor blackColor];
+//            mailTextField.backgroundColor = [UIColor clearColor];
+//            mailTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+//            mailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+//            mailTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+//            mailTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+//            [cell addSubview:mailTextField];
+//            break;
+//        }
+        case 3:
         {
-            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-            tipLabel.backgroundColor = [UIColor clearColor];
-            tipLabel.text = @"联系电话";
-            tipLabel.font = [UIFont systemFontOfSize:15.0];
-            tipLabel.textColor = [UIColor grayColor];
-            [cell addSubview:tipLabel];
-            
-            CGFloat nameTextFieldX = SCREENWIDTH-210;
-            CGFloat nameTextFieldW = 200;
-            
-            phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(nameTextFieldX, 0, nameTextFieldW, cellSize.height)];
-            phoneTextField.font = [UIFont systemFontOfSize:15.0];
-            phoneTextField.textAlignment = NSTextAlignmentRight;
-            phoneTextField.textColor = [UIColor blackColor];
-            phoneTextField.backgroundColor = [UIColor clearColor];
-            phoneTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-            phoneTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-            phoneTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-            phoneTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-            [cell addSubview:phoneTextField];
-            break;
-        }
-        case 5:
-        {
-            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-            tipLabel.backgroundColor = [UIColor clearColor];
-            tipLabel.text = @"常住地址";
-            tipLabel.font = [UIFont systemFontOfSize:15.0];
-            tipLabel.textColor = [UIColor grayColor];
-            [cell addSubview:tipLabel];
-            
-            CGFloat nameTextFieldX = SCREENWIDTH-210;
-            CGFloat nameTextFieldW = 200;
-            
-            addressTextField = [[UITextField alloc] initWithFrame:CGRectMake(nameTextFieldX, 0, nameTextFieldW, cellSize.height)];
-            addressTextField.font = [UIFont systemFontOfSize:15.0];
-            addressTextField.textAlignment = NSTextAlignmentRight;
-            addressTextField.textColor = [UIColor blackColor];
-            addressTextField.backgroundColor = [UIColor clearColor];
-            addressTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-            addressTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-            addressTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-            addressTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-            [cell addSubview:addressTextField];
-            break;
-        }
-        case 6:
-        {
-            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-            tipLabel.backgroundColor = [UIColor clearColor];
-            tipLabel.text = @"邮箱";
-            tipLabel.font = [UIFont systemFontOfSize:15.0];
-            tipLabel.textColor = [UIColor grayColor];
-            [cell addSubview:tipLabel];
-            
-            CGFloat nameTextFieldX = SCREENWIDTH-210;
-            CGFloat nameTextFieldW = 200;
-            
-            mailTextField = [[UITextField alloc] initWithFrame:CGRectMake(nameTextFieldX, 0, nameTextFieldW, cellSize.height)];
-            mailTextField.font = [UIFont systemFontOfSize:15.0];
-            mailTextField.textAlignment = NSTextAlignmentRight;
-            mailTextField.textColor = [UIColor blackColor];
-            mailTextField.backgroundColor = [UIColor clearColor];
-            mailTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-            mailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-            mailTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-            mailTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-            [cell addSubview:mailTextField];
-            break;
-        }
-        case 7:
-        {
-            CGFloat headImageW = 60;
-            idCardImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, headImageW, headImageW)];
+            CGFloat headImageW = 130;
+            CGFloat imageY = 10;
+            idCardImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, imageY, headImageW, 80)];
             [cell addSubview:idCardImageView];
             idCardImageView.userInteractionEnabled = YES;
             idCardImageView.backgroundColor = [UIColor clearColor];
-            idCardImageView.image = [UIImage imageNamed:@"icon_add_photo_violet"];
+            idCardImageView.image = [UIImage imageNamed:@"icon_idcard_hand"];
             
             UITapGestureRecognizer *clickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickIdCardAction)];
             [idCardImageView addGestureRecognizer:clickTap];
             
-            CGFloat tipLabelX = 20+headImageW;
-            CGFloat tipLabelY = 10+headImageW/2.0-22;
-            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(tipLabelX, tipLabelY, 150, 44)];
-            tipLabel.backgroundColor = [UIColor clearColor];
-            tipLabel.text = @"请上传身份证件照";
-            tipLabel.font = [UIFont systemFontOfSize:15.0];
-            tipLabel.textColor = [UIColor blackColor];
-            [cell addSubview:tipLabel];
+            CGFloat tipLabelX = CGRectGetMaxX(idCardImageView.frame)+10;
+            CGFloat tipLabelY = CGRectGetMaxY(idCardImageView.frame)-60;
+            CGFloat tipLabelW = SCREENWIDTH-CGRectGetMaxX(idCardImageView.frame)-20;
+            
+            UILabel *tipLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(tipLabelX, tipLabelY, tipLabelW, 44)];
+            tipLabel1.adjustsFontSizeToFitWidth = YES;
+            tipLabel1.backgroundColor = [UIColor clearColor];
+            tipLabel1.text = @"上传手持身份证正面照";
+            tipLabel1.font = [UIFont systemFontOfSize:15.0];
+            tipLabel1.textColor = [UIColor blackColor];
+            [cell addSubview:tipLabel1];
 
+            
+            imageY = CGRectGetMaxY(idCardImageView.frame)+20;
+            UIImageView *idCardFrontImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, imageY, headImageW, 80)];
+            [cell addSubview:idCardFrontImageView];
+            idCardFrontImageView.userInteractionEnabled = YES;
+            idCardFrontImageView.backgroundColor = [UIColor clearColor];
+            idCardFrontImageView.image = [UIImage imageNamed:@"icon_idcard1"];
+            
+            UITapGestureRecognizer *clickTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickFrontIdCardAction)];
+            [idCardFrontImageView addGestureRecognizer:clickTap1];
+            
+            tipLabelX = CGRectGetMaxX(idCardFrontImageView.frame)+10;
+            tipLabelY = CGRectGetMaxY(idCardFrontImageView.frame)-60;
+            UILabel *tipLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(tipLabelX, tipLabelY, tipLabelW, 44)];
+            tipLabel2.adjustsFontSizeToFitWidth = YES;
+            tipLabel2.backgroundColor = [UIColor clearColor];
+            tipLabel2.text = @"上传身份证正面照";
+            tipLabel2.font = [UIFont systemFontOfSize:15.0];
+            tipLabel2.textColor = [UIColor blackColor];
+            [cell addSubview:tipLabel2];
+
+            imageY = CGRectGetMaxY(idCardFrontImageView.frame)+20;
+            UIImageView *idCardDownImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, imageY, headImageW, 80)];
+            [cell addSubview:idCardDownImageView];
+            idCardDownImageView.userInteractionEnabled = YES;
+            idCardDownImageView.backgroundColor = [UIColor clearColor];
+            idCardDownImageView.image = [UIImage imageNamed:@"icon_idcard2"];
+            
+            UITapGestureRecognizer *clickTap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickDownIdCardAction)];
+            [idCardDownImageView addGestureRecognizer:clickTap2];
+            
+            tipLabelX = CGRectGetMaxX(idCardDownImageView.frame)+10;
+            tipLabelY = CGRectGetMaxY(idCardDownImageView.frame)-60;
+            UILabel *tipLabel3 = [[UILabel alloc] initWithFrame:CGRectMake(tipLabelX, tipLabelY, tipLabelW, 44)];
+            tipLabel3.adjustsFontSizeToFitWidth = YES;
+            tipLabel3.backgroundColor = [UIColor clearColor];
+            tipLabel3.text = @"上传身份证反面照";
+            tipLabel3.font = [UIFont systemFontOfSize:15.0];
+            tipLabel3.textColor = [UIColor blackColor];
+            [cell addSubview:tipLabel3];
             break;
         }
-        case 8:{
+        case 4:{
             
             UILabel *nextStepLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, cellSize.height)];
             nextStepLabel.backgroundColor = APPDEFAULTTITLECOLOR;
@@ -603,7 +695,7 @@
     
     switch (row) {
         case 0:
-            return 90;
+            return 90*2;
             break;
         case 1:
             return 44;
@@ -612,21 +704,9 @@
             return 44;
             break;
         case 3:
-            return 44;
+            return 100*3;
             break;
         case 4:
-            return 44;
-            break;
-        case 5:
-            return 44;
-            break;
-        case 6:
-            return 44;
-            break;
-        case 7:
-            return 90;
-            break;
-        case 8:
             return 40;
             break;
         default:
@@ -660,11 +740,25 @@
     }
 }
 
+//手持身份证正面照
 - (void)clickIdCardAction{
     isHeadImage = NO;
     [self showActionSheet];
 }
 
+//上传正面
+- (void)clickFrontIdCardAction{
+    NSLog(@"clickFrontIdCardAction");
+}
+//上传反面
+- (void)clickDownIdCardAction{
+    NSLog(@"clickDownIdCardAction");
+}
+//头像
+- (void)userClickImageAction{
+    NSLog(@"userClickImageAction");
+}
+//个人照片
 - (void)clickHeadImageAction{
     isHeadImage = YES;
     [self showActionSheet];

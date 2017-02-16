@@ -21,6 +21,10 @@
 #import "MyFansVC.h"
 #import "HeMineTableCell.h"
 #import "HeBaseTableViewCell.h"
+#import "MyReportListVC.h"
+#import "AboutViewController.h"
+#import "ServiceListVC.h"
+#import "MyServiceListVC.h"
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>
 {
@@ -99,9 +103,9 @@
     [[UINavigationBar appearance] setTintColor:APPDEFAULTORANGE];
     [super initializaiton];
 //    iconArr = @[@[@"icon_mycollection",@"icon_publish",@"icon_mycomment"],@[@"icon_patient",@"icon_follow",@"icon_fans"],@[@"icon_schedule",@"icon_service",@"icon_myadd"],@[@"icon_invite",@"icon_set",@"icon_set"]];
-    iconArr = @[@"icon_mycomment",@"icon_fans",@"icon_schedule",@"icon_invite",@"icon_set"];
+    iconArr = @[@"icon_mycomment",@"icon_fans",@"icon_schedule",@"icon_patient",@"icon_invite",@"icon_mycollection",@"icon_set"];
 //    tableItemArr = @[@[@"        我的收藏",@"        我的发表",@"        我的评论"],@[@"        我的患者",@"        我的关注",@"        我的粉丝"],@[@"        我的排班表",@"        我的服务",@"        我的常用地址"],@[@"        邀请好友",@"        我的二维码",@"        设置"]];
-    tableItemArr =@[@"        我的评论",@"        我的粉丝",@"        我的服务",@"        邀好友",@"        设置"];
+    tableItemArr =@[@"        我的评论",@"        我的粉丝",@"        我的服务",@"        服务介绍",@"        邀好友",@"        关于我们",@"        设置"];
     serviceArr = [[NSMutableArray alloc] initWithCapacity:0];  //可提供服务
     serviceSelectArr = [[NSMutableArray alloc] initWithCapacity:0];
     serviceIdDic = [[NSMutableDictionary alloc] initWithCapacity:0];  //可提供服务
@@ -313,7 +317,7 @@
     }
     
 //    viewHeight
-    NSArray *titleArr = @[@"我的资金",@"我的积分",@"我的信息"];
+    NSArray *titleArr = @[@"我的资金",@"我的报告",@"我的信息"];
     CGFloat titleX = 0;
     CGFloat titleY = viewHeight-30;
     CGFloat titleW = SCREENWIDTH/3.0;
@@ -344,7 +348,8 @@
         myCapitalViewController.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:myCapitalViewController animated:YES];
     }else if (sender.tag == 101){
-        
+        //我的报告
+        [self goToMyReportListView];
     }else if (sender.tag == 102){
         [self goToMineInfoView];
     }
@@ -577,11 +582,21 @@
                 }
                     break;
                 case 3:
+                {//服务介绍
+                    [self showServiceListView];
+                }
+                    break;
+                case 4:
                 {//邀请好友
                     [self inviteFriend];
                 }
                     break;
-                case 4:
+                case 5:
+                {//关于我们
+                    [self showAboutView];
+                }
+                    break;
+                case 6:
                 {//设置
                     SettingViewController *settingViewController = [[SettingViewController alloc] init];
                     settingViewController.hidesBottomBarWhenPushed = YES;
@@ -679,6 +694,26 @@
     MainInfoViewController *mainInfoViewController = [[MainInfoViewController alloc] init];
     mainInfoViewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:mainInfoViewController animated:YES];
+}
+
+- (void)goToMyReportListView{
+    MyReportListVC *myReportListVC = [[MyReportListVC alloc] init];
+    myReportListVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:myReportListVC animated:YES];
+}
+
+//服务介绍
+- (void)showServiceListView{
+    ServiceListVC *serviceListVC = [[ServiceListVC alloc] init];
+    serviceListVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:serviceListVC animated:YES];
+}
+
+//关于
+- (void)showAboutView{
+    AboutViewController *aboutViewController = [[AboutViewController alloc] init];
+    aboutViewController.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:aboutViewController animated:YES];
 }
 
 - (void)inviteFriend
@@ -888,7 +923,14 @@
     
 }
 
+//我的服务
 - (void)showAlertView{
+    
+    MyServiceListVC *myServiceListVC = [[MyServiceListVC alloc] init];
+    myServiceListVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:myServiceListVC animated:YES];
+    
+    /*
     windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
     windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
     [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
@@ -945,6 +987,8 @@
     okBt.tag = 1;
     [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
     [addBgView addSubview:okBt];
+     
+     */
 }
 
 - (void)clickBtAction:(UIButton *)sender{

@@ -67,6 +67,18 @@
 		AD5CD6DC1E0FBCB70025517E /* cancle.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5CD6DB1E0FBCB70025517E /* cancle.png */; };
 		AD5CD6E11E12D2070025517E /* MyCapitalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5CD6DF1E12D2070025517E /* MyCapitalViewController.m */; };
 		AD5CD6E21E12D2070025517E /* MyCapitalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD5CD6E01E12D2070025517E /* MyCapitalViewController.xib */; };
+		AD5FB9EE1E53FC9A00EE93BB /* MyReportListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5FB9EC1E53FC9A00EE93BB /* MyReportListVC.m */; };
+		AD5FB9EF1E53FC9A00EE93BB /* MyReportListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD5FB9ED1E53FC9A00EE93BB /* MyReportListVC.xib */; };
+		AD5FB9F41E54906C00EE93BB /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5FB9F21E54906C00EE93BB /* AboutViewController.m */; };
+		AD5FB9F51E54906C00EE93BB /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD5FB9F31E54906C00EE93BB /* AboutViewController.xib */; };
+		AD5FB9F71E54922A00EE93BB /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5FB9F61E54922A00EE93BB /* icon.png */; };
+		AD5FB9FC1E54992B00EE93BB /* ServiceListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5FB9FA1E54992B00EE93BB /* ServiceListVC.m */; };
+		AD5FB9FD1E54992B00EE93BB /* ServiceListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD5FB9FB1E54992B00EE93BB /* ServiceListVC.xib */; };
+		AD5FBA021E55854C00EE93BB /* MyServiceListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5FBA001E55854C00EE93BB /* MyServiceListVC.m */; };
+		AD5FBA031E55854C00EE93BB /* MyServiceListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD5FBA011E55854C00EE93BB /* MyServiceListVC.xib */; };
+		AD5FBA071E55F6D000EE93BB /* icon_idcard_hand.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5FBA041E55F6CF00EE93BB /* icon_idcard_hand.png */; };
+		AD5FBA081E55F6D000EE93BB /* icon_idcard1.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5FBA051E55F6CF00EE93BB /* icon_idcard1.png */; };
+		AD5FBA091E55F6D000EE93BB /* icon_idcard2.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5FBA061E55F6CF00EE93BB /* icon_idcard2.png */; };
 		AD8A0E541E229E2C0001CC02 /* jpush-ios-2.1.9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E521E229E2C0001CC02 /* jpush-ios-2.1.9.a */; };
 		AD8A0E561E229EBA0001CC02 /* JSPatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E551E229EBA0001CC02 /* JSPatch.framework */; };
 		AD8A0E5C1E22A0030001CC02 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E5B1E22A0030001CC02 /* UserNotifications.framework */; };
@@ -859,6 +871,22 @@
 		AD5CD6DE1E12D2070025517E /* MyCapitalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCapitalViewController.h; sourceTree = "<group>"; };
 		AD5CD6DF1E12D2070025517E /* MyCapitalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCapitalViewController.m; sourceTree = "<group>"; };
 		AD5CD6E01E12D2070025517E /* MyCapitalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyCapitalViewController.xib; sourceTree = "<group>"; };
+		AD5FB9EB1E53FC9A00EE93BB /* MyReportListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyReportListVC.h; sourceTree = "<group>"; };
+		AD5FB9EC1E53FC9A00EE93BB /* MyReportListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyReportListVC.m; sourceTree = "<group>"; };
+		AD5FB9ED1E53FC9A00EE93BB /* MyReportListVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyReportListVC.xib; sourceTree = "<group>"; };
+		AD5FB9F11E54906C00EE93BB /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		AD5FB9F21E54906C00EE93BB /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		AD5FB9F31E54906C00EE93BB /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
+		AD5FB9F61E54922A00EE93BB /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		AD5FB9F91E54992B00EE93BB /* ServiceListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceListVC.h; sourceTree = "<group>"; };
+		AD5FB9FA1E54992B00EE93BB /* ServiceListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceListVC.m; sourceTree = "<group>"; };
+		AD5FB9FB1E54992B00EE93BB /* ServiceListVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServiceListVC.xib; sourceTree = "<group>"; };
+		AD5FB9FF1E55854C00EE93BB /* MyServiceListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyServiceListVC.h; sourceTree = "<group>"; };
+		AD5FBA001E55854C00EE93BB /* MyServiceListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyServiceListVC.m; sourceTree = "<group>"; };
+		AD5FBA011E55854C00EE93BB /* MyServiceListVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyServiceListVC.xib; sourceTree = "<group>"; };
+		AD5FBA041E55F6CF00EE93BB /* icon_idcard_hand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_idcard_hand.png; sourceTree = "<group>"; };
+		AD5FBA051E55F6CF00EE93BB /* icon_idcard1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_idcard1.png; sourceTree = "<group>"; };
+		AD5FBA061E55F6CF00EE93BB /* icon_idcard2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_idcard2.png; sourceTree = "<group>"; };
 		AD8A0E521E229E2C0001CC02 /* jpush-ios-2.1.9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.9.a"; sourceTree = "<group>"; };
 		AD8A0E531E229E2C0001CC02 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		AD8A0E551E229EBA0001CC02 /* JSPatch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JSPatch.framework; sourceTree = "<group>"; };
@@ -2331,6 +2359,46 @@
 			path = MyCapitalViewController;
 			sourceTree = "<group>";
 		};
+		AD5FB9EA1E53FC8700EE93BB /* MyReportListVC */ = {
+			isa = PBXGroup;
+			children = (
+				AD5FB9EB1E53FC9A00EE93BB /* MyReportListVC.h */,
+				AD5FB9EC1E53FC9A00EE93BB /* MyReportListVC.m */,
+				AD5FB9ED1E53FC9A00EE93BB /* MyReportListVC.xib */,
+			);
+			path = MyReportListVC;
+			sourceTree = "<group>";
+		};
+		AD5FB9F01E54905900EE93BB /* AboutViewController */ = {
+			isa = PBXGroup;
+			children = (
+				AD5FB9F11E54906C00EE93BB /* AboutViewController.h */,
+				AD5FB9F21E54906C00EE93BB /* AboutViewController.m */,
+				AD5FB9F31E54906C00EE93BB /* AboutViewController.xib */,
+			);
+			path = AboutViewController;
+			sourceTree = "<group>";
+		};
+		AD5FB9F81E54991E00EE93BB /* ServiceListVC */ = {
+			isa = PBXGroup;
+			children = (
+				AD5FB9F91E54992B00EE93BB /* ServiceListVC.h */,
+				AD5FB9FA1E54992B00EE93BB /* ServiceListVC.m */,
+				AD5FB9FB1E54992B00EE93BB /* ServiceListVC.xib */,
+			);
+			path = ServiceListVC;
+			sourceTree = "<group>";
+		};
+		AD5FB9FE1E55853E00EE93BB /* MyServiceListVC */ = {
+			isa = PBXGroup;
+			children = (
+				AD5FB9FF1E55854C00EE93BB /* MyServiceListVC.h */,
+				AD5FBA001E55854C00EE93BB /* MyServiceListVC.m */,
+				AD5FBA011E55854C00EE93BB /* MyServiceListVC.xib */,
+			);
+			path = MyServiceListVC;
+			sourceTree = "<group>";
+		};
 		AD8A0E511E229E2C0001CC02 /* JPushSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -2671,6 +2739,10 @@
 		ADDBEB4B1DFCE26F000BDA95 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				AD5FBA041E55F6CF00EE93BB /* icon_idcard_hand.png */,
+				AD5FBA051E55F6CF00EE93BB /* icon_idcard1.png */,
+				AD5FBA061E55F6CF00EE93BB /* icon_idcard2.png */,
+				AD5FB9F61E54922A00EE93BB /* icon.png */,
 				AD9E2B061E366EAF00ADA3BE /* icon_share.png */,
 				EA662E3A1E3278A4007F1A09 /* appIcon.png */,
 				57F5114D1E31BDAF003D0A7A /* icon_arrow_down.png */,
@@ -2742,6 +2814,10 @@
 		ADDBEB6B1DFCE41A000BDA95 /* MineViewController */ = {
 			isa = PBXGroup;
 			children = (
+				AD5FB9FE1E55853E00EE93BB /* MyServiceListVC */,
+				AD5FB9F81E54991E00EE93BB /* ServiceListVC */,
+				AD5FB9F01E54905900EE93BB /* AboutViewController */,
+				AD5FB9EA1E53FC8700EE93BB /* MyReportListVC */,
 				AD13A6691E2B8D99002ADE2B /* MyFansVC */,
 				AD5CD6DD1E12D1F60025517E /* MyCapitalViewController */,
 				ADCD25A21E0C0E5700FBCF26 /* MyEvaluateViewController */,
@@ -5150,6 +5226,7 @@
 				AD30138C1DFCF4F300D26E09 /* icon_set.png in Resources */,
 				57F511031E30859B003D0A7A /* icon_calendar_month.png in Resources */,
 				AD3013841DFCF4F200D26E09 /* icon_invite.png in Resources */,
+				AD5FBA081E55F6D000EE93BB /* icon_idcard1.png in Resources */,
 				AD8A0EA61E26215E0001CC02 /* icon_add_photo_violet.png in Resources */,
 				ADCD25B11E0C2E7300FBCF26 /* icon_star_yellow.png in Resources */,
 				EAC2D99B1D4B063C00E282A8 /* loading_anim2.png in Resources */,
@@ -5175,6 +5252,7 @@
 				AD3013721DFCF4DC00D26E09 /* icon_scan.png in Resources */,
 				AD3013861DFCF4F300D26E09 /* icon_mycollection.png in Resources */,
 				ADB49C5D1E164526008DBCF6 /* icon_set_paypwd.png in Resources */,
+				AD5FBA071E55F6D000EE93BB /* icon_idcard_hand.png in Resources */,
 				EAC2D9531D4B063B00E282A8 /* btn_020@2x.png in Resources */,
 				EAC2D94B1D4B063B00E282A8 /* LICENSE.txt in Resources */,
 				EAC2D87A1D4B063B00E282A8 /* grayArrow.png in Resources */,
@@ -5275,6 +5353,7 @@
 				EA1ADE8F1E1DFCBB00A8422D /* icon_leftarrow_violet.png in Resources */,
 				EAC2D8731D4B063B00E282A8 /* i2KEPCSingleComponentPickerView.xib in Resources */,
 				EAC2D9981D4B063C00E282A8 /* zbar-helpicons.png in Resources */,
+				AD5FB9EF1E53FC9A00EE93BB /* MyReportListVC.xib in Resources */,
 				EAC2D8371D4B063B00E282A8 /* BrowserView.xib in Resources */,
 				57F511041E30859B003D0A7A /* icon_calendar.png in Resources */,
 				EA1ADE8B1E1DFC5600A8422D /* img_no_data.png in Resources */,
@@ -5283,6 +5362,8 @@
 				ADDBEB951DFCE87E000BDA95 /* index_banner4@2x.jpg in Resources */,
 				AD8A0E881E2562500001CC02 /* SettingPayPswVC.xib in Resources */,
 				EAA4F33A1E024D0600EF9E14 /* icon_look.png in Resources */,
+				AD5FB9FD1E54992B00EE93BB /* ServiceListVC.xib in Resources */,
+				AD5FB9F51E54906C00EE93BB /* AboutViewController.xib in Resources */,
 				AD8A0E741E24B9D80001CC02 /* img_exclusive.png in Resources */,
 				AD5CD6D21E0FAA8D0025517E /* FeedbackViewController.xib in Resources */,
 				AD5CD6CB1E0EAECF0025517E /* abc_btn_radio_on.png in Resources */,
@@ -5295,8 +5376,10 @@
 				EA1743571E1E33AF0038E805 /* success@3x.png in Resources */,
 				EAA4F3201E012F3000EF9E14 /* tabar_order_icon_active@2x.png in Resources */,
 				AD8A0E811E254F3E0001CC02 /* NurseReportVC.xib in Resources */,
+				AD5FB9F71E54922A00EE93BB /* icon.png in Resources */,
 				EAA655241E0627C300F424DD /* AlbumLike@2x.png in Resources */,
 				ADDBEB9B1DFCE954000BDA95 /* index2.png in Resources */,
+				AD5FBA031E55854C00EE93BB /* MyServiceListVC.xib in Resources */,
 				AD13A6721E2BB067002ADE2B /* icon_switch_open.png in Resources */,
 				EAC2D86F1D4B063B00E282A8 /* i2KEPCDatePickerView.xib in Resources */,
 				EAA6552D1E0627C300F424DD /* Like@2x.png in Resources */,
@@ -5314,6 +5397,7 @@
 				EAA655221E0627C300F424DD /* AlbumComment@2x.png in Resources */,
 				EA472CB51E04DE5500E0316F /* unselect_box.png in Resources */,
 				AD9E2B151E376B2100ADA3BE /* img_no_data_refresh.png in Resources */,
+				AD5FBA091E55F6D000EE93BB /* icon_idcard2.png in Resources */,
 				AD8BB12E1E096E9B004064F9 /* icon_health_authent.png in Resources */,
 				ADB49C541E163CA3008DBCF6 /* icon_rank_2.png in Resources */,
 				EAA4F3151E012AA800EF9E14 /* RankViewController.xib in Resources */,
@@ -5394,6 +5478,7 @@
 				EAC2D9061D4B063B00E282A8 /* RACObjCRuntime.m in Sources */,
 				EAA655411E0627C400F424DD /* DFBaseUserLineCell.m in Sources */,
 				57F511441E31B0FA003D0A7A /* TTGroupTagView.m in Sources */,
+				AD5FB9FC1E54992B00EE93BB /* ServiceListVC.m in Sources */,
 				EAC2D9141D4B063B00E282A8 /* RACStringSequence.m in Sources */,
 				57F5112F1E30A0D0003D0A7A /* PNGenericChart.m in Sources */,
 				ADDBEB561DFCE31B000BDA95 /* RECommonFunctions.m in Sources */,
@@ -5439,6 +5524,7 @@
 				EAC2D9681D4B063B00E282A8 /* UIButton+associate.m in Sources */,
 				EAA6550B1E0627C300F424DD /* DFUserActivityDetailLineCellAdapter.m in Sources */,
 				EA17434C1E1E33AF0038E805 /* DFTableViewODRefreshControl.m in Sources */,
+				AD5FB9F41E54906C00EE93BB /* AboutViewController.m in Sources */,
 				EAC2D8D81D4B063B00E282A8 /* RACEXTRuntimeExtensions.m in Sources */,
 				EAC2D8EA1D4B063B00E282A8 /* NSString+RACSequenceAdditions.m in Sources */,
 				EAC2D8361D4B063B00E282A8 /* BrowserView.m in Sources */,
@@ -5518,6 +5604,7 @@
 				EAC2D96D1D4B063B00E282A8 /* VIPhotoView.m in Sources */,
 				EA1743481E1E33AF0038E805 /* RRDevice.m in Sources */,
 				EAA6547B1E061FDF00F424DD /* HeBaseIconTitleTableCell.m in Sources */,
+				AD5FB9EE1E53FC9A00EE93BB /* MyReportListVC.m in Sources */,
 				EAC2D90E1D4B063B00E282A8 /* RACSerialDisposable.m in Sources */,
 				EAC2D8381D4B063B00E282A8 /* CPTextViewPlaceholder.m in Sources */,
 				EAC2D81C1D4B063B00E282A8 /* AFNetworkReachabilityManager.m in Sources */,
@@ -5632,6 +5719,7 @@
 				57F511301E30A0D0003D0A7A /* PNLineChart.m in Sources */,
 				EAC2D90D1D4B063B00E282A8 /* RACSequence.m in Sources */,
 				EAC2D9781D4B063B00E282A8 /* AES128Util.m in Sources */,
+				AD5FBA021E55854C00EE93BB /* MyServiceListVC.m in Sources */,
 				EAC2D8F11D4B063B00E282A8 /* RACBlockTrampoline.m in Sources */,
 				AD13A6781E2BD7E2002ADE2B /* CheckDetailVC.m in Sources */,
 				ADDBEB471DFCE267000BDA95 /* RDVTabBar.m in Sources */,

@@ -38,14 +38,14 @@
                 </textField>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jqo-1n-sew">
                     <rect key="frame" x="20" y="85" width="335" height="1"/>
-                    <color key="backgroundColor" red="0.59607843137254901" green="0.2627450980392157" blue="0.55294117647058827" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="gbD-n3-E3O"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mOQ-0s-FDG">
                     <rect key="frame" x="20" y="135" width="335" height="1"/>
-                    <color key="backgroundColor" red="0.59607843140000005" green="0.26274509800000001" blue="0.55294117649999996" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="1" id="cyM-i1-MMR"/>
                     </constraints>
