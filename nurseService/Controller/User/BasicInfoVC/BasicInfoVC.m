@@ -735,8 +735,10 @@
     NSInteger section = indexPath.section;
     
     NSLog(@"row = %ld, section = %ld",row,section);
-    if (row == 8) {
-        [self nextStepAction];
+    if (row == 4) {
+//        [self nextStepAction];
+        [self goToProfessionInfoVC];
+
     }
 }
 

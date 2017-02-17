@@ -252,11 +252,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/User/BasicInfoVC/BasicInfoVC.m"
-            timestampString = "508950117.791502"
+            timestampString = "508951585.10855"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "915"
-            endingLineNumber = "915"
+            startingLineNumber = "917"
+            endingLineNumber = "917"
             landmarkName = "-changeSexChoose:"
             landmarkType = "7">
          </BreakpointContent>
@@ -332,11 +332,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/User/BasicInfoVC/BasicInfoVC.m"
-            timestampString = "508950117.791502"
+            timestampString = "508951585.10855"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "921"
-            endingLineNumber = "921"
+            startingLineNumber = "923"
+            endingLineNumber = "923"
             landmarkName = "-changeSexChoose:"
             landmarkType = "7">
          </BreakpointContent>
@@ -348,11 +348,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/User/ProfessionInfoVC/ProfessionInfoVC.m"
-            timestampString = "506715305.929833"
+            timestampString = "508994835.324039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1086"
-            endingLineNumber = "1086"
+            startingLineNumber = "1425"
+            endingLineNumber = "1425"
             landmarkName = "-changeLanguageBtnCorlor:"
             landmarkType = "7">
          </BreakpointContent>
@@ -364,11 +364,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/User/ProfessionInfoVC/ProfessionInfoVC.m"
-            timestampString = "506715305.929833"
+            timestampString = "508994835.324039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1062"
-            endingLineNumber = "1062"
+            startingLineNumber = "1401"
+            endingLineNumber = "1401"
             landmarkName = "-scaleToSize:size:"
             landmarkType = "7">
          </BreakpointContent>
@@ -380,11 +380,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/User/ProfessionInfoVC/ProfessionInfoVC.m"
-            timestampString = "506715305.929833"
+            timestampString = "508994835.324039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1283"
-            endingLineNumber = "1283"
+            startingLineNumber = "1622"
+            endingLineNumber = "1622"
             landmarkName = "-closeWindowView"
             landmarkType = "7">
          </BreakpointContent>
@@ -396,11 +396,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/User/ProfessionInfoVC/ProfessionInfoVC.m"
-            timestampString = "506715305.929833"
+            timestampString = "508994835.324039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1293"
-            endingLineNumber = "1293"
+            startingLineNumber = "1632"
+            endingLineNumber = "1632"
             landmarkName = "-closeWindowView"
             landmarkType = "7">
          </BreakpointContent>
@@ -412,11 +412,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/User/ProfessionInfoVC/ProfessionInfoVC.m"
-            timestampString = "506715305.929833"
+            timestampString = "508994835.324039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1296"
-            endingLineNumber = "1296"
+            startingLineNumber = "1635"
+            endingLineNumber = "1635"
             landmarkName = "@implementation ProfessionInfoVC"
             landmarkType = "3">
          </BreakpointContent>
@@ -508,11 +508,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/User/ProfessionInfoVC/ProfessionInfoVC.m"
-            timestampString = "506361731.949264"
+            timestampString = "508994835.324039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "750"
-            endingLineNumber = "750"
+            startingLineNumber = "1079"
+            endingLineNumber = "1079"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -524,11 +524,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/User/ProfessionInfoVC/ProfessionInfoVC.m"
-            timestampString = "506361731.949264"
+            timestampString = "508994835.324039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "761"
-            endingLineNumber = "761"
+            startingLineNumber = "1090"
+            endingLineNumber = "1090"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -540,11 +540,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/User/ProfessionInfoVC/ProfessionInfoVC.m"
-            timestampString = "506715305.929833"
+            timestampString = "508994835.324039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1188"
-            endingLineNumber = "1188"
+            startingLineNumber = "1527"
+            endingLineNumber = "1527"
             landmarkName = "-showServiceAlertView"
             landmarkType = "7">
          </BreakpointContent>
@@ -556,11 +556,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/User/ProfessionInfoVC/ProfessionInfoVC.m"
-            timestampString = "506363813.332397"
+            timestampString = "508994835.324039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "880"
-            endingLineNumber = "880"
+            startingLineNumber = "1209"
+            endingLineNumber = "1209"
             landmarkName = "-postProfessionInfo"
             landmarkType = "7">
          </BreakpointContent>
@@ -572,11 +572,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/User/ProfessionInfoVC/ProfessionInfoVC.m"
-            timestampString = "506363813.332397"
+            timestampString = "508994835.324039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "891"
-            endingLineNumber = "891"
+            startingLineNumber = "1220"
+            endingLineNumber = "1220"
             landmarkName = "-postProfessionInfo"
             landmarkType = "7">
          </BreakpointContent>
@@ -940,11 +940,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/User/ProfessionInfoVC/ProfessionInfoVC.m"
-            timestampString = "506361288.673007"
+            timestampString = "508994009.266292"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "255"
-            endingLineNumber = "255"
+            startingLineNumber = "271"
+            endingLineNumber = "271"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1292,11 +1292,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "nurseService/Controller/User/ProfessionInfoVC/ProfessionInfoVC.m"
-            timestampString = "506718228.904454"
+            timestampString = "508994835.324039"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "835"
-            endingLineNumber = "835"
+            startingLineNumber = "1164"
+            endingLineNumber = "1164"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>

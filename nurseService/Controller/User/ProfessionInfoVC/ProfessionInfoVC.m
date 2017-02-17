@@ -51,23 +51,33 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+        label.backgroundColor = [UIColor clearColor];
+        label.font = APPDEFAULTTITLETEXTFONT;
+        label.textColor = APPDEFAULTTITLECOLOR;
+        label.textAlignment = NSTextAlignmentCenter;
+        self.navigationItem.titleView = label;
+        label.text = @"专业信息";
+        [label sizeToFit];
+        self.title = @"专业信息";
+        self.navigationItem.titleView.backgroundColor = [UIColor clearColor];
         
         NSMutableArray *buttons = [[NSMutableArray alloc] init];
-        UIButton *saveBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 25)];
-        [saveBt setTitleColor:APPDEFAULTORANGE forState:UIControlStateNormal];
-        [saveBt setTitle:@"保存" forState:UIControlStateNormal];
-        saveBt.layer.cornerRadius = 4.0;//2.0是圆角的弧度，根据需求自己更改
-        saveBt.layer.borderWidth = 1.0f;
-        saveBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
-        saveBt.layer.borderColor = [[UIColor colorWithRed:152.0 / 255.0 green:67.0 / 255.0 blue:141.0 / 255.0 alpha:1.0] CGColor];
-        [saveBt addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
+        UIButton *saveBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 25)];
+        [saveBt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [saveBt setTitle:@"服务介绍" forState:UIControlStateNormal];
+        saveBt.titleLabel.adjustsFontSizeToFitWidth = YES;
+//        saveBt.layer.cornerRadius = 4.0;//2.0是圆角的弧度，根据需求自己更改
+//        saveBt.layer.borderWidth = 1.0f;
+        saveBt.titleLabel.font = [UIFont systemFontOfSize:13.0];
+//        saveBt.layer.borderColor = [[UIColor colorWithRed:152.0 / 255.0 green:67.0 / 255.0 blue:141.0 / 255.0 alpha:1.0] CGColor];
+        [saveBt addTarget:self action:@selector(serviceIntroductionAction) forControlEvents:UIControlEventTouchUpInside];
         saveBt.backgroundColor = [UIColor clearColor];
         
         UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithCustomView:saveBt];
         [buttons addObject:searchItem];
         self.navigationItem.rightBarButtonItems = buttons;
 
-        self.title = @"基本信息";
     }
     return self;
 }
@@ -110,6 +120,10 @@
     [self addStatueViewWithStatus:1];
 }
 
+//服务介绍
+- (void)serviceIntroductionAction{
+    
+}
 - (void)saveAction{
     NSLog(@"saveAction");
 //    [self getAllServiceInfo];
@@ -186,11 +200,13 @@
     }else if (tableView.tag == 502){
         return nurseOfficeArr.count;
     }
-    if (isShowLanguage){
-        return 9;
-    }else{
-        return 8;
-    }
+    return 9;
+
+//    if (isShowLanguage){
+//        return 9;
+//    }else{
+//        return 8;
+//    }
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -261,6 +277,314 @@
         return cell;
     }
     
+    switch (row) {
+//        case 0:
+//        {
+//            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
+//            tipLabel.backgroundColor = [UIColor clearColor];
+//            tipLabel.text = @"擅长语言";
+//            tipLabel.font = [UIFont systemFontOfSize:15.0];
+//            tipLabel.textColor = [UIColor grayColor];
+//            [cell addSubview:tipLabel];
+//            
+//            CGFloat btX = SCREENWIDTH-30;
+//            CGFloat btW = 20;
+//            
+//            intoImageBt = [[UIButton alloc] initWithFrame:CGRectMake(btX, 11, btW, btW)];
+//            [intoImageBt setBackgroundImage:[UIImage imageNamed:@"icon_into_right"] forState:UIControlStateNormal];
+//            [intoImageBt setBackgroundImage:[UIImage imageNamed:@"icon_into_down"] forState:UIControlStateSelected];
+//            [cell addSubview:intoImageBt];
+//            [intoImageBt addTarget:self action:@selector(showLanguageView:) forControlEvents:UIControlEventTouchUpInside];
+//            break;
+//        }
+        case 0:
+        {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
+            tipLabel.backgroundColor = [UIColor clearColor];
+            tipLabel.text = @"工作单位";
+            tipLabel.font = [UIFont systemFontOfSize:15.0];
+            tipLabel.textColor = [UIColor grayColor];
+            [cell addSubview:tipLabel];
+            
+            CGFloat fieldX = SCREENWIDTH-230;
+            CGFloat fieldW = 200;
+            
+            workPlaceLable = [[UILabel alloc] initWithFrame:CGRectMake(fieldX, 0, fieldW, cellSize.height)];
+            workPlaceLable.font = [UIFont systemFontOfSize:15.0];
+            workPlaceLable.textAlignment = NSTextAlignmentRight;
+            workPlaceLable.textColor = [UIColor blackColor];
+            workPlaceLable.backgroundColor = [UIColor clearColor];
+            workPlaceLable.text = @"该护士未选定医院";
+            [cell addSubview:workPlaceLable];
+            break;
+        }
+        case 1:
+        {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
+            tipLabel.backgroundColor = [UIColor clearColor];
+            tipLabel.text = @"科室";
+            tipLabel.font = [UIFont systemFontOfSize:15.0];
+            tipLabel.textColor = [UIColor grayColor];
+            [cell addSubview:tipLabel];
+            
+            CGFloat fieldX = SCREENWIDTH-230;
+            CGFloat fieldW = 200;
+            
+            officeLable = [[UILabel alloc] initWithFrame:CGRectMake(fieldX, 0, fieldW, cellSize.height)];
+            officeLable.font = [UIFont systemFontOfSize:15.0];
+            officeLable.textAlignment = NSTextAlignmentRight;
+            officeLable.textColor = [UIColor blackColor];
+            officeLable.backgroundColor = [UIColor clearColor];
+            officeLable.text = @"该护士未选定专业";
+            [cell addSubview:officeLable];
+            break;
+        }
+        case 2:
+        {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
+            tipLabel.backgroundColor = [UIColor clearColor];
+            tipLabel.text = @"职称";
+            tipLabel.font = [UIFont systemFontOfSize:15.0];
+            tipLabel.textColor = [UIColor grayColor];
+            [cell addSubview:tipLabel];
+            
+            CGFloat fieldX = SCREENWIDTH-230;
+            CGFloat fieldW = 200;
+            
+            UILabel *professionNameLable = [[UILabel alloc] initWithFrame:CGRectMake(fieldX, 0, fieldW, cellSize.height)];
+            professionNameLable.font = [UIFont systemFontOfSize:15.0];
+            professionNameLable.textAlignment = NSTextAlignmentRight;
+            professionNameLable.textColor = [UIColor blackColor];
+            professionNameLable.backgroundColor = [UIColor clearColor];
+            [cell addSubview:professionNameLable];
+            break;
+        }
+        case 3:
+        {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
+            tipLabel.backgroundColor = [UIColor clearColor];
+            tipLabel.text = @"职业年限";
+            tipLabel.font = [UIFont systemFontOfSize:15.0];
+            tipLabel.textColor = [UIColor grayColor];
+            [cell addSubview:tipLabel];
+            
+            CGFloat fieldX = SCREENWIDTH-230;
+            CGFloat fieldW = 200;
+            
+            UILabel *professionYearsL = [[UILabel alloc] initWithFrame:CGRectMake(fieldX, 0, fieldW, cellSize.height)];
+            professionYearsL.font = [UIFont systemFontOfSize:15.0];
+            professionYearsL.textAlignment = NSTextAlignmentRight;
+            professionYearsL.textColor = [UIColor blackColor];
+            professionYearsL.backgroundColor = [UIColor clearColor];
+            [cell addSubview:professionYearsL];
+            break;
+        }
+        case 4:
+        {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
+            tipLabel.backgroundColor = [UIColor clearColor];
+            tipLabel.text = @"可提供服务";
+            tipLabel.font = [UIFont systemFontOfSize:15.0];
+            tipLabel.textColor = [UIColor grayColor];
+            [cell addSubview:tipLabel];
+            
+            
+            //                CGFloat fieldX = SCREENWIDTH-230;
+            //                CGFloat fieldW = 200;
+            //
+            //                UILabel *serviceLable = [[UILabel alloc] initWithFrame:CGRectMake(fieldX, 0, fieldW, cellSize.height)];
+            //                serviceLable.font = [UIFont systemFontOfSize:15.0];
+            //                serviceLable.textAlignment = NSTextAlignmentRight;
+            //                serviceLable.textColor = [UIColor blackColor];
+            //                serviceLable.backgroundColor = [UIColor clearColor];
+            //                serviceLable.text = @"1111";
+            //                [cell addSubview:serviceLable];
+            
+            break;
+        }
+        case 5:
+        {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
+            tipLabel.backgroundColor = [UIColor clearColor];
+            tipLabel.text = @"个人优势";
+            tipLabel.font = [UIFont systemFontOfSize:15.0];
+            tipLabel.textColor = [UIColor grayColor];
+            [cell addSubview:tipLabel];
+            
+            //                CGFloat fieldX = SCREENWIDTH-210;
+            //                CGFloat fieldW = 200;
+            //
+            //                UITextField *advTextField = [[UITextField alloc] initWithFrame:CGRectMake(fieldX, 0, fieldW, cellSize.height)];
+            //                advTextField.font = [UIFont systemFontOfSize:15.0];
+            //                advTextField.textAlignment = NSTextAlignmentRight;
+            //                advTextField.textColor = [UIColor blackColor];
+            //                advTextField.backgroundColor = [UIColor clearColor];
+            //                advTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            //                advTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+            //                advTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            //                advTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+            //                [cell addSubview:advTextField];
+            break;
+        }
+        case 6:
+        {
+            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
+            tipLabel.backgroundColor = [UIColor clearColor];
+            tipLabel.text = @"护士注册号";
+            tipLabel.font = [UIFont systemFontOfSize:15.0];
+            tipLabel.textColor = [UIColor grayColor];
+            [cell addSubview:tipLabel];
+            
+            CGFloat fieldX = SCREENWIDTH-210;
+            CGFloat fieldW = 200;
+            
+            nurseNumberField = [[UITextField alloc] initWithFrame:CGRectMake(fieldX, 0, fieldW, cellSize.height)];
+            nurseNumberField.font = [UIFont systemFontOfSize:15.0];
+            nurseNumberField.textAlignment = NSTextAlignmentRight;
+            nurseNumberField.textColor = [UIColor blackColor];
+            nurseNumberField.backgroundColor = [UIColor clearColor];
+            nurseNumberField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            nurseNumberField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+            nurseNumberField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+            nurseNumberField.clearButtonMode = UITextFieldViewModeWhileEditing;
+            [cell addSubview:nurseNumberField];
+            
+            break;
+        }
+        case 7:
+        {
+//            UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, 30)];
+//            [cell addSubview:bgView];
+//            bgView.backgroundColor = [UIColor colorWithRed:217/255.0 green:217/255.0 blue:217/255.0 alpha:1.0];
+            
+            UILabel *tipL = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, SCREENWIDTH-20, 20)];
+            [cell addSubview:tipL];
+            tipL.backgroundColor = [UIColor clearColor];
+            tipL.text = @"请上传相关证书";//@"我们将为您保密，审核通过后可使用完整功能";
+            tipL.font = [UIFont systemFontOfSize:15.0];
+            tipL.textColor = [UIColor grayColor];
+            
+            CGFloat headImageW = 130;
+            CGFloat imageY = 40;
+            
+            photoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, imageY, headImageW, 80)];
+            [cell addSubview:photoImageView];
+            photoImageView.userInteractionEnabled = YES;
+            photoImageView.backgroundColor = [UIColor clearColor];
+            photoImageView.image = [UIImage imageNamed:@"icon_idcard_hand"];
+            
+            UITapGestureRecognizer *clickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loadProfessionPhotoAction)];
+            [photoImageView addGestureRecognizer:clickTap];
+            
+            CGFloat tipLabelX = CGRectGetMaxX(photoImageView.frame)+10;
+            CGFloat tipLabelY = CGRectGetMaxY(photoImageView.frame)-60;
+            CGFloat tipLabelW = SCREENWIDTH-CGRectGetMaxX(photoImageView.frame)-20;
+            
+            UILabel *tipLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(tipLabelX, tipLabelY, tipLabelW, 44)];
+            tipLabel1.adjustsFontSizeToFitWidth = YES;
+            tipLabel1.backgroundColor = [UIColor clearColor];
+            tipLabel1.text = @"上传职业证书正面照";
+            tipLabel1.font = [UIFont systemFontOfSize:15.0];
+            tipLabel1.textColor = [UIColor blackColor];
+            [cell addSubview:tipLabel1];
+            
+            
+            imageY = CGRectGetMaxY(photoImageView.frame)+20;
+            UIImageView *idCardFrontImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, imageY, headImageW, 80)];
+            [cell addSubview:idCardFrontImageView];
+            idCardFrontImageView.userInteractionEnabled = YES;
+            idCardFrontImageView.backgroundColor = [UIColor clearColor];
+            idCardFrontImageView.image = [UIImage imageNamed:@"icon_idcard1"];
+            
+            UITapGestureRecognizer *clickTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loadPowerPhotoAction)];
+            [idCardFrontImageView addGestureRecognizer:clickTap1];
+            
+            tipLabelX = CGRectGetMaxX(idCardFrontImageView.frame)+10;
+            tipLabelY = CGRectGetMaxY(idCardFrontImageView.frame)-60;
+            UILabel *tipLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(tipLabelX, tipLabelY, tipLabelW, 44)];
+            tipLabel2.adjustsFontSizeToFitWidth = YES;
+            tipLabel2.backgroundColor = [UIColor clearColor];
+            tipLabel2.text = @"上传资格证书正面照";
+            tipLabel2.font = [UIFont systemFontOfSize:15.0];
+            tipLabel2.textColor = [UIColor blackColor];
+            [cell addSubview:tipLabel2];
+            
+            imageY = CGRectGetMaxY(idCardFrontImageView.frame)+20;
+            UIImageView *idCardDownImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, imageY, headImageW, 80)];
+            [cell addSubview:idCardDownImageView];
+            idCardDownImageView.userInteractionEnabled = YES;
+            idCardDownImageView.backgroundColor = [UIColor clearColor];
+            idCardDownImageView.image = [UIImage imageNamed:@"icon_idcard2"];
+            
+            UITapGestureRecognizer *clickTap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loadProfeesionNamePhotoAction)];
+            [idCardDownImageView addGestureRecognizer:clickTap2];
+            
+            tipLabelX = CGRectGetMaxX(idCardDownImageView.frame)+10;
+            tipLabelY = CGRectGetMaxY(idCardDownImageView.frame)-60;
+            UILabel *tipLabel3 = [[UILabel alloc] initWithFrame:CGRectMake(tipLabelX, tipLabelY, tipLabelW, 44)];
+            tipLabel3.adjustsFontSizeToFitWidth = YES;
+            tipLabel3.backgroundColor = [UIColor clearColor];
+            tipLabel3.text = @"上传职称证书正面照";
+            tipLabel3.font = [UIFont systemFontOfSize:15.0];
+            tipLabel3.textColor = [UIColor blackColor];
+            [cell addSubview:tipLabel3];
+            
+            
+//            CGFloat photoW = 60;
+//            photoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, photoW, photoW)];
+//            [cell addSubview:photoImageView];
+//            photoImageView.userInteractionEnabled = YES;
+//            photoImageView.backgroundColor = [UIColor grayColor];
+//            photoImageView.image = [UIImage imageNamed:@"icon_add_photo_violet"];
+//            
+//            UITapGestureRecognizer *clickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPhotoImageAction)];
+//            [photoImageView addGestureRecognizer:clickTap];
+//            
+//            CGFloat tipLabelX = 20+photoW;
+//            CGFloat tipLabelY = 10+photoW/2.0-22;
+//            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(tipLabelX, tipLabelY, 150, 44)];
+//            tipLabel.backgroundColor = [UIColor clearColor];
+//            tipLabel.text = @"请上传相关照片";
+//            tipLabel.font = [UIFont systemFontOfSize:15.0];
+//            tipLabel.textColor = [UIColor blackColor];
+//            [cell addSubview:tipLabel];
+            
+            break;
+        }
+        case 8:
+        {
+            UILabel *nextStepLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, cellSize.height)];
+            nextStepLabel.backgroundColor = APPDEFAULTTITLECOLOR;
+            nextStepLabel.text = @"提交审核";
+            nextStepLabel.textAlignment = NSTextAlignmentCenter;
+            nextStepLabel.font = [UIFont systemFontOfSize:15.0];
+            nextStepLabel.textColor = [UIColor whiteColor];
+            [cell addSubview:nextStepLabel];
+            break;
+        }
+            
+        default:
+            break;
+    }
+    
+    
+    
+    
+    
+    
+    
+    /*
     if (isShowLanguage) {
         switch (row) {
             case 0:
@@ -654,7 +978,7 @@
                 break;
         }
     }
-    
+    */
     return cell;
 }
 
@@ -686,22 +1010,27 @@
             return 44;
             break;
         case 6:
-            if (isShowLanguage) {
-                return 40;
-            }else{
-                return 140;
-            }
+            return 44;
+
+//            if (isShowLanguage) {
+//                return 40;
+//            }else{
+//                return 140;
+//            }
             break;
         case 7:
-            if (isShowLanguage) {
-                return 140;
-            }else{
-                return 40;
-            }
+            return 110*3+10;
+            break;
+//            if (isShowLanguage) {
+//                return 140;
+//            }else{
+//                return 40;
+//            }
         case 8:
-            if (isShowLanguage) {
-                return 40;
-            }
+//            if (isShowLanguage) {
+//                return 40;
+//            }
+            return 44;
             break;
         default:
             break;
@@ -938,6 +1267,16 @@
 //    sender.selected = !sender.selected;
     isShowLanguage = !isShowLanguage;
     [myTableView reloadData];
+}
+
+//职业证书
+- (void)loadProfessionPhotoAction{
+}
+//资格证书
+- (void)loadPowerPhotoAction{
+}
+//职称证书
+- (void)loadProfeesionNamePhotoAction{
 }
 
 - (void)clickPhotoImageAction{
