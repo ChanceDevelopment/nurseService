@@ -63,10 +63,10 @@
     webView.scrollView.bounces = NO;
 
     if (isDetail) {
-        NSString *urlString = [NSString stringWithFormat:@"http://118.178.186.59:8080/nurseDoor/selectReportdetails.action?orderSendId=%@&protectedPersonId=%@",[infoData valueForKey:@"orderSendId"],[infoData valueForKey:@"personId"]];
+        NSString *urlString = [NSString stringWithFormat:@"%@selectReportdetails.action?orderSendId=%@&protectedPersonId=%@",API_URL,[infoData valueForKey:@"orderSendId"],[infoData valueForKey:@"personId"]];
         [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
     }else{
-        NSString *urlString = [NSString stringWithFormat:@"http://118.178.186.59:8080/nurseDoor/selectReportdetailsStay.action?orderSendId=%@&protectedPersonId=%@",[infoData valueForKey:@"orderSendId"],[infoData valueForKey:@"personId"]];
+        NSString *urlString = [NSString stringWithFormat:@"%@selectReportdetailsStay.action?orderSendId=%@&protectedPersonId=%@",API_URL,[infoData valueForKey:@"orderSendId"],[infoData valueForKey:@"personId"]];
         [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
 
     }

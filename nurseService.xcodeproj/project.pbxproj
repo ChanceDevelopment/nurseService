@@ -79,6 +79,8 @@
 		AD5FBA071E55F6D000EE93BB /* icon_idcard_hand.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5FBA041E55F6CF00EE93BB /* icon_idcard_hand.png */; };
 		AD5FBA081E55F6D000EE93BB /* icon_idcard1.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5FBA051E55F6CF00EE93BB /* icon_idcard1.png */; };
 		AD5FBA091E55F6D000EE93BB /* icon_idcard2.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5FBA061E55F6CF00EE93BB /* icon_idcard2.png */; };
+		AD5FBA131E5AD52A00EE93BB /* ServiceDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5FBA111E5AD52A00EE93BB /* ServiceDetailVC.m */; };
+		AD5FBA141E5AD52A00EE93BB /* ServiceDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD5FBA121E5AD52A00EE93BB /* ServiceDetailVC.xib */; };
 		AD8A0E541E229E2C0001CC02 /* jpush-ios-2.1.9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E521E229E2C0001CC02 /* jpush-ios-2.1.9.a */; };
 		AD8A0E561E229EBA0001CC02 /* JSPatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E551E229EBA0001CC02 /* JSPatch.framework */; };
 		AD8A0E5C1E22A0030001CC02 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E5B1E22A0030001CC02 /* UserNotifications.framework */; };
@@ -887,6 +889,9 @@
 		AD5FBA041E55F6CF00EE93BB /* icon_idcard_hand.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_idcard_hand.png; sourceTree = "<group>"; };
 		AD5FBA051E55F6CF00EE93BB /* icon_idcard1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_idcard1.png; sourceTree = "<group>"; };
 		AD5FBA061E55F6CF00EE93BB /* icon_idcard2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_idcard2.png; sourceTree = "<group>"; };
+		AD5FBA101E5AD52A00EE93BB /* ServiceDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceDetailVC.h; sourceTree = "<group>"; };
+		AD5FBA111E5AD52A00EE93BB /* ServiceDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceDetailVC.m; sourceTree = "<group>"; };
+		AD5FBA121E5AD52A00EE93BB /* ServiceDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServiceDetailVC.xib; sourceTree = "<group>"; };
 		AD8A0E521E229E2C0001CC02 /* jpush-ios-2.1.9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.9.a"; sourceTree = "<group>"; };
 		AD8A0E531E229E2C0001CC02 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		AD8A0E551E229EBA0001CC02 /* JSPatch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JSPatch.framework; sourceTree = "<group>"; };
@@ -2399,6 +2404,16 @@
 			path = MyServiceListVC;
 			sourceTree = "<group>";
 		};
+		AD5FBA0F1E5AD52A00EE93BB /* ServiceDetailVC */ = {
+			isa = PBXGroup;
+			children = (
+				AD5FBA101E5AD52A00EE93BB /* ServiceDetailVC.h */,
+				AD5FBA111E5AD52A00EE93BB /* ServiceDetailVC.m */,
+				AD5FBA121E5AD52A00EE93BB /* ServiceDetailVC.xib */,
+			);
+			path = ServiceDetailVC;
+			sourceTree = "<group>";
+		};
 		AD8A0E511E229E2C0001CC02 /* JPushSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -2814,6 +2829,7 @@
 		ADDBEB6B1DFCE41A000BDA95 /* MineViewController */ = {
 			isa = PBXGroup;
 			children = (
+				AD5FBA0F1E5AD52A00EE93BB /* ServiceDetailVC */,
 				AD5FB9FE1E55853E00EE93BB /* MyServiceListVC */,
 				AD5FB9F81E54991E00EE93BB /* ServiceListVC */,
 				AD5FB9F01E54905900EE93BB /* AboutViewController */,
@@ -5318,6 +5334,7 @@
 				EAC2D87D1D4B063B00E282A8 /* whiteArrow@2x.png in Resources */,
 				EAC2D9541D4B063B00E282A8 /* btn_021.disable@2x.png in Resources */,
 				ADB4CFF41E2D3789004ED2E3 /* HeCommentNurseVC.xib in Resources */,
+				AD5FBA141E5AD52A00EE93BB /* ServiceDetailVC.xib in Resources */,
 				EA472CB61E04DE5500E0316F /* select_box.png in Resources */,
 				EAC2D9511D4B063B00E282A8 /* btn_020.disable@2x.png in Resources */,
 				ADB49C531E163CA3008DBCF6 /* icon_rank_1.png in Resources */,
@@ -5477,6 +5494,7 @@
 				EAC2D80F1D4B063B00E282A8 /* UIViewController+HUD.m in Sources */,
 				EAC2D9061D4B063B00E282A8 /* RACObjCRuntime.m in Sources */,
 				EAA655411E0627C400F424DD /* DFBaseUserLineCell.m in Sources */,
+				AD5FBA131E5AD52A00EE93BB /* ServiceDetailVC.m in Sources */,
 				57F511441E31B0FA003D0A7A /* TTGroupTagView.m in Sources */,
 				AD5FB9FC1E54992B00EE93BB /* ServiceListVC.m in Sources */,
 				EAC2D9141D4B063B00E282A8 /* RACStringSequence.m in Sources */,

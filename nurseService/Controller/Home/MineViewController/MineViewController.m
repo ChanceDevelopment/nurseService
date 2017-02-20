@@ -925,11 +925,55 @@
 
 //我的服务
 - (void)showAlertView{
+    //先刷新下本地数据
+    NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:NURSEACCOUNTKEY];
+    NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:USERPASSWORDKEY];
+    if (!password) {
+        password = @"";
+    }
+    NSDictionary * params  = @{@"NurseName": account,@"NursePwd" : password};
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:LOGINURL params:params success:^(AFHTTPRequestOperation* operation,id response){
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        NSLog(@"护士信息：%@",respondString);
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+            
+            NSDictionary *userInfoDic = [NSDictionary dictionaryWithDictionary:[respondDict valueForKey:@"json"]];
+            NSMutableDictionary *nurseDic = [NSMutableDictionary dictionaryWithCapacity:0];
+            
+            for (NSString *key in [userInfoDic allKeys]) {
+                
+                if ([[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:key]] isEqualToString:@"<null>"]) {
+                    NSLog(@"key:%@",key);
+                    [nurseDic setValue:@"" forKey:key];
+                }else{
+                    [nurseDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:key]] forKey:key];
+                }
+            }
+            NSLog(@"%@",nurseDic);
+            
+            
+            [[NSUserDefaults standardUserDefaults] setObject:nurseDic forKey:USERACCOUNTKEY];//本地存储
+            [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseId"]] forKey:USERIDKEY];
+            [[NSUserDefaults standardUserDefaults] synchronize];//强制写入,保存数据
+            
+            MyServiceListVC *myServiceListVC = [[MyServiceListVC alloc] init];
+            myServiceListVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:myServiceListVC animated:YES];
+            
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+            [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+        }
+        
+        
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
     
-    MyServiceListVC *myServiceListVC = [[MyServiceListVC alloc] init];
-    myServiceListVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:myServiceListVC animated:YES];
-    
+   
     /*
     windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
     windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;

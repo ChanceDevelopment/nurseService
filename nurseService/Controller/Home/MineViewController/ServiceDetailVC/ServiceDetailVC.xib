@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ServiceListVC">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ServiceDetailVC">
             <connections>
-                <outlet property="tableview" destination="qUG-WF-75E" id="I1h-xa-VcF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="webview" destination="a1s-Vk-LQO" id="s6Y-76-jSJ"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -20,23 +20,22 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qUG-WF-75E">
+                <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1s-Vk-LQO">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <connections>
-                        <outlet property="dataSource" destination="-1" id="Jxp-6m-Ksu"/>
-                        <outlet property="delegate" destination="-1" id="rer-UE-isd"/>
+                        <outlet property="delegate" destination="-1" id="gjN-oH-zCs"/>
                     </connections>
-                </tableView>
+                </webView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="qUG-WF-75E" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Azv-Uu-D2G"/>
-                <constraint firstAttribute="bottom" secondItem="qUG-WF-75E" secondAttribute="bottom" id="L73-0R-nIh"/>
-                <constraint firstItem="qUG-WF-75E" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Xab-KK-chH"/>
-                <constraint firstAttribute="trailing" secondItem="qUG-WF-75E" secondAttribute="trailing" id="bxg-qb-Qtp"/>
+                <constraint firstItem="a1s-Vk-LQO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Jel-sx-EZY"/>
+                <constraint firstAttribute="bottom" secondItem="a1s-Vk-LQO" secondAttribute="bottom" id="MvZ-F5-att"/>
+                <constraint firstItem="a1s-Vk-LQO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="d1G-G0-mbU"/>
+                <constraint firstAttribute="trailing" secondItem="a1s-Vk-LQO" secondAttribute="trailing" id="eui-IT-6KB"/>
             </constraints>
-            <point key="canvasLocation" x="32.5" y="63.5"/>
+            <point key="canvasLocation" x="32.5" y="79.5"/>
         </view>
     </objects>
 </document>

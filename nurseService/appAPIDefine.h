@@ -24,7 +24,9 @@
 //------------------------------
 
 #define PIC_URL @"http://118.178.186.59:8080/"
-#define API_URL @"http://118.178.186.59:8080/nurseDoor/"
+//#define API_URL @"http://118.178.186.59:8080/nurseDoor/"
+#define API_URL @"http://118.178.186.59:8080/nurseDoorText/"
+
 //登录
 #define LOGINURL @"nurseAnduser/NurseLogin.action"
 //注册
@@ -62,6 +64,9 @@
 #define CANCLEORDER @"orderSend/cancelOrder.action"
 //2.9.1 护士取消专属订单(正接单取消)
 #define CANCLEEXCLUSIVEORDER @"orderReceiver/giveUpExclusiveOrder.action"
+//4.4查询所有二级服务信息
+#define ALLSERVICEINFO @"content/SelectContentAllinfo.action"
+
 //5.1 护士账单
 #define SELECTNURSEBILL @"nurseAnduser/selectNurseBills.action"
 //6.3 护理报告详情页
