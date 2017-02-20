@@ -233,6 +233,13 @@
         [self getAllServiceInfo];
     }
     if (sender.tag == 100) {
+        if (windowView) {
+            [windowView removeFromSuperview];
+        }
+        [self showRebackAlertView];
+        return;
+    }
+    if (sender.tag == 101) {
         NSString *serviceStr = @"";
         for (NSString *value in serviceSelectArr) {
             NSString *serviceItem = [NSString stringWithFormat:@"%@",[serviceIdDic objectForKey:value]];
@@ -255,15 +262,18 @@
             [self hideHud];
             NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
             NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+            
+            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+            
             if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
                 NSLog(@"success");
                 
             }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
                 NSLog(@"faile");
-                [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
-                
             }
-            [self showRebackAlertView];
+//            [self showRebackAlertView];
+            //刷新
+            
         } failure:^(NSError* err){
             NSLog(@"err:%@",err);
             [self hideHud];
@@ -377,6 +387,7 @@
 }
 
 - (void)showRebackAlertView{
+    
     windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
     windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
     [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
@@ -416,21 +427,21 @@
     NSInteger cancleBt_W = 40;
     NSInteger cancleBt_H = 20;
     
-    //    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
-    //    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
-    //    cancleBt.backgroundColor = [UIColor clearColor];
-    //    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
-    //    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    //    cancleBt.tag = 0;
-    //    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
-    //    [addBgView addSubview:cancleBt];
+    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
+    cancleBt.backgroundColor = [UIColor clearColor];
+    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    cancleBt.tag = 0;
+    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:cancleBt];
     
     UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
     [okBt setTitle:@"确认" forState:UIControlStateNormal];
     okBt.backgroundColor = [UIColor clearColor];
     okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
     [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    okBt.tag = 0;
+    okBt.tag = 101;
     [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
     [addBgView addSubview:okBt];
     
