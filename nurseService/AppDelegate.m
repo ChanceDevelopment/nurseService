@@ -242,13 +242,14 @@ BMKMapManager* _mapManager;
     BOOL haveLogin = (userAccount == nil) ? NO : YES;
     
     NSString *nurseDistrict = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseDistrict"];
-    BOOL isDistrict = [nurseDistrict isEqualToString:@"0"] ? YES : NO;
+    BOOL isDistrict = [nurseDistrict isEqualToString:@"1"] ? NO : YES;
     
     if (haveLogin) {//登陆成功加载主窗口控制器
         
         [Tool initPush];
         
-        if (isDistrict) {
+        if (isDistrict || [[NSString stringWithFormat:@"%@",notification.object] isEqualToString:@"1"]) {
+            
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
             
             [[UINavigationBar appearance] setTitleTextAttributes:

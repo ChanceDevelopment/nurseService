@@ -16,8 +16,13 @@
     NSString *idCardImageStr;
     NSString *headImageStr;
     NSMutableDictionary *infoDic;
-    UIImageView *headImageView;
-    UIImageView *idCardImageView;
+    UIImageView *headImageView;        //头像              0
+    UIImageView *userImageView;        //个人照片           1
+    UIImageView *idCardImageView;      //手持身份证正面照     2
+    UIImageView *idCardFrontImageView; //身份证正面照        3
+    UIImageView *idCardDownImageView;  //身份证反面照        4
+    NSInteger imageTag;
+    
     BOOL isHeadImage;
     UIView *windowView;
     NSMutableDictionary *postDic;
@@ -88,11 +93,11 @@
 {
     [super initializaiton];
     statusArray = @[@"基本信息",@"专业信息",@"等待审核"];
-//    postDic = @{@"NurseTruePic":@"",@"NurseSex":@"1",@"NurseCardpic":@""};
-    postDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"",@"NurseTruePic",@"1",@"NurseSex",@"",@"NurseCardpic", nil];
+    postDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"",@"NurseTruePic",@"1",@"NurseSex",@"",@"NurseCardpic1",@"",@"NurseCardpic2",@"",@"NurseCardpic3", nil];
     
     infoDic = [[NSMutableDictionary alloc] initWithCapacity:0];
     isHeadImage = YES;
+    imageTag = 0;
 }
 
 - (void)initView
@@ -184,7 +189,7 @@
     [addBgView addSubview:infoTip];
     
     titleL.text = @"取消验证，返回主页面";
-    infoTip.text = @"若验证不通过，将无法接取订单";
+    infoTip.text = @"若未认证或认证不通过，将无法提供相关服务";
     
     NSInteger wordNum_Y = addTextField_Y+44;
     
@@ -371,17 +376,17 @@
             CGFloat headImageW = 60;
             CGFloat imageX = SCREENWIDTH/2.0-headImageW-30;
             
-            UIImageView *userImageView = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, 10, headImageW, headImageW)];
-            [cell addSubview:userImageView];
-            userImageView.userInteractionEnabled = YES;
-            userImageView.backgroundColor = [UIColor grayColor];
-            userImageView.image = [UIImage imageNamed:@"icon_add_photo_violet"];
+            headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, 10, headImageW, headImageW)];
+            [cell addSubview:headImageView];
+            headImageView.userInteractionEnabled = YES;
+            headImageView.backgroundColor = [UIColor grayColor];
+            headImageView.image = [UIImage imageNamed:@"icon_add_photo_violet"];
             
             UITapGestureRecognizer *userClickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userClickImageAction)];
-            [userImageView addGestureRecognizer:userClickTap];
+            [headImageView addGestureRecognizer:userClickTap];
             
             CGFloat userLabelX = 20+headImageW;
-            CGFloat userLabelY = CGRectGetMaxY(userImageView.frame)+13;
+            CGFloat userLabelY = CGRectGetMaxY(headImageView.frame)+13;
             UILabel *userLabel = [[UILabel alloc] initWithFrame:CGRectMake(userLabelX, userLabelY, 100, 25)];
             userLabel.center = CGPointMake(imageX+headImageW/2.0, userLabelY);
             userLabel.textAlignment = NSTextAlignmentCenter;
@@ -392,16 +397,16 @@
             [cell addSubview:userLabel];
             
             imageX = SCREENWIDTH/2.0+30;
-            headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, 10, headImageW, headImageW)];
-            [cell addSubview:headImageView];
-            headImageView.userInteractionEnabled = YES;
-            headImageView.backgroundColor = [UIColor grayColor];
-            headImageView.image = [UIImage imageNamed:@"icon_add_photo_violet"];
+            userImageView = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, 10, headImageW, headImageW)];
+            [cell addSubview:userImageView];
+            userImageView.userInteractionEnabled = YES;
+            userImageView.backgroundColor = [UIColor grayColor];
+            userImageView.image = [UIImage imageNamed:@"icon_add_photo_violet"];
             UITapGestureRecognizer *clickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickHeadImageAction)];
-            [headImageView addGestureRecognizer:clickTap];
+            [userImageView addGestureRecognizer:clickTap];
             
             CGFloat tipLabelX = 20+headImageW;
-            CGFloat tipLabelY = CGRectGetMaxY(headImageView.frame);
+            CGFloat tipLabelY = CGRectGetMaxY(userImageView.frame);
             UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(tipLabelX, tipLabelY, 150, 44)];
             tipLabel.center = CGPointMake(imageX+headImageW/2.0, userLabelY);
             tipLabel.textAlignment = NSTextAlignmentCenter;
@@ -630,7 +635,7 @@
 
             
             imageY = CGRectGetMaxY(idCardImageView.frame)+20;
-            UIImageView *idCardFrontImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, imageY, headImageW, 80)];
+            idCardFrontImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, imageY, headImageW, 80)];
             [cell addSubview:idCardFrontImageView];
             idCardFrontImageView.userInteractionEnabled = YES;
             idCardFrontImageView.backgroundColor = [UIColor clearColor];
@@ -650,7 +655,7 @@
             [cell addSubview:tipLabel2];
 
             imageY = CGRectGetMaxY(idCardFrontImageView.frame)+20;
-            UIImageView *idCardDownImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, imageY, headImageW, 80)];
+            idCardDownImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, imageY, headImageW, 80)];
             [cell addSubview:idCardDownImageView];
             idCardDownImageView.userInteractionEnabled = YES;
             idCardDownImageView.backgroundColor = [UIColor clearColor];
@@ -745,23 +750,31 @@
 //手持身份证正面照
 - (void)clickIdCardAction{
     isHeadImage = NO;
+    imageTag = 2;
     [self showActionSheet];
 }
 
 //上传正面
 - (void)clickFrontIdCardAction{
+    imageTag = 3;
     NSLog(@"clickFrontIdCardAction");
+    [self showActionSheet];
 }
 //上传反面
 - (void)clickDownIdCardAction{
+    imageTag = 4;
+    [self showActionSheet];
     NSLog(@"clickDownIdCardAction");
 }
 //头像
 - (void)userClickImageAction{
+    imageTag = 0;
+    [self showActionSheet];
     NSLog(@"userClickImageAction");
 }
 //个人照片
 - (void)clickHeadImageAction{
+    imageTag = 1;
     isHeadImage = YES;
     [self showActionSheet];
 }
@@ -862,22 +875,25 @@
             data = UIImagePNGRepresentation(userImage);
         }
         
-        if (isHeadImage) {
-            
-        }else{
-            
-        }
         NSString *imageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
 
         [self dismissViewControllerAnimated:YES completion:^{
-            if (isHeadImage) {
-                [postDic setValue:imageStr forKey:@"NurseTruePic"];
+            if (imageTag == 0) {
+                [postDic setValue:imageStr forKey:@"NurseHeader"];
                 headImageView.image = userImage;
-            }else{
-                [postDic setValue:imageStr forKey:@"NurseCardpic"];
+            }else if(imageTag == 1){
+                [postDic setValue:imageStr forKey:@"NurseTruePic"];
+                userImageView.image = userImage;
+            }else if(imageTag == 2){
+                [postDic setValue:imageStr forKey:@"NurseCardpic1"];
                 idCardImageView.image = userImage;
+            }else if(imageTag == 3){
+                [postDic setValue:imageStr forKey:@"NurseCardpic2"];
+                idCardFrontImageView.image = userImage;
+            }else if(imageTag == 4){
+                [postDic setValue:imageStr forKey:@"NurseCardpic3"];
+                idCardDownImageView.image = userImage;
             }
-
         }];
     }
 }
@@ -931,9 +947,92 @@
 }
 
 - (void)goToProfessionInfoVC{
+    
+    NSString *nurseTruename = nameTextField.text;
+    NSString *nurseCard = idCardTextField.text;
+    
+    if (nurseTruename.length <= 0 ||
+        nurseCard.length <= 0 ||
+        [[postDic valueForKey:@"NurseHeader"] isEqualToString:@""] ||
+        [[postDic valueForKey:@"NurseTruePic"] isEqualToString:@""] ||
+        [[postDic valueForKey:@"NurseCardpic1"] isEqualToString:@""] ||
+        [[postDic valueForKey:@"NurseCardpic2"] isEqualToString:@""] ||
+        [[postDic valueForKey:@"NurseCardpic3"] isEqualToString:@""]) {
+        
+        [self showAlertView];
+        return;
+    }
+    if (nurseCard.length > 0) {
+        if (![Tool IsIdentityCard:nurseCard]) {
+            [self showHint:@"请输入正确的身份证号"];
+            return;
+        }
+    }
+    
     ProfessionInfoVC *professionInfoVC = [[ProfessionInfoVC alloc] init];
     professionInfoVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:professionInfoVC animated:YES];
+}
+
+- (void)showAlertView{
+    
+    windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
+    windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
+    [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
+    
+    NSInteger addBgView_W = SCREENWIDTH -20;
+    NSInteger addBgView_H = 130;
+    NSInteger addBgView_Y = SCREENHEIGH/2.0-addBgView_H/2.0-40;
+    UIView *addBgView = [[UIView alloc] initWithFrame:CGRectMake(10, addBgView_Y, addBgView_W, addBgView_H)];
+    addBgView.backgroundColor = [UIColor whiteColor];
+    [addBgView.layer setMasksToBounds:YES];
+    [addBgView.layer setCornerRadius:4];
+    addBgView.alpha = 1.0;
+    [windowView addSubview:addBgView];
+    
+    
+    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 200, 40)];
+    titleL.textColor = [UIColor blackColor];
+    titleL.textAlignment = NSTextAlignmentLeft;
+    titleL.font = [UIFont systemFontOfSize:18.0];
+    titleL.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:titleL];
+    
+    NSInteger addTextField_H = 44;
+    NSInteger addTextField_Y = 50;
+    NSInteger addTextField_W =SCREENWIDTH-40;
+    
+    UILabel *infoTip= [[UILabel alloc] initWithFrame:CGRectMake(10, addTextField_Y, addTextField_W, addTextField_H)];//高度--44
+    infoTip.font = [UIFont systemFontOfSize:12.0];
+    infoTip.numberOfLines = 0;
+    infoTip.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:infoTip];
+    
+    titleL.text = @"提示";
+    infoTip.text = @"信息填写完整才能进行下一步操作";
+    
+    NSInteger cancleBt_X = SCREENWIDTH-20-10-90;
+    NSInteger cancleBt_Y = CGRectGetMaxY(infoTip.frame);
+    NSInteger cancleBt_W = 40;
+    NSInteger cancleBt_H = 20;
+    
+//    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
+//    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
+//    cancleBt.backgroundColor = [UIColor clearColor];
+//    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+//    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+//    cancleBt.tag = 0;
+//    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+//    [addBgView addSubview:cancleBt];
+    
+    UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [okBt setTitle:@"确认" forState:UIControlStateNormal];
+    okBt.backgroundColor = [UIColor clearColor];
+    okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    okBt.tag = 0;
+    [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:okBt];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -39,7 +39,7 @@
     
     UILabel *badge;
     NSMutableArray *badgeDataArr;
-    MZTimerLabel *timer3;
+//    MZTimerLabel *timer3;
     UILabel *noDataTip;
     
 }
@@ -49,13 +49,13 @@
  *  占位Label
  */
 @property(nonatomic,strong)UILabel *placeholderLabel;
-@property(strong,nonatomic)IBOutlet UIView *footerView;
+//@property(strong,nonatomic)IBOutlet UIView *footerView;
 
 @end
 
 @implementation OrderViewController
 @synthesize myTableView;
-@synthesize footerView;
+//@synthesize footerView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -284,40 +284,42 @@
 - (void)initFooterView{
     
     CGFloat selectViewH = 44;
-    CGFloat footerViewY = selectViewH + 240;
+    CGFloat footerViewY = selectViewH + 340;
     CGFloat footerViewH = self.view.frame.size.height-footerViewY;//120;
     
-    footerView = [[UIView alloc] init];
-    footerView.frame = CGRectMake(0, footerViewY, SCREENWIDTH, footerViewH);
-    [self.view addSubview:footerView];
-    footerView.backgroundColor = self.view.backgroundColor;
+//    footerView = [[UIView alloc] init];
+//    footerView.frame = CGRectMake(0, footerViewY, SCREENWIDTH, footerViewH);
+//    [self.view addSubview:footerView];
+//    footerView.backgroundColor = self.view.backgroundColor;
     
-    CGFloat buttonH = 50;
-    CGFloat buttonW = 100;
-    CGFloat buttonX = SCREENWIDTH/2.0-buttonW-1;
-    CGFloat buttonY = footerViewH-100;//30;
-
+//    CGFloat buttonH = 35;
+//    CGFloat buttonW = 70;
+//    CGFloat buttonX = (SCREENWIDTH/2.0-buttonW)/2.0;
+//    CGFloat buttonY = footerViewH-100;//30;
+//
+//    
+//    UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
+//    cancelButton.backgroundColor = [UIColor blackColor];
+//    cancelButton.tag = 0;
+//    [cancelButton setTitle:@"忽略" forState:UIControlStateNormal];
+//    cancelButton.layer.cornerRadius = 4.0;
+//    [cancelButton.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
+//    [cancelButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [footerView addSubview:cancelButton];
+//    
+//    buttonX = SCREENWIDTH/2.0 + buttonX;
+//    UIButton *receiveButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
+//    receiveButton.backgroundColor = APPDEFAULTTITLECOLOR;
+//    receiveButton.layer.cornerRadius = 4.0;
+//    //    [receiveButton setTitleColor:APPDEFAULTORANGE forState:UIControlStateNormal];
+//    receiveButton.tag = 1;
+//    [receiveButton setTitle:@"接单" forState:UIControlStateNormal];
+//    [receiveButton.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
+//    [receiveButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [footerView addSubview:receiveButton];
     
-    UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
-    cancelButton.backgroundColor = [UIColor redColor];
-    cancelButton.tag = 0;
-    [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
-    [cancelButton.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
-    [cancelButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [footerView addSubview:cancelButton];
     
-    buttonX = SCREENWIDTH/2.0 + 1;
-    UIButton *receiveButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
-    receiveButton.backgroundColor = [UIColor greenColor];
-    //    [receiveButton setTitleColor:APPDEFAULTORANGE forState:UIControlStateNormal];
-    receiveButton.tag = 1;
-    [receiveButton setTitle:@"接单" forState:UIControlStateNormal];
-    [receiveButton.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
-    [receiveButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [footerView addSubview:receiveButton];
-    
-    
-    
+    /*
     CGFloat timeLabelX = 0;
     CGFloat timeLabelY = CGRectGetMaxY(receiveButton.frame) + 5;
     CGFloat timeLabelH = 30;
@@ -335,6 +337,7 @@
     [timer3 setCountDownTime:60 * 5];
     timer3.resetTimerAfterFinish = YES;
     [timer3 start];
+    */
 
     /*
     CGFloat receiveIconW = 60;
@@ -510,10 +513,10 @@
     BOOL isOn = [[[NSUserDefaults standardUserDefaults] objectForKey:RECEIVEORDERSTATE] boolValue];
     if (!isOn && currentType == 0) {
         
-        if (footerView) {
-            [footerView removeFromSuperview];
-            footerView = nil;
-        }
+//        if (footerView) {
+//            [footerView removeFromSuperview];
+//            footerView = nil;
+//        }
 //        noDataView.hidden = NO;
 //        myTableView.hidden = YES;
         [self showNodataView:YES];
@@ -545,10 +548,10 @@
             
             if ([[respondDict valueForKey:@"json"] isMemberOfClass:[NSNull class]] || [respondDict valueForKey:@"json"] == nil) {
 //                [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
-                if (footerView) {
-                    [footerView removeFromSuperview];
-                    footerView = nil;
-                }
+//                if (footerView) {
+//                    [footerView removeFromSuperview];
+//                    footerView = nil;
+//                }
                 if (currentType != 2) {
                     [self showNodataView:YES];
 //                    noDataView.hidden = NO;
@@ -565,12 +568,12 @@
                     case 0:
                     {
                         CGFloat tableViewY = 44;
-                        CGFloat tableViewH = self.view.frame.size.height-44-120-48+80;
+                        CGFloat tableViewH = self.view.frame.size.height-44-48+80;
                         myTableView.frame = CGRectMake(0, tableViewY, SCREENWIDTH, tableViewH);
                         if (tempArr.count >0){
-                            if (footerView == nil) {
-                                [self initFooterView];
-                            }
+//                            if (footerView == nil) {
+//                                [self initFooterView];
+//                            }
                             [self showNodataView:NO];
 //                            noDataView.hidden = YES;
 //                            myTableView.hidden = NO;
@@ -583,10 +586,10 @@
                         CGFloat tableViewY = 44;
                         CGFloat tableViewH = self.view.frame.size.height-44-48+80;
                         myTableView.frame = CGRectMake(0, tableViewY, SCREENWIDTH, tableViewH);
-                        if (footerView) {
-                            [footerView removeFromSuperview];
-                            footerView = nil;
-                        }
+//                        if (footerView) {
+//                            [footerView removeFromSuperview];
+//                            footerView = nil;
+//                        }
                         if (tempArr.count > 0){
                             [self showNodataView:NO];
 //                            noDataView.hidden = YES;
@@ -596,10 +599,10 @@
                         break;
                     case 2:
                     {
-                        if (footerView) {
-                            [footerView removeFromSuperview];
-                            footerView = nil;
-                        }
+//                        if (footerView) {
+//                            [footerView removeFromSuperview];
+//                            footerView = nil;
+//                        }
                         CGFloat tableViewY = 44;
                         CGFloat tableViewH = self.view.frame.size.height-44-48+50;
                         myTableView.frame = CGRectMake(0, tableViewY, SCREENWIDTH, tableViewH);
@@ -692,14 +695,14 @@
             [dataArr removeObjectAtIndex:0];
             [myTableView reloadData];
             if (dataArr.count == 0) {
-                if (footerView) {
-                    [footerView removeFromSuperview];
-                    footerView = nil;
-                }
+//                if (footerView) {
+//                    [footerView removeFromSuperview];
+//                    footerView = nil;
+//                }
                 noDataView.hidden = NO;
                 myTableView.hidden = YES;
             }else{
-                [timer3 reset];
+//                [timer3 reset];
             }
             NSLog(@"success");
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
@@ -726,7 +729,7 @@
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
             [self reloadOrderData];
-            [timer3 reset];
+//            [timer3 reset];
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
             [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
@@ -789,10 +792,10 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (currentType == 0 && dataArr.count > 0) {
-        tableView.scrollEnabled = NO;
+//        tableView.scrollEnabled = NO;
         return 1;
     }
-    tableView.scrollEnabled = YES;
+//    tableView.scrollEnabled = YES;
     return dataArr.count;
 }
 
@@ -881,9 +884,16 @@
         } @finally {
             
         }
-        cell.userInfoL.text = [NSString stringWithFormat:@"%@ %@ %@岁",nameStr,sex,[dict valueForKey:@"orderSendAge"]];
+        ;
+        
+        cell.userInfoL.text = [NSString stringWithFormat:@"%@ %@",[dict valueForKey:@"userNickNew"],[dict valueForKey:@"userNameNew"]];
+        cell.userInfoL1.text = [NSString stringWithFormat:@"为%@(%@,%@,%@岁)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"]];
+
         cell.remarkInfoL.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendNote"]];
         
+        cell.sendTimeL.text = [self getSenderTimeStrWith:[dict objectForKey:@"orderSendCreatetime"]];
+        
+        cell.orderNumL.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendNumbers"]];
         __weak typeof(self) weakSelf = self;
         
         cell.showOrderDetailBlock = ^(){
@@ -902,6 +912,13 @@
             paitentInfoVC.isFromNowOrder = NO;
             paitentInfoVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:paitentInfoVC animated:YES];
+        };
+        cell.cancleOrderBlock = ^(){
+            [weakSelf cancleOrderAction];
+
+        };
+        cell.receiveOrderBlock = ^(){
+            [weakSelf receiveTheOrder];
         };
 
         return  cell;
@@ -1175,7 +1192,7 @@
     }
     
     if (currentType == 0) {
-        return 240;
+        return 400;
     }
     if (currentType == 1) {
         return 180;
@@ -1245,6 +1262,18 @@
     NSInteger section = indexPath.section;
     
     NSLog(@"row = %ld, section = %ld",row,section);
+    
+    if (currentType == 0) {
+        NSDictionary *userInfoDic = nil;
+        NSMutableDictionary *dict = nil;
+        if (dataArr.count > 0) {
+            userInfoDic = [NSDictionary dictionaryWithDictionary:[dataArr objectAtIndex:row]];
+            dict = [NSMutableDictionary dictionaryWithDictionary:[Tool deleteNullFromDic:userInfoDic]];
+        }
+        [self showOrderDetailWithOrder:dict];
+    }
+    
+    
 }
 
 
@@ -1396,14 +1425,14 @@
 //            [dataArr addObject:dataArr[0]];
             [dataArr removeObjectAtIndex:0];
             if (dataArr.count == 0) {
-                if (footerView) {
-                    [footerView removeFromSuperview];
-                    footerView = nil;
-                }
+//                if (footerView) {
+//                    [footerView removeFromSuperview];
+//                    footerView = nil;
+//                }
                 [self showNodataView:YES];
             }
             [myTableView reloadData];
-            [timer3 reset];
+//            [timer3 reset];
 
 //            [self sendCancleOrderWithOrderId:[dataArr[0] valueForKey:@"orderSendId"]];
         }
@@ -1563,6 +1592,23 @@
     return time;
 }
 
+- (NSString *)getSenderTimeStrWith:(id)info{
+    NSString *stopTimeStr = @"";
+    id zoneCreatetimeObj = info;
+    if ([zoneCreatetimeObj isMemberOfClass:[NSNull class]] || zoneCreatetimeObj == nil) {
+        NSTimeInterval  timeInterval = [[NSDate date] timeIntervalSince1970];
+        zoneCreatetimeObj = [NSString stringWithFormat:@"%.0f000",timeInterval];
+    }
+    long long timestamp = [zoneCreatetimeObj longLongValue];
+    NSString *zoneCreatetime = [NSString stringWithFormat:@"%lld",timestamp];
+    if ([zoneCreatetime length] > 3) {
+        //时间戳
+        zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
+    }
+    stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"yyyy-MM-dd HH:MM"];
+    return stopTimeStr;
+}
+
 - (void)getBadgeNums{
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     NSDictionary *params= @{@"nurseId" : userAccount,@"pageNow" : @"0"};
@@ -1687,6 +1733,8 @@
         [self reloadOrderData];
     }
 }
+
+
 
 - (void)dealloc
 {

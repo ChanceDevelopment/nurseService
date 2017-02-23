@@ -14,12 +14,16 @@
 @property (nonatomic,strong)UILabel *stopTimeL;
 @property (nonatomic,strong)UILabel *addressL;
 @property (nonatomic,strong)UILabel *userInfoL;
+@property (nonatomic,strong)UILabel *userInfoL1;
 @property (nonatomic,strong)UILabel *remarkInfoL;
+@property (nonatomic,strong)UILabel *sendTimeL;
+@property (nonatomic,strong)UILabel *orderNumL;
 @property (nonatomic,strong)UIImageView *exclusiveImageView;
 @property (nonatomic,strong)void(^showOrderDetailBlock)();
 @property (nonatomic,strong)void(^locationBlock)();
 @property (nonatomic,strong)void(^showUserInfoBlock)();
-
+@property (nonatomic,strong)void(^cancleOrderBlock)();
+@property (nonatomic,strong)void(^receiveOrderBlock)();
 
 
 @end

@@ -11,6 +11,9 @@
 #import "BasicInfoVC.h"
 #import "HeForGetPasswordVC.h"
 @interface HeLoginVC ()<UITextFieldDelegate>
+{
+    UIView *windowView;
+}
 @property(strong,nonatomic)IBOutlet UITextField *accountField;
 @property(strong,nonatomic)IBOutlet UITextField *passwordField;
 @property(strong,nonatomic)IBOutlet UIButton *securirtyButton;
@@ -117,20 +120,17 @@
             [[NSUserDefaults standardUserDefaults] synchronize];//强制写入,保存数据
             
             NSString *nurseDistrict = [NSString stringWithFormat:@"%@",[nurseDic valueForKey:@"nurseDistrict"]];
-            BOOL isDistrict = [nurseDistrict isEqualToString:@"0"] ? YES : NO;
+            //未认证时 弹出提示框
+            BOOL isDistrict = [nurseDistrict isEqualToString:@"1"] ? NO : YES;
             if (isDistrict) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@YES];
             }else{
-                BasicInfoVC *basicInfoVC = [[BasicInfoVC alloc] init];
-                basicInfoVC.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:basicInfoVC animated:YES];
+                [self showAlertView];
             }
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
+            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         }
-        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
-        
-        
     } failure:^(NSError* err){
         [self hideHud];
         NSLog(@"err:%@",err);
@@ -169,6 +169,88 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+
+
+- (void)showAlertView{
+    
+    windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
+    windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
+    [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
+    
+    NSInteger addBgView_W = SCREENWIDTH -20;
+    NSInteger addBgView_H = 160;
+    NSInteger addBgView_Y = SCREENHEIGH/2.0-addBgView_H/2.0-40;
+    UIView *addBgView = [[UIView alloc] initWithFrame:CGRectMake(10, addBgView_Y, addBgView_W, addBgView_H)];
+    addBgView.backgroundColor = [UIColor whiteColor];
+    [addBgView.layer setMasksToBounds:YES];
+    [addBgView.layer setCornerRadius:4];
+    addBgView.alpha = 1.0;
+    [windowView addSubview:addBgView];
+    
+    
+    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 200, 40)];
+    titleL.textColor = [UIColor blackColor];
+    titleL.textAlignment = NSTextAlignmentLeft;
+    titleL.font = [UIFont systemFontOfSize:18.0];
+    titleL.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:titleL];
+    
+    NSInteger addTextField_H = 44;
+    NSInteger addTextField_Y = 50;
+    NSInteger addTextField_W =SCREENWIDTH-40;
+    
+    UILabel *infoTip= [[UILabel alloc] initWithFrame:CGRectMake(10, addTextField_Y, addTextField_W, addTextField_H)];//高度--44
+    infoTip.font = [UIFont systemFontOfSize:12.0];
+    infoTip.numberOfLines = 0;
+    infoTip.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:infoTip];
+    
+    titleL.text = @"提示";
+    infoTip.text = @"请先完善信息，通过审核方可提供相关服务，点击‘确认’进入完善信息";
+    
+    NSInteger wordNum_Y = addTextField_Y+44;
+    
+    NSInteger cancleBt_X = SCREENWIDTH-20-10-90;
+    NSInteger cancleBt_Y = wordNum_Y+30;
+    NSInteger cancleBt_W = 40;
+    NSInteger cancleBt_H = 20;
+    
+    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
+    cancleBt.backgroundColor = [UIColor clearColor];
+    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    cancleBt.tag = 0;
+    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:cancleBt];
+    
+    UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [okBt setTitle:@"确认" forState:UIControlStateNormal];
+    okBt.backgroundColor = [UIColor clearColor];
+    okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    okBt.tag = 100;
+    [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:okBt];
+    
+    
+}
+
+- (void)clickBtAction:(UIButton *)sender{
+    NSLog(@"tag:%ld",sender.tag);
+    if (sender.tag == 100) {
+        BasicInfoVC *basicInfoVC = [[BasicInfoVC alloc] init];
+        basicInfoVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:basicInfoVC animated:YES];
+    }
+    if (sender.tag == 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_LOGINCHANGE object:@1];
+    }
+    if (windowView) {
+        [windowView removeFromSuperview];
+    }
 }
 
 /*
