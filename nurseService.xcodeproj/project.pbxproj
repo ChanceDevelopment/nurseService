@@ -83,6 +83,9 @@
 		AD5FBA141E5AD52A00EE93BB /* ServiceDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD5FBA121E5AD52A00EE93BB /* ServiceDetailVC.xib */; };
 		AD5FBA161E5ECAAB00EE93BB /* icon_picc.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5FBA151E5ECAAB00EE93BB /* icon_picc.png */; };
 		AD5FBA181E5ECAB000EE93BB /* icon_question.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5FBA171E5ECAB000EE93BB /* icon_question.png */; };
+		AD5FBA1A1E5F19DB00EE93BB /* icon_phone.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5FBA191E5F19DB00EE93BB /* icon_phone.png */; };
+		AD5FBA1F1E5F22C400EE93BB /* HandleIntroductionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5FBA1D1E5F22C400EE93BB /* HandleIntroductionVC.m */; };
+		AD5FBA201E5F22C400EE93BB /* HandleIntroductionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD5FBA1E1E5F22C400EE93BB /* HandleIntroductionVC.xib */; };
 		AD8A0E541E229E2C0001CC02 /* jpush-ios-2.1.9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E521E229E2C0001CC02 /* jpush-ios-2.1.9.a */; };
 		AD8A0E561E229EBA0001CC02 /* JSPatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E551E229EBA0001CC02 /* JSPatch.framework */; };
 		AD8A0E5C1E22A0030001CC02 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E5B1E22A0030001CC02 /* UserNotifications.framework */; };
@@ -896,6 +899,10 @@
 		AD5FBA121E5AD52A00EE93BB /* ServiceDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServiceDetailVC.xib; sourceTree = "<group>"; };
 		AD5FBA151E5ECAAB00EE93BB /* icon_picc.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_picc.png; sourceTree = "<group>"; };
 		AD5FBA171E5ECAB000EE93BB /* icon_question.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_question.png; sourceTree = "<group>"; };
+		AD5FBA191E5F19DB00EE93BB /* icon_phone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_phone.png; sourceTree = "<group>"; };
+		AD5FBA1C1E5F22C400EE93BB /* HandleIntroductionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandleIntroductionVC.h; sourceTree = "<group>"; };
+		AD5FBA1D1E5F22C400EE93BB /* HandleIntroductionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandleIntroductionVC.m; sourceTree = "<group>"; };
+		AD5FBA1E1E5F22C400EE93BB /* HandleIntroductionVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HandleIntroductionVC.xib; sourceTree = "<group>"; };
 		AD8A0E521E229E2C0001CC02 /* jpush-ios-2.1.9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.9.a"; sourceTree = "<group>"; };
 		AD8A0E531E229E2C0001CC02 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		AD8A0E551E229EBA0001CC02 /* JSPatch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JSPatch.framework; sourceTree = "<group>"; };
@@ -2418,6 +2425,16 @@
 			path = ServiceDetailVC;
 			sourceTree = "<group>";
 		};
+		AD5FBA1B1E5F22B700EE93BB /* HandleIntroductionVC */ = {
+			isa = PBXGroup;
+			children = (
+				AD5FBA1C1E5F22C400EE93BB /* HandleIntroductionVC.h */,
+				AD5FBA1D1E5F22C400EE93BB /* HandleIntroductionVC.m */,
+				AD5FBA1E1E5F22C400EE93BB /* HandleIntroductionVC.xib */,
+			);
+			path = HandleIntroductionVC;
+			sourceTree = "<group>";
+		};
 		AD8A0E511E229E2C0001CC02 /* JPushSDK */ = {
 			isa = PBXGroup;
 			children = (
@@ -2611,6 +2628,7 @@
 		ADB49C731E1947C5008DBCF6 /* order */ = {
 			isa = PBXGroup;
 			children = (
+				AD5FBA191E5F19DB00EE93BB /* icon_phone.png */,
 				AD5FBA171E5ECAB000EE93BB /* icon_question.png */,
 				AD5FBA151E5ECAAB00EE93BB /* icon_picc.png */,
 				AD9E2B141E376B2100ADA3BE /* img_no_data_refresh.png */,
@@ -2855,6 +2873,7 @@
 		ADDBEB6C1DFCE41A000BDA95 /* OrderViewController */ = {
 			isa = PBXGroup;
 			children = (
+				AD5FBA1B1E5F22B700EE93BB /* HandleIntroductionVC */,
 				ADB4CFEF1E2D3788004ED2E3 /* Comment */,
 				AD13A6741E2BD7D4002ADE2B /* CheckDetailVC */,
 				AD8A0E6D1E248AED0001CC02 /* NurseReportVC */,
@@ -5275,6 +5294,7 @@
 				AD3013861DFCF4F300D26E09 /* icon_mycollection.png in Resources */,
 				ADB49C5D1E164526008DBCF6 /* icon_set_paypwd.png in Resources */,
 				AD5FBA071E55F6D000EE93BB /* icon_idcard_hand.png in Resources */,
+				AD5FBA1A1E5F19DB00EE93BB /* icon_phone.png in Resources */,
 				EAC2D9531D4B063B00E282A8 /* btn_020@2x.png in Resources */,
 				EAC2D94B1D4B063B00E282A8 /* LICENSE.txt in Resources */,
 				EAC2D87A1D4B063B00E282A8 /* grayArrow.png in Resources */,
@@ -5410,6 +5430,7 @@
 				EAA6552D1E0627C300F424DD /* Like@2x.png in Resources */,
 				EAA4F31F1E012F3000EF9E14 /* tabar_home_icon_normal@2x.png in Resources */,
 				EA17435D1E1E3EE90038E805 /* comonDefaultImage.png in Resources */,
+				AD5FBA201E5F22C400EE93BB /* HandleIntroductionVC.xib in Resources */,
 				AD8A0E781E24E36C0001CC02 /* icon_dot_violet_unselect.png in Resources */,
 				AD8A0E7B1E24E3B90001CC02 /* icon_rectangle_selector.png in Resources */,
 				EAA4F3011E011ED100EF9E14 /* HeEnrollVC.xib in Resources */,
@@ -5875,6 +5896,7 @@
 				EA472CD81E04E71B00E0316F /* TOWebViewController.m in Sources */,
 				EAC2D8701D4B063B00E282A8 /* i2KEPCMultiComponentPickerView.m in Sources */,
 				EAC2D42A1D4B031500E282A8 /* main.m in Sources */,
+				AD5FBA1F1E5F22C400EE93BB /* HandleIntroductionVC.m in Sources */,
 				EAC2D81A1D4B063B00E282A8 /* AFHTTPRequestOperationManager.m in Sources */,
 				EA1742B51E1E331B0038E805 /* MLLabelTextStorage.m in Sources */,
 				EA1742B61E1E331B0038E805 /* MLLinkLabel.m in Sources */,

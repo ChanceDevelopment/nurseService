@@ -1187,4 +1187,10 @@
     
 }
 
++ (void)callPhoneWithPhone:(NSString *)phone
+{
+    NSString *telUrl = [NSString stringWithFormat:@"tel://%@",phone];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telUrl]];
+}
+
 @end

@@ -20,6 +20,8 @@
 @synthesize webView;
 @synthesize infoData;
 @synthesize isDetail;
+@synthesize reportType;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -62,14 +64,17 @@
     webView.userInteractionEnabled = YES;
     webView.scrollView.bounces = NO;
 
-    if (isDetail) {
+    if (reportType == 0) {
         NSString *urlString = [NSString stringWithFormat:@"%@selectReportdetails.action?orderSendId=%@&protectedPersonId=%@",API_URL,[infoData valueForKey:@"orderSendId"],[infoData valueForKey:@"personId"]];
         [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
-    }else{
+    }else if (reportType == 1){
+        NSString *urlString = [NSString stringWithFormat:@"%@selectReportdetails.action?orderSendId=%@&protectedPersonId=%@",API_URL,[infoData valueForKey:@"nursingReportOrderid"],[infoData valueForKey:@"protectedPersonId"]];
+        [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
+    }else if (reportType == 2){
         NSString *urlString = [NSString stringWithFormat:@"%@selectReportdetailsStay.action?orderSendId=%@&protectedPersonId=%@",API_URL,[infoData valueForKey:@"orderSendId"],[infoData valueForKey:@"personId"]];
         [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
-
     }
+
 //    NSString *urlString = [NSString stringWithFormat:@"http://118.178.186.59:8080/nurseDoor/selectReportdetailsStay.action?orderSendId=%@&protectedPersonId=%@",[infoData valueForKey:@"orderSendId"],[infoData valueForKey:@"orderSendUserid"]];
 //    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
 

@@ -26,7 +26,7 @@
     if (self) {
         
         CGFloat bgView_W = SCREENWIDTH-10;
-        CGFloat bgView_H = 400;
+        CGFloat bgView_H = 400+40;
         UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(5, 40, bgView_W, bgView_H)];
         bgView.backgroundColor = [UIColor whiteColor];
         bgView.userInteractionEnabled = YES;
@@ -71,21 +71,17 @@
         orderMoney.adjustsFontSizeToFitWidth = YES;
         [bgView addSubview:orderMoney];
         
-//        UIImageView *rightV = [[UIImageView alloc] initWithFrame:CGRectMake(bgView_W-30, 14, 20, 20)];
-//        rightV.backgroundColor = [UIColor clearColor];
-//        rightV.image = [UIImage imageNamed:@"icon_into_right"];
-//        rightV.userInteractionEnabled = YES;
-//        [bgView addSubview:rightV];
-//        
-//        UITapGestureRecognizer *showOrderDetailTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showOrderDetail)];
-//        [rightV addGestureRecognizer:showOrderDetailTap];
-        
         UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(5, 44, bgView_W-10, 1)];
         [bgView addSubview:line];
         line.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
         
+        
+        UILabel *line6 = [[UILabel alloc] initWithFrame:CGRectMake(5, 44+40, bgView_W-10, 1)];
+        [bgView addSubview:line6];
+        line6.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
+        
         CGFloat timeAddressViewX = 0;
-        CGFloat timeAddressViewY = CGRectGetMaxY(line.frame);
+        CGFloat timeAddressViewY = CGRectGetMaxY(line6.frame);
         CGFloat timeAddressViewW = SCREENWIDTH;
         CGFloat timeAddressViewH = 46;
         UIView *timeAddressView = [[UIView alloc] initWithFrame:CGRectMake(timeAddressViewX, timeAddressViewY, timeAddressViewW, timeAddressViewH)];
@@ -126,7 +122,7 @@
         locationButton.tag = 0;
         [locationButton setTitle:@"查看地图" forState:UIControlStateNormal];
         locationButton.layer.cornerRadius = 4.0;
-        [locationButton.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
+        [locationButton.titleLabel setFont:[UIFont systemFontOfSize:13.0]];
         [locationButton addTarget:self action:@selector(goToLocationView) forControlEvents:UIControlEventTouchUpInside];
         [timeAddressView addSubview:locationButton];
         
@@ -142,11 +138,11 @@
 //        timeAddressView.userInteractionEnabled = YES;
 //        [timeAddressView addGestureRecognizer:locationTap];
         
-        UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectMake(5, 91, bgView_W-10, 1)];
+        UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectMake(5, 91+40, bgView_W-10, 1)];
         [bgView addSubview:line1];
         line1.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
         
-        UILabel *userTip = [[UILabel alloc] initWithFrame:CGRectMake(10, 91, 30, 30)];
+        UILabel *userTip = [[UILabel alloc] initWithFrame:CGRectMake(10, 91+40, 30, 30)];
         userTip.textColor = [UIColor grayColor];
         userTip.text = @"姓名";
         userTip.font = [UIFont systemFontOfSize:12.0];
@@ -156,7 +152,7 @@
         CGFloat userInfoX = CGRectGetMaxX(userTip.frame);
         CGFloat userInfoW = SCREENWIDTH-userInfoX-10;
         
-        userInfoL = [[UILabel alloc] initWithFrame:CGRectMake(userInfoX, 91, userInfoW, 30)];
+        userInfoL = [[UILabel alloc] initWithFrame:CGRectMake(userInfoX, 91+40, userInfoW, 30)];
         userInfoL.textColor = [UIColor blackColor];
         userInfoL.userInteractionEnabled = YES;
         userInfoL.font = [UIFont systemFontOfSize:12.0];
@@ -270,7 +266,7 @@
         CGFloat buttonH = 35;
         CGFloat buttonW = 70;
         CGFloat buttonX = (SCREENWIDTH/2.0-buttonW)/2.0;
-        CGFloat buttonY = bgView_H-100;//30;
+        CGFloat buttonY = bgView_H-110;//30;
         
         
         UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];

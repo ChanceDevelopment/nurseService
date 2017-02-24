@@ -186,10 +186,7 @@
 //    contentL.adjustsFontSizeToFitWidth = YES;
     contentL.text = [dict valueForKey:@"manageNursingContentContent"];
     [cell addSubview:contentL];
-    
-    
-    
-    
+
     return cell;
 }
 

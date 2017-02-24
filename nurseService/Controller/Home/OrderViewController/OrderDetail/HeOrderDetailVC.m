@@ -15,6 +15,7 @@
 #import "NurseReportVC.h"
 #import "HePaitentInfoVC.h"
 #import "HeUserLocatiVC.h"
+#import "HandleIntroductionVC.h"
 
 @interface HeOrderDetailVC ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -52,6 +53,19 @@
         label.text = @"订单详情";
         [label sizeToFit];
         self.title = @"订单详情";
+        
+        NSMutableArray *buttons = [[NSMutableArray alloc] init];
+        UIButton *saveBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 25)];
+        [saveBt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [saveBt setTitle:@"操作提示" forState:UIControlStateNormal];
+        saveBt.titleLabel.adjustsFontSizeToFitWidth = YES;
+        saveBt.titleLabel.font = [UIFont systemFontOfSize:13.0];
+        [saveBt addTarget:self action:@selector(introductionAction) forControlEvents:UIControlEventTouchUpInside];
+        saveBt.backgroundColor = [UIColor clearColor];
+        
+        UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithCustomView:saveBt];
+        [buttons addObject:searchItem];
+        self.navigationItem.rightBarButtonItems = buttons;
     }
     return self;
 }
@@ -70,7 +84,7 @@
 - (void)initializaiton
 {
     [super initializaiton];
-    statusArray = @[@"已接单",@"已沟通",@"已出发",@"开始服务",@"已完成"];
+    statusArray = @[@"已接单",@"开始沟通",@"开始出发",@"开始服务",@"完成"];
     imageScrollViewHeigh = 100;
     paperArray = [[NSMutableArray alloc] initWithCapacity:0];
     infoDic = [[NSDictionary alloc] init];
@@ -196,8 +210,10 @@
         circleIcon.layer.cornerRadius = circleIconH / 2.0;
         if (index <= statusType) {
             circleIcon.backgroundColor = APPDEFAULTORANGE;
+            statusLabel.textColor = APPDEFAULTORANGE;
         }
         else{
+            statusLabel.textColor = [UIColor grayColor];
             circleIcon.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
         }
         [statusView addSubview:circleIcon];
@@ -303,7 +319,8 @@
             NurseReportVC *nurseReportVC = [[NurseReportVC alloc] init];
             nurseReportVC.hidesBottomBarWhenPushed = YES;
             nurseReportVC.infoData = infoDic;
-            nurseReportVC.isDetail = NO;
+//            nurseReportVC.isDetail = NO;
+            nurseReportVC.reportType = 2;
             [self.navigationController pushViewController:nurseReportVC animated:YES];
         }
     }
@@ -321,10 +338,15 @@
         }
         case 1:
         {
-            return 2;
+            return 1;
             break;
         }
         case 2:
+        {
+            return 1;
+            break;
+        }
+        case 3:
         {
             return 2;
             break;
@@ -338,7 +360,7 @@
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 4;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -361,7 +383,7 @@
             switch (row) {
                 case 0:
                 {
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                     
                     NSString *content = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendServicecontent"]];
                     NSArray *contentArr = [content componentsSeparatedByString:@":"];
@@ -369,7 +391,7 @@
                     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, cellSize.height)];
                     titleLabel.backgroundColor = [UIColor clearColor];
                     @try {
-                        titleLabel.text = contentArr[1];
+                        titleLabel.text = contentArr[0];
                     } @catch (NSException *exception) {
                         
                     } @finally {
@@ -406,6 +428,71 @@
                 }
                 case 1:
                 {
+                    NSString *content = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendServicecontent"]];
+                    NSString *serviceStr = @"";
+                    NSArray *contentArr = [content componentsSeparatedByString:@":"];
+                    @try {
+                        serviceStr = contentArr[1];
+                    } @catch (NSException *exception) {
+                    } @finally {
+                        
+                    }
+                    if (serviceStr.length > 0) {
+                        CGFloat scroll_W = cellSize.width;
+                        UIScrollView *serviceBG = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, scroll_W, 44)];
+                        serviceBG.showsVerticalScrollIndicator = NO;
+                        serviceBG.showsHorizontalScrollIndicator = NO;
+                        serviceBG.userInteractionEnabled = YES;
+                        //默认设置可以滑动
+                        serviceBG.contentSize =  CGSizeMake(scroll_W, 44);
+                        [cell addSubview:serviceBG];
+                        
+                        NSArray *serviceArr = [serviceStr componentsSeparatedByString:@","];
+                        
+                        CGFloat endLabelY = 5;
+                        CGFloat endLabelW = 10;
+                        CGFloat endLabelH = 30;
+                        CGFloat endLabelX = 10;
+                        CGFloat endLabelHDistance = 10;
+                        
+                        UIFont *textFont = [UIFont systemFontOfSize:14.0];
+                        
+                        for (NSInteger index = 0; index < [serviceArr count]; index ++ ) {
+                            
+                            NSString *title = serviceArr[index];
+                            
+                            CGSize size = [MLLabel getViewSizeByString:title maxWidth:1000 font:textFont lineHeight:1.2f lines:0];
+                            
+                            endLabelW = size.width+10;
+                            
+                            UILabel *endLabel = [[UILabel alloc] initWithFrame:CGRectMake(endLabelX, endLabelY, endLabelW, endLabelH)];
+                            endLabel.font = [UIFont systemFontOfSize:14.0];
+                            endLabel.text = title;
+                            endLabel.textColor = APPDEFAULTORANGE;
+                            endLabel.textAlignment = NSTextAlignmentCenter;
+                            endLabel.backgroundColor = [UIColor clearColor];
+                            endLabel.layer.cornerRadius = 5.0;
+                            endLabel.layer.masksToBounds = YES;
+                            endLabel.layer.borderWidth = 0.5;
+                            endLabel.layer.borderColor = APPDEFAULTORANGE.CGColor;
+                            endLabel.textColor = APPDEFAULTORANGE;
+                            [serviceBG addSubview:endLabel];
+                            
+                            endLabelX = endLabelX + endLabelHDistance + endLabelW;
+                            NSLog(@"endLabelX:%f",endLabelX);
+                            
+                        }
+
+                        if (scroll_W > endLabelX) {
+                            endLabelX = scroll_W;
+                        }
+                        serviceBG.contentSize =  CGSizeMake(endLabelX, 44);
+                    }
+                    break;
+                }
+                case 2:
+                {
+                    
                     id zoneCreatetimeObj = [dict objectForKey:@"orderSendBegintime"];
                     if ([zoneCreatetimeObj isMemberOfClass:[NSNull class]] || zoneCreatetimeObj == nil) {
                         NSTimeInterval  timeInterval = [[NSDate date] timeIntervalSince1970];
@@ -420,32 +507,42 @@
                     NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd EEEE HH:MM"];
                     
                     CGFloat timeLabelX = 10;
-                    CGFloat timeLabelW = SCREENWIDTH - 2 * timeLabelX;
+                    CGFloat timeLabelW = SCREENWIDTH - 50;
                     CGFloat timeLabelH = cellSize.height / 2.0;
                     CGFloat timeLabelY = 0;
+                    
+                    UILabel *timeTip = [[UILabel alloc] initWithFrame:CGRectMake(timeLabelX, timeLabelY, 30, timeLabelH)];
+                    timeTip.font = [UIFont systemFontOfSize:13.0];
+                    timeTip.text = @"时间";
+                    timeTip.textColor = [UIColor grayColor];
+                    timeTip.backgroundColor = [UIColor clearColor];
+                    [cell addSubview:timeTip];
+                    
+                    timeLabelX = CGRectGetMaxX(timeTip.frame)+5;
                     UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(timeLabelX, timeLabelY, timeLabelW, timeLabelH)];
-                    timeLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
+                    timeLabel.font = [UIFont systemFontOfSize:13.0];
                     timeLabel.text = stopTimeStr;
+                    timeLabel.backgroundColor =[UIColor clearColor];
                     [cell addSubview:timeLabel];
-                    
-                    CGFloat locationIconH = 20;
-                    CGFloat locationIconW = 20;
-                    CGFloat locationIconX = SCREENWIDTH - locationIconW - 20;
-                    CGFloat locationIconY = cellSize.height / 2.0 + (cellSize.height / 2.0 - locationIconH) / 2.0;
-                    
-                    UIImageView *locationIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_address"]];
-                    locationIcon.frame = CGRectMake(locationIconX, locationIconY, locationIconW, locationIconH);
-                    [cell addSubview:locationIcon];
                     
                     NSString *address = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendAddree"]];
                     NSArray *addArr = [address componentsSeparatedByString:@","];
                     
                     CGFloat addressLabelX = 10;
-                    CGFloat addressLabelW = CGRectGetMinX(locationIcon.frame) - addressLabelX - 10;
+                    CGFloat addressLabelW = SCREENWIDTH-110;
                     CGFloat addressLabelH = cellSize.height / 2.0;
                     CGFloat addressLabelY = CGRectGetMaxY(timeLabel.frame);
+                    
+                    UILabel *addressTip = [[UILabel alloc] initWithFrame:CGRectMake(addressLabelX, addressLabelY, 30, addressLabelH)];
+                    addressTip.font = [UIFont systemFontOfSize:13.0];
+                    addressTip.text = @"地址";
+                    addressTip.textColor = [UIColor grayColor];
+                    addressTip.backgroundColor = [UIColor clearColor];
+                    [cell addSubview:addressTip];
+                    
+                    addressLabelX = CGRectGetMaxX(addressTip.frame);
                     UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(addressLabelX, addressLabelY, addressLabelW, addressLabelH)];
-                    addressLabel.font = [UIFont fontWithName:@"Helvetica" size:15.0];
+                    addressLabel.font = [UIFont systemFontOfSize:13.0];
                     @try {
                         addressLabel.text = addArr[2];
                     } @catch (NSException *exception) {
@@ -454,41 +551,45 @@
                         
                     }
                     [cell addSubview:addressLabel];
+
+                    UIButton *locationButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREENWIDTH-75, addressLabelY-3, 65, 25)];
+                    locationButton.backgroundColor = APPDEFAULTTITLECOLOR;
+                    [locationButton setTitle:@"查看地图" forState:UIControlStateNormal];
+                    locationButton.layer.cornerRadius = 4.0;
+                    [locationButton.titleLabel setFont:[UIFont systemFontOfSize:13.0]];
+                    [locationButton addTarget:self action:@selector(goToLocationView) forControlEvents:UIControlEventTouchUpInside];
+                    [cell addSubview:locationButton];
                     
-                    break;
-                }
-                case 2:
-                {
-                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-                    titleLabel.backgroundColor = [UIColor clearColor];
-                    titleLabel.text = @"患者信息";
-                    titleLabel.font = [UIFont systemFontOfSize:15.0];
-                    titleLabel.textColor = [UIColor blackColor];
-                    [cell addSubview:titleLabel];
-                    
-                    NSString *sex = [[dict valueForKey:@"orderSendSex"] integerValue] == 1 ? @"男" : @"女";
-                    
-                    CGFloat subTitleLabelX = CGRectGetMaxX(titleLabel.frame) + 5;
-                    CGFloat subTitleLabelY = 0;
-                    CGFloat subTitleLabelH = cellSize.height;
-                    CGFloat subTitleLabelW = SCREENWIDTH - subTitleLabelX - 40;
-                    UILabel *subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(subTitleLabelX, subTitleLabelY, subTitleLabelW, subTitleLabelH)];
-                    subTitleLabel.backgroundColor = [UIColor clearColor];
-                    
-                    NSString *nameStr = [dict valueForKey:@"orderSendUsername"];
-                    NSArray *nameArr = [nameStr componentsSeparatedByString:@","];
-                    @try {
-                        nameStr = nameArr[0];
-                    } @catch (NSException *exception) {
-                    } @finally {
-                        
-                    }
-                    subTitleLabel.text = [NSString stringWithFormat:@"%@ %@ %@岁",nameStr,sex,[dict valueForKey:@"orderSendAge"]];
-                    subTitleLabel.textAlignment = NSTextAlignmentRight;
-                    subTitleLabel.font = [UIFont systemFontOfSize:15.0];
-                    subTitleLabel.textColor = [UIColor blackColor];
-                    [cell addSubview:subTitleLabel];
+//                    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//                    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
+//                    titleLabel.backgroundColor = [UIColor clearColor];
+//                    titleLabel.text = @"患者信息";
+//                    titleLabel.font = [UIFont systemFontOfSize:15.0];
+//                    titleLabel.textColor = [UIColor blackColor];
+//                    [cell addSubview:titleLabel];
+//                    
+//                    NSString *sex = [[dict valueForKey:@"orderSendSex"] integerValue] == 1 ? @"男" : @"女";
+//                    
+//                    CGFloat subTitleLabelX = CGRectGetMaxX(titleLabel.frame) + 5;
+//                    CGFloat subTitleLabelY = 0;
+//                    CGFloat subTitleLabelH = cellSize.height;
+//                    CGFloat subTitleLabelW = SCREENWIDTH - subTitleLabelX - 40;
+//                    UILabel *subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(subTitleLabelX, subTitleLabelY, subTitleLabelW, subTitleLabelH)];
+//                    subTitleLabel.backgroundColor = [UIColor clearColor];
+//                    
+//                    NSString *nameStr = [dict valueForKey:@"orderSendUsername"];
+//                    NSArray *nameArr = [nameStr componentsSeparatedByString:@","];
+//                    @try {
+//                        nameStr = nameArr[0];
+//                    } @catch (NSException *exception) {
+//                    } @finally {
+//                        
+//                    }
+//                    subTitleLabel.text = [NSString stringWithFormat:@"%@ %@ %@岁",nameStr,sex,[dict valueForKey:@"orderSendAge"]];
+//                    subTitleLabel.textAlignment = NSTextAlignmentRight;
+//                    subTitleLabel.font = [UIFont systemFontOfSize:15.0];
+//                    subTitleLabel.textColor = [UIColor blackColor];
+//                    [cell addSubview:subTitleLabel];
                     
                     break;
                 }
@@ -502,62 +603,157 @@
             switch (row) {
                 case 0:
                 {
-                    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-                    titleLabel.backgroundColor = [UIColor clearColor];
-                    titleLabel.text = @"备注信息";
-                    titleLabel.font = [UIFont systemFontOfSize:15.0];
-                    titleLabel.textColor = [UIColor blackColor];
-                    [cell addSubview:titleLabel];
+//                    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
+//                    titleLabel.backgroundColor = [UIColor clearColor];
+//                    titleLabel.text = @"备注信息";
+//                    titleLabel.font = [UIFont systemFontOfSize:15.0];
+//                    titleLabel.textColor = [UIColor blackColor];
+//                    [cell addSubview:titleLabel];
+//                    
+//                    CGFloat subTitleLabelX = CGRectGetMaxX(titleLabel.frame) + 5;
+//                    CGFloat subTitleLabelY = 0;
+//                    CGFloat subTitleLabelH = cellSize.height;
+//                    CGFloat subTitleLabelW = SCREENWIDTH - subTitleLabelX - 10;
+//                    UILabel *subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(subTitleLabelX, subTitleLabelY, subTitleLabelW, subTitleLabelH)];
+//                    subTitleLabel.backgroundColor = [UIColor clearColor];
+//                    subTitleLabel.text = [dict valueForKey:@"orderSendNote"];
+//                    subTitleLabel.textAlignment = NSTextAlignmentRight;
+//                    subTitleLabel.font = [UIFont systemFontOfSize:15.0];
+//                    subTitleLabel.textColor = [UIColor blackColor];
+//                    [cell addSubview:subTitleLabel];
+//                    
+                    CGFloat lableH = cellSize.height/3.0;
+                    CGFloat tipX = 10;
+                    CGFloat tipY = 0;
+                    CGFloat tipW = 30;
+                    UILabel *userTip = [[UILabel alloc] initWithFrame:CGRectMake(tipX, tipY, tipW, lableH)];
+                    userTip.textColor = [UIColor grayColor];
+                    userTip.text = @"姓名";
+                    userTip.font = [UIFont systemFontOfSize:13.0];
+                    userTip.backgroundColor = [UIColor clearColor];
+                    [cell addSubview:userTip];
                     
-                    CGFloat subTitleLabelX = CGRectGetMaxX(titleLabel.frame) + 5;
-                    CGFloat subTitleLabelY = 0;
-                    CGFloat subTitleLabelH = cellSize.height;
-                    CGFloat subTitleLabelW = SCREENWIDTH - subTitleLabelX - 10;
-                    UILabel *subTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(subTitleLabelX, subTitleLabelY, subTitleLabelW, subTitleLabelH)];
-                    subTitleLabel.backgroundColor = [UIColor clearColor];
-                    subTitleLabel.text = [dict valueForKey:@"orderSendNote"];
-                    subTitleLabel.textAlignment = NSTextAlignmentRight;
-                    subTitleLabel.font = [UIFont systemFontOfSize:15.0];
-                    subTitleLabel.textColor = [UIColor blackColor];
-                    [cell addSubview:subTitleLabel];
+                    CGFloat userInfoX = CGRectGetMaxX(userTip.frame);
+                    CGFloat userInfoW = SCREENWIDTH-userInfoX-80;
                     
+                    UILabel *userInfoL = [[UILabel alloc] initWithFrame:CGRectMake(userInfoX, tipY, userInfoW, lableH)];
+                    userInfoL.textColor = [UIColor blackColor];
+                    userInfoL.userInteractionEnabled = YES;
+                    userInfoL.font = [UIFont systemFontOfSize:13.0];
+                    userInfoL.backgroundColor = [UIColor clearColor];
+                    [cell addSubview:userInfoL];
+                    userInfoL.text = [NSString stringWithFormat:@"%@ %@",[dict valueForKey:@"userNickNew"],[dict valueForKey:@"userNameNew"]];
+
+                    
+                    NSString *sex = [[dict valueForKey:@"orderSendSex"] integerValue]==1 ? @"男" : @"女";
+                    
+                    NSString *nameStr = [dict valueForKey:@"orderSendUsername"];
+                    NSArray *nameArr = [nameStr componentsSeparatedByString:@","];
+                    @try {
+                        nameStr = nameArr[1];
+                    } @catch (NSException *exception) {
+                    } @finally {
+                        
+                    }
+                    ;
+                    
+                    UILabel *userInfoL1 = [[UILabel alloc] initWithFrame:CGRectMake(userInfoX, lableH, userInfoW, lableH)];
+                    userInfoL1.textColor = [UIColor blackColor];
+                    userInfoL1.userInteractionEnabled = YES;
+                    userInfoL1.font = [UIFont systemFontOfSize:13.0];
+                    userInfoL1.backgroundColor = [UIColor clearColor];
+                    [cell addSubview:userInfoL1];
+                    userInfoL1.text = [NSString stringWithFormat:@"为%@(%@,%@,%@岁)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"]];
+
+                    UIImageView *telephone = [[UIImageView alloc] initWithFrame:CGRectMake(SCREENWIDTH-40, 3, 20, 20)];
+                    telephone.backgroundColor = [UIColor clearColor];
+                    telephone.image = [UIImage imageNamed:@"icon_phone"];
+                    telephone.userInteractionEnabled = YES;
+                    [cell addSubview:telephone];
+                    
+                    UITapGestureRecognizer *userInfoTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(callCustomer)];
+                    [telephone addGestureRecognizer:userInfoTap];
+                    
+                    UILabel *remarkTip = [[UILabel alloc] initWithFrame:CGRectMake(tipX, lableH*2, tipW, lableH)];
+                    remarkTip.textColor = [UIColor grayColor];
+                    remarkTip.text = @"备注";
+                    remarkTip.font = [UIFont systemFontOfSize:13.0];
+                    remarkTip.backgroundColor = [UIColor clearColor];
+                    [cell addSubview:remarkTip];
+                    
+                    CGFloat remarkInfoX = CGRectGetMaxX(remarkTip.frame);
+                    CGFloat remarkInfoW = SCREENWIDTH-remarkInfoX-10;
+                    
+                    UILabel *remarkInfoL = [[UILabel alloc] initWithFrame:CGRectMake(remarkInfoX, lableH*2, remarkInfoW, lableH)];
+                    remarkInfoL.textColor = [UIColor blackColor];
+                    remarkInfoL.userInteractionEnabled = YES;
+                    remarkInfoL.font = [UIFont systemFontOfSize:13.0];
+                    remarkInfoL.backgroundColor = [UIColor clearColor];
+                    [cell addSubview:remarkInfoL];
+                    remarkInfoL.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendNote"]];
+
                     break;
                 }
-                case 1:
-                {
-                    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 44)];
-                    titleLabel.backgroundColor = [UIColor clearColor];
-                    titleLabel.text = @"图片资料";
-                    titleLabel.font = [UIFont systemFontOfSize:15.0];
-                    titleLabel.textColor = [UIColor blackColor];
-                    [cell addSubview:titleLabel];
-                    
-                    CGRect photoFrame = photoScrollView.frame;
-                    photoFrame.origin.y = CGRectGetMaxY(titleLabel.frame);
-                    photoScrollView.frame = photoFrame;
-                    [cell addSubview:photoScrollView];
-                    break;
-                }
+//                case 1:
+//                {
+//                    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, 44)];
+//                    titleLabel.backgroundColor = [UIColor clearColor];
+//                    titleLabel.text = @"图片资料";
+//                    titleLabel.font = [UIFont systemFontOfSize:15.0];
+//                    titleLabel.textColor = [UIColor blackColor];
+//                    [cell addSubview:titleLabel];
+//                    
+//                    CGRect photoFrame = photoScrollView.frame;
+//                    photoFrame.origin.y = CGRectGetMaxY(titleLabel.frame);
+//                    photoScrollView.frame = photoFrame;
+//                    [cell addSubview:photoScrollView];
+//                    break;
+//                }
                 default:
                     break;
             }
             break;
         }
-        case 2:
+        case 2:{
+            switch (row) {
+                case 0:
+                {
+                    
+                    UIImageView *piccImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 90, 40)];
+                    [piccImageView setBackgroundColor:[UIColor clearColor]];
+                    piccImageView.userInteractionEnabled = YES;
+                    piccImageView.image = [UIImage imageNamed:@"icon_picc"];
+                    [cell addSubview:piccImageView];
+                    
+                    UILabel *piccTipL = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(piccImageView.frame), 5, SCREENWIDTH-CGRectGetMaxX(piccImageView.frame)-40, 50)];
+                    piccTipL.textColor = [UIColor grayColor];
+                    piccTipL.userInteractionEnabled = YES;
+                    piccTipL.numberOfLines = 0;
+                    piccTipL.text = @"【护士上门】将免费为患者和医护人员投保中国人寿意外险";
+                    piccTipL.font = [UIFont systemFontOfSize:12.0];
+                    piccTipL.backgroundColor = [UIColor clearColor];
+                    [cell addSubview:piccTipL];
+                    
+                    
+                    UIImageView *quessionImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(piccTipL.frame), 20, 20, 20)];
+                    [quessionImageView setBackgroundColor:[UIColor clearColor]];
+                    quessionImageView.userInteractionEnabled = YES;
+                    quessionImageView.image = [UIImage imageNamed:@"icon_question"];
+                    [cell addSubview:quessionImageView];
+                    
+                    break;
+                }
+                    
+                default:
+                    break;
+            }
+            break;
+        }
+        case 3:
         {
             switch (row) {
                 case 0:
                 {
-                    CGFloat orderNoLabelX = 10;
-                    CGFloat orderNoLabelW = SCREENWIDTH - 2 * orderNoLabelX;
-                    CGFloat orderNoLabelH = cellSize.height / 2.0;
-                    CGFloat orderNoLabelY = 0;
-                    UILabel *orderNoLabel = [[UILabel alloc] initWithFrame:CGRectMake(orderNoLabelX, orderNoLabelY, orderNoLabelW, orderNoLabelH)];
-                    orderNoLabel.font = [UIFont fontWithName:@"Helvetica" size:13.0];
-                    orderNoLabel.text = [NSString stringWithFormat:@"订单编号: %@",[dict valueForKey:@"orderSendNumbers"]];
-                    
-                    [cell addSubview:orderNoLabel];
-                    
                     id zoneCreatetimeObj = [dict objectForKey:@"orderSendGetOrderTime"];
                     if ([zoneCreatetimeObj isMemberOfClass:[NSNull class]] || zoneCreatetimeObj == nil) {
                         NSTimeInterval  timeInterval = [[NSDate date] timeIntervalSince1970];
@@ -569,7 +765,16 @@
                         //时间戳
                         zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
                     }
-                    NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd EEEE HH:MM"];
+                    NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"yyyy-MM-dd HH:MM"];
+                    
+                    CGFloat orderNoLabelX = 10;
+                    CGFloat orderNoLabelW = SCREENWIDTH - 2 * orderNoLabelX;
+                    CGFloat orderNoLabelH = cellSize.height / 2.0;
+                    CGFloat orderNoLabelY = 0;
+                    UILabel *orderNoLabel = [[UILabel alloc] initWithFrame:CGRectMake(orderNoLabelX, orderNoLabelY, orderNoLabelW, orderNoLabelH)];
+                    orderNoLabel.font = [UIFont fontWithName:@"Helvetica" size:13.0];
+                    orderNoLabel.text = [NSString stringWithFormat:@"接单时间: %@",stopTimeStr];
+                    [cell addSubview:orderNoLabel];
                     
                     CGFloat timeLabelX = 10;
                     CGFloat timeLabelW = SCREENWIDTH - 2 * timeLabelX;
@@ -577,7 +782,7 @@
                     CGFloat timeLabelY = CGRectGetMaxY(orderNoLabel.frame);
                     UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(timeLabelX, timeLabelY, timeLabelW, timeLabelH)];
                     timeLabel.font = [UIFont fontWithName:@"Helvetica" size:13.0];
-                    timeLabel.text = [NSString stringWithFormat:@"接单时间: %@",stopTimeStr];
+                    timeLabel.text = [NSString stringWithFormat:@"订单编号: %@",[dict valueForKey:@"orderSendNumbers"]];
                     [cell addSubview:timeLabel];
                     
                     break;
@@ -637,19 +842,19 @@
                     sepLine.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
                     [cell addSubview:sepLine];
                     
-                    NSArray *tipArr = @[@"1.仔细查看订单内容；\n2.仔细查看服务内容、备注内容；\n注：要求接单后尽快与病人确认。",@"1、电话联系用户，核对\n 1)服务时间、地点\n 2)病人信息、服务内容，备注：如需要请病人补充；\n 3）过敏史，传染病史；\n 4）病人自备材料及要求采购材料。",@"1、电话联系用户，确定是否在家。告知预计到达时间，及病人自备材料；\n2、核对所带设备、材料",@"1、自我介绍；\n2、说明服务内容及流程；\n3、开始服务",@""];
-                    UITextView *tipTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, buttonY+buttonH, SCREENWIDTH-20, 90)];
-                    tipTextView.font = [UIFont systemFontOfSize:10.0];
-                    @try {
-                        tipTextView.text = tipArr[orderIndex];
-                    } @catch (NSException *exception) {
-                        
-                    } @finally {
-                        
-                    }
-                    tipTextView.textColor = [UIColor grayColor];
-                    tipTextView.backgroundColor = [UIColor clearColor];
-                    [cell addSubview:tipTextView];
+//                    NSArray *tipArr = @[@"1.仔细查看订单内容；\n2.仔细查看服务内容、备注内容；\n注：要求接单后尽快与病人确认。",@"1、电话联系用户，核对\n 1)服务时间、地点\n 2)病人信息、服务内容，备注：如需要请病人补充；\n 3）过敏史，传染病史；\n 4）病人自备材料及要求采购材料。",@"1、电话联系用户，确定是否在家。告知预计到达时间，及病人自备材料；\n2、核对所带设备、材料",@"1、自我介绍；\n2、说明服务内容及流程；\n3、开始服务",@""];
+//                    UITextView *tipTextView = [[UITextView alloc] initWithFrame:CGRectMake(10, buttonY+buttonH, SCREENWIDTH-20, 90)];
+//                    tipTextView.font = [UIFont systemFontOfSize:10.0];
+//                    @try {
+//                        tipTextView.text = tipArr[orderIndex];
+//                    } @catch (NSException *exception) {
+//                        
+//                    } @finally {
+//                        
+//                    }
+//                    tipTextView.textColor = [UIColor grayColor];
+//                    tipTextView.backgroundColor = [UIColor clearColor];
+//                    [cell addSubview:tipTextView];
                     
                     break;
                 }
@@ -679,10 +884,10 @@
                     return 44;
                     break;
                 case 1:
-                    return 60;
+                    return 44;
                     break;
                 case 2:
-                    return 44;
+                    return 60;
                     break;
                     
                 default:
@@ -693,11 +898,11 @@
         case 1:{
             switch (row) {
                 case 0:
-                    return 44;
+                    return 80;
                     break;
-                case 1:
-                    return 44 + imageScrollViewHeigh;
-                    break;
+//                case 1:
+//                    return 44 + imageScrollViewHeigh;
+//                    break;
                 default:
                     break;
             }
@@ -707,8 +912,17 @@
                 case 0:
                     return 50;
                     break;
+                default:
+                    break;
+            }
+        }
+        case 3:{
+            switch (row) {
+                case 0:
+                    return 50;
+                    break;
                 case 1:
-                    return 44+94;
+                    return 44+90;
                     break;
                 default:
                     break;
@@ -740,28 +954,28 @@
     NSInteger section = indexPath.section;
     
     NSLog(@"row = %ld, section = %ld",row,section);
-    if (section == 0 && row == 1) {
-        //地图
-        NSString *address = [NSString stringWithFormat:@"%@",[infoDic valueForKey:@"orderSendAddree"]];
-        NSArray *addArr = [address componentsSeparatedByString:@","];
-        //经度
-        NSString *zoneLocationX = nil;
-        //纬度
-        NSString *zoneLocationY = nil;
-        @try {
-            zoneLocationX = addArr[0];
-            zoneLocationY = addArr[1];
-        } @catch (NSException *exception) {
-            
-        } @finally {
-            
-        }
-        NSDictionary *userLocationDic = @{@"zoneLocationY":zoneLocationY,@"zoneLocationX":zoneLocationX};
-        [self goLocationWithLocation:userLocationDic];
-    }
+//    if (section == 0 && row == 1) {
+//        //地图
+//        NSString *address = [NSString stringWithFormat:@"%@",[infoDic valueForKey:@"orderSendAddree"]];
+//        NSArray *addArr = [address componentsSeparatedByString:@","];
+//        //经度
+//        NSString *zoneLocationX = nil;
+//        //纬度
+//        NSString *zoneLocationY = nil;
+//        @try {
+//            zoneLocationX = addArr[0];
+//            zoneLocationY = addArr[1];
+//        } @catch (NSException *exception) {
+//            
+//        } @finally {
+//            
+//        }
+//        NSDictionary *userLocationDic = @{@"zoneLocationY":zoneLocationY,@"zoneLocationX":zoneLocationX};
+//        [self goLocationWithLocation:userLocationDic];
+//    }
     if (section == 0 && row == 2) {
         //患者信息
-        [self showPaitentInfoWith:infoDic];
+//        [self showPaitentInfoWith:infoDic];
     }
 }
 
@@ -937,7 +1151,8 @@
         NurseReportVC *nurseReportVC = [[NurseReportVC alloc] init];
         nurseReportVC.hidesBottomBarWhenPushed = YES;
         nurseReportVC.infoData = infoDic;
-        nurseReportVC.isDetail = NO;
+//        nurseReportVC.isDetail = NO;
+        nurseReportVC.reportType = 2;
         [self.navigationController pushViewController:nurseReportVC animated:YES];
     }
     
@@ -949,6 +1164,38 @@
 
 - (void)refreshOrderDetail{
     [self updateOrderStateWithOrderState:4];
+}
+
+- (void)goToLocationView{
+    //地图
+    NSString *address = [NSString stringWithFormat:@"%@",[infoDic valueForKey:@"orderSendAddree"]];
+    NSArray *addArr = [address componentsSeparatedByString:@","];
+    //经度
+    NSString *zoneLocationX = nil;
+    //纬度
+    NSString *zoneLocationY = nil;
+    @try {
+        zoneLocationX = addArr[0];
+        zoneLocationY = addArr[1];
+    } @catch (NSException *exception) {
+        
+    } @finally {
+        
+    }
+    NSDictionary *userLocationDic = @{@"zoneLocationY":zoneLocationY,@"zoneLocationX":zoneLocationX};
+    [self goLocationWithLocation:userLocationDic];
+}
+
+- (void)callCustomer{
+    NSDictionary *dict = [NSDictionary dictionaryWithDictionary:infoDic];
+
+    [Tool callPhoneWithPhone:[dict valueForKey:@"userNameNew"]];
+}
+
+- (void)introductionAction{
+    HandleIntroductionVC *handleIntroductionVC = [[HandleIntroductionVC alloc] init];
+    handleIntroductionVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:handleIntroductionVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

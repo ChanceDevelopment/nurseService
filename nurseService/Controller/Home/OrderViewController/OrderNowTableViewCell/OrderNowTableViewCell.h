@@ -14,6 +14,7 @@
 @property (nonatomic,strong)UILabel *orderMoney;
 @property (nonatomic,strong)UILabel *addressL;
 @property (nonatomic,strong)UILabel *userInfoL;
+@property (nonatomic,strong)UILabel *userInfoL1;
 @property (nonatomic,strong)UILabel *oderStateL;
 @property (nonatomic,strong)void(^showOrderDetailBlock)();
 @property (nonatomic,strong)void(^cancleRequstBlock)();

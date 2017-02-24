@@ -49,6 +49,8 @@
 #define NURSEBASICSINFO @"nurseAnduser/SelectNurseBasicsInfo.action"
 //1.9.3根据护士ID查询余额支付宝账号和密码
 #define SELECTNURSETHREEINFO @"nurseAnduser/selectNurseThreeInfo.action"
+//1.9.5 护士查看自己填写过的护理报告
+#define ALLREPORTBYNURSE @"report/selectReportByUserIdAndPersonCardByNurseId.action"
 //2.2接取订单
 #define ORDERRECEIVER @"orderReceiver/orderReceiver.action"
 //2.3接单状态修改

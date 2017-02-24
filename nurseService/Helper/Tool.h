@@ -94,4 +94,6 @@
 
 //初始化推送服务
 + (void)initPush;
+
++ (void)callPhoneWithPhone:(NSString *)phone;
 @end
