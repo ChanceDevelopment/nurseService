@@ -10,7 +10,7 @@
 #import "UIButton+countDown.h"
 #import <SMS_SDK/SMSSDK.h>
 #import "BrowserView.h"
-
+#import "EnrollTipVC.h"
 @interface HeEnrollVC ()<UITextFieldDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>{
     NSString *encodedImageStr;
 }
@@ -400,6 +400,11 @@
 {
     
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+- (IBAction)tipAction:(id)sender {
+    EnrollTipVC *enrollTipVC = [[EnrollTipVC alloc] init];
+    enrollTipVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:enrollTipVC animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

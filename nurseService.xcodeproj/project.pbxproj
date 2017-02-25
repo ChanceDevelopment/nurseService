@@ -56,6 +56,11 @@
 		AD30138A1DFCF4F300D26E09 /* icon_schedule.png in Resources */ = {isa = PBXBuildFile; fileRef = AD30137E1DFCF4F200D26E09 /* icon_schedule.png */; };
 		AD30138B1DFCF4F300D26E09 /* icon_service.png in Resources */ = {isa = PBXBuildFile; fileRef = AD30137F1DFCF4F200D26E09 /* icon_service.png */; };
 		AD30138C1DFCF4F300D26E09 /* icon_set.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3013801DFCF4F200D26E09 /* icon_set.png */; };
+		AD54FCB51E600BDA0026CB8F /* EnrollTipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD54FCB31E600BDA0026CB8F /* EnrollTipVC.m */; };
+		AD54FCB61E600BDA0026CB8F /* EnrollTipVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD54FCB41E600BDA0026CB8F /* EnrollTipVC.xib */; };
+		AD54FCBA1E6120E90026CB8F /* bg_detail_one.png in Resources */ = {isa = PBXBuildFile; fileRef = AD54FCB71E6120E90026CB8F /* bg_detail_one.png */; };
+		AD54FCBB1E6120E90026CB8F /* bg_detail_three.png in Resources */ = {isa = PBXBuildFile; fileRef = AD54FCB81E6120E90026CB8F /* bg_detail_three.png */; };
+		AD54FCBC1E6120E90026CB8F /* bg_detail_two.png in Resources */ = {isa = PBXBuildFile; fileRef = AD54FCB91E6120E90026CB8F /* bg_detail_two.png */; };
 		AD5CD6C81E0D58FA0025517E /* MyInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5CD6C71E0D58FA0025517E /* MyInfoTableViewCell.m */; };
 		AD5CD6CB1E0EAECF0025517E /* abc_btn_radio_on.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5CD6C91E0EAECF0025517E /* abc_btn_radio_on.png */; };
 		AD5CD6CC1E0EAECF0025517E /* abc_btn_radio.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5CD6CA1E0EAECF0025517E /* abc_btn_radio.png */; };
@@ -863,6 +868,12 @@
 		AD30137E1DFCF4F200D26E09 /* icon_schedule.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_schedule.png; sourceTree = "<group>"; };
 		AD30137F1DFCF4F200D26E09 /* icon_service.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_service.png; sourceTree = "<group>"; };
 		AD3013801DFCF4F200D26E09 /* icon_set.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_set.png; sourceTree = "<group>"; };
+		AD54FCB21E600BDA0026CB8F /* EnrollTipVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnrollTipVC.h; sourceTree = "<group>"; };
+		AD54FCB31E600BDA0026CB8F /* EnrollTipVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnrollTipVC.m; sourceTree = "<group>"; };
+		AD54FCB41E600BDA0026CB8F /* EnrollTipVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnrollTipVC.xib; sourceTree = "<group>"; };
+		AD54FCB71E6120E90026CB8F /* bg_detail_one.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_detail_one.png; sourceTree = "<group>"; };
+		AD54FCB81E6120E90026CB8F /* bg_detail_three.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_detail_three.png; sourceTree = "<group>"; };
+		AD54FCB91E6120E90026CB8F /* bg_detail_two.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_detail_two.png; sourceTree = "<group>"; };
 		AD5CD6C61E0D58FA0025517E /* MyInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoTableViewCell.h; sourceTree = "<group>"; };
 		AD5CD6C71E0D58FA0025517E /* MyInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfoTableViewCell.m; sourceTree = "<group>"; };
 		AD5CD6C91E0EAECF0025517E /* abc_btn_radio_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = abc_btn_radio_on.png; sourceTree = "<group>"; };
@@ -2628,6 +2639,9 @@
 		ADB49C731E1947C5008DBCF6 /* order */ = {
 			isa = PBXGroup;
 			children = (
+				AD54FCB71E6120E90026CB8F /* bg_detail_one.png */,
+				AD54FCB81E6120E90026CB8F /* bg_detail_three.png */,
+				AD54FCB91E6120E90026CB8F /* bg_detail_two.png */,
 				AD5FBA191E5F19DB00EE93BB /* icon_phone.png */,
 				AD5FBA171E5ECAB000EE93BB /* icon_question.png */,
 				AD5FBA151E5ECAAB00EE93BB /* icon_picc.png */,
@@ -3347,6 +3361,9 @@
 				EAA4F2FD1E011ED100EF9E14 /* HeEnrollVC.h */,
 				EAA4F2FE1E011ED100EF9E14 /* HeEnrollVC.m */,
 				EAA4F2FF1E011ED100EF9E14 /* HeEnrollVC.xib */,
+				AD54FCB21E600BDA0026CB8F /* EnrollTipVC.h */,
+				AD54FCB31E600BDA0026CB8F /* EnrollTipVC.m */,
+				AD54FCB41E600BDA0026CB8F /* EnrollTipVC.xib */,
 			);
 			path = LoginEnroll;
 			sourceTree = "<group>";
@@ -5262,6 +5279,7 @@
 				EAA4F2FC1E011EC100EF9E14 /* HeLoginVC.xib in Resources */,
 				AD3013851DFCF4F300D26E09 /* icon_myadd.png in Resources */,
 				EAC2D95E1D4B063B00E282A8 /* TZImagePickerController.bundle in Resources */,
+				AD54FCBC1E6120E90026CB8F /* bg_detail_two.png in Resources */,
 				ADB49C661E164BEB008DBCF6 /* DrawCashViewController.xib in Resources */,
 				EA1743501E1E33AF0038E805 /* ClippedExpression.bundle in Resources */,
 				AD30138C1DFCF4F300D26E09 /* icon_set.png in Resources */,
@@ -5284,6 +5302,7 @@
 				EAC2D4381D4B031500E282A8 /* LaunchScreen.storyboard in Resources */,
 				AD30138A1DFCF4F300D26E09 /* icon_schedule.png in Resources */,
 				EAA6552B1E0627C300F424DD /* AlbumShare@2x.png in Resources */,
+				AD54FCBA1E6120E90026CB8F /* bg_detail_one.png in Resources */,
 				EAC2D9991D4B063C00E282A8 /* zbar-samples.png in Resources */,
 				ADB49C5B1E164526008DBCF6 /* icon_bind_alipay.png in Resources */,
 				EAC2D98E1D4B063C00E282A8 /* WeiboSDK.bundle in Resources */,
@@ -5309,6 +5328,7 @@
 				EAC2D9731D4B063B00E282A8 /* LICENSE in Resources */,
 				EAC2D86B1D4B063B00E282A8 /* down_dark.png in Resources */,
 				EAC2D9901D4B063C00E282A8 /* README.txt in Resources */,
+				AD54FCB61E600BDA0026CB8F /* EnrollTipVC.xib in Resources */,
 				EA472CD51E04E71B00E0316F /* TOWebViewControllerLocalizable.strings in Resources */,
 				57F511061E3087AC003D0A7A /* icon_look.png in Resources */,
 				ADB49C5C1E164526008DBCF6 /* icon_financial_details.png in Resources */,
@@ -5430,6 +5450,7 @@
 				EAA6552D1E0627C300F424DD /* Like@2x.png in Resources */,
 				EAA4F31F1E012F3000EF9E14 /* tabar_home_icon_normal@2x.png in Resources */,
 				EA17435D1E1E3EE90038E805 /* comonDefaultImage.png in Resources */,
+				AD54FCBB1E6120E90026CB8F /* bg_detail_three.png in Resources */,
 				AD5FBA201E5F22C400EE93BB /* HandleIntroductionVC.xib in Resources */,
 				AD8A0E781E24E36C0001CC02 /* icon_dot_violet_unselect.png in Resources */,
 				AD8A0E7B1E24E3B90001CC02 /* icon_rectangle_selector.png in Resources */,
@@ -5788,6 +5809,7 @@
 				EAC2D8F51D4B063B00E282A8 /* RACCompoundDisposableProvider.d in Sources */,
 				AD8BB1431E0A3745004064F9 /* RankTableViewCell.m in Sources */,
 				EAC2D86E1D4B063B00E282A8 /* i2KEPCDatePickerView.m in Sources */,
+				AD54FCB51E600BDA0026CB8F /* EnrollTipVC.m in Sources */,
 				EAC2D8E41D4B063B00E282A8 /* NSObject+RACLifting.m in Sources */,
 				EAC2D94C1D4B063B00E282A8 /* README.md in Sources */,
 				EA1743421E1E33AF0038E805 /* Reachability.m in Sources */,

@@ -948,29 +948,33 @@
 
 - (void)goToProfessionInfoVC{
     
-    NSString *nurseTruename = nameTextField.text;
-    NSString *nurseCard = idCardTextField.text;
-    
-    if (nurseTruename.length <= 0 ||
-        nurseCard.length <= 0 ||
-        [[postDic valueForKey:@"NurseHeader"] isEqualToString:@""] ||
-        [[postDic valueForKey:@"NurseTruePic"] isEqualToString:@""] ||
-        [[postDic valueForKey:@"NurseCardpic1"] isEqualToString:@""] ||
-        [[postDic valueForKey:@"NurseCardpic2"] isEqualToString:@""] ||
-        [[postDic valueForKey:@"NurseCardpic3"] isEqualToString:@""]) {
-        
-        [self showAlertView];
-        return;
-    }
-    if (nurseCard.length > 0) {
-        if (![Tool IsIdentityCard:nurseCard]) {
-            [self showHint:@"请输入正确的身份证号"];
-            return;
-        }
-    }
-    
+//    NSString *nurseTruename = nameTextField.text;
+//    NSString *nurseCard = idCardTextField.text;
+//    
+//    if (nurseTruename.length <= 0 ||
+//        nurseCard.length <= 0 ||
+//        [[postDic valueForKey:@"NurseHeader"] isEqualToString:@""] ||
+//        [[postDic valueForKey:@"NurseTruePic"] isEqualToString:@""] ||
+//        [[postDic valueForKey:@"NurseCardpic1"] isEqualToString:@""] ||
+//        [[postDic valueForKey:@"NurseCardpic2"] isEqualToString:@""] ||
+//        [[postDic valueForKey:@"NurseCardpic3"] isEqualToString:@""]) {
+//        
+//        [self showAlertView];
+//        return;
+//    }
+//    if (nurseCard.length > 0) {
+//        if (![Tool IsIdentityCard:nurseCard]) {
+//            [self showHint:@"请输入正确的身份证号"];
+//            return;
+//        }
+//    }
+//    
+//    [postDic setValue:nurseTruename forKey:@"nurseTruename"];
+//    [postDic setValue:nurseCard forKey:@"NurseCard"];
+
     ProfessionInfoVC *professionInfoVC = [[ProfessionInfoVC alloc] init];
     professionInfoVC.hidesBottomBarWhenPushed = YES;
+    professionInfoVC.basicInfo = postDic;
     [self.navigationController pushViewController:professionInfoVC animated:YES];
 }
 

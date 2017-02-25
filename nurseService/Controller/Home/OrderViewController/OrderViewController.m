@@ -44,6 +44,7 @@
 //    MZTimerLabel *timer3;
     UILabel *noDataTip;
     
+
 }
 @property(nonatomic,strong)DLNavigationTabBar *navigationTabBar;
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
@@ -151,6 +152,8 @@
     [self initializaiton];
     [self initView];
     [self getDataWithUrl:ORDERLOOKRECEIVER];
+    
+    
 }
 
 - (void)initializaiton

@@ -9,5 +9,5 @@
 #import "HeBaseViewController.h"
 
 @interface ProfessionInfoVC : HeBaseViewController
-
+@property (nonatomic,strong)NSDictionary *basicInfo;
 @end

@@ -17,6 +17,8 @@
     UIImage *photoImage;
     NSString *photoImageStr;
     UIImageView *photoImageView;
+    UIImageView *idCardFrontImageView;
+    UIImageView *idCardDownImageView;
     NSMutableDictionary *postDic;
     UIView *windowView;
     UIView *addBgView;
@@ -35,6 +37,8 @@
     UILabel *workPlaceLable;
     
     UITextView *nurseNoteText;
+    
+    NSInteger imageTag;
 }
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
 @property(strong,nonatomic)IBOutlet UIView *statusView;
@@ -45,6 +49,7 @@
 @implementation ProfessionInfoVC
 @synthesize myTableView;
 @synthesize statusView;
+@synthesize basicInfo;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -94,6 +99,7 @@
 - (void)initializaiton
 {
     [super initializaiton];
+    imageTag = 0;
     statusArray = @[@"基本信息",@"专业信息",@"等待审核"];
     isShowLanguage = NO;
     postDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"",@"NurseLanguage",@"",@"NurseGoodservice",@"",@"NurseNote",@"",@"NurseworkuUnit", nil];
@@ -501,7 +507,7 @@
             
             
             imageY = CGRectGetMaxY(photoImageView.frame)+20;
-            UIImageView *idCardFrontImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, imageY, headImageW, 80)];
+            idCardFrontImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, imageY, headImageW, 80)];
             [cell addSubview:idCardFrontImageView];
             idCardFrontImageView.userInteractionEnabled = YES;
             idCardFrontImageView.backgroundColor = [UIColor clearColor];
@@ -521,7 +527,7 @@
             [cell addSubview:tipLabel2];
             
             imageY = CGRectGetMaxY(idCardFrontImageView.frame)+20;
-            UIImageView *idCardDownImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, imageY, headImageW, 80)];
+            idCardDownImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, imageY, headImageW, 80)];
             [cell addSubview:idCardDownImageView];
             idCardDownImageView.userInteractionEnabled = YES;
             idCardDownImageView.backgroundColor = [UIColor clearColor];
@@ -1204,8 +1210,17 @@
 
 - (void)postProfessionInfo{
     
+    if ([[postDic valueForKey:@"NurseNurseLicensepic"] isEqualToString:@""] ||
+        [[postDic valueForKey:@"NurseNurseLicensepic1"] isEqualToString:@""] ||
+        [[postDic valueForKey:@"NurseNurseLicensepic2"] isEqualToString:@""]) {
+        
+        [self showAlertView];
+        return;
+    }
+    
     NSString *nurseNumber = nurseNumberField.text;
-    NSString *nurseLicensepic = photoImageStr ? photoImageStr : @"";
+    NSString *nurseLicensepic = [NSString stringWithFormat:@"%@,%@,%@",[postDic valueForKey:@"NurseNurseLicensepic"],[postDic valueForKey:@"NurseNurseLicensepic1"],[postDic valueForKey:@"NurseNurseLicensepic2"]];
+    
     NSString *NurseworkuUnit = [postDic objectForKey:@"NurseworkuUnit"];
     if (!NurseworkuUnit) {
         NurseworkuUnit = @"";
@@ -1228,13 +1243,24 @@
     }
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     NSDictionary * params  = @{@"NurseId" : userAccount,
-                               @"NurseLanguage" : NurseLanguage,
+                               @"NurseHeader" : [basicInfo valueForKey:@"NurseHeader"],
+                               @"NurseTruePic" : [basicInfo valueForKey:@"NurseTruePic"],
+                               @"nurseTruename" : [basicInfo valueForKey:@"nurseTruename"],
+                               @"NurseSex" : @"",
+                               @"NurseAge" : @"",
+                               @"NurseCard" : [basicInfo valueForKey:@"NurseCard"],
+                               @"NurseCardpic" : [NSString stringWithFormat:@"%@,%@,%@",[basicInfo valueForKey:@"NurseCardpic1"],[basicInfo valueForKey:@"NurseCardpic2"],[basicInfo valueForKey:@"NurseCardpic3"]],
+                               
                                @"NurseworkuUnit" : NurseworkuUnit,
                                @"NurseOffice" : NurseOffice,
+                               @"Nursejob" : @"",  //职称
                                @"NurseNumber" : nurseNumber,
+                               @"Nurseyearsofservice" : @"",  //职业年限
                                @"NurseNote" : NurseNote,
-                               @"NurseGoodservice" : NurseGoodservice,
-                               @"NurseNurseLicensepic" : nurseLicensepic};
+                               @"NurseNurseLicensepic" : nurseLicensepic
+//                               @"NurseLanguage" : NurseLanguage,
+//                               @"NurseGoodservice" : NurseGoodservice,
+                               };
     [self showHudInView:self.view hint:@"提交中..."];
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:NURSEINFOIDENTIFY params:params success:^(AFHTTPRequestOperation* operation,id response){
         [self hideHud];
@@ -1271,12 +1297,21 @@
 
 //职业证书
 - (void)loadProfessionPhotoAction{
+    imageTag = 0;
+    [self showActionSheet];
+
 }
 //资格证书
 - (void)loadPowerPhotoAction{
+    imageTag = 1;
+    [self showActionSheet];
+
 }
 //职称证书
 - (void)loadProfeesionNamePhotoAction{
+    imageTag = 2;
+    [self showActionSheet];
+
 }
 
 - (void)clickPhotoImageAction{
@@ -1382,7 +1417,16 @@
         photoImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
         
         [self dismissViewControllerAnimated:YES completion:^{
-            photoImageView.image = photoImage;
+            if (imageTag == 0) {
+                photoImageView.image = photoImage;
+                [postDic setValue:photoImageStr forKey:@"NurseNurseLicensepic"];
+            }else if(imageTag == 1){
+                [postDic setValue:photoImageStr forKey:@"NurseNurseLicensepic1"];
+                idCardFrontImageView.image = photoImage;
+            }else if(imageTag == 2){
+                [postDic setValue:photoImageStr forKey:@"NurseNurseLicensepic2"];
+                idCardDownImageView.image = photoImage;
+            }
         }];
     }
 }
@@ -1742,6 +1786,67 @@
         NSLog(@"err:%@",err);
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
+}
+
+- (void)showAlertView{
+    
+    windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
+    windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
+    [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
+    
+    NSInteger addBgView_W = SCREENWIDTH -20;
+    NSInteger addBgView_H = 130;
+    NSInteger addBgView_Y = SCREENHEIGH/2.0-addBgView_H/2.0-40;
+    UIView *addBgView = [[UIView alloc] initWithFrame:CGRectMake(10, addBgView_Y, addBgView_W, addBgView_H)];
+    addBgView.backgroundColor = [UIColor whiteColor];
+    [addBgView.layer setMasksToBounds:YES];
+    [addBgView.layer setCornerRadius:4];
+    addBgView.alpha = 1.0;
+    [windowView addSubview:addBgView];
+    
+    
+    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 200, 40)];
+    titleL.textColor = [UIColor blackColor];
+    titleL.textAlignment = NSTextAlignmentLeft;
+    titleL.font = [UIFont systemFontOfSize:18.0];
+    titleL.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:titleL];
+    
+    NSInteger addTextField_H = 44;
+    NSInteger addTextField_Y = 50;
+    NSInteger addTextField_W =SCREENWIDTH-40;
+    
+    UILabel *infoTip= [[UILabel alloc] initWithFrame:CGRectMake(10, addTextField_Y, addTextField_W, addTextField_H)];//高度--44
+    infoTip.font = [UIFont systemFontOfSize:12.0];
+    infoTip.numberOfLines = 0;
+    infoTip.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:infoTip];
+    
+    titleL.text = @"提示";
+    infoTip.text = @"信息填写完整才能进行下一步操作";
+    
+    NSInteger cancleBt_X = SCREENWIDTH-20-10-90;
+    NSInteger cancleBt_Y = CGRectGetMaxY(infoTip.frame);
+    NSInteger cancleBt_W = 40;
+    NSInteger cancleBt_H = 20;
+    
+    //    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    //    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
+    //    cancleBt.backgroundColor = [UIColor clearColor];
+    //    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    //    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    //    cancleBt.tag = 0;
+    //    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    //    [addBgView addSubview:cancleBt];
+    
+    UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [okBt setTitle:@"确认" forState:UIControlStateNormal];
+    okBt.backgroundColor = [UIColor clearColor];
+    okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    okBt.tag = 0;
+    [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:okBt];
 }
 
 - (void)didReceiveMemoryWarning {

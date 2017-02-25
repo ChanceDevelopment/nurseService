@@ -21,6 +21,9 @@
 {
     CGFloat imageScrollViewHeigh;
     UIView *windowView;
+    
+    UIImageView *tipImageView;
+    NSInteger currentTipImageTag;
 }
 @property(strong,nonatomic)IBOutlet UITableView *tableview;
 @property(strong,nonatomic)IBOutlet UIView *statusView;
@@ -79,6 +82,9 @@
     [self getOrderDetailData];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getOrderDetailData) name:@"refreshOrderDetailNotification" object:nil];  //refreshOrderDetail
+    if (![[NSUserDefaults standardUserDefaults] valueForKey:@"isFirst"]) {
+        [self showFirstTipView];
+    }
 }
 
 - (void)initializaiton
@@ -1197,7 +1203,43 @@
     handleIntroductionVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:handleIntroductionVC animated:YES];
 }
+- (void)showFirstTipView{
+    
+    
+    [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:@"isFirst"];
+    
+    windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
+    windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
+    [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
+    
+    tipImageView = [[UIImageView alloc] initWithFrame:windowView.frame];
+    tipImageView.backgroundColor = [UIColor clearColor];
+    tipImageView.userInteractionEnabled = YES;
+    [windowView addSubview:tipImageView];
+    tipImageView.image = [UIImage imageNamed:@"bg_detail_one"];
+    
+    UITapGestureRecognizer *tipTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeTipImage)];
+    tipTap.numberOfTapsRequired = 1;
+    tipTap.numberOfTapsRequired = 1;
+    [tipImageView addGestureRecognizer:tipTap];
+    currentTipImageTag = 0;
+}
 
+- (void)changeTipImage{
+    if (currentTipImageTag == 0) {
+        tipImageView.image = [UIImage imageNamed:@"bg_detail_two"];
+    }
+    if (currentTipImageTag == 1){
+        tipImageView.image = [UIImage imageNamed:@"bg_detail_three"];
+    }
+    if (currentTipImageTag == 2){
+        if (windowView) {
+            [windowView removeFromSuperview];
+        }
+    }
+    
+    currentTipImageTag++;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
