@@ -8,6 +8,7 @@
 
 #import "ProfessionInfoVC.h"
 #import "HeBaseTableViewCell.h"
+#import "ServiceListVC.h"
 
 @interface ProfessionInfoVC ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource>
 {
@@ -33,12 +34,17 @@
     
     
     UITextField *nurseNumberField;
+    UILabel *professionNameLable;
+    UILabel *professionYearsL;
     UILabel *officeLable;
     UILabel *workPlaceLable;
     
     UITextView *nurseNoteText;
     
     NSInteger imageTag;
+    NSArray *nurseInfoArr;      //职业年限集合
+    NSArray *nursejobArr;       //职称集合
+
 }
 @property (strong, nonatomic) IBOutlet UITableView *myTableView;
 @property(strong,nonatomic)IBOutlet UIView *statusView;
@@ -101,6 +107,8 @@
     [super initializaiton];
     imageTag = 0;
     statusArray = @[@"基本信息",@"专业信息",@"等待审核"];
+    nurseInfoArr = @[@"1年内",@"1-3年",@"3-5年",@"5-10年",@"10年以上"];
+    nursejobArr = @[@"初级护士",@"初级护师",@"中级主管护师",@"副主任护师",@"主任护师"];
     isShowLanguage = NO;
     postDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"",@"NurseLanguage",@"",@"NurseGoodservice",@"",@"NurseNote",@"",@"NurseworkuUnit", nil];
     languageDic = [[NSMutableDictionary alloc] initWithCapacity:0];
@@ -128,7 +136,9 @@
 
 //服务介绍
 - (void)serviceIntroductionAction{
-    
+    ServiceListVC *serviceListVC = [[ServiceListVC alloc] init];
+    serviceListVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:serviceListVC animated:YES];
 }
 - (void)saveAction{
     NSLog(@"saveAction");
@@ -205,6 +215,10 @@
         return workUnitArr.count;
     }else if (tableView.tag == 502){
         return nurseOfficeArr.count;
+    }else if (tableView.tag == 503){
+        return nurseInfoArr.count;
+    }else if (tableView.tag == 504){
+        return nursejobArr.count;
     }
     return 9;
 
@@ -281,7 +295,54 @@
         tipLabel.textColor = [UIColor grayColor];
         [cell addSubview:tipLabel];
         return cell;
+    }else if(tableView.tag == 503){
+        
+        UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, SCREENWIDTH-120, cellSize.height)];
+        tipLabel.backgroundColor = [UIColor clearColor];
+        tipLabel.text = nurseInfoArr[row];
+        tipLabel.font = [UIFont systemFontOfSize:15.0];
+        tipLabel.textColor = [UIColor grayColor];
+        [cell addSubview:tipLabel];
+        
+        CGFloat imageW = 25;
+        CGFloat imageX = 15;
+        UIImageView *selectImage = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, 9, imageW, imageW)];
+        [cell addSubview:selectImage];
+        selectImage.backgroundColor = [UIColor clearColor];
+        selectImage.userInteractionEnabled = YES;
+        selectImage.tag = row +50;
+        
+        selectImage.image = [UIImage imageNamed:@"abc_btn_radio"];
+        if ([nurseInfoArr[row] isEqualToString:[postDic valueForKey:@"nurseYearsofservice"]]) {
+            selectImage.image = [UIImage imageNamed:@"abc_btn_radio_on"];
+        }
+        
+        return cell;
+    }else if(tableView.tag == 504){
+        
+        UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(100, 0, SCREENWIDTH-120, cellSize.height)];
+        tipLabel.backgroundColor = [UIColor clearColor];
+        tipLabel.text = nursejobArr[row];
+        tipLabel.font = [UIFont systemFontOfSize:15.0];
+        tipLabel.textColor = [UIColor grayColor];
+        [cell addSubview:tipLabel];
+        
+        CGFloat imageW = 25;
+        CGFloat imageX = 15;
+        UIImageView *selectImage = [[UIImageView alloc] initWithFrame:CGRectMake(imageX, 9, imageW, imageW)];
+        [cell addSubview:selectImage];
+        selectImage.backgroundColor = [UIColor clearColor];
+        selectImage.userInteractionEnabled = YES;
+        selectImage.tag = row +50;
+        
+        selectImage.image = [UIImage imageNamed:@"abc_btn_radio"];
+        if ([nursejobArr[row] isEqualToString:[postDic valueForKey:@"Nursejob"]]) {
+            selectImage.image = [UIImage imageNamed:@"abc_btn_radio_on"];
+        }
+        
+        return cell;
     }
+
     
     switch (row) {
 //        case 0:
@@ -322,7 +383,7 @@
             workPlaceLable.textAlignment = NSTextAlignmentRight;
             workPlaceLable.textColor = [UIColor blackColor];
             workPlaceLable.backgroundColor = [UIColor clearColor];
-            workPlaceLable.text = @"该护士未选定医院";
+//            workPlaceLable.text = @"该护士未选定医院";
             [cell addSubview:workPlaceLable];
             break;
         }
@@ -345,7 +406,7 @@
             officeLable.textAlignment = NSTextAlignmentRight;
             officeLable.textColor = [UIColor blackColor];
             officeLable.backgroundColor = [UIColor clearColor];
-            officeLable.text = @"该护士未选定专业";
+//            officeLable.text = @"该护士未选定专业";
             [cell addSubview:officeLable];
             break;
         }
@@ -362,7 +423,7 @@
             CGFloat fieldX = SCREENWIDTH-230;
             CGFloat fieldW = 200;
             
-            UILabel *professionNameLable = [[UILabel alloc] initWithFrame:CGRectMake(fieldX, 0, fieldW, cellSize.height)];
+            professionNameLable = [[UILabel alloc] initWithFrame:CGRectMake(fieldX, 0, fieldW, cellSize.height)];
             professionNameLable.font = [UIFont systemFontOfSize:15.0];
             professionNameLable.textAlignment = NSTextAlignmentRight;
             professionNameLable.textColor = [UIColor blackColor];
@@ -384,7 +445,7 @@
             CGFloat fieldX = SCREENWIDTH-230;
             CGFloat fieldW = 200;
             
-            UILabel *professionYearsL = [[UILabel alloc] initWithFrame:CGRectMake(fieldX, 0, fieldW, cellSize.height)];
+            professionYearsL = [[UILabel alloc] initWithFrame:CGRectMake(fieldX, 0, fieldW, cellSize.height)];
             professionYearsL.font = [UIFont systemFontOfSize:15.0];
             professionYearsL.textAlignment = NSTextAlignmentRight;
             professionYearsL.textColor = [UIColor blackColor];
@@ -488,7 +549,7 @@
             [cell addSubview:photoImageView];
             photoImageView.userInteractionEnabled = YES;
             photoImageView.backgroundColor = [UIColor clearColor];
-            photoImageView.image = [UIImage imageNamed:@"icon_idcard_hand"];
+            photoImageView.image = [UIImage imageNamed:@"icon_add_photo_violet"];
             
             UITapGestureRecognizer *clickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loadProfessionPhotoAction)];
             [photoImageView addGestureRecognizer:clickTap];
@@ -511,7 +572,7 @@
             [cell addSubview:idCardFrontImageView];
             idCardFrontImageView.userInteractionEnabled = YES;
             idCardFrontImageView.backgroundColor = [UIColor clearColor];
-            idCardFrontImageView.image = [UIImage imageNamed:@"icon_idcard1"];
+            idCardFrontImageView.image = [UIImage imageNamed:@"icon_add_photo_violet"];
             
             UITapGestureRecognizer *clickTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loadPowerPhotoAction)];
             [idCardFrontImageView addGestureRecognizer:clickTap1];
@@ -531,7 +592,7 @@
             [cell addSubview:idCardDownImageView];
             idCardDownImageView.userInteractionEnabled = YES;
             idCardDownImageView.backgroundColor = [UIColor clearColor];
-            idCardDownImageView.image = [UIImage imageNamed:@"icon_idcard2"];
+            idCardDownImageView.image = [UIImage imageNamed:@"icon_add_photo_violet"];
             
             UITapGestureRecognizer *clickTap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loadProfeesionNamePhotoAction)];
             [idCardDownImageView addGestureRecognizer:clickTap2];
@@ -1099,113 +1160,181 @@
         [self closeWindowView];
         [officeLable setText:nurseOfficeArr[row]];
         return;
+    }else if (tableView.tag == 503){
+        
+        [postDic setValue:nurseInfoArr[row] forKey:@"nurseYearsofservice"];
+        [tableView reloadData];
+        [professionYearsL setText:nurseInfoArr[row]];
+        return;
+    }else if (tableView.tag == 504){
+        
+        [postDic setValue:nursejobArr[row] forKey:@"Nursejob"];
+        [tableView reloadData];
+        [professionNameLable setText:nursejobArr[row]];
+        return;
     }
     NSLog(@"row = %ld, section = %ld",row,section);
-    if (isShowLanguage) {
-        switch (row) {
-            case 0:
-            {
-            }
-                break;
-            case 1:
-            {
-            }
-                break;
-            case 2:
-            {
-                [self showWorkAlertView];
-            }
-                break;
-            case 3:
-            {
-                if (![[NSString stringWithFormat:@"%@",[postDic objectForKey:@"NurseworkuUnit"]] isEqualToString:@""]) {
-                    [self showOfficeAlertView];
-                }else{
-                    [self.view makeToast:@"请先选择工作单位" duration:1.2 position:@"center"];
-                }
-            }
-                break;
-            case 4:
-            {
-            }
-                break;
-            case 5:
-            {
-                [self showServiceAlertView];
-            }
-                break;
-            case 6:
-            {
-                [self showNurseNoteAlertView];
-            }
-                break;
-            case 7:
-            {
-            }
-                break;
-            case 8:
-            {
-                [self postProfessionInfo];
-                
-            }
-                break;
-                
-            default:
-                break;
+    switch (row) {
+        case 0:
+        {
+            [self showWorkAlertView];
         }
-    }else{
-        
-        switch (row) {
-            case 0:
-            {
+            break;
+        case 1:
+        {
+            if (![[NSString stringWithFormat:@"%@",[postDic objectForKey:@"NurseworkuUnit"]] isEqualToString:@""]) {
+                [self showOfficeAlertView];
+            }else{
+                [self.view makeToast:@"请先选择工作单位" duration:1.2 position:@"center"];
             }
-                break;
-            case 1:
-            {
-                [self showWorkAlertView];
-            }
-                break;
-            case 2:
-            {
-                if (![[NSString stringWithFormat:@"%@",[postDic objectForKey:@"NurseworkuUnit"]] isEqualToString:@""]) {
-                    [self showOfficeAlertView];
-                }else{
-                    [self.view makeToast:@"请先选择工作单位" duration:1.2 position:@"center"];
-                }
-            }
-                break;
-            case 3:
-            {
-            }
-                break;
-            case 4:
-            {
-                [self showServiceAlertView];
-            }
-                break;
-            case 5:
-            {
-                [self showNurseNoteAlertView];
-            }
-                break;
-            case 6:
-            {
-            }
-                break;
-            case 7:
-            {
-                [self postProfessionInfo];
-            }
-                break;
-            case 8:
-            {
-            }
-                break;
-                
-            default:
-                break;
         }
+            break;
+        case 2:
+        {
+            [self ShowNurserJobAlertView];
+        }
+            break;
+        case 3:
+        {
+            [self ShowNurserInfo];
+        }
+            break;
+        case 4:
+        {
+            [self showServiceAlertView];
+        }
+            break;
+        case 5:
+        {
+            [self showNurseNoteAlertView];
+        }
+            break;
+        case 6:
+        {
+//            [self showNurseNoteAlertView];
+        }
+            break;
+        case 7:
+        {
+        }
+            break;
+        case 8:
+        {
+            [self postProfessionInfo];
+            
+        }
+            break;
+            
+        default:
+            break;
     }
+    
+//    if (isShowLanguage) {
+//        switch (row) {
+//            case 0:
+//            {
+//                [self showWorkAlertView];
+//            }
+//                break;
+//            case 1:
+//            {
+//                if (![[NSString stringWithFormat:@"%@",[postDic objectForKey:@"NurseworkuUnit"]] isEqualToString:@""]) {
+//                    [self showOfficeAlertView];
+//                }else{
+//                    [self.view makeToast:@"请先选择工作单位" duration:1.2 position:@"center"];
+//                }
+//            }
+//                break;
+//            case 2:
+//            {
+//            }
+//                break;
+//            case 3:
+//            {
+//                
+//            }
+//                break;
+//            case 4:
+//            {
+//            }
+//                break;
+//            case 5:
+//            {
+//                [self showServiceAlertView];
+//            }
+//                break;
+//            case 6:
+//            {
+//                [self showNurseNoteAlertView];
+//            }
+//                break;
+//            case 7:
+//            {
+//            }
+//                break;
+//            case 8:
+//            {
+//                [self postProfessionInfo];
+//                
+//            }
+//                break;
+//                
+//            default:
+//                break;
+//        }
+//    }else{
+    
+//        switch (row) {
+//            case 0:
+//            {
+//            }
+//                break;
+//            case 1:
+//            {
+//                [self showWorkAlertView];
+//            }
+//                break;
+//            case 2:
+//            {
+//                if (![[NSString stringWithFormat:@"%@",[postDic objectForKey:@"NurseworkuUnit"]] isEqualToString:@""]) {
+//                    [self showOfficeAlertView];
+//                }else{
+//                    [self.view makeToast:@"请先选择工作单位" duration:1.2 position:@"center"];
+//                }
+//            }
+//                break;
+//            case 3:
+//            {
+//            }
+//                break;
+//            case 4:
+//            {
+//                [self showServiceAlertView];
+//            }
+//                break;
+//            case 5:
+//            {
+//                [self showNurseNoteAlertView];
+//            }
+//                break;
+//            case 6:
+//            {
+//            }
+//                break;
+//            case 7:
+//            {
+//                [self postProfessionInfo];
+//            }
+//                break;
+//            case 8:
+//            {
+//            }
+//                break;
+//                
+//            default:
+//                break;
+//        }
+//    }
 }
 
 - (void)postProfessionInfo{
@@ -1218,29 +1347,60 @@
         return;
     }
     
-    NSString *nurseNumber = nurseNumberField.text;
     NSString *nurseLicensepic = [NSString stringWithFormat:@"%@,%@,%@",[postDic valueForKey:@"NurseNurseLicensepic"],[postDic valueForKey:@"NurseNurseLicensepic1"],[postDic valueForKey:@"NurseNurseLicensepic2"]];
     
     NSString *NurseworkuUnit = [postDic objectForKey:@"NurseworkuUnit"];
-    if (!NurseworkuUnit) {
+    if (!NurseworkuUnit || [NurseworkuUnit isEqualToString:@""]) {
         NurseworkuUnit = @"";
+        [self showAlertView];
+        return;
     }
     NSString *NurseOffice = [postDic objectForKey:@"NurseOffice"];
-    if (!NurseOffice) {
+    if (!NurseOffice || [NurseOffice isEqualToString:@""]) {
         NurseOffice = @"";
+        [self showAlertView];
+        return;
     }
-    NSString *NurseLanguage = [postDic objectForKey:@"NurseLanguage"];
-    if (!NurseLanguage) {
-        NurseLanguage = @"";
+    NSString *Nursejob = [postDic objectForKey:@"Nursejob"];
+    if (!Nursejob || [Nursejob isEqualToString:@""]) {
+        Nursejob = @"";
+        [self showAlertView];
+        return;
     }
-    NSString *NurseNote = [postDic objectForKey:@"NurseNote"];
-    if (!NurseNote) {
-        NurseNote = @"";
+    NSString *nurseYearsofservice = [postDic objectForKey:@"nurseYearsofservice"];
+    if (!nurseYearsofservice || [nurseYearsofservice isEqualToString:@""]) {
+        nurseYearsofservice = @"";
+        [self showAlertView];
+        return;
     }
     NSString *NurseGoodservice = [postDic objectForKey:@"NurseGoodservice"];
-    if (!NurseGoodservice) {
+    if (!NurseGoodservice || [NurseGoodservice isEqualToString:@""]) {
         NurseGoodservice = @"";
+        [self showAlertView];
+        return;
     }
+
+    NSString *NurseNote = [postDic objectForKey:@"NurseNote"];
+    if (!NurseNote || [NurseNote isEqualToString:@""]) {
+        NurseNote = @"";
+        [self showAlertView];
+        return;
+    }
+
+    NSString *nurseNumber = nurseNumberField.text;
+    if (!nurseNumber || [nurseNumber isEqualToString:@""]) {
+        nurseNumber = @"";
+        [self showAlertView];
+        return;
+    }
+//        NSString *NurseLanguage = [postDic objectForKey:@"NurseLanguage"];
+//        if (!NurseLanguage) {
+//            NurseLanguage = @"";
+//        }
+
+    
+    
+    
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     NSDictionary * params  = @{@"NurseId" : userAccount,
                                @"NurseHeader" : [basicInfo valueForKey:@"NurseHeader"],
@@ -1253,13 +1413,14 @@
                                
                                @"NurseworkuUnit" : NurseworkuUnit,
                                @"NurseOffice" : NurseOffice,
-                               @"Nursejob" : @"",  //职称
+                               @"Nursejob" : Nursejob,  //职称
                                @"NurseNumber" : nurseNumber,
-                               @"Nurseyearsofservice" : @"",  //职业年限
+                               @"Nurseyearsofservice" : nurseYearsofservice,  //职业年限
+                               @"NurseGoodservice" : NurseGoodservice,
                                @"NurseNote" : NurseNote,
                                @"NurseNurseLicensepic" : nurseLicensepic
 //                               @"NurseLanguage" : NurseLanguage,
-//                               @"NurseGoodservice" : NurseGoodservice,
+//
                                };
     [self showHudInView:self.view hint:@"提交中..."];
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:NURSEINFOIDENTIFY params:params success:^(AFHTTPRequestOperation* operation,id response){
@@ -1514,7 +1675,7 @@
     nurseNoteText = [[UITextView alloc] initWithFrame:CGRectMake(10, addTextField_Y, addTextField_W, addTextField_H)];
     [nurseNoteText setBackgroundColor:[UIColor clearColor]];
     [addBgView addSubview:nurseNoteText];
-    nurseNoteText.text = @"1111";
+    nurseNoteText.text = @"个人优势";
     nurseNoteText.font = [UIFont systemFontOfSize:12.0];
     nurseNoteText.textColor = [UIColor blackColor];
     
@@ -1847,6 +2008,128 @@
     okBt.tag = 0;
     [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
     [addBgView addSubview:okBt];
+}
+
+
+- (void)ShowNurserInfo{
+    //serviceArr
+    windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
+    windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
+    [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
+    
+    
+    NSInteger addBgView_W = SCREENWIDTH -20;
+    NSInteger addBgView_H = 44*nurseInfoArr.count+100;
+    NSInteger addBgView_Y = (SCREENHEIGH-addBgView_H)/2.0;//SCREENHEIGH/2.0-addBgView_H/2.0-40;
+    UIView *addBgView = [[UIView alloc] initWithFrame:CGRectMake(10, addBgView_Y, addBgView_W, addBgView_H)];
+    addBgView.backgroundColor = [UIColor whiteColor];
+    [addBgView.layer setMasksToBounds:YES];
+    [addBgView.layer setCornerRadius:4];
+    addBgView.alpha = 1.0;
+    [windowView addSubview:addBgView];
+    
+    NSInteger titleH = 44;
+    NSInteger titleY = 5;
+    
+    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, titleY, 200, titleH)];
+    titleL.textColor = [UIColor blackColor];
+    titleL.textAlignment = NSTextAlignmentLeft;
+    titleL.font = [UIFont systemFontOfSize:18.0];
+    titleL.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:titleL];
+    titleL.text = @"请选择医护信息";
+    
+    titleY = 50;
+    titleH = 44*nurseInfoArr.count;
+    UITableView *tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, titleY, addBgView_W, titleH) style:UITableViewStylePlain];
+    tableview.tag = 503;
+    tableview.delegate = self;
+    tableview.dataSource = self;
+    [addBgView addSubview:tableview];
+    tableview.backgroundView = nil;
+    tableview.backgroundColor = [UIColor whiteColor];
+    [Tool setExtraCellLineHidden:tableview];
+    tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    NSInteger cancleBt_X = addBgView_W-60;
+    NSInteger cancleBt_Y = CGRectGetMaxY(tableview.frame)+10;
+    NSInteger cancleBt_W = 40;
+    NSInteger cancleBt_H = 20;
+    
+    UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [okBt setTitle:@"确定" forState:UIControlStateNormal];
+    okBt.backgroundColor = [UIColor clearColor];
+    okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    okBt.tag = 0;
+    [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:okBt];
+    
+}
+
+- (void)ShowNurserJobAlertView{
+    //serviceArr
+    windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
+    windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
+    [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
+    
+    
+    NSInteger addBgView_W = SCREENWIDTH -20;
+    NSInteger addBgView_H = 44*nurseInfoArr.count+100;
+    NSInteger addBgView_Y = (SCREENHEIGH-addBgView_H)/2.0;//SCREENHEIGH/2.0-addBgView_H/2.0-40;
+    UIView *addBgView = [[UIView alloc] initWithFrame:CGRectMake(10, addBgView_Y, addBgView_W, addBgView_H)];
+    addBgView.backgroundColor = [UIColor whiteColor];
+    [addBgView.layer setMasksToBounds:YES];
+    [addBgView.layer setCornerRadius:4];
+    addBgView.alpha = 1.0;
+    [windowView addSubview:addBgView];
+    
+    NSInteger titleH = 44;
+    NSInteger titleY = 5;
+    
+    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, titleY, 200, titleH)];
+    titleL.textColor = [UIColor blackColor];
+    titleL.textAlignment = NSTextAlignmentLeft;
+    titleL.font = [UIFont systemFontOfSize:18.0];
+    titleL.backgroundColor = [UIColor clearColor];
+    [addBgView addSubview:titleL];
+    titleL.text = @"请选择职称";
+    
+    titleY = 50;
+    titleH = 44*nursejobArr.count;
+    UITableView *tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, titleY, addBgView_W, titleH) style:UITableViewStylePlain];
+    tableview.tag = 504;
+    tableview.delegate = self;
+    tableview.dataSource = self;
+    [addBgView addSubview:tableview];
+    tableview.backgroundView = nil;
+    tableview.backgroundColor = [UIColor whiteColor];
+    [Tool setExtraCellLineHidden:tableview];
+    tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    NSInteger cancleBt_X = addBgView_W-60;
+    NSInteger cancleBt_Y = CGRectGetMaxY(tableview.frame)+10;
+    NSInteger cancleBt_W = 40;
+    NSInteger cancleBt_H = 20;
+    
+    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X-60, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
+    cancleBt.backgroundColor = [UIColor clearColor];
+    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    cancleBt.tag = 0;
+    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:cancleBt];
+    
+    UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [okBt setTitle:@"确定" forState:UIControlStateNormal];
+    okBt.backgroundColor = [UIColor clearColor];
+    okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    okBt.tag = 0;
+    [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:okBt];
+    
 }
 
 - (void)didReceiveMemoryWarning {
