@@ -201,7 +201,7 @@
                         <constraint firstAttribute="width" constant="109" id="yyb-uL-UaS"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                    <state key="normal" title="《护士上门用户协》">
+                    <state key="normal" title="《安心护免责条款》">
                         <color key="titleColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>

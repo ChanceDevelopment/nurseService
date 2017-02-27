@@ -167,7 +167,7 @@
 //    }
     
     if (agreeButton.selected == NO) {
-        [self showHint:@"请阅读《护士上门用户协议》"]; //安心护免责条款
+        [self showHint:@"请阅读《安心护免责条款》"]; //安心护免责条款
         return;
     }
     

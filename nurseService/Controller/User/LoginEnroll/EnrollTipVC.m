@@ -25,9 +25,9 @@
         label.textColor = APPDEFAULTTITLECOLOR;
         label.textAlignment = NSTextAlignmentCenter;
         self.navigationItem.titleView = label;
-        label.text = @"《护士上门用户协》";
+        label.text = @"安心护医户服务协议";
         [label sizeToFit];
-        self.title = @"《护士上门用户协》";
+        self.title = @"安心护医户服务协议";
         
     }
     return self;
