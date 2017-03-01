@@ -1434,7 +1434,6 @@
                                @"NurseAge" : @"1",
                                @"NurseCard" : [basicInfo valueForKey:@"NurseCard"],
                                @"NurseCardpic" : [NSString stringWithFormat:@"%@,%@,%@",[basicInfo valueForKey:@"NurseCardpic1"],[basicInfo valueForKey:@"NurseCardpic2"],[basicInfo valueForKey:@"NurseCardpic3"]],
-                               
                                @"NurseworkuUnit" : NurseworkuUnit,
                                @"NurseOffice" : NurseOffice,
                                @"Nursejob" : Nursejob,  //职称
