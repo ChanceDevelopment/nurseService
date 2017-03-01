@@ -24,8 +24,8 @@
 //------------------------------
 
 #define PIC_URL @"http://118.178.186.59:8080/"
-//#define API_URL @"http://118.178.186.59:8080/nurseDoor/"
-#define API_URL @"http://118.178.186.59:8080/nurseDoorText/"
+#define API_URL @"http://118.178.186.59:8080/nurseDoor/"
+//#define API_URL @"http://118.178.186.59:8080/nurseDoorText/"
 
 //登录
 #define LOGINURL @"nurseAnduser/NurseLogin.action"
