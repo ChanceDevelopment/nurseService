@@ -9,7 +9,7 @@
 #import "BasicInfoVC.h"
 #import "HeBaseTableViewCell.h"
 #import "ProfessionInfoVC.h"
-@interface BasicInfoVC ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface BasicInfoVC ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate>
 {
     NSArray *statusArray;
     UIImage *userImage;
@@ -93,7 +93,7 @@
 {
     [super initializaiton];
     statusArray = @[@"基本信息",@"专业信息",@"等待审核"];
-    postDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"",@"NurseTruePic",@"1",@"NurseSex",@"",@"NurseCardpic1",@"",@"NurseCardpic2",@"",@"NurseCardpic3", nil];
+    postDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"",@"NurseHeader",@"",@"NurseHeaderImage",@"",@"NurseTruePic",@"",@"NurseTruePicImage",@"1",@"NurseSex",@"",@"NurseCardpic1",@"",@"NurseCardpicImage1",@"",@"NurseCardpic2",@"",@"NurseCardpicImage2",@"",@"NurseCardpic3",@"",@"NurseCardpicImage3",@"",@"nurseTruename",@"",@"NurseCard", nil];
     
     infoDic = [[NSMutableDictionary alloc] initWithCapacity:0];
     isHeadImage = YES;
@@ -382,6 +382,10 @@
             headImageView.backgroundColor = [UIColor grayColor];
             headImageView.image = [UIImage imageNamed:@"icon_add_photo_violet"];
             
+            if (![[postDic objectForKey:@"NurseHeader"] isEqualToString:@""]) {
+                headImageView.image = (UIImage*)[postDic objectForKey:@"NurseHeaderImage"];
+            }
+            
             UITapGestureRecognizer *userClickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userClickImageAction)];
             [headImageView addGestureRecognizer:userClickTap];
             
@@ -404,6 +408,11 @@
             userImageView.image = [UIImage imageNamed:@"icon_add_photo_violet"];
             UITapGestureRecognizer *clickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickHeadImageAction)];
             [userImageView addGestureRecognizer:clickTap];
+            
+            if (![[postDic objectForKey:@"NurseTruePic"] isEqualToString:@""]) {
+                userImageView.image = (UIImage*)[postDic objectForKey:@"NurseTruePicImage"];
+            }
+            
             
             CGFloat tipLabelX = 20+headImageW;
             CGFloat tipLabelY = CGRectGetMaxY(userImageView.frame);
@@ -456,12 +465,15 @@
             nameTextField.font = [UIFont systemFontOfSize:15.0];
             nameTextField.textAlignment = NSTextAlignmentRight;
             nameTextField.textColor = [UIColor blackColor];
+            nameTextField.delegate = self;
             nameTextField.backgroundColor = [UIColor clearColor];
             nameTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
             nameTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
             nameTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
             nameTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+            nameTextField.tag = 100;
             [cell addSubview:nameTextField];
+            nameTextField.text = [postDic valueForKey:@"nurseTruename"];
             break;
         }
 //        case 2:
@@ -533,7 +545,10 @@
             idCardTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
             idCardTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
             idCardTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+            idCardTextField.delegate = self;
+            idCardTextField.tag = 101;
             [cell addSubview:idCardTextField];
+            idCardTextField.text = [postDic valueForKey:@"NurseCard"];
             break;
         }
 //        case 4:
@@ -617,7 +632,10 @@
             idCardImageView.userInteractionEnabled = YES;
             idCardImageView.backgroundColor = [UIColor clearColor];
             idCardImageView.image = [UIImage imageNamed:@"icon_idcard_hand"];
-            
+            if (![[postDic objectForKey:@"NurseCardpic1"] isEqualToString:@""]) {
+                idCardImageView.image = (UIImage*)[postDic objectForKey:@"NurseCardpicImage1"];
+            }
+
             UITapGestureRecognizer *clickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickIdCardAction)];
             [idCardImageView addGestureRecognizer:clickTap];
             
@@ -640,7 +658,9 @@
             idCardFrontImageView.userInteractionEnabled = YES;
             idCardFrontImageView.backgroundColor = [UIColor clearColor];
             idCardFrontImageView.image = [UIImage imageNamed:@"icon_idcard1"];
-            
+            if (![[postDic objectForKey:@"NurseCardpic2"] isEqualToString:@""]) {
+                idCardFrontImageView.image = (UIImage*)[postDic objectForKey:@"NurseCardpicImage2"];
+            }
             UITapGestureRecognizer *clickTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickFrontIdCardAction)];
             [idCardFrontImageView addGestureRecognizer:clickTap1];
             
@@ -660,7 +680,9 @@
             idCardDownImageView.userInteractionEnabled = YES;
             idCardDownImageView.backgroundColor = [UIColor clearColor];
             idCardDownImageView.image = [UIImage imageNamed:@"icon_idcard2"];
-            
+            if (![[postDic objectForKey:@"NurseCardpic3"] isEqualToString:@""]) {
+                idCardDownImageView.image = (UIImage*)[postDic objectForKey:@"NurseCardpicImage3"];
+            }
             UITapGestureRecognizer *clickTap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickDownIdCardAction)];
             [idCardDownImageView addGestureRecognizer:clickTap2];
             
@@ -881,18 +903,23 @@
             if (imageTag == 0) {
                 [postDic setValue:imageStr forKey:@"NurseHeader"];
                 headImageView.image = userImage;
+                [postDic setObject:userImage forKey:@"NurseHeaderImage"];
             }else if(imageTag == 1){
                 [postDic setValue:imageStr forKey:@"NurseTruePic"];
                 userImageView.image = userImage;
+                [postDic setObject:userImage forKey:@"NurseTruePicImage"];
             }else if(imageTag == 2){
                 [postDic setValue:imageStr forKey:@"NurseCardpic1"];
                 idCardImageView.image = userImage;
+                [postDic setObject:userImage forKey:@"NurseCardpicImage1"];
             }else if(imageTag == 3){
                 [postDic setValue:imageStr forKey:@"NurseCardpic2"];
                 idCardFrontImageView.image = userImage;
+                [postDic setObject:userImage forKey:@"NurseCardpicImage2"];
             }else if(imageTag == 4){
                 [postDic setValue:imageStr forKey:@"NurseCardpic3"];
                 idCardDownImageView.image = userImage;
+                [postDic setObject:userImage forKey:@"NurseCardpicImage3"];
             }
         }];
     }
@@ -948,29 +975,25 @@
 
 - (void)goToProfessionInfoVC{
     
-//    NSString *nurseTruename = nameTextField.text;
-//    NSString *nurseCard = idCardTextField.text;
-//    
-//    if (nurseTruename.length <= 0 ||
-//        nurseCard.length <= 0 ||
-//        [[postDic valueForKey:@"NurseHeader"] isEqualToString:@""] ||
-//        [[postDic valueForKey:@"NurseTruePic"] isEqualToString:@""] ||
-//        [[postDic valueForKey:@"NurseCardpic1"] isEqualToString:@""] ||
-//        [[postDic valueForKey:@"NurseCardpic2"] isEqualToString:@""] ||
-//        [[postDic valueForKey:@"NurseCardpic3"] isEqualToString:@""]) {
-//        
-//        [self showAlertView];
-//        return;
-//    }
-//    if (nurseCard.length > 0) {
-//        if (![Tool IsIdentityCard:nurseCard]) {
-//            [self showHint:@"请输入正确的身份证号"];
-//            return;
-//        }
-//    }
-//    
-//    [postDic setValue:nurseTruename forKey:@"nurseTruename"];
-//    [postDic setValue:nurseCard forKey:@"NurseCard"];
+    if ([[postDic valueForKey:@"nurseTruename"] isEqualToString:@""] ||
+        [[postDic valueForKey:@"NurseCard"] isEqualToString:@""] ||
+        [[postDic valueForKey:@"NurseHeader"] isEqualToString:@""] ||
+        [[postDic valueForKey:@"NurseTruePic"] isEqualToString:@""] ||
+        [[postDic valueForKey:@"NurseCardpic1"] isEqualToString:@""] ||
+        [[postDic valueForKey:@"NurseCardpic2"] isEqualToString:@""] ||
+        [[postDic valueForKey:@"NurseCardpic3"] isEqualToString:@""]) {
+        
+        [self showAlertView];
+        return;
+    }
+    if (![[postDic valueForKey:@"NurseCard"] isEqualToString:@""]) {
+        if (![Tool IsIdentityCard:[postDic valueForKey:@"NurseCard"]]) {
+            [self showHint:@"请输入正确的身份证号"];
+            return;
+        }
+    }
+    
+
 
     ProfessionInfoVC *professionInfoVC = [[ProfessionInfoVC alloc] init];
     professionInfoVC.hidesBottomBarWhenPushed = YES;
@@ -1039,6 +1062,35 @@
     [addBgView addSubview:okBt];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if ([textField isFocused]) {
+        [textField resignFirstResponder];
+    }
+    [self updateWithTextField:textField];
+    return YES;
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    NSLog(@"textField.text:%@",textField.text);
+    [self updateWithTextField:textField];
+}
+
+- (void)updateWithTextField:(UITextField *)textField
+{
+    NSString *temp = textField.text;
+    switch (textField.tag) {
+        case 100:
+            [postDic setObject:temp forKey:@"nurseTruename"];
+            break;
+        case 101:
+            [postDic setObject:temp forKey:@"NurseCard"];
+            break;
+            
+        default:
+            break;
+    }
+
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

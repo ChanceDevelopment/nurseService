@@ -10,7 +10,7 @@
 #import "HeBaseTableViewCell.h"
 #import "ServiceListVC.h"
 
-@interface ProfessionInfoVC ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface ProfessionInfoVC ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 {
     NSArray *statusArray;
     BOOL isShowLanguage;
@@ -114,7 +114,7 @@
     nurseInfoArr = @[@"1年内",@"1-3年",@"3-5年",@"5-10年",@"10年以上"];
     nursejobArr = @[@"初级护士",@"初级护师",@"中级主管护师",@"副主任护师",@"主任护师"];
     isShowLanguage = NO;
-    postDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"",@"NurseLanguage",@"",@"NurseGoodservice",@"",@"NurseNote",@"",@"NurseworkuUnit", nil];
+    postDic = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"",@"NurseLanguage",@"",@"NurseGoodservice",@"",@"NurseNote",@"",@"NurseworkuUnit",@"",@"NurseOffice",@"",@"Nursejob",@"",@"nurseYearsofservice",@"",@"NurseNumber",@"",@"NurseNurseLicensepic",@"",@"NurseNurseLicensepicImage",@"",@"NurseNurseLicensepic1",@"",@"NurseNurseLicensepicImage1",@"",@"NurseNurseLicensepic2",@"",@"NurseNurseLicensepicImage2", nil];
     languageDic = [[NSMutableDictionary alloc] initWithCapacity:0];
     workUnitArr = [[NSMutableArray alloc] initWithCapacity:0];  //所有医院
     nurseOfficeArr = [[NSMutableArray alloc] initWithCapacity:0];
@@ -388,7 +388,7 @@
             workPlaceLable.textAlignment = NSTextAlignmentRight;
             workPlaceLable.textColor = [UIColor blackColor];
             workPlaceLable.backgroundColor = [UIColor clearColor];
-//            workPlaceLable.text = @"该护士未选定医院";
+            workPlaceLable.text = [postDic valueForKey:@"NurseworkuUnit"];
             [cell addSubview:workPlaceLable];
             break;
         }
@@ -411,7 +411,7 @@
             officeLable.textAlignment = NSTextAlignmentRight;
             officeLable.textColor = [UIColor blackColor];
             officeLable.backgroundColor = [UIColor clearColor];
-//            officeLable.text = @"该护士未选定专业";
+            officeLable.text = [postDic valueForKey:@"NurseOffice"];
             [cell addSubview:officeLable];
             break;
         }
@@ -434,6 +434,8 @@
             professionNameLable.textColor = [UIColor blackColor];
             professionNameLable.backgroundColor = [UIColor clearColor];
             [cell addSubview:professionNameLable];
+            professionNameLable.text = [postDic valueForKey:@"Nursejob"];
+
             break;
         }
         case 3:
@@ -456,6 +458,8 @@
             professionYearsL.textColor = [UIColor blackColor];
             professionYearsL.backgroundColor = [UIColor clearColor];
             [cell addSubview:professionYearsL];
+            professionYearsL.text = [postDic valueForKey:@"nurseYearsofservice"];
+
             break;
         }
         case 4:
@@ -531,7 +535,9 @@
             nurseNumberField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
             nurseNumberField.clearButtonMode = UITextFieldViewModeWhileEditing;
             [cell addSubview:nurseNumberField];
-            
+            nurseNumberField.tag = 100;
+            nurseNumberField.delegate = self;
+            nurseNumberField.text = [postDic objectForKey:@"NurseNumber"];
             break;
         }
         case 7:
@@ -555,7 +561,9 @@
             photoImageView.userInteractionEnabled = YES;
             photoImageView.backgroundColor = [UIColor clearColor];
             photoImageView.image = [UIImage imageNamed:@"icon_add_photo_violet"];
-            
+            if ([postDic objectForKey:@"NurseNurseLicensepic"] && ![[postDic objectForKey:@"NurseNurseLicensepic"] isEqualToString:@""]) {
+                photoImageView.image = (UIImage *)[postDic objectForKey:@"NurseNurseLicensepicImage"];
+            }
             UITapGestureRecognizer *clickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loadProfessionPhotoAction)];
             [photoImageView addGestureRecognizer:clickTap];
             
@@ -578,7 +586,9 @@
             idCardFrontImageView.userInteractionEnabled = YES;
             idCardFrontImageView.backgroundColor = [UIColor clearColor];
             idCardFrontImageView.image = [UIImage imageNamed:@"icon_add_photo_violet"];
-            
+            if ([postDic objectForKey:@"NurseNurseLicensepic1"] && ![[postDic objectForKey:@"NurseNurseLicensepic1"] isEqualToString:@""]) {
+                idCardFrontImageView.image = (UIImage *)[postDic objectForKey:@"NurseNurseLicensepicImage1"];
+            }
             UITapGestureRecognizer *clickTap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loadPowerPhotoAction)];
             [idCardFrontImageView addGestureRecognizer:clickTap1];
             
@@ -598,7 +608,9 @@
             idCardDownImageView.userInteractionEnabled = YES;
             idCardDownImageView.backgroundColor = [UIColor clearColor];
             idCardDownImageView.image = [UIImage imageNamed:@"icon_add_photo_violet"];
-            
+            if ([postDic objectForKey:@"NurseNurseLicensepic2"] && ![[postDic objectForKey:@"NurseNurseLicensepic2"] isEqualToString:@""]) {
+                idCardDownImageView.image = (UIImage *)[postDic objectForKey:@"NurseNurseLicensepicImage2"];
+            }
             UITapGestureRecognizer *clickTap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(loadProfeesionNamePhotoAction)];
             [idCardDownImageView addGestureRecognizer:clickTap2];
             
@@ -1418,8 +1430,8 @@
                                @"NurseHeader" : [basicInfo valueForKey:@"NurseHeader"],
                                @"NurseTruePic" : [basicInfo valueForKey:@"NurseTruePic"],
                                @"nurseTruename" : [basicInfo valueForKey:@"nurseTruename"],
-                               @"NurseSex" : @"",
-                               @"NurseAge" : @"",
+                               @"NurseSex" : @"1",
+                               @"NurseAge" : @"1",
                                @"NurseCard" : [basicInfo valueForKey:@"NurseCard"],
                                @"NurseCardpic" : [NSString stringWithFormat:@"%@,%@,%@",[basicInfo valueForKey:@"NurseCardpic1"],[basicInfo valueForKey:@"NurseCardpic2"],[basicInfo valueForKey:@"NurseCardpic3"]],
                                
@@ -1434,6 +1446,7 @@
 //                               @"NurseLanguage" : NurseLanguage,
 //
                                };
+    NSLog(@"params:%@",params);
     [self showHudInView:self.view hint:@"提交中..."];
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:NURSEINFOIDENTIFY params:params success:^(AFHTTPRequestOperation* operation,id response){
         [self hideHud];
@@ -1593,12 +1606,17 @@
             if (imageTag == 0) {
                 photoImageView.image = photoImage;
                 [postDic setValue:photoImageStr forKey:@"NurseNurseLicensepic"];
+                [postDic setObject:photoImage forKey:@"NurseNurseLicensepicImage"];
             }else if(imageTag == 1){
                 [postDic setValue:photoImageStr forKey:@"NurseNurseLicensepic1"];
                 idCardFrontImageView.image = photoImage;
+                [postDic setObject:photoImage forKey:@"NurseNurseLicensepicImage1"];
+
             }else if(imageTag == 2){
                 [postDic setValue:photoImageStr forKey:@"NurseNurseLicensepic2"];
                 idCardDownImageView.image = photoImage;
+                [postDic setObject:photoImage forKey:@"NurseNurseLicensepicImage2"];
+
             }
         }];
     }
@@ -1687,11 +1705,15 @@
     nurseNoteText = [[UITextView alloc] initWithFrame:CGRectMake(10, addTextField_Y, addTextField_W, addTextField_H)];
     [nurseNoteText setBackgroundColor:[UIColor clearColor]];
     [addBgView addSubview:nurseNoteText];
-    nurseNoteText.text = @"个人优势";
+    
     nurseNoteText.font = [UIFont systemFontOfSize:12.0];
     nurseNoteText.textColor = [UIColor blackColor];
-    
-    
+    if ([postDic objectForKey:@"NurseNote"] && ![[postDic objectForKey:@"NurseNote"] isEqualToString:@""]) {
+        nurseNoteText.text = [postDic objectForKey:@"NurseNote"];
+    }else{
+        nurseNoteText.text = @"个人优势";
+    }
+
     NSInteger cancleBt_X = SCREENWIDTH-20-10-90;
     NSInteger cancleBt_Y = CGRectGetMaxY(nurseNoteText.frame)+5;
     NSInteger cancleBt_W = 40;
@@ -2175,6 +2197,33 @@
     okBt.tag = 0;
     [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
     [addBgView addSubview:okBt];
+    
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if ([textField isFocused]) {
+        [textField resignFirstResponder];
+    }
+    [self updateWithTextField:textField];
+    return YES;
+}
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    NSLog(@"textField.text:%@",textField.text);
+    [self updateWithTextField:textField];
+}
+
+- (void)updateWithTextField:(UITextField *)textField
+{
+    NSString *temp = textField.text;
+    switch (textField.tag) {
+        case 100:
+            [postDic setObject:temp forKey:@"NurseNumber"];
+            break;
+        
+        default:
+            break;
+    }
     
 }
 
