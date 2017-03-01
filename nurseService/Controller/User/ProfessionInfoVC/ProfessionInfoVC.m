@@ -1355,12 +1355,15 @@
         [self showAlertView];
         return;
     }
+    NurseworkuUnit = [nurseOfficeDic valueForKey:NurseworkuUnit];
+    
     NSString *NurseOffice = [postDic objectForKey:@"NurseOffice"];
     if (!NurseOffice || [NurseOffice isEqualToString:@""]) {
         NurseOffice = @"";
         [self showAlertView];
         return;
     }
+    
     NSString *Nursejob = [postDic objectForKey:@"Nursejob"];
     if (!Nursejob || [Nursejob isEqualToString:@""]) {
         Nursejob = @"";
@@ -1938,6 +1941,8 @@
                 [nurseOfficeDic setObject:hospitalArr forKey:[nurseDic objectForKey:@"hospitalName"]];
                 
             }
+            [workUnitArr addObject:@"其他医院"];
+            [nurseOfficeDic setObject:@[@"其他"] forKey:@"其他医院"];
             NSLog(@"success");
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
