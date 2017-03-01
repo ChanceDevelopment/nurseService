@@ -31,7 +31,10 @@
     NSMutableArray *serviceArr;
     NSMutableDictionary *serviceIdDic;
     NSMutableArray *serviceSelectArr;
-    
+    NSMutableDictionary *nurseOfficeIdDic;
+    NSMutableDictionary *hospitalIdDic;
+
+
     
     UITextField *nurseNumberField;
     UILabel *professionNameLable;
@@ -100,6 +103,7 @@
     [self initView];
     [self getAllServiceInfo];
     [self getAllHospitalAndMajorData];
+    [self getAllMajorData];
 }
 
 - (void)initializaiton
@@ -115,7 +119,8 @@
     workUnitArr = [[NSMutableArray alloc] initWithCapacity:0];  //所有医院
     nurseOfficeArr = [[NSMutableArray alloc] initWithCapacity:0];
     nurseOfficeDic = [[NSMutableDictionary alloc] initWithCapacity:0];
-
+    nurseOfficeIdDic = [[NSMutableDictionary alloc] initWithCapacity:0];
+    hospitalIdDic = [[NSMutableDictionary alloc] initWithCapacity:0];
     serviceIdDic = [[NSMutableDictionary alloc] initWithCapacity:0];  //可提供服务
     serviceArr = [[NSMutableArray alloc] initWithCapacity:0];  //可提供服务
     serviceSelectArr = [[NSMutableArray alloc] initWithCapacity:0];
@@ -1149,7 +1154,6 @@
             [nurseOfficeArr removeAllObjects];
         }
         [nurseOfficeArr addObjectsFromArray:[nurseOfficeDic objectForKey:workUnitArr[row]]];
-        
         [self closeWindowView];
         [workPlaceLable setText:workUnitArr[row]];
         return;
@@ -1355,13 +1359,18 @@
         [self showAlertView];
         return;
     }
-    NurseworkuUnit = [nurseOfficeDic valueForKey:NurseworkuUnit];
+    NurseworkuUnit = [hospitalIdDic valueForKey:NurseworkuUnit];
     
     NSString *NurseOffice = [postDic objectForKey:@"NurseOffice"];
     if (!NurseOffice || [NurseOffice isEqualToString:@""]) {
         NurseOffice = @"";
         [self showAlertView];
         return;
+    }
+    for (NSString *nameKey in [nurseOfficeIdDic allKeys]) {
+        if ([nameKey isEqualToString:NurseOffice]) {
+            NurseOffice = [nurseOfficeIdDic objectForKey:NurseOffice];
+        }
     }
     
     NSString *Nursejob = [postDic objectForKey:@"Nursejob"];
@@ -1932,6 +1941,7 @@
                     }
                 }
                 [workUnitArr addObject:[nurseDic objectForKey:@"hospitalName"]];
+                [hospitalIdDic setObject:[nurseDic objectForKey:@"hospitalId"] forKey:[nurseDic objectForKey:@"hospitalName"]];
                 
                 NSMutableArray *tempMaj = [NSMutableArray arrayWithArray:[[nurseDic objectForKey:@"maj"] objectFromJSONString]];
                 NSMutableArray *hospitalArr = [[NSMutableArray alloc] initWithCapacity:0];
@@ -1943,6 +1953,37 @@
             }
             [workUnitArr addObject:@"其他医院"];
             [nurseOfficeDic setObject:@[@"其他"] forKey:@"其他医院"];
+            [hospitalIdDic setObject:@"其他医院" forKey:@"其他医院"];
+            NSLog(@"success");
+        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+            NSLog(@"faile");
+        }
+        
+    } failure:^(NSError* err){
+        NSLog(@"err:%@",err);
+        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+    }];
+}
+
+//4.9.1查询所有专业(专业认证用)
+- (void)getAllMajorData{
+    //simpleMajorId  simpleMajorName
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:@"nurseAnduser/selectAllMajor.action" params:nil success:^(AFHTTPRequestOperation* operation,id response){
+        
+        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+        respondString = [Tool deleteErrorStringInString:respondString];
+        
+        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            
+            NSArray *temp = [NSArray arrayWithArray:[respondDict objectForKey:@"json"]];
+            NSMutableArray *tempMaj = [NSMutableArray arrayWithCapacity:0];
+            for (int i = 0; i<temp.count; i++) {
+                [tempMaj addObject:[temp[i] objectForKey:@"simpleMajorName"]];
+                [nurseOfficeIdDic setObject:[temp[i] objectForKey:@"simpleMajorId"] forKey:[temp[i] objectForKey:@"simpleMajorName"]];
+            }
+            
+            [nurseOfficeDic setObject:tempMaj forKey:@"其他医院"];
             NSLog(@"success");
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
