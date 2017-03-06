@@ -569,6 +569,8 @@
                     jsonArray = [NSArray array];
                 }
                 NSArray *tempArr = [NSArray arrayWithArray:jsonArray];
+                self.myTableView.footer.hidden = NO;
+                self.myTableView.header.hidden = NO;
                 switch (currentType) {
                     case 0:
                     {
@@ -580,8 +582,7 @@
 //                                [self initFooterView];
 //                            }
                             [self showNodataView:NO];
-//                            noDataView.hidden = YES;
-//                            myTableView.hidden = NO;
+                            [self removeHeadViewAndFootView];
                         }
                     }
                         break;
@@ -710,7 +711,9 @@
 //                [timer3 reset];
             }
             NSLog(@"success");
-        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+        }else{
+            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+            [self reloadOrderData];
             NSLog(@"faile");
         }
     } failure:^(NSError* err){
@@ -733,13 +736,14 @@
         
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
-            [self reloadOrderData];
+//            [self reloadOrderData];
 //            [timer3 reset];
-        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+        }else{
             NSLog(@"faile");
             [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
-            [self reloadOrderData];
         }
+        [self reloadOrderData];
+
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
@@ -1459,7 +1463,7 @@
     }
     
     if (currentType == 0) {
-        return 400+40;
+        return SCREENHEIGH-44-49-self.navigationController.navigationBar.frame.size.height;//400+40;
     }
     if (currentType == 1) {
         return 180;
@@ -1532,7 +1536,7 @@
     
     NSLog(@"row = %ld, section = %ld",row,section);
     
-    if (currentType == 0 || currentType == 1) {
+    if (currentType == 1) {
         NSDictionary *userInfoDic = nil;
         NSMutableDictionary *dict = nil;
         if (dataArr.count > 0) {

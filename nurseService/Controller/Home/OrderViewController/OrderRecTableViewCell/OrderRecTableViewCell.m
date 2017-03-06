@@ -26,7 +26,7 @@
     if (self) {
         
         CGFloat bgView_W = SCREENWIDTH-10;
-        CGFloat bgView_H = 400+40;
+        CGFloat bgView_H = cellsize.height;//400+40;
         UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(5, 40, bgView_W, bgView_H)];
         bgView.backgroundColor = [UIColor whiteColor];
         bgView.userInteractionEnabled = YES;
