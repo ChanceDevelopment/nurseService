@@ -553,15 +553,12 @@
             
             if ([[respondDict valueForKey:@"json"] isMemberOfClass:[NSNull class]] || [respondDict valueForKey:@"json"] == nil) {
 //                [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
-//                if (footerView) {
-//                    [footerView removeFromSuperview];
-//                    footerView = nil;
+
+//                if (currentType != 2) {
+//                    [self showNodataView:YES];
 //                }
-                if (currentType != 2) {
-                    [self showNodataView:YES];
-//                    noDataView.hidden = NO;
-//                    myTableView.hidden = YES;
-                }
+                [self showNodataView:YES];
+
                 return ;
             }else{
                 id jsonArray = [respondDict valueForKey:@"json"];
@@ -1594,8 +1591,8 @@
     infoTip.backgroundColor = [UIColor clearColor];
     [addBgView addSubview:infoTip];
     
-    titleL.text = @"请求取消";
-    infoTip.text = @"若取消订单,你将无法获取酬劳,你确定要取消这笔订单吗？";
+    titleL.text = @"提示";
+    infoTip.text = @"专属订单取消后将不在显示，确定要取消吗？";
     
     
     NSInteger wordNum_Y = addTextField_Y+44;
@@ -1961,7 +1958,7 @@
     [addBgView addSubview:infoTip];
     
     titleL.text = @"请求取消";
-    infoTip.text = @"若取消订单,你将无法获取酬劳,你确定要取消这笔订单吗？";
+    infoTip.text = @"专属订单取消后将不在显示，确定要取消吗？";
     
     
     NSInteger wordNum_Y = addTextField_Y+44;
