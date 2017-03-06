@@ -537,8 +537,9 @@
         params= @{@"nurseId" : userAccount,@"pageNow" : [NSString stringWithFormat:@"%ld",currentPage]};
     }
     NSLog(@"params:%@",params);
+    [self showHudInView:self.view hint:@"加载中..."];
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:url params:params success:^(AFHTTPRequestOperation* operation,id response){
-        
+        [self hideHud];
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
         NSLog(@"respondDict:%@",respondDict);
@@ -649,6 +650,7 @@
 //            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         }
     } failure:^(NSError* err){
+        [self hideHud];
         [self showNodataView:YES];
 //        myTableView.hidden = YES;
 //        noDataView .hidden = NO;

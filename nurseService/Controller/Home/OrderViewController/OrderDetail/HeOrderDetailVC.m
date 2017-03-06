@@ -998,14 +998,15 @@
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSLog(@"respondString:%@",respondString);
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
-//        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
-//            NSLog(@"success");
-////            [self getOrderDetailData];
-//            
-//        }else{
-//            NSLog(@"faile");
-//        }
-        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+            NSLog(@"success");
+//            [self getOrderDetailData];
+            
+        }else{
+            NSLog(@"faile");
+            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+        }
+
         [self performSelector:@selector(backItemClick:) withObject:nil afterDelay:1.2f];
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
@@ -1030,20 +1031,20 @@
         
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
-            switch (orderState) {
-                case 0:
-                    [self.view makeToast:@"联系客户后，请出发" duration:1.2 position:@"center"];
-                    break;
-                case 1:
-                    [self.view makeToast:@"出发后，请开始服务" duration:1.2 position:@"center"];
-                    break;
-                case 2:
-                    [self.view makeToast:@"服务完成后，请填写护理报告" duration:1.2 position:@"center"];
-                    break;
-                    
-                default:
-                    break;
-            }
+//            switch (orderState) {
+//                case 0:
+//                    [self.view makeToast:@"联系客户后，请出发" duration:1.2 position:@"center"];
+//                    break;
+//                case 1:
+//                    [self.view makeToast:@"出发后，请开始服务" duration:1.2 position:@"center"];
+//                    break;
+//                case 2:
+//                    [self.view makeToast:@"服务完成后，请填写护理报告" duration:1.2 position:@"center"];
+//                    break;
+//                    
+//                default:
+//                    break;
+//            }
             
             [self getOrderDetailData];
             
