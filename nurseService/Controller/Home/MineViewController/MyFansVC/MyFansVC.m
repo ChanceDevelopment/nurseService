@@ -128,8 +128,10 @@
                     noDataView.hidden = YES;
                     tableview.hidden = NO;
                 }else{
-                    tableview.hidden = YES;
-                    noDataView.hidden = NO;
+                    if (currentPage == 0) {
+                        tableview.hidden = YES;
+                        noDataView.hidden = NO;
+                    }
                     return ;
                 }
             }
@@ -197,7 +199,7 @@
     nameL.font = [UIFont systemFontOfSize:15.0];
     nameL.backgroundColor = [UIColor clearColor];
     nameL.adjustsFontSizeToFitWidth = YES;
-    nameL.text = [dict valueForKey:@"nurseNick"];
+    nameL.text = [dict valueForKey:@"userNick"];
     [cell addSubview:nameL];
     
     itemX = CGRectGetMaxX(nameL.frame);
@@ -225,17 +227,17 @@
     noteL.textColor = [UIColor blackColor];
     noteL.font = [UIFont systemFontOfSize:12.0];
     noteL.backgroundColor = [UIColor clearColor];
-    noteL.text = [dict valueForKey:@"nurseNote"];
+    noteL.text = [dict valueForKey:@"userName"];
     [cell addSubview:noteL];
 
-    itemX = SCREENWIDTH -30;
-    itemY = 25;
-    itemW = 20;
-    UIImageView *rightV = [[UIImageView alloc] initWithFrame:CGRectMake(itemX, itemY, itemW, itemW)];
-    rightV.backgroundColor = [UIColor clearColor];
-    rightV.image = [UIImage imageNamed:@"icon_into_right"];
-    rightV.userInteractionEnabled = YES;
-    [cell addSubview:rightV];
+//    itemX = SCREENWIDTH -30;
+//    itemY = 25;
+//    itemW = 20;
+//    UIImageView *rightV = [[UIImageView alloc] initWithFrame:CGRectMake(itemX, itemY, itemW, itemW)];
+//    rightV.backgroundColor = [UIColor clearColor];
+//    rightV.image = [UIImage imageNamed:@"icon_into_right"];
+//    rightV.userInteractionEnabled = YES;
+//    [cell addSubview:rightV];
     
     
     
