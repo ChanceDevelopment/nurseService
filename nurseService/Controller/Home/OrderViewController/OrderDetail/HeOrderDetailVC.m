@@ -511,7 +511,7 @@
                         //时间戳
                         zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
                     }
-                    NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd EEEE HH:MM"];
+                    NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd/ EEE HH:mm"];
                     
                     CGFloat timeLabelX = 10;
                     CGFloat timeLabelW = SCREENWIDTH - 50;
@@ -772,7 +772,7 @@
                         //时间戳
                         zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
                     }
-                    NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"yyyy-MM-dd HH:MM"];
+                    NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"yyyy-MM-dd HH:mm"];
                     
                     CGFloat orderNoLabelX = 10;
                     CGFloat orderNoLabelW = SCREENWIDTH - 2 * orderNoLabelX;
@@ -988,7 +988,7 @@
 
 
 //取消订单
-- (void)sendCancleOrderWithOrderId:(NSString *)orderId{
+- (void)sendCancleOrder{
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     //订单ID
     NSDictionary * params  = @{@"orderSendId" : orderId,
@@ -1004,7 +1004,7 @@
             
         }else{
             NSLog(@"faile");
-            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+//            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         }
 
         [self performSelector:@selector(backItemClick:) withObject:nil afterDelay:1.2f];
@@ -1315,7 +1315,7 @@
     // "请求取消"
 
     if (sender.tag == 1) {
-        [self sendCancleOrderWithOrderId:orderId];
+        [self sendCancleOrder];
     }
     if (windowView) {
         [windowView removeFromSuperview];

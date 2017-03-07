@@ -549,7 +549,7 @@
             //时间戳
         zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
     }
-    NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM-dd HH:MM"];
+    NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM-dd HH:mm"];
 
     cell.timeL.text = [NSString stringWithFormat:@"发布于%@",[stopTimeStr substringToIndex:5]];
     cell.nameL.text = [NSString stringWithFormat:@"%@",[dic objectForKey:@"postThreeLevelDetailsCreateter"]?@"小护健康":[dic objectForKey:@"postThreeLevelDetailsCreateter"]];

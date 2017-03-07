@@ -914,7 +914,7 @@
             //时间戳
             zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
         }
-        NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd EEEE HH:MM"];
+        NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd EEE HH:mm"];
         
         cell.stopTimeL.text = stopTimeStr;
         cell.orderMoney.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
@@ -1066,7 +1066,7 @@
             //时间戳
             zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
         }
-        NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd EEEE HH:MM"];
+        NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd EEE HH:mm"];
         cell.stopTimeL.text = stopTimeStr;
         
         NSString *sex = [[dict valueForKey:@"orderSendSex"] integerValue] == 1 ? @"男" : @"女";
@@ -1281,7 +1281,7 @@
             //时间戳
             zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
         }
-        NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd EEEE HH:MM"];
+        NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd EEE HH:mm"];
         
         NSString *sex = [[dict valueForKey:@"orderSendSex"] integerValue] == 1 ? @"男" : @"女";
         NSString *nameStr = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendUsername"]];
@@ -1414,6 +1414,7 @@
             [bgView addSubview:evaluateBt];
             
             if (isEvaluate) {
+                [evaluateBt setTitle:@"已评价" forState:UIControlStateNormal];
                 [evaluateBt setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
                 evaluateBt.enabled = NO;
             }
@@ -1846,23 +1847,23 @@
     }];
 }
 
-- (NSString *)getTimeWith:(id)value{
-    NSString *time = @"";
-    
-    id zoneCreatetimeObj = value;
-    if ([zoneCreatetimeObj isMemberOfClass:[NSNull class]] || zoneCreatetimeObj == nil) {
-        NSTimeInterval  timeInterval = [[NSDate date] timeIntervalSince1970];
-        zoneCreatetimeObj = [NSString stringWithFormat:@"%.0f000",timeInterval];
-    }
-    long long timestamp = [zoneCreatetimeObj longLongValue];
-    NSString *zoneCreatetime = [NSString stringWithFormat:@"%lld",timestamp];
-    if ([zoneCreatetime length] > 3) {
-        //时间戳
-        zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
-    }
-    time = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"yyyy/MM/dd HH:MM:SS"];
-    return time;
-}
+//- (NSString *)getTimeWith:(id)value{
+//    NSString *time = @"";
+//    
+//    id zoneCreatetimeObj = value;
+//    if ([zoneCreatetimeObj isMemberOfClass:[NSNull class]] || zoneCreatetimeObj == nil) {
+//        NSTimeInterval  timeInterval = [[NSDate date] timeIntervalSince1970];
+//        zoneCreatetimeObj = [NSString stringWithFormat:@"%.0f000",timeInterval];
+//    }
+//    long long timestamp = [zoneCreatetimeObj longLongValue];
+//    NSString *zoneCreatetime = [NSString stringWithFormat:@"%lld",timestamp];
+//    if ([zoneCreatetime length] > 3) {
+//        //时间戳
+//        zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
+//    }
+//    time = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"yyyy/MM/dd HH:mm:SS"];
+//    return time;
+//}
 
 - (NSString *)getSenderTimeStrWith:(id)info{
     NSString *stopTimeStr = @"";
@@ -1877,7 +1878,7 @@
         //时间戳
         zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
     }
-    stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"yyyy-MM-dd HH:MM"];
+    stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"yyyy-MM-dd HH:mm"];
     return stopTimeStr;
 }
 

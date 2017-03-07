@@ -135,7 +135,7 @@
     }
     NSString *nurseId = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     
-    NSString *userid = [NSString stringWithFormat:@"%@",nurseDict[@"orderOrdersendid"]];
+    NSString *userid = [NSString stringWithFormat:@"%@",nurseDict[@"orderSendUserid"]];
     
     if ([nurseId isMemberOfClass:[NSNull class]] || nurseId == nil) {
         nurseId = @"";

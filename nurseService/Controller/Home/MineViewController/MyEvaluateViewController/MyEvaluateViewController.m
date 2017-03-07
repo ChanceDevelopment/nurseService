@@ -230,7 +230,7 @@
         //时间戳
         zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
     }
-    NSString *dateString = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"yyyy/MM/dd HH:MM"];
+    NSString *dateString = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"yyyy/MM/dd HH:mm"];
     cell.time.text = dateString;
     
     NSInteger starNum = [[dict valueForKey:@"evaluateMark"] integerValue];

@@ -294,7 +294,7 @@
                     //时间戳
                 zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
             }
-            NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd HH:MM"];
+            NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd HH:mm"];
             NSDate *date = [Tool convertTimespToDate:[zoneCreatetime longLongValue]];
             NSString *dateSt = [NSString stringWithFormat:@"%@\n%@",[self weekdayStringFromDate:date],[stopTimeStr substringToIndex:5]];
             dateLabel.text = dateSt;
