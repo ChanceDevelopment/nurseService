@@ -192,7 +192,7 @@
     [headImageView sd_setImageWithURL:[NSURL URLWithString:userHeader] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];
 
     itemX = CGRectGetMaxX(headImageView.frame)+10;
-    itemY = 0;
+    itemY = 10;
     itemW = 180;
     UILabel *nameL = [[UILabel alloc] initWithFrame:CGRectMake(itemX, itemY, itemW, 30)];
     nameL.textColor = [UIColor blackColor];
@@ -222,12 +222,19 @@
 //    stateL.text =@"国家卫委认证  已实名认证";
     [cell addSubview:stateL];
     
-    itemY = CGRectGetMaxY(stateL.frame)-5;
+    NSString *noteStr = [NSString stringWithFormat:@"%@",[dict valueForKey:@"userName"]];
+    if (noteStr.length == 11 && noteStr.length > 0) {
+        noteStr = [NSString stringWithFormat:@"%@****%@",[noteStr substringToIndex:3],[noteStr substringFromIndex:7]];
+    }else{
+        noteStr = @"无";
+    }
+    itemY = CGRectGetMaxY(stateL.frame)-25;
     UILabel *noteL = [[UILabel alloc] initWithFrame:CGRectMake(itemX, itemY, itemW, 25)];
     noteL.textColor = [UIColor blackColor];
     noteL.font = [UIFont systemFontOfSize:12.0];
     noteL.backgroundColor = [UIColor clearColor];
-    noteL.text = [dict valueForKey:@"userName"];
+    noteL.text = noteStr;
+    noteL.lineBreakMode = NSLineBreakByTruncatingMiddle;
     [cell addSubview:noteL];
 
 //    itemX = SCREENWIDTH -30;
