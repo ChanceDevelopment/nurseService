@@ -151,6 +151,9 @@
     if (!password) {
         password = @"";
     }
+    if (!account) {
+        account = @"";
+    }
     NSDictionary * params  = @{@"NurseName": account,@"NursePwd" : password};
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:LOGINURL params:params success:^(AFHTTPRequestOperation* operation,id response){
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];

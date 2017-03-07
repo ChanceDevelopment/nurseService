@@ -719,9 +719,14 @@
 - (void)inviteFriend
 {
     //商品的分享
+    NSDictionary *nurseDcit = [[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY];
+    NSString *nurseInvitationcode = nurseDcit[@"nurseInvitationcode"];
+    if ([nurseInvitationcode isMemberOfClass:[NSNull class]]) {
+        nurseInvitationcode = @"";
+    }
     NSString *titleStr = @"专业护士上门";
     NSString *imagePath = [NSString stringWithFormat:@"%@nurseDoor/img/index2.png",PIC_URL]; //图片的链接地址
-    NSString *url = [NSString stringWithFormat:@"%@nurseDoor/fenxiang.jsp",PIC_URL];
+    NSString *url = [NSString stringWithFormat:@"%@nurseDoor/fenxiang.jsp?invitationcode=%@",PIC_URL,nurseInvitationcode];
     NSString *content = @"我在这里邀请你的加入";
     //构造分享内容
     /***新版分享***/
