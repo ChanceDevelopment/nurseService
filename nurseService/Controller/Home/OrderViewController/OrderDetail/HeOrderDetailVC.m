@@ -664,13 +664,32 @@
                     }
                     ;
                     
-                    UILabel *userInfoL1 = [[UILabel alloc] initWithFrame:CGRectMake(userInfoX, lableH, userInfoW, lableH)];
+                    NSString *userInfoStr = [NSString stringWithFormat:@"为%@(%@,%@,%@岁)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"]];
+
+                    NSString *protectedPersonHeight = [NSString stringWithFormat:@"%@",[dict valueForKey:@"protectedPersonHeight"]];
+                    NSString *protectedPersonHeightStr = [NSString stringWithFormat:@"身高%@cm",protectedPersonHeight];
+                    
+                    NSString *protectedPersonWeight = [NSString stringWithFormat:@"%@",[dict valueForKey:@"protectedPersonWeight"]];
+                    NSString *protectedPersonWeightStr = [NSString stringWithFormat:@"体重%@kg",protectedPersonWeight];
+                    if (![protectedPersonHeight isEqualToString:@"<null>"] && [protectedPersonHeight isMemberOfClass:[NSNull class]]) {
+                        userInfoStr = [NSString stringWithFormat:@"为%@(%@,%@,%@岁,%@)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"],protectedPersonHeightStr];
+                        if (![protectedPersonWeight isEqualToString:@"<null>"] && [protectedPersonWeight isMemberOfClass:[NSNull class]]) {
+                            userInfoStr = [NSString stringWithFormat:@"为%@(%@,%@,%@岁,%@,%@)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"],protectedPersonHeightStr,protectedPersonWeightStr];
+                        }
+                    }else{
+                        if (![protectedPersonWeight isEqualToString:@"<null>"] && [protectedPersonWeight isMemberOfClass:[NSNull class]]) {
+                            userInfoStr = [NSString stringWithFormat:@"为%@(%@,%@,%@岁,%@)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"],protectedPersonWeightStr];
+                        }
+                    }
+                    
+                    UILabel *userInfoL1 = [[UILabel alloc] initWithFrame:CGRectMake(userInfoX, lableH-10, userInfoW, lableH+20)];
                     userInfoL1.textColor = [UIColor blackColor];
                     userInfoL1.userInteractionEnabled = YES;
+                    userInfoL1.numberOfLines = 2;
                     userInfoL1.font = [UIFont systemFontOfSize:13.0];
                     userInfoL1.backgroundColor = [UIColor clearColor];
                     [cell addSubview:userInfoL1];
-                    userInfoL1.text = [NSString stringWithFormat:@"为%@(%@,%@,%@岁)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"]];
+                    userInfoL1.text = userInfoStr;
 
                     UIImageView *telephone = [[UIImageView alloc] initWithFrame:CGRectMake(SCREENWIDTH-40, 3, 20, 20)];
                     telephone.backgroundColor = [UIColor clearColor];

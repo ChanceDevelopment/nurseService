@@ -105,10 +105,11 @@
         [bgView addSubview:rightV];
         
         
-        tipY = CGRectGetMaxY(userInfoL.frame);
-        userInfoL1 = [[UILabel alloc] initWithFrame:CGRectMake(labelX, tipY, labelW, tipH)];
+        tipY = CGRectGetMaxY(userInfoL.frame)-10;
+        userInfoL1 = [[UILabel alloc] initWithFrame:CGRectMake(labelX, tipY, labelW, tipH+20)];
         userInfoL1.textColor = [UIColor blackColor];
         userInfoL1.userInteractionEnabled = YES;
+        userInfoL1.numberOfLines = 2;
         userInfoL1.font = [UIFont systemFontOfSize:12.0];
         userInfoL1.backgroundColor = [UIColor clearColor];
         [bgView addSubview:userInfoL1];

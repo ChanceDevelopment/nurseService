@@ -447,7 +447,7 @@
         [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
     }];
     
-    
+    [self loadMoreData];
 }
 
 - (void)receiveOrderSwitchChangeValue:(UIButton *)mySwitch
@@ -515,15 +515,10 @@
 
 
 - (void)getDataWithUrl:(NSString *)url{
+    
+    NSLog(@"currentpage: %ld",currentPage);
     BOOL isOn = [[[NSUserDefaults standardUserDefaults] objectForKey:RECEIVEORDERSTATE] boolValue];
     if (!isOn && currentType == 0) {
-        
-//        if (footerView) {
-//            [footerView removeFromSuperview];
-//            footerView = nil;
-//        }
-//        noDataView.hidden = NO;
-//        myTableView.hidden = YES;
         [self showNodataView:YES];
         return;
     }
@@ -596,25 +591,17 @@
 //                        }
                         if (tempArr.count > 0){
                             [self showNodataView:NO];
-//                            noDataView.hidden = YES;
-//                            myTableView.hidden = NO;
+
                         }
                     }
                         break;
                     case 2:
                     {
-//                        if (footerView) {
-//                            [footerView removeFromSuperview];
-//                            footerView = nil;
-//                        }
                         CGFloat tableViewY = 44;
                         CGFloat tableViewH = self.view.frame.size.height-44-48+50;
                         myTableView.frame = CGRectMake(0, tableViewY, SCREENWIDTH, tableViewH);
                         if (tempArr.count >0){
                             [self showNodataView:NO];
-
-//                            noDataView.hidden = YES;
-//                            myTableView.hidden = NO;
                         }
                     }
                         break;
@@ -623,7 +610,7 @@
                 }
                 
                 if (tempArr.count > 0) {
-                    if (currentType != 1) {
+                    if (currentType != 0) {
                         currentPage++;
                     }
 
@@ -632,9 +619,6 @@
                 }else{
                     if (currentPage == 0 && tempArr.count == 0) {
                         [self showNodataView:YES];
-
-//                        noDataView.hidden = NO;
-//                        myTableView.hidden = YES;
                     }
                     [myTableView reloadData];
                     return;
@@ -642,8 +626,6 @@
                 
             }
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
-//            myTableView.hidden = YES;
-//            noDataView .hidden = NO;
             [self showNodataView:YES];
 
             NSLog(@"faile");
@@ -778,6 +760,31 @@
     
 }
 
+
+- (void)loadMoreData {
+    if (dataArr && dataArr.count%5 != 0) {
+        return;
+    }
+    switch (currentType) {
+        case 0:
+        {
+            [self getDataWithUrl:ORDERLOOKRECEIVER];
+        }
+            break;
+        case 1:
+        {
+            [self getDataWithUrl:ORDERSTATENOW];
+        }
+            break;
+        case 2:
+        {
+            [self getDataWithUrl:ORDERSTATESUCCESS];
+        }
+            break;
+        default:
+            break;
+    }
+}
 
 - (void)showOrderDetailWithOrder:(NSDictionary *)orderDict
 {
@@ -947,8 +954,26 @@
         }
         ;
         
+        NSString *userInfoStr = [NSString stringWithFormat:@"为%@(%@,%@,%@岁)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"]];
+        
+        NSString *protectedPersonHeight = [NSString stringWithFormat:@"%@",[dict valueForKey:@"protectedPersonHeight"]];
+        NSString *protectedPersonHeightStr = [NSString stringWithFormat:@"身高%@cm",protectedPersonHeight];
+        
+        NSString *protectedPersonWeight = [NSString stringWithFormat:@"%@",[dict valueForKey:@"protectedPersonWeight"]];
+        NSString *protectedPersonWeightStr = [NSString stringWithFormat:@"体重%@kg",protectedPersonWeight];
+        
+        if (![protectedPersonHeight isEqualToString:@""]) {
+            userInfoStr = [NSString stringWithFormat:@"为%@(%@,%@,%@岁,%@)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"],protectedPersonHeightStr];
+            if (![protectedPersonWeight isEqualToString:@""]) {
+                userInfoStr = [NSString stringWithFormat:@"为%@(%@,%@,%@岁,%@,%@)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"],protectedPersonHeightStr,protectedPersonWeightStr];
+            }
+        }else{
+            if (![protectedPersonWeight isEqualToString:@""]) {
+                userInfoStr = [NSString stringWithFormat:@"为%@(%@,%@,%@岁,%@)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"],protectedPersonWeightStr];
+            }
+        }
         cell.userInfoL.text = [NSString stringWithFormat:@"%@ %@",[dict valueForKey:@"userNickNew"],[dict valueForKey:@"userNameNew"]];
-        cell.userInfoL1.text = [NSString stringWithFormat:@"为%@(%@,%@,%@岁)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"]];
+        cell.userInfoL1.text = userInfoStr;
 
         cell.remarkInfoL.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendNote"]];
         
@@ -1078,9 +1103,28 @@
         } @finally {
             
         }
+        NSString *userInfoStr = [NSString stringWithFormat:@"为%@(%@,%@,%@岁)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"]];
         
+        NSString *protectedPersonHeight = [NSString stringWithFormat:@"%@",[dict valueForKey:@"protectedPersonHeight"]];
+        NSString *protectedPersonHeightStr = [NSString stringWithFormat:@"身高%@cm",protectedPersonHeight];
+        
+        NSString *protectedPersonWeight = [NSString stringWithFormat:@"%@",[dict valueForKey:@"protectedPersonWeight"]];
+        NSString *protectedPersonWeightStr = [NSString stringWithFormat:@"体重%@kg",protectedPersonWeight];
+        
+        if (![protectedPersonHeight isEqualToString:@""]) {
+            userInfoStr = [NSString stringWithFormat:@"为%@(%@,%@,%@岁,%@)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"],protectedPersonHeightStr];
+            if (![protectedPersonWeight isEqualToString:@""]) {
+                userInfoStr = [NSString stringWithFormat:@"为%@(%@,%@,%@岁,%@,%@)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"],protectedPersonHeightStr,protectedPersonWeightStr];
+            }
+        }else{
+            if (![protectedPersonWeight isEqualToString:@""]) {
+                userInfoStr = [NSString stringWithFormat:@"为%@(%@,%@,%@岁,%@)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"],protectedPersonWeightStr];
+            }
+        }
+
+
         cell.userInfoL.text = [NSString stringWithFormat:@"%@ %@",[dict valueForKey:@"userNickNew"],[dict valueForKey:@"userNameNew"]];
-        cell.userInfoL1.text = [NSString stringWithFormat:@"为%@(%@,%@,%@岁)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"]];
+        cell.userInfoL1.text = userInfoStr;
         
         
         /*
@@ -1330,15 +1374,34 @@
         [bgView addSubview:userInfoL];
         userInfoL.text = [NSString stringWithFormat:@"%@ %@",[dict valueForKey:@"userNickNew"],[dict valueForKey:@"userNameNew"]];
 
+        NSString *userInfoStr = [NSString stringWithFormat:@"为%@(%@,%@,%@岁)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"]];
         
-        tipY = CGRectGetMaxY(userInfoL.frame);
-        UILabel *userInfoL1 = [[UILabel alloc] initWithFrame:CGRectMake(labelX, tipY, labelW, tipH)];
+        NSString *protectedPersonHeight = [NSString stringWithFormat:@"%@",[dict valueForKey:@"protectedPersonHeight"]];
+        NSString *protectedPersonHeightStr = [NSString stringWithFormat:@"身高%@cm",protectedPersonHeight];
+        
+        NSString *protectedPersonWeight = [NSString stringWithFormat:@"%@",[dict valueForKey:@"protectedPersonWeight"]];
+        NSString *protectedPersonWeightStr = [NSString stringWithFormat:@"体重%@kg",protectedPersonWeight];
+        
+        if (![protectedPersonHeight isEqualToString:@""]) {
+            userInfoStr = [NSString stringWithFormat:@"为%@(%@,%@,%@岁,%@)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"],protectedPersonHeightStr];
+            if (![protectedPersonWeight isEqualToString:@""]) {
+                userInfoStr = [NSString stringWithFormat:@"为%@(%@,%@,%@岁,%@,%@)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"],protectedPersonHeightStr,protectedPersonWeightStr];
+            }
+        }else{
+            if (![protectedPersonWeight isEqualToString:@""]) {
+                userInfoStr = [NSString stringWithFormat:@"为%@(%@,%@,%@岁,%@)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"],protectedPersonWeightStr];
+            }
+        }
+        
+        tipY = CGRectGetMaxY(userInfoL.frame)-10;
+        UILabel *userInfoL1 = [[UILabel alloc] initWithFrame:CGRectMake(labelX, tipY, labelW, tipH+20)];
         userInfoL1.textColor = [UIColor blackColor];
         userInfoL1.userInteractionEnabled = YES;
+        userInfoL1.numberOfLines = 2;
         userInfoL1.font = [UIFont systemFontOfSize:12.0];
         userInfoL1.backgroundColor = [UIColor clearColor];
         [bgView addSubview:userInfoL1];
-        userInfoL1.text = [NSString stringWithFormat:@"为%@(%@,%@,%@岁)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"]];
+        userInfoL1.text = userInfoStr;
         
         tipY = CGRectGetMaxY(userInfoL1.frame);
         UILabel *line2 = [[UILabel alloc] initWithFrame:CGRectMake(10, tipY, SCREENWIDTH-20, 1)];
