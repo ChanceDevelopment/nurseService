@@ -671,13 +671,13 @@
                     
                     NSString *protectedPersonWeight = [NSString stringWithFormat:@"%@",[dict valueForKey:@"protectedPersonWeight"]];
                     NSString *protectedPersonWeightStr = [NSString stringWithFormat:@"体重%@kg",protectedPersonWeight];
-                    if (![protectedPersonHeight isEqualToString:@"<null>"] && [protectedPersonHeight isMemberOfClass:[NSNull class]]) {
+                    if (![protectedPersonHeight isEqualToString:@"<null>"]) {
                         userInfoStr = [NSString stringWithFormat:@"为%@(%@,%@,%@岁,%@)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"],protectedPersonHeightStr];
-                        if (![protectedPersonWeight isEqualToString:@"<null>"] && [protectedPersonWeight isMemberOfClass:[NSNull class]]) {
+                        if (![protectedPersonWeight isEqualToString:@"<null>"]) {
                             userInfoStr = [NSString stringWithFormat:@"为%@(%@,%@,%@岁,%@,%@)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"],protectedPersonHeightStr,protectedPersonWeightStr];
                         }
                     }else{
-                        if (![protectedPersonWeight isEqualToString:@"<null>"] && [protectedPersonWeight isMemberOfClass:[NSNull class]]) {
+                        if (![protectedPersonWeight isEqualToString:@"<null>"]) {
                             userInfoStr = [NSString stringWithFormat:@"为%@(%@,%@,%@岁,%@)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"],protectedPersonWeightStr];
                         }
                     }
