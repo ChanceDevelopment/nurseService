@@ -92,7 +92,6 @@
 		AD5FBA1F1E5F22C400EE93BB /* HandleIntroductionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5FBA1D1E5F22C400EE93BB /* HandleIntroductionVC.m */; };
 		AD5FBA201E5F22C400EE93BB /* HandleIntroductionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD5FBA1E1E5F22C400EE93BB /* HandleIntroductionVC.xib */; };
 		AD8A0E541E229E2C0001CC02 /* jpush-ios-2.1.9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E521E229E2C0001CC02 /* jpush-ios-2.1.9.a */; };
-		AD8A0E561E229EBA0001CC02 /* JSPatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E551E229EBA0001CC02 /* JSPatch.framework */; };
 		AD8A0E5C1E22A0030001CC02 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E5B1E22A0030001CC02 /* UserNotifications.framework */; };
 		AD8A0E5E1E22A02B0001CC02 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E5D1E22A02B0001CC02 /* UIKit.framework */; };
 		AD8A0E601E22A0330001CC02 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E5F1E22A0330001CC02 /* Foundation.framework */; };
@@ -916,7 +915,6 @@
 		AD5FBA1E1E5F22C400EE93BB /* HandleIntroductionVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HandleIntroductionVC.xib; sourceTree = "<group>"; };
 		AD8A0E521E229E2C0001CC02 /* jpush-ios-2.1.9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.9.a"; sourceTree = "<group>"; };
 		AD8A0E531E229E2C0001CC02 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
-		AD8A0E551E229EBA0001CC02 /* JSPatch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JSPatch.framework; sourceTree = "<group>"; };
 		AD8A0E5B1E22A0030001CC02 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		AD8A0E5D1E22A02B0001CC02 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AD8A0E5F1E22A0330001CC02 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -2122,7 +2120,6 @@
 				EABFEC591E1B86FF009C27C5 /* BaiduMapAPI_Radar.framework in Frameworks */,
 				EAC2D4731D4B04E100E282A8 /* JavaScriptCore.framework in Frameworks */,
 				EAC2D4751D4B04F100E282A8 /* libstdc++.tbd in Frameworks */,
-				AD8A0E561E229EBA0001CC02 /* JSPatch.framework in Frameworks */,
 				EAC2D4771D4B050400E282A8 /* libicucore.tbd in Frameworks */,
 				EAC2D4951D4B05CD00E282A8 /* Contacts.framework in Frameworks */,
 				EAC2D4931D4B05C600E282A8 /* SystemConfiguration.framework in Frameworks */,
@@ -3704,7 +3701,6 @@
 				AD8A0E5F1E22A0330001CC02 /* Foundation.framework */,
 				AD8A0E5D1E22A02B0001CC02 /* UIKit.framework */,
 				AD8A0E5B1E22A0030001CC02 /* UserNotifications.framework */,
-				AD8A0E551E229EBA0001CC02 /* JSPatch.framework */,
 				EABFEC631E1B8889009C27C5 /* CoreTelephony.framework */,
 				EABFEC611E1B887D009C27C5 /* libsqlite3.0.tbd */,
 				EABFEC5F1E1B8871009C27C5 /* Security.framework */,
