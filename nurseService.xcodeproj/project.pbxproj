@@ -43,6 +43,9 @@
 		AD13A6721E2BB067002ADE2B /* icon_switch_open.png in Resources */ = {isa = PBXBuildFile; fileRef = AD13A6701E2BB067002ADE2B /* icon_switch_open.png */; };
 		AD13A6781E2BD7E2002ADE2B /* CheckDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD13A6761E2BD7E2002ADE2B /* CheckDetailVC.m */; };
 		AD13A6791E2BD7E2002ADE2B /* CheckDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD13A6771E2BD7E2002ADE2B /* CheckDetailVC.xib */; };
+		AD181ACE1E7E84A70098F616 /* HeMessageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD181ACC1E7E84A70098F616 /* HeMessageVC.m */; };
+		AD181ACF1E7E84A70098F616 /* HeMessageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD181ACD1E7E84A70098F616 /* HeMessageVC.xib */; };
+		AD181AD11E7E85870098F616 /* icon_infromation.png in Resources */ = {isa = PBXBuildFile; fileRef = AD181AD01E7E85870098F616 /* icon_infromation.png */; };
 		AD3013721DFCF4DC00D26E09 /* icon_scan.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3013701DFCF4DC00D26E09 /* icon_scan.png */; };
 		AD3013731DFCF4DC00D26E09 /* icon_search.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3013711DFCF4DC00D26E09 /* icon_search.png */; };
 		AD3013821DFCF4F200D26E09 /* icon_fans.png in Resources */ = {isa = PBXBuildFile; fileRef = AD3013761DFCF4F200D26E09 /* icon_fans.png */; };
@@ -854,6 +857,10 @@
 		AD13A6751E2BD7E2002ADE2B /* CheckDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckDetailVC.h; sourceTree = "<group>"; };
 		AD13A6761E2BD7E2002ADE2B /* CheckDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckDetailVC.m; sourceTree = "<group>"; };
 		AD13A6771E2BD7E2002ADE2B /* CheckDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckDetailVC.xib; sourceTree = "<group>"; };
+		AD181ACB1E7E84A70098F616 /* HeMessageVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeMessageVC.h; sourceTree = "<group>"; };
+		AD181ACC1E7E84A70098F616 /* HeMessageVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeMessageVC.m; sourceTree = "<group>"; };
+		AD181ACD1E7E84A70098F616 /* HeMessageVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeMessageVC.xib; sourceTree = "<group>"; };
+		AD181AD01E7E85870098F616 /* icon_infromation.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_infromation.png; sourceTree = "<group>"; };
 		AD3013701DFCF4DC00D26E09 /* icon_scan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_scan.png; sourceTree = "<group>"; };
 		AD3013711DFCF4DC00D26E09 /* icon_search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_search.png; sourceTree = "<group>"; };
 		AD3013761DFCF4F200D26E09 /* icon_fans.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_fans.png; sourceTree = "<group>"; };
@@ -2310,6 +2317,16 @@
 			path = CheckDetailVC;
 			sourceTree = "<group>";
 		};
+		AD181ACA1E7E84A70098F616 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				AD181ACB1E7E84A70098F616 /* HeMessageVC.h */,
+				AD181ACC1E7E84A70098F616 /* HeMessageVC.m */,
+				AD181ACD1E7E84A70098F616 /* HeMessageVC.xib */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
 		AD3013741DFCF4F200D26E09 /* mineIcon */ = {
 			isa = PBXGroup;
 			children = (
@@ -2789,6 +2806,7 @@
 		ADDBEB4B1DFCE26F000BDA95 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				AD181AD01E7E85870098F616 /* icon_infromation.png */,
 				AD5FBA041E55F6CF00EE93BB /* icon_idcard_hand.png */,
 				AD5FBA051E55F6CF00EE93BB /* icon_idcard1.png */,
 				AD5FBA061E55F6CF00EE93BB /* icon_idcard2.png */,
@@ -2864,6 +2882,7 @@
 		ADDBEB6B1DFCE41A000BDA95 /* MineViewController */ = {
 			isa = PBXGroup;
 			children = (
+				AD181ACA1E7E84A70098F616 /* Message */,
 				AD5FBA0F1E5AD52A00EE93BB /* ServiceDetailVC */,
 				AD5FB9FE1E55853E00EE93BB /* MyServiceListVC */,
 				AD5FB9F81E54991E00EE93BB /* ServiceListVC */,
@@ -5384,6 +5403,7 @@
 				EAA6547D1E061FDF00F424DD /* HeBaseTableViewCell.xib in Resources */,
 				EAC2D8D61D4B063B00E282A8 /* README.textile in Resources */,
 				ADB49C751E1947CD008DBCF6 /* icon_address.png in Resources */,
+				AD181AD11E7E85870098F616 /* icon_infromation.png in Resources */,
 				EAC2D4331D4B031500E282A8 /* Main.storyboard in Resources */,
 				EA1743541E1E33AF0038E805 /* refresh@2x.png in Resources */,
 				EAC2D87E1D4B063B00E282A8 /* LICENSE.txt in Resources */,
@@ -5438,6 +5458,7 @@
 				EAA4F3201E012F3000EF9E14 /* tabar_order_icon_active@2x.png in Resources */,
 				AD8A0E811E254F3E0001CC02 /* NurseReportVC.xib in Resources */,
 				AD5FB9F71E54922A00EE93BB /* icon.png in Resources */,
+				AD181ACF1E7E84A70098F616 /* HeMessageVC.xib in Resources */,
 				EAA655241E0627C300F424DD /* AlbumLike@2x.png in Resources */,
 				ADDBEB9B1DFCE954000BDA95 /* index2.png in Resources */,
 				AD5FBA031E55854C00EE93BB /* MyServiceListVC.xib in Resources */,
@@ -5704,6 +5725,7 @@
 				AD13A66D1E2B8DAD002ADE2B /* MyFansVC.m in Sources */,
 				EAC2D8E01D4B063B00E282A8 /* NSNotificationCenter+RACSupport.m in Sources */,
 				EAA655331E0627C400F424DD /* DFActivityDetailLineCell.m in Sources */,
+				AD181ACE1E7E84A70098F616 /* HeMessageVC.m in Sources */,
 				57F511311E30A0D0003D0A7A /* PNLineChartData.m in Sources */,
 				EAA655151E0627C300F424DD /* DFActivityLineItem.m in Sources */,
 				EAA6553A1E0627C400F424DD /* DFTextImageLineCell.m in Sources */,

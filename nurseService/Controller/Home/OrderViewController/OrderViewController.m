@@ -941,7 +941,7 @@
         } @finally {
             
         }
-        cell.addressL.text = [NSString stringWithFormat:@"%@",addressStr];
+        cell.addressL.text = [NSString stringWithFormat:@"%@ %@",addressStr,[dict valueForKey:@"detailedAddress"]];
         NSString *sex = [[dict valueForKey:@"orderSendSex"] integerValue]==1 ? @"男" : @"女";
 
         NSString *nameStr = [dict valueForKey:@"orderSendUsername"];
@@ -1226,15 +1226,16 @@
             
         }
         
-        UILabel *orderStateL = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH-20-40, 0, 40, 50)];
+        UILabel *orderStateL = [[UILabel alloc] initWithFrame:CGRectMake(SCREENWIDTH-20-80, 0, 80, 50)];
         orderStateL.textColor = [UIColor grayColor];
+        orderStateL.textAlignment = NSTextAlignmentRight;
         orderStateL.font = [UIFont systemFontOfSize:12.0];
         orderStateL.backgroundColor = [UIColor clearColor];
         [bgView addSubview:orderStateL];
         
         NSString *state = @"";
         if (isCancleOrder) {
-            state = @"已取消";
+            state = @"待客服介入";
         }else{
             state = @"完成";
         }

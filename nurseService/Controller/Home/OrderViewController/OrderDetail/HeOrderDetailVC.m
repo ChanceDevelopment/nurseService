@@ -377,7 +377,7 @@
     
     static NSString *cellIndentifier = @"OrderFinishedTableViewCell";
     CGSize cellSize = [tableView rectForRowAtIndexPath:indexPath].size;
-    NSDictionary *dict = [NSDictionary dictionaryWithDictionary:infoDic];
+    NSDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:[Tool deleteNullFromDic:infoDic]];
     
     HeBaseTableViewCell *cell  = [tableView cellForRowAtIndexPath:indexPath];
     if (!cell) {
@@ -548,15 +548,17 @@
                     [cell addSubview:addressTip];
                     
                     addressLabelX = CGRectGetMaxX(addressTip.frame);
-                    UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(addressLabelX, addressLabelY, addressLabelW, addressLabelH)];
+                    UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(addressLabelX, addressLabelY-10, addressLabelW, addressLabelH+20)];
+                    addressLabel.numberOfLines = 2;
                     addressLabel.font = [UIFont systemFontOfSize:13.0];
                     @try {
-                        addressLabel.text = addArr[2];
+                        address = addArr[2];
                     } @catch (NSException *exception) {
                         
                     } @finally {
                         
                     }
+                    addressLabel.text = [NSString stringWithFormat:@"%@ %@",address,[dict valueForKey:@"detailedAddress"]];
                     [cell addSubview:addressLabel];
 
                     UIButton *locationButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREENWIDTH-75, addressLabelY-3, 65, 25)];
@@ -913,7 +915,7 @@
                     return 44;
                     break;
                 case 2:
-                    return 60;
+                    return 70;
                     break;
                     
                 default:

@@ -101,7 +101,7 @@
         stopTimeL.backgroundColor = [UIColor clearColor];
         [timeAddressView addSubview:stopTimeL];
     
-        UILabel *addressTip = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(stopTimeL.frame), 30, 20)];
+        UILabel *addressTip = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(stopTimeL.frame)+5, 30, 20)];
         addressTip.textColor = [UIColor grayColor];
         addressTip.font = [UIFont systemFontOfSize:12.0];
         addressTip.backgroundColor = [UIColor clearColor];
@@ -110,8 +110,9 @@
         
         CGFloat addressW = SCREENWIDTH-CGRectGetMaxX(addressTip.frame)-80;
         
-        addressL = [[UILabel alloc] initWithFrame:CGRectMake(40, CGRectGetMaxY(stopTimeL.frame), addressW, 20)];
+        addressL = [[UILabel alloc] initWithFrame:CGRectMake(40, CGRectGetMaxY(stopTimeL.frame), addressW, 20+20)];
         addressL.textColor = [UIColor blackColor];
+        addressL.numberOfLines = 2;
         addressL.font = [UIFont systemFontOfSize:12.0];
         addressL.adjustsFontSizeToFitWidth = YES;
         addressL.backgroundColor = [UIColor clearColor];
@@ -138,11 +139,11 @@
 //        timeAddressView.userInteractionEnabled = YES;
 //        [timeAddressView addGestureRecognizer:locationTap];
         
-        UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectMake(5, 91+40, bgView_W-10, 1)];
+        UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(timeAddressView.frame)+10, bgView_W-10, 1)];
         [bgView addSubview:line1];
         line1.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
         
-        UILabel *userTip = [[UILabel alloc] initWithFrame:CGRectMake(10, 91+40, 30, 30)];
+        UILabel *userTip = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(line1.frame)-5, 30, 30)];
         userTip.textColor = [UIColor grayColor];
         userTip.text = @"姓名";
         userTip.font = [UIFont systemFontOfSize:12.0];
@@ -152,16 +153,17 @@
         CGFloat userInfoX = CGRectGetMaxX(userTip.frame);
         CGFloat userInfoW = SCREENWIDTH-userInfoX-10;
         
-        userInfoL = [[UILabel alloc] initWithFrame:CGRectMake(userInfoX, 91+40, userInfoW, 30)];
+        userInfoL = [[UILabel alloc] initWithFrame:CGRectMake(userInfoX, CGRectGetMaxY(line1.frame)-5, userInfoW, 30)];
         userInfoL.textColor = [UIColor blackColor];
         userInfoL.userInteractionEnabled = YES;
         userInfoL.font = [UIFont systemFontOfSize:12.0];
         userInfoL.backgroundColor = [UIColor clearColor];
         [bgView addSubview:userInfoL];
         
-        userInfoL1 = [[UILabel alloc] initWithFrame:CGRectMake(userInfoX, CGRectGetMaxY(userInfoL.frame)-5, userInfoW, 25)];
+        userInfoL1 = [[UILabel alloc] initWithFrame:CGRectMake(userInfoX, CGRectGetMaxY(userInfoL.frame)-10, userInfoW, 45)];
         userInfoL1.textColor = [UIColor blackColor];
         userInfoL1.userInteractionEnabled = YES;
+        userInfoL1.numberOfLines = 2;
         userInfoL1.font = [UIFont systemFontOfSize:12.0];
         userInfoL1.backgroundColor = [UIColor clearColor];
         [bgView addSubview:userInfoL1];
@@ -177,7 +179,7 @@
 
         
         
-        UILabel *remarkTip = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(userInfoL1.frame), 30, 30)];
+        UILabel *remarkTip = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(userInfoL1.frame)-15, 30, 30)];
         remarkTip.textColor = [UIColor grayColor];
         remarkTip.text = @"备注";
         remarkTip.font = [UIFont systemFontOfSize:12.0];
@@ -187,24 +189,24 @@
         CGFloat remarkInfoX = CGRectGetMaxX(remarkTip.frame);
         CGFloat remarkInfoW = SCREENWIDTH-remarkInfoX-10;
         
-        remarkInfoL = [[UILabel alloc] initWithFrame:CGRectMake(remarkInfoX, CGRectGetMaxY(userInfoL1.frame), remarkInfoW, 30)];
+        remarkInfoL = [[UILabel alloc] initWithFrame:CGRectMake(remarkInfoX, CGRectGetMaxY(userInfoL1.frame)-15, remarkInfoW, 30)];
         remarkInfoL.textColor = [UIColor blackColor];
         remarkInfoL.userInteractionEnabled = YES;
         remarkInfoL.font = [UIFont systemFontOfSize:12.0];
         remarkInfoL.backgroundColor = [UIColor clearColor];
         [bgView addSubview:remarkInfoL];
         
-        UILabel *line2 = [[UILabel alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(remarkInfoL.frame), bgView_W-10, 1)];
+        UILabel *line2 = [[UILabel alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(remarkInfoL.frame)-5, bgView_W-10, 1)];
         [bgView addSubview:line2];
         line2.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
         
-        UIImageView *piccImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(remarkInfoL.frame)+10, 90, 40)];
+        UIImageView *piccImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(remarkInfoL.frame)+5, 90, 40)];
         [piccImageView setBackgroundColor:[UIColor clearColor]];
         piccImageView.userInteractionEnabled = YES;
         piccImageView.image = [UIImage imageNamed:@"icon_picc"];
         [bgView addSubview:piccImageView];
         
-        UILabel *piccTipL = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(piccImageView.frame), CGRectGetMaxY(remarkInfoL.frame)+5, SCREENWIDTH-CGRectGetMaxX(piccImageView.frame)-40, 50)];
+        UILabel *piccTipL = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(piccImageView.frame), CGRectGetMaxY(remarkInfoL.frame), SCREENWIDTH-CGRectGetMaxX(piccImageView.frame)-40, 50)];
         piccTipL.textColor = [UIColor grayColor];
         piccTipL.userInteractionEnabled = YES;
         piccTipL.numberOfLines = 0;
@@ -214,7 +216,7 @@
         [bgView addSubview:piccTipL];
         
         
-        UIImageView *quessionImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(piccTipL.frame), CGRectGetMaxY(remarkInfoL.frame)+20, 20, 20)];
+        UIImageView *quessionImageView = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(piccTipL.frame), CGRectGetMaxY(remarkInfoL.frame)+15, 20, 20)];
         [quessionImageView setBackgroundColor:[UIColor clearColor]];
         quessionImageView.userInteractionEnabled = YES;
         quessionImageView.image = [UIImage imageNamed:@"icon_question"];

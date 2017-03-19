@@ -25,6 +25,7 @@
 #import "AboutViewController.h"
 #import "ServiceListVC.h"
 #import "MyServiceListVC.h"
+#import "HeMessageVC.h"
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>
 {
@@ -166,6 +167,13 @@
 //    [signBtn addTarget:self action:@selector(toSignInView) forControlEvents:UIControlEventTouchUpInside];
 //    [headerView addSubview:signBtn];
     
+    UIImage *messageImage = [UIImage imageNamed:@"icon_infromation"];
+    CGFloat messageButtonW = 25;
+    CGFloat messageButtonH = messageImage.size.height / messageImage.size.width * messageButtonW;
+    UIButton *messageButton = [[UIButton alloc] initWithFrame:CGRectMake(SCREENWIDTH - messageButtonW - 20, 30, messageButtonW, messageButtonH)];
+    [messageButton setImage:messageImage forState:UIControlStateNormal];
+    [headerView addSubview:messageButton];
+    [messageButton addTarget:self action:@selector(messageButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     //头像
     CGFloat imageDia = 70;              //直径
     CGFloat imageX = (SCREENWIDTH-imageDia)/2.0;
@@ -1189,7 +1197,12 @@
     }];
 }
 
-
+- (void)messageButtonClick:(UIButton *)button
+{
+    HeMessageVC *messageVC = [[HeMessageVC alloc] init];
+    messageVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:messageVC animated:YES];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
