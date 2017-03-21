@@ -33,6 +33,9 @@
 		57F511461E31B0FA003D0A7A /* TagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F511431E31B0FA003D0A7A /* TagViewController.m */; };
 		57F5114F1E31BDAF003D0A7A /* icon_arrow_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 57F5114D1E31BDAF003D0A7A /* icon_arrow_down.png */; };
 		57F511501E31BDAF003D0A7A /* icon_arrow_up.png in Resources */ = {isa = PBXBuildFile; fileRef = 57F5114E1E31BDAF003D0A7A /* icon_arrow_up.png */; };
+		AD0CF2F21E81A0C80037CB31 /* icon_red_packets.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0CF2F11E81A0C80037CB31 /* icon_red_packets.png */; };
+		AD0CF2F71E81A26D0037CB31 /* RedPacketVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0CF2F51E81A26D0037CB31 /* RedPacketVC.m */; };
+		AD0CF2F81E81A26D0037CB31 /* RedPacketVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD0CF2F61E81A26D0037CB31 /* RedPacketVC.xib */; };
 		AD0F506E1E31867700BEA52D /* UIBarButtonItem+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0F50621E31867600BEA52D /* UIBarButtonItem+WZLBadge.m */; };
 		AD0F506F1E31867700BEA52D /* UITabBarItem+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0F50641E31867700BEA52D /* UITabBarItem+WZLBadge.m */; };
 		AD0F50701E31867700BEA52D /* CAAnimation+WAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0F50671E31867700BEA52D /* CAAnimation+WAnimation.m */; };
@@ -838,6 +841,10 @@
 		57F511431E31B0FA003D0A7A /* TagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagViewController.m; sourceTree = "<group>"; };
 		57F5114D1E31BDAF003D0A7A /* icon_arrow_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_arrow_down.png; sourceTree = "<group>"; };
 		57F5114E1E31BDAF003D0A7A /* icon_arrow_up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_arrow_up.png; sourceTree = "<group>"; };
+		AD0CF2F11E81A0C80037CB31 /* icon_red_packets.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_red_packets.png; sourceTree = "<group>"; };
+		AD0CF2F41E81A26D0037CB31 /* RedPacketVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedPacketVC.h; sourceTree = "<group>"; };
+		AD0CF2F51E81A26D0037CB31 /* RedPacketVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedPacketVC.m; sourceTree = "<group>"; };
+		AD0CF2F61E81A26D0037CB31 /* RedPacketVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RedPacketVC.xib; sourceTree = "<group>"; };
 		AD0F50611E31867600BEA52D /* UIBarButtonItem+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+WZLBadge.h"; sourceTree = "<group>"; };
 		AD0F50621E31867600BEA52D /* UIBarButtonItem+WZLBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+WZLBadge.m"; sourceTree = "<group>"; };
 		AD0F50631E31867600BEA52D /* UITabBarItem+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+WZLBadge.h"; sourceTree = "<group>"; };
@@ -2247,6 +2254,16 @@
 			path = nurseService/Helper/TTTagView;
 			sourceTree = SOURCE_ROOT;
 		};
+		AD0CF2F31E81A25A0037CB31 /* RedPacketVC */ = {
+			isa = PBXGroup;
+			children = (
+				AD0CF2F41E81A26D0037CB31 /* RedPacketVC.h */,
+				AD0CF2F51E81A26D0037CB31 /* RedPacketVC.m */,
+				AD0CF2F61E81A26D0037CB31 /* RedPacketVC.xib */,
+			);
+			path = RedPacketVC;
+			sourceTree = "<group>";
+		};
 		AD0F505F1E31867600BEA52D /* WZLBadge */ = {
 			isa = PBXGroup;
 			children = (
@@ -2330,6 +2347,7 @@
 		AD3013741DFCF4F200D26E09 /* mineIcon */ = {
 			isa = PBXGroup;
 			children = (
+				AD0CF2F11E81A0C80037CB31 /* icon_red_packets.png */,
 				ADF8E2501E2A5BE900DDD49E /* icon_into_down.png */,
 				AD8A0EA51E26215E0001CC02 /* icon_add_photo_violet.png */,
 				ADB49C561E164526008DBCF6 /* myCapital */,
@@ -2882,6 +2900,7 @@
 		ADDBEB6B1DFCE41A000BDA95 /* MineViewController */ = {
 			isa = PBXGroup;
 			children = (
+				AD0CF2F31E81A25A0037CB31 /* RedPacketVC */,
 				AD181ACA1E7E84A70098F616 /* Message */,
 				AD5FBA0F1E5AD52A00EE93BB /* ServiceDetailVC */,
 				AD5FB9FE1E55853E00EE93BB /* MyServiceListVC */,
@@ -5290,6 +5309,7 @@
 				EAC2D8741D4B063B00E282A8 /* blackArrow.png in Resources */,
 				EAC2D9921D4B063C00E282A8 /* ShareSDK.bundle in Resources */,
 				EAC2D8C61D4B063B00E282A8 /* arrow_down1.png in Resources */,
+				AD0CF2F81E81A26D0037CB31 /* RedPacketVC.xib in Resources */,
 				EAA655301E0627C400F424DD /* LikeCmtBg@3x.png in Resources */,
 				EAA4F2FC1E011EC100EF9E14 /* HeLoginVC.xib in Resources */,
 				AD3013851DFCF4F300D26E09 /* icon_myadd.png in Resources */,
@@ -5405,6 +5425,7 @@
 				ADB49C751E1947CD008DBCF6 /* icon_address.png in Resources */,
 				AD181AD11E7E85870098F616 /* icon_infromation.png in Resources */,
 				EAC2D4331D4B031500E282A8 /* Main.storyboard in Resources */,
+				AD0CF2F21E81A0C80037CB31 /* icon_red_packets.png in Resources */,
 				EA1743541E1E33AF0038E805 /* refresh@2x.png in Resources */,
 				EAC2D87E1D4B063B00E282A8 /* LICENSE.txt in Resources */,
 				EAC2D9961D4B063C00E282A8 /* zbar-back.png in Resources */,
@@ -5672,6 +5693,7 @@
 				EAA6550D1E0627C300F424DD /* DFUserNewsActivityDetailLineCellAdapter.m in Sources */,
 				EA17432C1E1E33AE0038E805 /* MLLabel+Size.m in Sources */,
 				EAC2D8E71D4B063B00E282A8 /* NSOrderedSet+RACSequenceAdditions.m in Sources */,
+				AD0CF2F71E81A26D0037CB31 /* RedPacketVC.m in Sources */,
 				EAA6550F1E0627C300F424DD /* DFTextImageUserLineCellAdapter.m in Sources */,
 				EAC2D9221D4B063B00E282A8 /* UIBarButtonItem+RACCommandSupport.m in Sources */,
 				EAC2D89F1D4B063B00E282A8 /* MJPhotoToolbar.m in Sources */,

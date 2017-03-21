@@ -26,6 +26,7 @@
 #import "ServiceListVC.h"
 #import "MyServiceListVC.h"
 #import "HeMessageVC.h"
+#import "RedPacketVC.h"
 
 @interface MineViewController ()<UITableViewDelegate,UITableViewDataSource,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>
 {
@@ -104,9 +105,9 @@
     [[UINavigationBar appearance] setTintColor:APPDEFAULTORANGE];
     [super initializaiton];
 //    iconArr = @[@[@"icon_mycollection",@"icon_publish",@"icon_mycomment"],@[@"icon_patient",@"icon_follow",@"icon_fans"],@[@"icon_schedule",@"icon_service",@"icon_myadd"],@[@"icon_invite",@"icon_set",@"icon_set"]];
-    iconArr = @[@"icon_mycomment",@"icon_fans",@"icon_schedule",@"icon_patient",@"icon_invite",@"icon_mycollection",@"icon_set"];
+    iconArr = @[@"icon_mycomment",@"icon_fans",@"icon_red_packets",@"icon_schedule",@"icon_patient",@"icon_invite",@"icon_mycollection",@"icon_set"];
 //    tableItemArr = @[@[@"        我的收藏",@"        我的发表",@"        我的评论"],@[@"        我的患者",@"        我的关注",@"        我的粉丝"],@[@"        我的排班表",@"        我的服务",@"        我的常用地址"],@[@"        邀请好友",@"        我的二维码",@"        设置"]];
-    tableItemArr =@[@"        我的评论",@"        我的粉丝",@"        我的服务",@"        服务介绍",@"        邀好友",@"        关于我们",@"        设置"];
+    tableItemArr =@[@"        我的评论",@"        我的粉丝",@"        我的红包",@"        我的服务",@"        服务介绍",@"        邀好友",@"        关于我们",@"        设置"];
     serviceArr = [[NSMutableArray alloc] initWithCapacity:0];  //可提供服务
     serviceSelectArr = [[NSMutableArray alloc] initWithCapacity:0];
     serviceIdDic = [[NSMutableDictionary alloc] initWithCapacity:0];  //可提供服务
@@ -584,94 +585,34 @@
                 }
                     break;
                 case 2:
+                {//我的红包
+                    RedPacketVC *redPacketVC = [[RedPacketVC alloc] init];
+                    redPacketVC.hidesBottomBarWhenPushed = YES;
+                    [self.navigationController pushViewController:redPacketVC animated:YES];
+                }
+                    break;
+                case 3:
                 {//我的服务
                     [self showAlertView];
 //                    [self.view makeToast:@"功能未完善" duration:1.2 position:@"center"];
                 }
                     break;
-                case 3:
+                case 4:
                 {//服务介绍
                     [self showServiceListView];
                 }
                     break;
-                case 4:
+                case 5:
                 {//邀请好友
                     [self inviteFriend];
                 }
                     break;
-                case 5:
+                case 6:
                 {//关于我们
                     [self showAboutView];
                 }
                     break;
-                case 6:
-                {//设置
-                    SettingViewController *settingViewController = [[SettingViewController alloc] init];
-                    settingViewController.hidesBottomBarWhenPushed = YES;
-                    [self.navigationController pushViewController:settingViewController animated:YES];
-                }
-                    break;
-                    
-                default:
-                    break;
-            }
-        }
-            break;
-        case 1:
-        {
-            switch (index) {
-                case 0:
-                {//我的患者
-                }
-                    break;
-                case 1:
-                {//我的关注
-                }
-                    break;
-                case 2:
-                {//我的粉丝
-                }
-                    break;
-                    
-                default:
-                    break;
-            }
-        }
-            break;
-        case 2:
-        {
-            switch (index) {
-                case 0:
-                {//我的排班表
-                }
-                    break;
-                case 1:
-                {//我的服务
-                }
-                    break;
-                case 2:
-                {//我的常用地址
-                }
-                    break;
-                    
-                default:
-                    break;
-            }
-        }
-            break;
-        case 3:
-        {
-            switch (index) {
-                case 0:
-                {//邀请好友
-                    [self inviteFriend];
-                }
-                    break;
-                case 1:
-                {//我的二维码
-                }
-                    break;
-                case 2:
+                case 7:
                 {//设置
                     SettingViewController *settingViewController = [[SettingViewController alloc] init];
                     settingViewController.hidesBottomBarWhenPushed = YES;
