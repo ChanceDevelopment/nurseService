@@ -924,7 +924,10 @@
         NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd EEE HH:mm"];
         
         cell.stopTimeL.text = stopTimeStr;
-        cell.orderMoney.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
+
+        float costM = [[dict valueForKey:@"orderSendCostmoney"] floatValue]+[[dict valueForKey:@"orderSendTrafficmoney"] floatValue];
+        cell.orderMoney.text = [NSString stringWithFormat:@"￥%.2f",costM];
+        
         NSString *address = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendAddree"]];
         NSArray *addArr = [address componentsSeparatedByString:@","];
         NSString *addressStr = nil;
@@ -1025,9 +1028,10 @@
         } @finally {
             
         }
-        
-        cell.orderMoney.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
 
+        float costM = [[dict valueForKey:@"orderSendCostmoney"] floatValue]+[[dict valueForKey:@"orderSendTrafficmoney"] floatValue];
+        
+        cell.orderMoney.text = [NSString stringWithFormat:@"￥%.2f",costM];
         
         if (servicesStr.length > 0) {
             CGFloat scroll_W = SCREENWIDTH-10;
@@ -1299,21 +1303,9 @@
         }
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
         UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectMake(10, 84, SCREENWIDTH-20, 1)];
         [bgView addSubview:line1];
         line1.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
-        
-        
-        
         
         id zoneCreatetimeObj = [dict objectForKey:@"orderSendBegintime"];
         if ([zoneCreatetimeObj isMemberOfClass:[NSNull class]] || zoneCreatetimeObj == nil) {
@@ -1425,6 +1417,8 @@
         [bgView addSubview:orderReceiveTime];
         orderReceiveTime.text = [NSString stringWithFormat:@"接单时间：%@",[self getSenderTimeStrWith:[dict objectForKey:@"orderSendGetOrderTime"]]];
         
+        float costM = [[dict valueForKey:@"orderSendCostmoney"] floatValue]+[[dict valueForKey:@"orderSendTrafficmoney"] floatValue];
+        
         UILabel *orderMoney = [[UILabel alloc] initWithFrame:CGRectMake(bgViewW-150, tipY, 130, 30)];
         orderMoney.textColor = [UIColor redColor];
         orderMoney.textAlignment = NSTextAlignmentRight;
@@ -1432,7 +1426,7 @@
         orderMoney.backgroundColor = [UIColor clearColor];
         orderMoney.adjustsFontSizeToFitWidth = YES;
         [bgView addSubview:orderMoney];
-        orderMoney.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
+        orderMoney.text = [NSString stringWithFormat:@"￥%.2f",costM];
 
         tipY = CGRectGetMaxY(orderReceiveTime.frame);
         UILabel *orderFinshTime = [[UILabel alloc] initWithFrame:CGRectMake(10, tipY, 200, 20)];

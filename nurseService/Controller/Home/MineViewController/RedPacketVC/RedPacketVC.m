@@ -14,7 +14,6 @@
 {
     UIImageView *noDataView;
     NSMutableArray *dataArr;
-    NSInteger currentPage;
 }
 @property (strong, nonatomic) IBOutlet UITableView *tableview;
 
@@ -55,7 +54,6 @@
 {
     [super initializaiton];
     dataArr = [[NSMutableArray alloc] initWithCapacity:0];
-    currentPage = 0;
 }
 
 - (void)initView
@@ -102,10 +100,11 @@
 - (void)getData{
     
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
-    NSDictionary * params  = @{@"nurseId": userId,@"pageNum" : [NSString stringWithFormat:@"%ld",currentPage]};
-    
+    NSDictionary * params  = @{@"nuserId": userId};
+    [self showHudInView:self.view hint:@"正在获取..."];
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:@"nurseAnduser/selectAllNurseRedPackert.action" params:params success:^(AFHTTPRequestOperation* operation,id response){
-        
+        [self hideHud];
+
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]||[[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"300"]) {
@@ -118,18 +117,17 @@
                 return ;
             }else{
                 NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
+                if (dataArr.count >0) {
+                    [dataArr removeAllObjects];
+                }
                 if (tempArr.count > 0) {
-                    currentPage++;
-                    
                     [dataArr addObjectsFromArray:tempArr];
                     [tableview reloadData];
                     noDataView.hidden = YES;
                     tableview.hidden = NO;
                 }else{
-                    if (currentPage == 0 && tempArr.count == 0) {
-                        noDataView.hidden = NO;
-                        tableview.hidden = YES;
-                    }
+                    noDataView.hidden = NO;
+                    tableview.hidden = YES;
                     return ;
                 }
             }
@@ -140,9 +138,16 @@
                 data = ERRORREQUESTTIP;
             }
             [self.view makeToast:data duration:1.2 position:@"center"];
+            if (dataArr.count >0) {
+                [dataArr removeAllObjects];
+                [tableview reloadData];
+                noDataView.hidden = NO;
+                tableview.hidden = YES;
+            }
         }
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
+        [self hideHud];
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
     
@@ -179,47 +184,86 @@
         cell = [[HeBaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIndentifier cellSize:cellSize];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    CGFloat itemX = 10;
-    CGFloat itemY = 10;
-    CGFloat itemW = SCREENWIDTH-20;
-    CGFloat itemH = 80/3.0;
     
-    NSString *sex = [[dict valueForKey:@"protectedPersonSex"] integerValue] == 1 ? @"男" : @"女";
-    NSString *nameStr = [NSString stringWithFormat:@"%@",[dict valueForKey:@"protectedPersonName"]];
-    //        NSArray *nameArr = [nameStr componentsSeparatedByString:@","];
-    @try {
-        //            nameStr = nameArr[1];
-    } @catch (NSException *exception) {
-    } @finally {
-        
+    UIImageView *bgImage = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, SCREENWIDTH-20, 80)];
+    bgImage.backgroundColor = [UIColor clearColor];
+    [cell addSubview:bgImage];
+    [bgImage setImage:[UIImage imageNamed:@"icon_coupon_bg"]];
+    
+    
+    CGFloat itemX = 10;
+    CGFloat itemY = 15;
+    CGFloat itemW = 50;
+    UIImageView *headImageView = [[UIImageView alloc] initWithFrame:CGRectMake(itemX, itemY, itemW, itemW)];
+    headImageView.backgroundColor = [UIColor clearColor];
+    headImageView.layer.masksToBounds = YES;
+    headImageView.image = [UIImage imageNamed:@"icon_coupon"];
+    headImageView.contentMode = UIViewContentModeScaleAspectFill;
+    headImageView.layer.borderWidth = 0.0;
+    headImageView.layer.cornerRadius = 40 / 2.0;
+    headImageView.layer.masksToBounds = YES;
+    [bgImage addSubview:headImageView];
+    NSString *userHeader = [NSString stringWithFormat:@"%@%@",PIC_URL,[dict valueForKey:@"redPacketsNursePic"]];
+    [headImageView sd_setImageWithURL:[NSURL URLWithString:userHeader] placeholderImage:[UIImage imageNamed:@"icon_coupon"]];
+    
+    itemX = CGRectGetMaxX(headImageView.frame);
+    itemY = 10;
+    itemW = 200;
+    CGFloat itemH = 25;
+    UILabel *nameL = [[UILabel alloc] initWithFrame:CGRectMake(itemX, itemY, itemW, itemH)];
+    nameL.textColor = [UIColor redColor];
+    nameL.font = [UIFont systemFontOfSize:16.0];
+    nameL.backgroundColor = [UIColor clearColor];
+    nameL.adjustsFontSizeToFitWidth = YES;
+    nameL.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"redPacketsNurseSpeak"]];
+    [bgImage addSubview:nameL];
+    
+    itemW = 100;
+    itemX = SCREENWIDTH-40-itemW;
+    itemY = 10;
+    itemH = 25;
+    UILabel *moneyL = [[UILabel alloc] initWithFrame:CGRectMake(itemX, itemY, itemW, itemH)];
+    moneyL.textColor = [UIColor redColor];
+    moneyL.textAlignment = NSTextAlignmentRight;
+    moneyL.font = [UIFont systemFontOfSize:16.0];
+    moneyL.backgroundColor = [UIColor clearColor];
+//    moneyL.adjustsFontSizeToFitWidth = YES;
+    moneyL.text = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"redPacketsNurseMoney"]];
+    [bgImage addSubview:moneyL];
+    
+    
+    id zoneCreatetimeObj = [dict objectForKey:@"redPacketsNurseCreatetime"];
+    if ([zoneCreatetimeObj isMemberOfClass:[NSNull class]] || zoneCreatetimeObj == nil) {
+        NSTimeInterval  timeInterval = [[NSDate date] timeIntervalSince1970];
+        zoneCreatetimeObj = [NSString stringWithFormat:@"%.0f000",timeInterval];
+    }
+    long long timestamp = [zoneCreatetimeObj longLongValue];
+    NSString *zoneCreatetime = [NSString stringWithFormat:@"%lld",timestamp];
+    if ([zoneCreatetime length] > 3) {
+        //时间戳
+        zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
     }
     
-//    UILabel *nameL = [[UILabel alloc] initWithFrame:CGRectMake(itemX, itemY, itemW, itemH)];
-//    nameL.textColor = [UIColor blackColor];
-//    nameL.font = [UIFont systemFontOfSize:13.0];
-//    nameL.backgroundColor = [UIColor clearColor];
-//    nameL.adjustsFontSizeToFitWidth = YES;
-//    nameL.text = [NSString stringWithFormat:@"%@ %@ %@岁",nameStr,sex,[dict valueForKey:@"protectedPersonAge"]];
-//    [cell addSubview:nameL];
-//    
-//    itemY = CGRectGetMaxY(nameL.frame)-5;
-//    UILabel *contentL = [[UILabel alloc] initWithFrame:CGRectMake(itemX, itemY, itemW, itemH)];
-//    contentL.textColor = [UIColor grayColor];
-//    contentL.font = [UIFont systemFontOfSize:13.0];
-//    contentL.backgroundColor = [UIColor clearColor];
-//    contentL.adjustsFontSizeToFitWidth = YES;
-//    contentL.text = [dict valueForKey:@"orderSendServicecontent"];
-//    [cell addSubview:contentL];
-//    
-//    itemY = CGRectGetMaxY(contentL.frame)-5;
-//    UILabel *timeL = [[UILabel alloc] initWithFrame:CGRectMake(itemX, itemY, itemW, itemH)];
-//    timeL.textColor = [UIColor grayColor];
-//    timeL.font = [UIFont systemFontOfSize:13.0];
-//    timeL.backgroundColor = [UIColor clearColor];
-//    timeL.adjustsFontSizeToFitWidth = YES;
-//    timeL.text = [NSString stringWithFormat:@"创建时间%@",[self getSenderTimeStrWith:[dict objectForKey:@"nursingReportCreatetime"]]];
-//    [cell addSubview:timeL];
+    NSString *time = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"YYYY-MM-dd HH:mm:ss"];
     
+    itemX = CGRectGetMaxX(headImageView.frame);
+    itemW = SCREENWIDTH-25-itemX;
+    itemY = CGRectGetMaxY(nameL.frame)+5;
+    itemH = 1;
+    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(itemX, itemY, itemW, itemH)];
+    line.backgroundColor = [UIColor lightGrayColor];
+    [bgImage addSubview:line];
+    NSLog(@"%@",dict);
+    
+    itemH = 50;
+    UILabel *noteL = [[UILabel alloc] initWithFrame:CGRectMake(itemX, itemY-5, itemW, itemH)];
+    noteL.textColor = [UIColor grayColor];
+    noteL.numberOfLines = 2;
+    noteL.font = [UIFont systemFontOfSize:13.0];
+    noteL.backgroundColor = [UIColor clearColor];
+    //    moneyL.adjustsFontSizeToFitWidth = YES;
+    noteL.text = [NSString stringWithFormat:@"%@\n%@",[dict valueForKey:@"redPacketsNurseNote"],time];
+    [bgImage addSubview:noteL];
     
     return cell;
 }

@@ -408,7 +408,9 @@
                     titleLabel.textColor = [UIColor blackColor];
                     [cell addSubview:titleLabel];
                     
-                    NSString *priceString = [NSString stringWithFormat:@"￥%@",[dict valueForKey:@"orderSendTotalmoney"]];
+                    float costM = [[dict valueForKey:@"orderSendCostmoney"] floatValue]+[[dict valueForKey:@"orderSendTrafficmoney"] floatValue];
+                    NSString *priceString = [NSString stringWithFormat:@"￥%.2f",costM];
+
                     UIFont *priceFont = [UIFont systemFontOfSize:14.0];
                     CGSize priceSize = [MLLabel getViewSizeByString:priceString maxWidth:200 font:priceFont lineHeight:1.2f lines:0];
                     CGFloat priceLabelW = priceSize.width;

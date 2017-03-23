@@ -97,6 +97,8 @@
 		AD5FBA1A1E5F19DB00EE93BB /* icon_phone.png in Resources */ = {isa = PBXBuildFile; fileRef = AD5FBA191E5F19DB00EE93BB /* icon_phone.png */; };
 		AD5FBA1F1E5F22C400EE93BB /* HandleIntroductionVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5FBA1D1E5F22C400EE93BB /* HandleIntroductionVC.m */; };
 		AD5FBA201E5F22C400EE93BB /* HandleIntroductionVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD5FBA1E1E5F22C400EE93BB /* HandleIntroductionVC.xib */; };
+		AD7041AC1E83A4EB0092828A /* icon_coupon_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = AD7041AA1E83A4EB0092828A /* icon_coupon_bg.png */; };
+		AD7041AD1E83A4EB0092828A /* icon_coupon.png in Resources */ = {isa = PBXBuildFile; fileRef = AD7041AB1E83A4EB0092828A /* icon_coupon.png */; };
 		AD8A0E541E229E2C0001CC02 /* jpush-ios-2.1.9.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E521E229E2C0001CC02 /* jpush-ios-2.1.9.a */; };
 		AD8A0E5C1E22A0030001CC02 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E5B1E22A0030001CC02 /* UserNotifications.framework */; };
 		AD8A0E5E1E22A02B0001CC02 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD8A0E5D1E22A02B0001CC02 /* UIKit.framework */; };
@@ -927,6 +929,8 @@
 		AD5FBA1C1E5F22C400EE93BB /* HandleIntroductionVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HandleIntroductionVC.h; sourceTree = "<group>"; };
 		AD5FBA1D1E5F22C400EE93BB /* HandleIntroductionVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HandleIntroductionVC.m; sourceTree = "<group>"; };
 		AD5FBA1E1E5F22C400EE93BB /* HandleIntroductionVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HandleIntroductionVC.xib; sourceTree = "<group>"; };
+		AD7041AA1E83A4EB0092828A /* icon_coupon_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_coupon_bg.png; sourceTree = "<group>"; };
+		AD7041AB1E83A4EB0092828A /* icon_coupon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_coupon.png; sourceTree = "<group>"; };
 		AD8A0E521E229E2C0001CC02 /* jpush-ios-2.1.9.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.9.a"; sourceTree = "<group>"; };
 		AD8A0E531E229E2C0001CC02 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		AD8A0E5B1E22A0030001CC02 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -2347,6 +2351,8 @@
 		AD3013741DFCF4F200D26E09 /* mineIcon */ = {
 			isa = PBXGroup;
 			children = (
+				AD7041AA1E83A4EB0092828A /* icon_coupon_bg.png */,
+				AD7041AB1E83A4EB0092828A /* icon_coupon.png */,
 				AD0CF2F11E81A0C80037CB31 /* icon_red_packets.png */,
 				ADF8E2501E2A5BE900DDD49E /* icon_into_down.png */,
 				AD8A0EA51E26215E0001CC02 /* icon_add_photo_violet.png */,
@@ -5478,6 +5484,7 @@
 				EA1743571E1E33AF0038E805 /* success@3x.png in Resources */,
 				EAA4F3201E012F3000EF9E14 /* tabar_order_icon_active@2x.png in Resources */,
 				AD8A0E811E254F3E0001CC02 /* NurseReportVC.xib in Resources */,
+				AD7041AC1E83A4EB0092828A /* icon_coupon_bg.png in Resources */,
 				AD5FB9F71E54922A00EE93BB /* icon.png in Resources */,
 				AD181ACF1E7E84A70098F616 /* HeMessageVC.xib in Resources */,
 				EAA655241E0627C300F424DD /* AlbumLike@2x.png in Resources */,
@@ -5496,6 +5503,7 @@
 				EAA6552C1E0627C300F424DD /* AlbumShare@3x.png in Resources */,
 				AD5CD6D91E0FB7F00025517E /* add.png in Resources */,
 				EAA6552A1E0627C300F424DD /* AlbumOperateMoreViewBkg@2x.png in Resources */,
+				AD7041AD1E83A4EB0092828A /* icon_coupon.png in Resources */,
 				EA1743531E1E33AF0038E805 /* fail@3x.png in Resources */,
 				EAC2D9501D4B063B00E282A8 /* bg_023@2x.png in Resources */,
 				ADCD25B01E0C2E7300FBCF26 /* icon_star_normal.png in Resources */,
