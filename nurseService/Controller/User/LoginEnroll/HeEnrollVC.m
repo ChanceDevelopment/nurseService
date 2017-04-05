@@ -82,7 +82,10 @@
     getCodeButton.layer.cornerRadius = 5.0;
     getCodeButton.layer.borderColor = APPDEFAULTORANGE.CGColor;
     getCodeButton.layer.masksToBounds = YES;
-    
+    securityButton.selected = YES;
+    [securityButton setImage:[UIImage imageNamed:@"icon_openeyes"] forState:UIControlStateNormal];
+    [securityButton setImage:[UIImage imageNamed:@"icon_closeeyes"] forState:UIControlStateSelected];
+
 }
 
 //获取验证码

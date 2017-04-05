@@ -84,7 +84,8 @@
 #define SELECTFOLLOWBYID @"follow/selectfollowbybefollowid.action"
 //18.1提现
 #define NURSEDRAWMONEY @"nurseAnduser/drawMoney.action"
-
+//19.3重置密码
+#define RESETPASSWORD @"nurseAnduser/ResetPasswordUpdate.action"
 
 
 

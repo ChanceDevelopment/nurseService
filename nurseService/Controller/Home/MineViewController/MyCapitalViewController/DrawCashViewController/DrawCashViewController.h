@@ -9,5 +9,5 @@
 #import "HeBaseViewController.h"
 
 @interface DrawCashViewController : HeBaseViewController
-
+@property (nonatomic,assign)float totalCapital;
 @end

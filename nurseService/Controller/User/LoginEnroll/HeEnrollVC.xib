@@ -79,13 +79,13 @@
                         <outlet property="delegate" destination="-1" id="EoB-G8-xCd"/>
                     </connections>
                 </textField>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dUS-mb-5MS">
+                <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dUS-mb-5MS">
                     <rect key="frame" x="325" y="93" width="30" height="25"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="30" id="G8B-Cg-dbU"/>
                         <constraint firstAttribute="height" constant="25" id="Wmv-Kt-Qj9"/>
                     </constraints>
-                    <state key="normal" title="Button" image="icon_closeeyes.png"/>
+                    <state key="normal" image="icon_closeeyes.png"/>
                     <state key="highlighted" image="icon_openeyes.png"/>
                     <connections>
                         <action selector="securityButtonClick:" destination="-1" eventType="touchUpInside" id="zLo-Aw-tJf"/>

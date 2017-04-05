@@ -117,7 +117,8 @@
     NSString *userHeader = [NSString stringWithFormat:@"%@%@",PIC_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseHeader"]];
     [portrait sd_setImageWithURL:[NSURL URLWithString:userHeader] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];
     
-    userNameL.text = [NSString stringWithFormat:@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseNick"]];
+    userNameL.text = [self getNameInfo];
+    
     NSString *nurseDistrict = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseDistrict"];
     
     if ([nurseDistrict isEqualToString:@"0"]) {
@@ -208,16 +209,8 @@
     userNameL.frame = CGRectMake(labelX, labelY, labelW, labelH);
     [headerView addSubview:userNameL];
     
-    NSString *nurseNick = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseNick"];
-    if ([nurseNick isMemberOfClass:[NSNull class]] || nurseNick == nil) {
-        nurseNick = @"";
-    }
-    id nurseSex = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseSex"];
-    NSString *nurseSexStr = @"女";
-    if ([nurseSex integerValue] == ENUM_SEX_Boy) {
-        nurseSexStr = @"男";
-    }
-    userNameL.text = [NSString stringWithFormat:@"%@    %@",nurseNick,nurseSexStr];
+    
+    userNameL.text = [self getNameInfo];
     
     CGFloat sexX = SCREENWIDTH/2.0+10;
     CGFloat sexY = labelY;
@@ -1143,6 +1136,19 @@
     HeMessageVC *messageVC = [[HeMessageVC alloc] init];
     messageVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:messageVC animated:YES];
+}
+
+- (NSString *)getNameInfo{
+    NSString *nurseNick = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseNick"];
+    if ([nurseNick isMemberOfClass:[NSNull class]] || nurseNick == nil) {
+        nurseNick = @"";
+    }
+    id nurseSex = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseSex"];
+    NSString *nurseSexStr = @"女";
+    if ([nurseSex integerValue] == ENUM_SEX_Boy) {
+        nurseSexStr = @"男";
+    }
+    return [NSString stringWithFormat:@"%@    %@",nurseNick,nurseSexStr];
 }
 
 - (void)didReceiveMemoryWarning {

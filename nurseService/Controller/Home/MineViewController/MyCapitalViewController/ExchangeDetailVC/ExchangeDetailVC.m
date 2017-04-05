@@ -118,13 +118,16 @@
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]||[[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"300"]) {
             NSLog(@"success");
             
+
             if ([[respondDict valueForKey:@"json"] isMemberOfClass:[NSNull class]] || [respondDict valueForKey:@"json"] == nil) {
-                
-                noDataView.hidden = NO;
-                tableview.hidden = YES;
+                if (currentPage == 0){
+                    noDataView.hidden = NO;
+                    tableview.hidden = YES;
+                }
                 return ;
             }else{
                 NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
+                
                 if (tempArr.count > 0) {
                     currentPage++;
                     

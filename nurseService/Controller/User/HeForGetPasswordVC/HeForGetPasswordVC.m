@@ -195,9 +195,8 @@
     NSString *phone = accountField.text;
     NSString *Identify = @"1";
     NSDictionary * params  = @{@"phone":phone,@"Identify":Identify,@"passWord":passWord};
-    NSString *requestUrl = [NSString stringWithFormat:@"%@/nurseAnduser/ResetPasswordUpdate.action",BASEURL];
     [self showHudInView:self.view hint:@"重置中..."];
-    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:requestUrl params:params success:^(AFHTTPRequestOperation* operation,id response){
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:RESETPASSWORD params:params success:^(AFHTTPRequestOperation* operation,id response){
         [self hideHud];
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSDictionary *respondDict = [NSDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];

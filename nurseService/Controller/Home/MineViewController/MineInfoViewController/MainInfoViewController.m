@@ -461,8 +461,8 @@
 //    girlBt.enabled = YES;
     [addBgView addSubview:girlBt];
     
-    NSString *nurseDistrict = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseDistrict"];
-    BOOL isBoy = [nurseDistrict isEqualToString:@"1"] ? YES : NO;
+//    NSString *nurseDistrict = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseSex"];
+    BOOL isBoy = [[dataSourceDic valueForKey:@"nurseSex"] isEqualToString:@"女"] ? NO : YES;
     if (isBoy) {
         boyBt.selected = YES;
 //        boyBt.enabled = NO;

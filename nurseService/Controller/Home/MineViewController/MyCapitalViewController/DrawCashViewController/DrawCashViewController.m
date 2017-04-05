@@ -19,7 +19,7 @@
 
 @implementation DrawCashViewController
 @synthesize crashTextField;
-
+@synthesize totalCapital;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -69,6 +69,8 @@
         [self.view makeToast:@"提现金额过小，无法提现" duration:1.2 position:@"center"];
     }else if ([crashTextField.text integerValue] > 2000){
         [self.view makeToast:@"提现金额过大，无法提现" duration:1.2 position:@"center"];
+    }else if([crashTextField.text integerValue] > totalCapital){
+        [self.view makeToast:@"余额不足，无法提现" duration:1.2 position:@"center"];
     }else{
         [self showPasswordView];
     }
@@ -155,7 +157,10 @@
             [self.view makeToast:@"请输入支付密码" duration:1.2 position:@"center"];
             return;
         }
-        
+        if ([addTextField.text isEqualToString:@""]) {
+            [self.view makeToast:@"请输入支付密码" duration:1.2 position:@"center"];
+            return;
+        }
         NSString *nurseId = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
         NSDictionary * params  = @{@"userId" : nurseId,
                                    @"identity" : @"1",

@@ -73,7 +73,7 @@ return self;
     
     NSDictionary *userInfoDic = [NSDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY]];
 
-    NSString *tipStr = [NSString stringWithFormat:@"请将手机号%@，收到的验证码填到下面的输入框中",[userInfoDic valueForKey:@"account"]];
+    NSString *tipStr = [NSString stringWithFormat:@"请将手机号%@，收到的验证码填到下面的输入框中",[userInfoDic valueForKey:@"nurseName"]];
     
     [tipLable setText:tipStr];
     

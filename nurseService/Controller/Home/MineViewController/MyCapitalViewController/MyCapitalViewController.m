@@ -24,6 +24,8 @@
 
 @implementation MyCapitalViewController
 @synthesize myTableView;
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -85,6 +87,7 @@
     capitalL.textColor = APPDEFAULTTITLECOLOR;
     capitalL.textAlignment = NSTextAlignmentCenter;
     [headerView addSubview:capitalL];
+    capitalL.text = @"0.00元";
     
     CGFloat tipImageX = SCREENWIDTH/2.0 - 30;
     CGFloat tipImageY = 65;
@@ -129,7 +132,7 @@
                 }
             }
             
-            NSString *capitalStr = [[NSString stringWithFormat:@"%@",[nurseDic valueForKey:@"nurseBalance"]] isEqualToString:@""] ? @"0元" : [NSString stringWithFormat:@"%@元",[nurseDic valueForKey:@"nurseBalance"]];
+            NSString *capitalStr = [[NSString stringWithFormat:@"%@",[nurseDic valueForKey:@"nurseBalance"]] isEqualToString:@""] ? @"0.00元" : [NSString stringWithFormat:@"%.2f元",[[nurseDic valueForKey:@"nurseBalance"] floatValue]];
             capitalL.text = capitalStr;
             [[NSUserDefaults standardUserDefaults] setObject:nurseDic forKey:THREEINFOKEY];
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
@@ -204,6 +207,7 @@
                 [self.navigationController pushViewController:settingPayPswVC animated:YES];
             }else {
                 DrawCashViewController *drawCashViewController = [[DrawCashViewController alloc] init];
+                drawCashViewController.totalCapital = [capitalL.text floatValue];
                 drawCashViewController.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:drawCashViewController animated:YES];
             }
@@ -282,13 +286,13 @@
     [addBgView addSubview:addTextField];
     
     //边线
-    UILabel *borderLine = [[UILabel alloc] initWithFrame:CGRectMake(10, addTextField_Y+44, addTextField_W, 0.5)];
+    UILabel *borderLine = [[UILabel alloc] initWithFrame:CGRectMake(10, addTextField_Y+40, addTextField_W, 0.5)];
     [addBgView addSubview:borderLine];
     borderLine.backgroundColor = [UIColor blueColor];
     
     
     NSInteger cancleBt_X = SCREENWIDTH-20-10-90;
-    NSInteger cancleBt_Y = addTextField_Y+44+30;
+    NSInteger cancleBt_Y = addTextField_Y+40+30;
     NSInteger cancleBt_W = 40;
     NSInteger cancleBt_H = 20;
     
@@ -312,13 +316,21 @@
     
     
 }
-
+- (BOOL)isPureInt:(NSString*)string{
+    NSScanner* scan = [NSScanner scannerWithString:string];
+    int val;
+    return[scan scanInt:&val] && [scan isAtEnd];
+}
 - (void)clickBtAction:(UIButton *)sender{
+    if (windowView) {
+        [windowView removeFromSuperview];
+    }
     if (sender.tag == 1) {
-        if (addTextField.text.length == 0) {
-            [self.view makeToast:@"请输入支付宝账号" duration:2.0 position:@"center"];
+        if (addTextField.text.length == 0 || ![self isPureInt:addTextField.text]) {
+            [self.view makeToast:@"请输入正确支付宝账号" duration:2.0 position:@"center"];
             return;
         }
+
         NSString *nurseId = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
         NSDictionary * params  = @{@"nurseId" : nurseId,
                                    @"pwd" : @"",
@@ -341,9 +353,7 @@
         }];
     }
     
-    if (windowView) {
-        [windowView removeFromSuperview];
-    }
+    
     NSLog(@"tag:%ld",sender.tag);
 }
 
