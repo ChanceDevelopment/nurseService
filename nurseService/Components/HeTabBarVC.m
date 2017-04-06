@@ -206,9 +206,9 @@
                  0.接
                  1.不接
                  */
-                [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:RECEIVEORDERSTATE];
+                [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:RECEIVEORDERSTATE];
             }else{
-                [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:RECEIVEORDERSTATE];
+                [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:RECEIVEORDERSTATE];
             }
             
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){

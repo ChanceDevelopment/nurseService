@@ -132,7 +132,7 @@
                 }
             }
             
-            NSString *capitalStr = [[NSString stringWithFormat:@"%@",[nurseDic valueForKey:@"nurseBalance"]] isEqualToString:@""] ? @"0.00元" : [NSString stringWithFormat:@"%.2f元",[[nurseDic valueForKey:@"nurseBalance"] floatValue]];
+            NSString *capitalStr = [[NSString stringWithFormat:@"%@",[nurseDic valueForKey:@"nurseBalance"]] isEqualToString:@""] ? @"0.00元" : [NSString stringWithFormat:@"%@元",[nurseDic valueForKey:@"nurseBalance"]];
             capitalL.text = capitalStr;
             [[NSUserDefaults standardUserDefaults] setObject:nurseDic forKey:THREEINFOKEY];
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){

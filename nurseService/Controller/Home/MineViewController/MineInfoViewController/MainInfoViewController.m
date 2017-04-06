@@ -137,7 +137,7 @@
     if (encodedImageStr) {
         headerStr = encodedImageStr;
     }else{
-        headerStr = [dataSourceDic valueForKey:@"nurseHeader"];
+        headerStr = @"";//[dataSourceDic valueForKey:@"nurseHeader"];
     }
     if ([[dataSourceDic valueForKey:@"nurseSex"] isEqualToString:@"女"]) {
         sexStr = @"2";
@@ -291,12 +291,15 @@
         }else if (row == 2){
             nameStr=[dataSourceDic valueForKey:@"nursePhone"];
         }else if (row == 3){
-            nameStr=[dataSourceDic valueForKey:@"nurseCard"];
-//            if (![nameStr isEqualToString:@""]) {
-//                NSMutableString *string1 = [[NSMutableString alloc] initWithString:nameStr];
-//                [string1 replaceCharactersInRange:NSMakeRange(8, 13) withString:@"******"];
-//                nameStr = string1;
-//            }
+            
+            NSString *noteStr = [NSString stringWithFormat:@"%@",[dataSourceDic valueForKey:@"nurseCard"]];
+            if (noteStr.length > 0) {
+                noteStr = [NSString stringWithFormat:@"%@****%@",[noteStr substringToIndex:8],[noteStr substringFromIndex:14]];
+            }else{
+                noteStr = @"";
+            }
+            nameStr = noteStr;
+
         }else if (row == 4){
             nameStr=[dataSourceDic valueForKey:@"nurseSex"];
         }else if (row == 5){
@@ -649,8 +652,16 @@
         if (currentRow == 1) {
             [dataSourceDic setValue:addTextField.text forKey:@"nurseNick"];
         }else if(currentRow == 2){
+            if (![Tool isMobileNumber:addTextField.text]) {
+                [self.view.window makeToast:@"请输入正确手机号" duration:1.2 position:@"center"];
+                return;
+            }
             [dataSourceDic setValue:addTextField.text forKey:@"nursePhone"];
         }else if(currentRow == 3){
+            if (![Tool IsIdentityCard:addTextField.text]) {
+                [self.view.window makeToast:@"请输入正确身份号" duration:1.2 position:@"center"];
+                return;
+            }
             [dataSourceDic setValue:addTextField.text forKey:@"nurseCard"];;
         }else if(currentRow == 5){
             [dataSourceDic setValue:addTextField.text forKey:@"nurseNote"];;
@@ -952,6 +963,15 @@
     NSInteger cancleBt_Y = CGRectGetMaxY(tableview.frame)+10;
     NSInteger cancleBt_W = 40;
     NSInteger cancleBt_H = 20;
+    
+    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X-50, cancleBt_Y, cancleBt_W, cancleBt_H)];
+    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
+    cancleBt.backgroundColor = [UIColor clearColor];
+    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    cancleBt.tag = 0;
+    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
+    [addBgView addSubview:cancleBt];
     
     UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
     [okBt setTitle:@"确定" forState:UIControlStateNormal];

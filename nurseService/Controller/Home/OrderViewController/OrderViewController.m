@@ -479,9 +479,9 @@
             NSLog(@"success");
             
             if (mySwitch.isSelected) {
-                [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:RECEIVEORDERSTATE];
+                [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:RECEIVEORDERSTATE];
             }else{
-                [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:RECEIVEORDERSTATE];
+                [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:RECEIVEORDERSTATE];
             }
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
@@ -494,8 +494,20 @@
 }
 
 - (void)resetSetSwitchBtState{
-    titleLabel .text = [[NSUserDefaults standardUserDefaults] objectForKey:RECEIVEORDERSTATE] ? @"接单中" : @"关闭接单";
-    switchBt.selected = [[NSUserDefaults standardUserDefaults] objectForKey:RECEIVEORDERSTATE];
+    NSString *nurseDistrict = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseDistrict"];
+    BOOL isDistrict = [nurseDistrict isEqualToString:@"1"] ? NO : YES;
+    
+    if (!isDistrict) {
+        titleLabel .text = @"关闭接单";
+        switchBt.selected = NO;
+        switchBt.enabled = NO;
+    }else{
+        switchBt.enabled = YES;
+    }
+    BOOL isReceive = [[[NSUserDefaults standardUserDefaults] objectForKey:RECEIVEORDERSTATE] isEqualToString:@"0"]?YES:NO;
+    titleLabel .text = isReceive ? @"接单中" : @"关闭接单";
+    switchBt.selected = isReceive;
+    NSLog(@"###########%@",switchBt.selected?@"接单中" : @"关闭接单");
 }
 
 - (void)showNodataView:(BOOL)isShow{
@@ -517,7 +529,7 @@
 - (void)getDataWithUrl:(NSString *)url{
     
     NSLog(@"currentpage: %ld",currentPage);
-    BOOL isOn = [[[NSUserDefaults standardUserDefaults] objectForKey:RECEIVEORDERSTATE] boolValue];
+    BOOL isOn = [[[NSUserDefaults standardUserDefaults] objectForKey:RECEIVEORDERSTATE] isEqualToString:@"0"]?YES:NO;
     if (!isOn && currentType == 0) {
         [self showNodataView:YES];
         return;
@@ -1888,10 +1900,11 @@
                  0.接
                  1.不接
                  */
-                [[NSUserDefaults standardUserDefaults] setObject:@YES forKey:RECEIVEORDERSTATE];
+                [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:RECEIVEORDERSTATE];
             }else{
-                [[NSUserDefaults standardUserDefaults] setObject:@NO forKey:RECEIVEORDERSTATE];
+                [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:RECEIVEORDERSTATE];
             }
+            NSLog(@"#######################:%@",[respondDict valueForKey:@"json"]);
             [self resetSetSwitchBtState];
 //            [self reloadOrderData];
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
