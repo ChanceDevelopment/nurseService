@@ -538,7 +538,7 @@
                     NSArray *addArr = [address componentsSeparatedByString:@","];
                     
                     CGFloat addressLabelX = 10;
-                    CGFloat addressLabelW = SCREENWIDTH-110;
+                    CGFloat addressLabelW = SCREENWIDTH-118;
                     CGFloat addressLabelH = cellSize.height / 2.0;
                     CGFloat addressLabelY = CGRectGetMaxY(timeLabel.frame);
                     
@@ -552,6 +552,7 @@
                     addressLabelX = CGRectGetMaxX(addressTip.frame);
                     UILabel *addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(addressLabelX, addressLabelY-10, addressLabelW, addressLabelH+20)];
                     addressLabel.numberOfLines = 2;
+                    addressLabel.backgroundColor = [UIColor clearColor];
                     addressLabel.font = [UIFont systemFontOfSize:13.0];
                     @try {
                         address = addArr[2];

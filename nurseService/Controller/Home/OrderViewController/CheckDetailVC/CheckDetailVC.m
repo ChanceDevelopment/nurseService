@@ -345,13 +345,23 @@
             priceLabel.backgroundColor = [UIColor clearColor];
             priceLabel.font = [UIFont systemFontOfSize:14.0];
 
-            NSString *priceString = [NSString stringWithFormat:@"+%.2f(其中包括平台奖励15元)",[[dicInfo objectForKey:@"price"] floatValue]];
-            NSMutableAttributedString *textColor = [[NSMutableAttributedString alloc]initWithString:priceString];
-            NSRange rangel = [priceString rangeOfString:@"("];
-            [textColor addAttribute:NSForegroundColorAttributeName value:APPDEFAULTORANGE range:NSMakeRange(rangel.location, 13)];
-            [textColor addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:11] range:NSMakeRange(rangel.location, 13)];
-            priceLabel.attributedText = textColor;
+            NSString *priceString = [NSString stringWithFormat:@"+%.2f",[[dicInfo objectForKey:@"price"] floatValue]];
+            priceLabel.text = priceString;
+            priceLabel.textColor = [UIColor blackColor];
+//            NSMutableAttributedString *textColor = [[NSMutableAttributedString alloc]initWithString:priceString];
+//            NSRange rangel = [priceString rangeOfString:@"("];
+//            [textColor addAttribute:NSForegroundColorAttributeName value:APPDEFAULTORANGE range:NSMakeRange(rangel.location, 13)];
+//            [textColor addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:11] range:NSMakeRange(rangel.location, 13)];
+//            priceLabel.attributedText = textColor;
             [cell addSubview:priceLabel];
+            
+//            NSString *priceString = [NSString stringWithFormat:@"+%.2f(其中包括平台奖励15元)",[[dicInfo objectForKey:@"price"] floatValue]];
+//            NSMutableAttributedString *textColor = [[NSMutableAttributedString alloc]initWithString:priceString];
+//            NSRange rangel = [priceString rangeOfString:@"("];
+//            [textColor addAttribute:NSForegroundColorAttributeName value:APPDEFAULTORANGE range:NSMakeRange(rangel.location, 13)];
+//            [textColor addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:11] range:NSMakeRange(rangel.location, 13)];
+//            priceLabel.attributedText = textColor;
+//            [cell addSubview:priceLabel];
             
         }
             break;
