@@ -57,8 +57,8 @@
 
 
 - (IBAction)okAction:(id)sender {
-    if ([passwordTextField.text isEqualToString:@""]) {
-        [self showHint:@"请输入验证码"];
+    if (![Tool isNumOrAbc:passwordTextField.text]) {
+        [self showHint:@"请输入正确密码"];
         return;
     }
     
@@ -73,6 +73,7 @@
         [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
+            [[NSUserDefaults standardUserDefaults] setObject:passwordTextField.text forKey:THREEINFOKEY];
             [self performSelector:@selector(backToRoot) withObject:nil afterDelay:1.2];
             
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){

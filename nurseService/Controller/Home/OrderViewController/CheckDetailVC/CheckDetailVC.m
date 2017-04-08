@@ -279,36 +279,12 @@
         case 1:
         {
             NSDictionary *dicInfo = ordersArr[indexPath.row];
+
             CGFloat point_X = 10;
-            UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(point_X, 0, 100, cellSize.height)];
-            dateLabel.backgroundColor = [UIColor clearColor];
-            dateLabel.numberOfLines = 0;
-            id zoneCreatetimeObj = [dicInfo objectForKey:@"orderSendBegintime"];
-            if ([zoneCreatetimeObj isMemberOfClass:[NSNull class]] || zoneCreatetimeObj == nil) {
-                NSTimeInterval  timeInterval = [[NSDate date] timeIntervalSince1970];
-                zoneCreatetimeObj = [NSString stringWithFormat:@"%.0f000",timeInterval];
-            }
-            long long timestamp = [zoneCreatetimeObj longLongValue];
-            NSString *zoneCreatetime = [NSString stringWithFormat:@"%lld",timestamp];
-            if ([zoneCreatetime length] > 3) {
-                    //时间戳
-                zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
-            }
-            NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd HH:mm"];
-            NSDate *date = [Tool convertTimespToDate:[zoneCreatetime longLongValue]];
-            NSString *dateSt = [NSString stringWithFormat:@"%@\n%@",[self weekdayStringFromDate:date],[stopTimeStr substringToIndex:5]];
-            dateLabel.text = dateSt;
-            dateLabel.font = [UIFont systemFontOfSize:15.0];
-            dateLabel.textColor = [UIColor blackColor];
-            [cell addSubview:dateLabel];
-
-
-            point_X = CGRectGetMaxX(dateLabel.frame)+5;
-            
             CGFloat imageDia = 50;              //直径
-            CGFloat imageY =  20;
+            CGFloat imageY =  10;
             
-            UIImageView *portrait = [[UIImageView alloc] initWithFrame:CGRectMake(60, imageY, imageDia, imageDia)];
+            UIImageView *portrait = [[UIImageView alloc] initWithFrame:CGRectMake(point_X, imageY, imageDia, imageDia)];
             portrait.userInteractionEnabled = YES;
             portrait.image = [UIImage imageNamed:@"defalut_icon"];
             NSString *logoString = [dicInfo objectForKey:@"userHeader"];
@@ -322,47 +298,57 @@
             
             NSString *userHeader = [NSString stringWithFormat:@"%@/%@",HYTIMAGEURL,@""];
             [portrait sd_setImageWithURL:[NSURL URLWithString:userHeader] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];
-            
-            point_X = CGRectGetMaxX(portrait.frame)+15;
-            
-            UILabel *phoneLabel = [[UILabel alloc] initWithFrame:CGRectMake(point_X, 15, 150, 30)];
-            phoneLabel.backgroundColor = [UIColor clearColor];
-            NSMutableString *aString = [[NSMutableString alloc] initWithFormat:@"%@",[dicInfo objectForKey:@"userPhone"]];
-            [aString replaceCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
-            phoneLabel.text = [NSString stringWithFormat:@"%@",aString];
-            phoneLabel.font = [UIFont systemFontOfSize:15.0];
-            phoneLabel.textColor = [UIColor blackColor];
-            [cell addSubview:phoneLabel];
-            
-            UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(point_X, 45, 150, 30)];
+
+            point_X = CGRectGetMaxX(portrait.frame);
+            CGFloat label_w = SCREENWIDTH - point_X - 70;
+            CGFloat label_y = 10;
+            UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(point_X, label_y, label_w, 25)];
             nameLabel.backgroundColor = [UIColor clearColor];
             nameLabel.text = [dicInfo objectForKey:@"userNick"];
-            nameLabel.font = [UIFont systemFontOfSize:15.0];
-            nameLabel.textColor = [UIColor blackColor];
+            nameLabel.font = [UIFont systemFontOfSize:13.0];
+            nameLabel.textColor = [UIColor grayColor];
             [cell addSubview:nameLabel];
-
-            UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(point_X+80, 45, 180, 30)];
+            
+            label_y = CGRectGetMaxY(nameLabel.frame);
+            UILabel *contectLabel = [[UILabel alloc] initWithFrame:CGRectMake(point_X, label_y, label_w, 25)];
+            contectLabel.backgroundColor = [UIColor clearColor];
+            contectLabel.text = [dicInfo objectForKey:@"orderSendServicecontent"];
+            contectLabel.font = [UIFont systemFontOfSize:13.0];
+            contectLabel.textColor = [UIColor grayColor];
+            [cell addSubview:contectLabel];
+            
+            point_X = CGRectGetMaxX(nameLabel.frame);
+            label_y = 10;
+            UILabel *priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(point_X, label_y, 65, 25)];
             priceLabel.backgroundColor = [UIColor clearColor];
-            priceLabel.font = [UIFont systemFontOfSize:14.0];
-
-            NSString *priceString = [NSString stringWithFormat:@"+%.2f",[[dicInfo objectForKey:@"price"] floatValue]];
+            priceLabel.font = [UIFont systemFontOfSize:13.0];
+            NSString *priceString = [NSString stringWithFormat:@"￥%.2f",[[dicInfo objectForKey:@"price"] floatValue]];
             priceLabel.text = priceString;
-            priceLabel.textColor = [UIColor blackColor];
-//            NSMutableAttributedString *textColor = [[NSMutableAttributedString alloc]initWithString:priceString];
-//            NSRange rangel = [priceString rangeOfString:@"("];
-//            [textColor addAttribute:NSForegroundColorAttributeName value:APPDEFAULTORANGE range:NSMakeRange(rangel.location, 13)];
-//            [textColor addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:11] range:NSMakeRange(rangel.location, 13)];
-//            priceLabel.attributedText = textColor;
+            priceLabel.textColor = [UIColor redColor];
             [cell addSubview:priceLabel];
-            
-//            NSString *priceString = [NSString stringWithFormat:@"+%.2f(其中包括平台奖励15元)",[[dicInfo objectForKey:@"price"] floatValue]];
-//            NSMutableAttributedString *textColor = [[NSMutableAttributedString alloc]initWithString:priceString];
-//            NSRange rangel = [priceString rangeOfString:@"("];
-//            [textColor addAttribute:NSForegroundColorAttributeName value:APPDEFAULTORANGE range:NSMakeRange(rangel.location, 13)];
-//            [textColor addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:11] range:NSMakeRange(rangel.location, 13)];
-//            priceLabel.attributedText = textColor;
-//            [cell addSubview:priceLabel];
-            
+
+            label_y = CGRectGetMaxY(nameLabel.frame);
+            UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(point_X, label_y, 65, 25)];
+            dateLabel.backgroundColor = [UIColor clearColor];
+            dateLabel.numberOfLines = 0;
+            id zoneCreatetimeObj = [dicInfo objectForKey:@"orderSendBegintime"];
+            if ([zoneCreatetimeObj isMemberOfClass:[NSNull class]] || zoneCreatetimeObj == nil) {
+                NSTimeInterval  timeInterval = [[NSDate date] timeIntervalSince1970];
+                zoneCreatetimeObj = [NSString stringWithFormat:@"%.0f000",timeInterval];
+            }
+            long long timestamp = [zoneCreatetimeObj longLongValue];
+            NSString *zoneCreatetime = [NSString stringWithFormat:@"%lld",timestamp];
+            if ([zoneCreatetime length] > 3) {
+                    //时间戳
+                zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
+            }
+            NSString *stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"MM/dd"];
+//            NSDate *date = [Tool convertTimespToDate:[zoneCreatetime longLongValue]];
+//            NSString *dateSt = [NSString stringWithFormat:@"%@\n%@",[self weekdayStringFromDate:date],[stopTimeStr substringToIndex:5]];
+            dateLabel.text = stopTimeStr;
+            dateLabel.font = [UIFont systemFontOfSize:13.0];
+            dateLabel.textColor = [UIColor grayColor];
+            [cell addSubview:dateLabel];
         }
             break;
             
@@ -402,7 +388,7 @@
             return 150;
             break;
         case 1:
-            return 90;
+            return 70;
             break;
         default:
             break;

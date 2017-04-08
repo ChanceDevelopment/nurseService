@@ -58,6 +58,8 @@
     [self initializaiton];
     [self initView];
 //    [self getAllServiceInfo];
+    [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(changeValue:)   name:@"changeValue"  object:nil];
+
 }
 
 - (void)initializaiton
@@ -587,6 +589,8 @@
     if (currentRow == 1) {
         titleL.text = @"昵称";
         addTextField.text = [dataSourceDic valueForKey: @"nurseNick"];
+        [addTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+        
     }else if(currentRow == 2){
         titleL.text = @"手机号";
         addTextField.text = [dataSourceDic valueForKey: @"nursePhone"];
@@ -644,6 +648,7 @@
 
 - (void)clickBtAction:(UIButton *)sender{
     if (currentRow == 1 && sender.tag == 1) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeValue" object:nil];
         if (addTextField && addTextField.text.length>16) {
             return;
         }
@@ -701,7 +706,7 @@
 
 #pragma mark UITextFieldDelegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
-    NSLog(@"%@",textField.text);
+    NSLog(@"1:%@",textField.text);
     // i0S6 UITextField的bug
     if (!textField.window.isKeyWindow) {
         [textField.window makeKeyAndVisible];
@@ -709,15 +714,13 @@
 }
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    if (currentRow == 1) {
-        if (wordNumL) {
-            wordNumL.text = [NSString stringWithFormat:@"%ld/16",textField.text.length];
-        }
-    }
+    NSLog(@"2:%@",textField.text);
+    
         NSLog(@"textFieldDidEndEditing:%@",textField.text);
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    NSLog(@"3:%@",textField.text);
     [textField resignFirstResponder];
     return YES;
 }
@@ -984,6 +987,31 @@
     
 }
 
+-(void)textFieldDidChange:(UITextField *)textField {
+    if (textField.text.length > 16) {
+        textField.text = [textField.text substringToIndex:16];
+    }else{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"changeValue" object:textField];
+    }
+}
+
+//实现代理方法
+-(void)changeValue:(NSNotification *)notification {
+    UITextField *textField = notification.object;
+    NSLog(@"11111%@",textField);
+    if (currentRow == 1) {
+        if (wordNumL) {
+            wordNumL.text = [NSString stringWithFormat:@"%ld/16",textField.text.length];
+        }
+        if (textField.text.length == 16) {
+            wordNumL.textColor = [UIColor redColor];
+        }else{
+            wordNumL.textColor = [UIColor grayColor];
+        }
+    }
+    
+    //要实现的监听方法操作
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -116,23 +116,14 @@
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
-//        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict objectForKey:@"data"]] duration:1.2 position:@"center"];
+
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
             
             NSDictionary *userInfoDic = [NSDictionary dictionaryWithDictionary:[respondDict valueForKey:@"json"]];
-            NSMutableDictionary *nurseDic = [NSMutableDictionary dictionaryWithCapacity:0];
+            NSMutableDictionary *nurseDic = [Tool deleteNullFromDic:userInfoDic];
             
-            for (NSString *key in [userInfoDic allKeys]) {
-                if ([[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:key]] isEqualToString:@"<null>"]) {
-                    NSLog(@"key:%@",key);
-                    [nurseDic setValue:@"" forKey:key];
-                }else{
-                    [nurseDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:key]] forKey:key];
-                }
-            }
-            
-            NSString *capitalStr = [[NSString stringWithFormat:@"%@",[nurseDic valueForKey:@"nurseBalance"]] isEqualToString:@""] ? @"0.00元" : [NSString stringWithFormat:@"%@元",[nurseDic valueForKey:@"nurseBalance"]];
+            NSString *capitalStr = [NSString stringWithFormat:@"%.2f元",[[nurseDic valueForKey:@"nurseBalance"] floatValue]];
             capitalL.text = capitalStr;
             [[NSUserDefaults standardUserDefaults] setObject:nurseDic forKey:THREEINFOKEY];
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){

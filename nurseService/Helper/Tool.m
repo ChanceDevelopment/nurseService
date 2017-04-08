@@ -1033,6 +1033,20 @@
     return [[UIDevice currentDevice] systemName];
 }
 
++ (BOOL)isNumOrAbc:(NSString *)str{
+    if (str == nil || [str isEqualToString:@""]) {
+        return NO;
+    }
+    NSString *regex = @"[a-z][A-Z][0-9]";
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    if ([predicate evaluateWithObject:str] == YES)
+    {
+        return YES;
+    }else{
+        return NO;
+    }
+}
+
 + (BOOL)isMobileNumber:(NSString *)mobileNum
 {
     if (mobileNum == nil || [mobileNum isEqualToString:@""]) {

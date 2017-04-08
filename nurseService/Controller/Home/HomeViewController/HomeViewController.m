@@ -95,7 +95,7 @@
     if (!_navigationTabBar) {
         NSArray *focus = [[NSUserDefaults standardUserDefaults] objectForKey:kUserFoucus];
         if ([focus count] == 0) {
-            focus = @[@"精华",@"问题"];
+            focus = @[@"精华"];//,@"问题"
         }
         self.navigationTabBar = [[DLNavigationTabBar alloc] initWithTitles:focus];
         self.navigationTabBar.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
@@ -146,15 +146,15 @@
             [self getDataWithUrl:ESSENCEARTICLE];
             break;
         }
-        case 1:
-        {
-            noDataView.hidden = NO;
-            tableview.hidden = YES;
-            [dataArr removeAllObjects];
-            [tableview reloadData];
-            [self showHint:@"问题贴暂未开通"];
-        }
-            break;
+//        case 1:
+//        {
+//            noDataView.hidden = NO;
+//            tableview.hidden = YES;
+//            [dataArr removeAllObjects];
+//            [tableview reloadData];
+//            [self showHint:@"问题贴暂未开通"];
+//        }
+//            break;
         default:
             [self getDataWithUrl:kThreeLevelDetails];
             break;
@@ -234,12 +234,12 @@
                 NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
                 NSMutableArray *arrName = @[].mutableCopy;
                 [arrName addObject:@"精华"];
-                if ([arrName count] > 1) {
-                    [arrName insertObject:@"问题" atIndex:1];
-                }
-                else{
-                    [arrName addObject:@"问题"];
-                }
+//                if ([arrName count] > 1) {
+//                    [arrName insertObject:@"问题" atIndex:1];
+//                }
+//                else{
+//                    [arrName addObject:@"问题"];
+//                }
                 self.nurseFocusArr = tempArr;
                 for (NSDictionary *dic in tempArr) {
                     NSString *postTwoLevelName = dic[@"postTwoLevelName"];
@@ -259,12 +259,12 @@
             NSArray *tempArr = [NSArray array];
             NSMutableArray *arrName = @[].mutableCopy;
             [arrName addObject:@"精华"];
-            if ([arrName count] > 1) {
-                [arrName insertObject:@"问题" atIndex:1];
-            }
-            else{
-                [arrName addObject:@"问题"];
-            }
+//            if ([arrName count] > 1) {
+//                [arrName insertObject:@"问题" atIndex:1];
+//            }
+//            else{
+//                [arrName addObject:@"问题"];
+//            }
             self.nurseFocusArr = tempArr;
             for (NSDictionary *dic in tempArr) {
                 NSString *postTwoLevelName = dic[@"postTwoLevelName"];
@@ -332,7 +332,7 @@
     }else{
         NSDictionary *dict = nil;
         @try {
-            dict = [self.nurseFocusArr objectAtIndex:currentType - 2];
+            dict = [self.nurseFocusArr objectAtIndex:currentType - 1];
         } @catch (NSException *exception) {
             
         } @finally {

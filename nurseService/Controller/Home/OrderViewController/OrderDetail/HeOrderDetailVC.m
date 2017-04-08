@@ -1055,6 +1055,10 @@
         
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
+            if (orderState == 0) {
+                //拨打电话
+                [self callCustomer];
+            }
 //            switch (orderState) {
 //                case 0:
 //                    [self.view makeToast:@"联系客户后，请出发" duration:1.2 position:@"center"];

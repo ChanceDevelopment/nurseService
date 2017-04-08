@@ -44,7 +44,7 @@
         
         NSMutableArray *buttons = [[NSMutableArray alloc] init];
         UIButton *saveBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 25)];
-        [saveBt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [saveBt setTitleColor:APPDEFAULTTITLECOLOR forState:UIControlStateNormal];
         [saveBt setTitle:@"清空" forState:UIControlStateNormal];
         saveBt.titleLabel.adjustsFontSizeToFitWidth = YES;
         saveBt.titleLabel.font = [UIFont systemFontOfSize:13.0];
@@ -80,14 +80,14 @@
     // Do any additional setup after loading the view from its nib.
     [self initializaiton];
     [self initView];
-    [self loadMessageWithType:0];
+    [self loadMessageWithType:currentType];
 }
 
 - (void)initializaiton
 {
     [super initializaiton];
     pageNum = 0;
-    currentType = 0;
+    currentType = 3;
     dataSource = [[NSMutableArray alloc] initWithCapacity:0];
 }
 
@@ -139,7 +139,24 @@
 #pragma mark - PrivateMethod
 - (void)navigationDidSelectedControllerIndex:(NSInteger)index {
     NSLog(@"index = %ld",index);
-    currentType = index;
+    switch (index) {
+        case 0:
+                currentType = 3;
+            break;
+        case 1:
+                currentType = 2;
+            break;
+        case 2:
+            currentType = 0;
+            break;
+        case 3:
+            currentType = 1;
+            break;
+            
+        default:
+            break;
+    }
+
     
     [self loadMessageWithType:currentType];
 }
@@ -253,7 +270,7 @@
     contentLabel.backgroundColor = [UIColor clearColor];
     contentLabel.font = [UIFont systemFontOfSize:15.0];
     contentLabel.textColor = [UIColor blackColor];
-    contentLabel.numberOfLines = 2;
+    contentLabel.numberOfLines = 0;
     [cell addSubview:contentLabel];
     
     contentLabel.text = standInnerLetterContent;
@@ -314,18 +331,16 @@
 
 - (void)cleanAction{
     
-    NSString *requestWorkingTaskPath = [NSString stringWithFormat:@"%@/nurseAnduser/deleteStandInnerLetterInfo.action",BASEURL];
-    
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     if (!userId) {
         userId = @"";
     }
     NSDictionary *requestMessageParams = @{@"roleId":userId,
-                                           @"identity":@"0",
+                                           @"identity":@"1",
                                            @"type":[NSString stringWithFormat:@"%ld",currentType]};
     [self showHudInView:self.view hint:@"正在获取..."];
     
-    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:requestWorkingTaskPath params:requestMessageParams success:^(AFHTTPRequestOperation* operation,id response){
+    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:@"nurseAnduser/deleteStandInnerLetterInfo.action" params:requestMessageParams success:^(AFHTTPRequestOperation* operation,id response){
         [self hideHud];
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSDictionary *respondDict = [respondString objectFromJSONString];

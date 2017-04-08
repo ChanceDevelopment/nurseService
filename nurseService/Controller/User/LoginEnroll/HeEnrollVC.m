@@ -101,6 +101,10 @@
         [self showHint:@"请输入正确的手机号"];
         return;
     }
+    if (![Tool isNumOrAbc:passwordField.text] || (passwordField.text.length < 6) || (passwordField.text.length > 16)) {
+        [self showHint:@"请输入正确密码"];
+        return;
+    }
     
     [sender startWithTime:60 title:@"获取验证码" countDownTitle:@"s" mainColor:[UIColor whiteColor] countColor:[UIColor whiteColor]];
 
