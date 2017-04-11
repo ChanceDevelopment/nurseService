@@ -17,7 +17,7 @@
 
 @interface HomeWebViewController ()<UIWebViewDelegate>
 
-@property (nonatomic)UIWebView* webView;
+@property (nonatomic, strong) UIWebView* webView;
 @property (strong, nonatomic) NSTimer *timer;
 @property (nonatomic) BOOL loading;
 
@@ -75,6 +75,7 @@
     [super initView];
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
     [self.view addSubview:self.webView];
+    self.webView.delegate = self;
     _progressViewColor = [UIColor colorWithRed:0.000 green:0.482 blue:0.976 alpha:1.00];
     [self.view addSubview:self.progressView];
 
@@ -128,7 +129,7 @@
 -(UIWebView*)webView{
     if (!_webView) {
         _webView = [[UIWebView alloc] initWithFrame:(CGRect){0,0,self.view.frame.size.width,self.view.frame.size.height-64}];
-        _webView.delegate = (id)self;
+//        _webView.delegate = (id)self;
         _webView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _webView;
@@ -136,9 +137,12 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    NSString * htmlstr = [[NSString alloc]initWithContentsOfURL:[NSURL URLWithString:self.urlString] encoding:NSUTF8StringEncoding error:nil];
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:htmlstr]]];
-    [self.webView loadHTMLString:htmlstr baseURL:[NSURL URLWithString:self.urlString]];
+//    NSString * htmlstr = [[NSString alloc]initWithContentsOfURL:[NSURL URLWithString:self.urlString] encoding:NSUTF8StringEncoding error:nil];
+    NSURL *url = [NSURL URLWithString:self.urlString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [self.webView loadRequest:request];
+//    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:htmlstr]]];
+//    [self.webView loadHTMLString:htmlstr baseURL:[NSURL URLWithString:self.urlString]];
 }
 
 - (void)shareAction{
