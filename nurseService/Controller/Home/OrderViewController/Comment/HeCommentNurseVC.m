@@ -73,7 +73,7 @@
     nurseHeader = [NSString stringWithFormat:@"%@/%@",HYTIMAGEURL,nurseHeader];
     [nurseImage sd_setImageWithURL:[NSURL URLWithString:nurseHeader] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];
     
-    NSString *nurseNick = nurseDict[@"userName"];
+    NSString *nurseNick = nurseDict[@"userNickNew"];
     if ([nurseNick isMemberOfClass:[NSNull class]]) {
         nurseNick = @"";
     }
