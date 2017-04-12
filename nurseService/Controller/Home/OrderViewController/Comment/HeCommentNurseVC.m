@@ -62,18 +62,18 @@
 - (void)initView
 {
     [super initView];
-    textView.placeholder = @"请写下您对客户的评价";
+    textView.placeholder = @"请写下您对用户的评价";
     nurseImage.layer.masksToBounds = YES;
     nurseImage.layer.cornerRadius = 30;
     
-    NSString *nurseHeader = nurseDict[@"orderSendUserpic"];
+    NSString *nurseHeader = nurseDict[@"userHeader"];
     if ([nurseHeader isMemberOfClass:[NSNull class]] || nurseHeader == nil) {
         nurseHeader = @"";
     }
     nurseHeader = [NSString stringWithFormat:@"%@/%@",HYTIMAGEURL,nurseHeader];
     [nurseImage sd_setImageWithURL:[NSURL URLWithString:nurseHeader] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];
     
-    NSString *nurseNick = nurseDict[@"orderSendUsername"];
+    NSString *nurseNick = nurseDict[@"userName"];
     if ([nurseNick isMemberOfClass:[NSNull class]]) {
         nurseNick = @"";
     }

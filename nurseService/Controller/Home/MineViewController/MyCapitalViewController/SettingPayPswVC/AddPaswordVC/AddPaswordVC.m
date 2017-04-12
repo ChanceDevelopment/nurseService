@@ -57,7 +57,7 @@
 
 
 - (IBAction)okAction:(id)sender {
-    if (![Tool isNumOrAbc:passwordTextField.text]) {
+    if ([passwordTextField.text isEqualToString:@""] || (passwordTextField.text.length < 6) || (passwordTextField.text.length > 16)) {
         [self showHint:@"请输入正确密码"];
         return;
     }

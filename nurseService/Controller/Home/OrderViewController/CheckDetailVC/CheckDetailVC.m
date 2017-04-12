@@ -286,17 +286,17 @@
             
             UIImageView *portrait = [[UIImageView alloc] initWithFrame:CGRectMake(point_X, imageY, imageDia, imageDia)];
             portrait.userInteractionEnabled = YES;
-            portrait.image = [UIImage imageNamed:@"defalut_icon"];
-            NSString *logoString = [dicInfo objectForKey:@"userHeader"];
-            NSString *iconUrl = [NSString stringWithFormat:@"%@%@",BASEURL,[logoString substringFromIndex:10]];
-            [portrait setImageWithURL:[NSURL URLWithString:iconUrl] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];
+//            portrait.image = [UIImage imageNamed:@"defalut_icon"];
+//            NSString *logoString = [dicInfo objectForKey:@"userHeader"];
+//            NSString *iconUrl = [NSString stringWithFormat:@"%@%@",PIC_URL,logoString];
+//            [portrait setImageWithURL:[NSURL URLWithString:iconUrl] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];
             portrait.layer.borderWidth = 0.0;
             portrait.contentMode = UIViewContentModeScaleAspectFill;
             portrait.layer.cornerRadius = imageDia / 2.0;
             portrait.layer.masksToBounds = YES;
             [cell addSubview:portrait];
             
-            NSString *userHeader = [NSString stringWithFormat:@"%@/%@",HYTIMAGEURL,@""];
+            NSString *userHeader = [NSString stringWithFormat:@"%@%@",PIC_URL,[dicInfo valueForKey:@"userHeader"]];
             [portrait sd_setImageWithURL:[NSURL URLWithString:userHeader] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];
 
             point_X = CGRectGetMaxX(portrait.frame);

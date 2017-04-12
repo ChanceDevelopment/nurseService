@@ -80,7 +80,7 @@
         [self showHint:@"请输入正确的手机号"];
         return;
     }
-    if (password == nil || ![Tool isNumOrAbc:password] || (password.length < 6) || (password.length > 16)) {
+    if (password == nil || [password isEqualToString:@""] || (password.length < 6) || (password.length > 16)) {
         [self showHint:@"请输入正确密码"];
         return;
     }
