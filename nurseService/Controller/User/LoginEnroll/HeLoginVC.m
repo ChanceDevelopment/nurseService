@@ -76,18 +76,14 @@
     }
     NSString *account = [accountField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     NSString *password = passwordField.text;
-    if (account == nil || [account isEqualToString:@""]) {
+    if (account == nil || ![Tool isMobileNumber:account]) {
         [self showHint:@"请输入正确的手机号"];
         return;
     }
-    if (password == nil || [password isEqualToString:@""]) {
-        [self showHint:@"请输入登录密码"];
+    if (password == nil || ![Tool isNumOrAbc:password] || (password.length < 6) || (password.length > 16)) {
+        [self showHint:@"请输入正确密码"];
         return;
     }
-//    if (![Tool isMobileNumber:account]) {
-//        [self showHint:@"请输入正确的手机号"];
-//        return;
-//    }
     
     [self showHudInView:self.view hint:@"登录中..."];
     NSDictionary * params  = @{@"NurseName": account,@"NursePwd" : password};

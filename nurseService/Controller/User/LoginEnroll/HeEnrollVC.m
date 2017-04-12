@@ -93,16 +93,8 @@
 {
     [self cancelInputTap:nil];
     NSString *userPhone = accountField.text;
-    if ((userPhone == nil || [userPhone isEqualToString:@""])) {
-        [self showHint:@"请输入手机号"];
-        return;
-    }
-    if (![Tool isMobileNumber:userPhone]) {
+    if (userPhone == nil || ![Tool isMobileNumber:userPhone]) {
         [self showHint:@"请输入正确的手机号"];
-        return;
-    }
-    if (![Tool isNumOrAbc:passwordField.text] || (passwordField.text.length < 6) || (passwordField.text.length > 16)) {
-        [self showHint:@"请输入正确密码"];
         return;
     }
     
@@ -149,11 +141,11 @@
     
 //    NSString *nick = nickField.text;
     
-    if ((userPhone == nil || [userPhone isEqualToString:@""])) {
-        [self showHint:@"请输入手机号"];
-        return;
-    }
-    if (![Tool isMobileNumber:userPhone]) {
+//    if ((userPhone == nil || [userPhone isEqualToString:@""])) {
+//        [self showHint:@"请输入手机号"];
+//        return;
+//    }
+    if (userPhone == nil || ![Tool isMobileNumber:userPhone]) {
         [self showHint:@"请输入正确的手机号"];
         return;
     }
@@ -161,10 +153,15 @@
         [self showHint:@"请输入验证码"];
         return;
     }
-    if (password == nil || [password isEqualToString:@""]) {
-        [self showHint:@"请输入密码"];
+    if (![Tool isNumOrAbc:passwordField.text] || (passwordField.text.length < 6) || (passwordField.text.length > 16)) {
+        [self showHint:@"请输入正确密码"];
         return;
     }
+
+//    if (password == nil || [password isEqualToString:@""]) {
+//        [self showHint:@"请输入密码"];
+//        return;
+//    }
     if (inviteCode == nil) {
         inviteCode = @"";
     }
