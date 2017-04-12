@@ -9,7 +9,7 @@
 #import "HeUserLocatiVC.h"
 #import <BaiduMapAPI_Utils/BMKUtilsComponent.h>
 #import <BaiduMapAPI_Map/BMKMapComponent.h>
-
+#import <BaiduMapAPI_Base/BMKTypes.h>
 @interface HeUserLocatiVC ()
 {
     bool isGeoSearch;
@@ -48,6 +48,13 @@
     [super viewDidLoad];
     [self initializaiton];
     [self initView];
+    CLLocationCoordinate2D coordinate;
+    BMKCoordinateRegion region ;//表示范围的结构体
+    region.center = coordinate;//中心点
+    region.span.latitudeDelta = 0.1;//经度范围（设置为0.1表示显示范围为0.2的纬度范围）
+    region.span.longitudeDelta = 0.1;//纬度范围
+    [_mapView setRegion:region animated:YES];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -58,6 +65,7 @@
     _mapView.userTrackingMode = BMKUserTrackingModeNone;//设置定位的状态
     _mapView.showsUserLocation = YES;//显示定位图层
     [self updateAnnotion];
+_mapView.mapScaleBarPosition = CGPointMake(60, _mapView.frame.size.height *2 /3 + 20);
     
 }
 
@@ -147,6 +155,7 @@
     BMKCoordinateRegion region = BMKCoordinateRegionMake(coor, span);
     [_mapView setRegion:region animated:YES];
     [_mapView setCenterCoordinate:coor animated:YES];
+    
 }
 // Override
 - (BMKAnnotationView *)mapView:(BMKMapView *)mapView viewForAnnotation:(id <BMKAnnotation>)annotation
@@ -201,6 +210,7 @@
     NSString *zoneLocationX = [NSString stringWithFormat:@"%f",result.location.longitude];
     NSString *zoneLocationY = [NSString stringWithFormat:@"%f",result.location.latitude];
     userLocationDict = @{@"zoneLocationX":zoneLocationX,@"zoneLocationY":zoneLocationY,@"address":result.address};
+    _mapView.mapScaleBarPosition = CGPointMake(60, _mapView.frame.size.height *2 /3 + 20);
     NSLog(@"address = %@",result.address);
 }
 - (void)onGetGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error
@@ -240,7 +250,7 @@
         userLocationDict = @{@"zoneLocationX":zoneLocationX,@"zoneLocationY":zoneLocationY};
         [self updateAnnotion];
     }
-    
+    _mapView.mapScaleBarPosition = CGPointMake(60, _mapView.frame.size.height *2 /3 + 20);
 }
 
 /**
