@@ -168,6 +168,26 @@ alpha:1.0]
 #define SYSTEMNOTIFY      @"systemNotify"      //系统通知
 #define LOUDSPEAKER       @"loudSpeaker"       //扬声器
 
+
+/*
+ 必要参数的意思：sourceApplication：该app名字； poi name：目的地名称；lat/lon：目的地经纬度
+ dev 参数进行解释：dev支持的值为"0"和"1"，即是否需要进行国测局坐标加密。 如果传入的坐标已经是国测局坐标则传入0，如果传入的是地球坐标，则该参数传入1
+ */
+#define GaoDeNavUrl @"iosamap://navi?sourceApplication=%@&backScheme=myapp&poiname=%@&poiid=BGVIS&lat=%f&lon=%f&dev=0&style=2"
+#define GaoDeGPSUrl @"iosamap://viewMap?sourceApplication=%@&poiname=%@&lat=%@&lon=%@&dev=0"
+
+/*
+ 百度地图的参数意思就比较简单了，对mode做一个解释，mode为调用地图之后的导航方式，除了walking(步行)还有driving(驾车)和transit(公交)
+ origin=latlng:0,0  这个参数虽然意思上是要给一个当前坐标，但是可以随意设置，这里设置两个0，不影响导航
+ */
+#define BaiDuNavUrl @"baidumap://map/direction?origin=latlng:0,0|name:我的位置&destination=latlng:%@,%@|name:%@&mode=walking"
+#define BaiDuGPSUrl @"baidumap://map/marker?location=%@,%@&title=我的位置&content=%@"
+
+typedef NS_ENUM(NSUInteger, ShowMapMode) {
+    ShowMapModeGPS, //调用地图，只显示目标点
+    ShowMapModeNavigation, //调用地图，并直接进行导航
+};
+
 typedef enum {
     ENUM_SEX_Boy = 1,//男
     ENUM_SEX_Girl //女

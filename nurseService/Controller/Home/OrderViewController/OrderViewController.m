@@ -25,7 +25,7 @@
 #import "WZLBadgeImport.h"
 #import "MLLabel.h"
 #import "MLLabel+Size.h"
-
+#import <MapKit/MapKit.h>
 
 @interface OrderViewController ()<UITableViewDelegate,UITableViewDataSource>{
     NSInteger currentPage;
@@ -52,6 +52,7 @@
  *  占位Label
  */
 @property(nonatomic,strong)UILabel *placeholderLabel;
+@property(strong,nonatomic)NSMutableDictionary *mapDcit;
 //@property(strong,nonatomic)IBOutlet UIView *footerView;
 
 @end
@@ -808,10 +809,96 @@
 
 - (void)goLocationWithLocation:(NSDictionary *)locationDict
 {
-    HeUserLocatiVC *userLocationVC = [[HeUserLocatiVC alloc] init];
-    userLocationVC.userLocationDict = [[NSDictionary alloc] initWithDictionary:locationDict];
-    userLocationVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:userLocationVC animated:YES];
+    if ([[_mapDcit allKeys] count] == 0) {
+        _mapDcit = [[NSMutableDictionary alloc] initWithCapacity:0];
+        [_mapDcit setObject:@"苹果地图" forKey:@"appleMap"];
+        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"iosamap://"]]) {
+            [_mapDcit setObject:@"高德地图" forKey:@"gaodeMap"];
+        }
+        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"baidumap://"]]){
+            [_mapDcit setObject:@"百度地图" forKey:@"baiduMap"];
+        }
+    }
+    
+    //地图
+//    NSString *address = [NSString stringWithFormat:@"%@",[infoDic valueForKey:@"orderSendAddree"]];
+//    NSArray *addArr = [address componentsSeparatedByString:@","];
+    //经度
+    NSString *zoneLocationX = locationDict[@"zoneLocationX"];
+    //纬度
+    NSString *zoneLocationY = locationDict[@"zoneLocationY"];;
+//    @try {
+//        zoneLocationX = addArr[0];
+//        zoneLocationY = addArr[1];
+//    } @catch (NSException *exception) {
+//        
+//    } @finally {
+//        
+//    }
+    NSDictionary *userLocationDic = @{@"zoneLocationY":zoneLocationY,@"zoneLocationX":zoneLocationX};
+    
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *app_Name = [infoDictionary objectForKey:@"CFBundleName"];
+    //backScheme=myapp 这个参数也可以随便设置，如果用高德SDK的话，则需要按照api文档进行配置
+    
+    
+    ShowMapMode mode = ShowMapModeGPS;
+    NSString *destination = @"患者地址";
+    
+    NSString *lat = zoneLocationY;
+    NSString *lon = zoneLocationX;
+    
+    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    for (NSString *mapkey in [_mapDcit allKeys]) {
+        NSString *mapName = _mapDcit[mapkey];
+        UIAlertAction *alertaction = [UIAlertAction actionWithTitle:mapName style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            if ([mapkey isEqualToString:@"appleMap"]) {
+                //苹果地图
+                //                MKMapItem *currentLocation = [MKMapItem mapItemForCurrentLocation];
+                MKMapItem *toLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake([lat floatValue], [lon floatValue]) addressDictionary:nil]]; //目的地坐标
+                toLocation.name = destination; //目的地名字
+                [toLocation openInMapsWithLaunchOptions:nil];
+            }
+            else if ([mapkey isEqualToString:@"gaodeMap"]){
+                //高德地图
+                NSString *urlString;
+                if (mode == ShowMapModeGPS) {
+                    urlString = [NSString stringWithFormat:GaoDeGPSUrl, app_Name, destination, lat, lon];
+                } else {
+                    urlString = [NSString stringWithFormat:GaoDeNavUrl, app_Name, destination, [lat floatValue], [lon floatValue]];
+                }
+                urlString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+                
+                NSURL *url = [NSURL URLWithString:urlString];
+                [[UIApplication sharedApplication] openURL:url];
+            }
+            else if ([mapkey isEqualToString:@"baiduMap"]){
+                //百度地图
+                NSString *urlString;
+                if (mode == ShowMapModeGPS) {
+                    urlString = [NSString stringWithFormat:BaiDuGPSUrl, lat, lon, destination];
+                } else {
+                    urlString = [NSString stringWithFormat:BaiDuNavUrl, lat, lon, destination];
+                }
+                urlString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+                
+                NSURL *url = [NSURL URLWithString:urlString];
+                [[UIApplication sharedApplication] openURL:url];
+            }
+        }];
+        [alertVC addAction:alertaction];
+    }
+    UIAlertAction *cancelaction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        
+    }];
+    [alertVC addAction:cancelaction];
+    [self presentViewController:alertVC animated:YES completion:nil];
+    
+//    HeUserLocatiVC *userLocationVC = [[HeUserLocatiVC alloc] init];
+//    userLocationVC.userLocationDict = [[NSDictionary alloc] initWithDictionary:locationDict];
+//    userLocationVC.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:userLocationVC animated:YES];
 }
 
 #pragma mark - TableView Delegate

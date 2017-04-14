@@ -17,4 +17,6 @@
 }
 @property(strong,nonatomic)NSDictionary *infoDic;
 @property(strong,nonatomic)NSString *orderId;
+
+
 @end
