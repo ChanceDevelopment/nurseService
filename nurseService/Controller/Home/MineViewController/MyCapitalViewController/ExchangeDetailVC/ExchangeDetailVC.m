@@ -235,13 +235,16 @@
     moneyL.textColor = [UIColor redColor];
     moneyL.textAlignment = NSTextAlignmentRight;
     NSString *money = @"";
-    id capitalNursePoolMoneyObj = dict[@"capitalNursePoolMoney"];
+    id capitalNursePoolMoneyObj = dict[@"capitalNursePoolPeopleidIdentity"];
     if ([capitalNursePoolMoneyObj isMemberOfClass:[NSNull class]] || capitalNursePoolMoneyObj == nil) {
         capitalNursePoolMoneyObj = @"";
     }
     if ([capitalNursePoolMoneyObj integerValue] > 0) {
+        //领取
+        moneyL.textColor = [UIColor redColor];
         money = [NSString stringWithFormat:@"+%.2f元",[capitalNursePoolMoneyObj floatValue]];
     }else{
+        moneyL.textColor = [UIColor greenColor];
         money = [NSString stringWithFormat:@"-%.2f元",[capitalNursePoolMoneyObj floatValue]];
     }
     moneyL.text = money;

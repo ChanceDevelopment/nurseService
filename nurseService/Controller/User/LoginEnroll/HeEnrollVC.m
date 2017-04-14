@@ -153,7 +153,7 @@
         [self showHint:@"请输入验证码"];
         return;
     }
-    if (![Tool isNumOrAbc:passwordField.text] || (passwordField.text.length < 6) || (passwordField.text.length > 16)) {
+    if ([password isEqualToString:@""] || (passwordField.text.length < 6) || (passwordField.text.length > 16)) {
         [self showHint:@"请输入正确密码"];
         return;
     }

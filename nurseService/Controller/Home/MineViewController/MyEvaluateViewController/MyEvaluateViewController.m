@@ -215,7 +215,7 @@
     
     NSString *userHeader = [NSString stringWithFormat:@"%@%@",PIC_URL,[dict valueForKey:@"userHeader"]];
     [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:userHeader] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];
-    cell.telephoneNum.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"userPhone"]];
+    cell.telephoneNum.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"userNike"]];
     cell.serviceType.text = [NSString stringWithFormat:@"护理项:%@",[dict valueForKey:@"manageNursingContenName"]];
     cell.evaluateInfo.text = [NSString stringWithFormat:@"%@",[dict valueForKey:@"evaluateContent"]];
 

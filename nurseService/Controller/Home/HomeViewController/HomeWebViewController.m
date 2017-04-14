@@ -131,6 +131,7 @@
         _webView = [[UIWebView alloc] initWithFrame:(CGRect){0,0,self.view.frame.size.width,self.view.frame.size.height-64}];
 //        _webView.delegate = (id)self;
         _webView.contentMode = UIViewContentModeScaleAspectFit;
+        _webView.dataDetectorTypes = 0;
     }
     return _webView;
 }

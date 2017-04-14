@@ -28,7 +28,7 @@
         [self addSubview:headImageView];
         
         pointY = 7;
-        telephoneNum = [[UILabel alloc] initWithFrame:CGRectMake(55, pointY, 120, 25)];
+        telephoneNum = [[UILabel alloc] initWithFrame:CGRectMake(55, pointY, 200, 25)];
         telephoneNum.textColor = [UIColor blackColor];
         telephoneNum.font = [UIFont systemFontOfSize:15.0];
         telephoneNum.backgroundColor = [UIColor clearColor];
