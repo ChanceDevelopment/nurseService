@@ -11,7 +11,7 @@
 #import <BaiduMapAPI_Base/BMKBaseComponent.h>
 #import "JPUSHService.h"
 
-static NSString *appKey = @"f3df690c367e49335b6eca7b";
+static NSString *appKey = @"81734fef7cc75b46ecab3034";
 static NSString *channel = @"AppStore";
 static BOOL isProduction = TRUE;
 @interface AppDelegate : UIResponder <UIApplicationDelegate,RESideMenuDelegate,BMKGeneralDelegate,JPUSHRegisterDelegate>

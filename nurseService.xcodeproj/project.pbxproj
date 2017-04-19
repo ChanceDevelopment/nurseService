@@ -5245,7 +5245,7 @@
 				TargetAttributes = {
 					EAC2D4241D4B031500E282A8 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = E6CUH72B23;
+						DevelopmentTeam = YU23UTVY74;
 						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -6182,8 +6182,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "nurseService/护士端.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer: jun zhou (ZM3AW8VQ6N)";
-				DEVELOPMENT_TEAM = E6CUH72B23;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jun Qian (B6PY46S693)";
+				DEVELOPMENT_TEAM = YU23UTVY74;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6213,10 +6213,10 @@
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/JPushSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.channce.nurseService;
+				PRODUCT_BUNDLE_IDENTIFIER = com.axh.nurseService;
 				PRODUCT_NAME = "护士端";
-				PROVISIONING_PROFILE = "34f6b275-d129-4b03-8868-8abc5f90b310";
-				PROVISIONING_PROFILE_SPECIFIER = "20170126_ nurseService_Development";
+				PROVISIONING_PROFILE = "9441c341-06ec-469c-9985-664ce0e1d84a";
+				PROVISIONING_PROFILE_SPECIFIER = 20170419_nurseService_Development02;
 			};
 			name = Debug;
 		};
@@ -6227,8 +6227,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "nurseService/护士端.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hangzhou Chance Network Technology Co.,Ltd (E6CUH72B23)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou Chance Network Technology Co.,Ltd (E6CUH72B23)";
-				DEVELOPMENT_TEAM = E6CUH72B23;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: HangZhou XiaoHu Health Technology CO.,LTD (YU23UTVY74)";
+				DEVELOPMENT_TEAM = YU23UTVY74;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6258,10 +6258,10 @@
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/JPushSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.channce.nurseService;
+				PRODUCT_BUNDLE_IDENTIFIER = com.axh.nurseService;
 				PRODUCT_NAME = "护士端";
-				PROVISIONING_PROFILE = "fd301716-4e5f-4e91-80f2-5e99e6b0d92c";
-				PROVISIONING_PROFILE_SPECIFIER = 20160729_nurseService_Release;
+				PROVISIONING_PROFILE = "9abf3751-7f42-44ff-9666-af29b183a602";
+				PROVISIONING_PROFILE_SPECIFIER = 20170419_nurseService_Release;
 			};
 			name = Release;
 		};
@@ -6355,9 +6355,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = "nurseService/护士端.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Hangzhou Chance Network Technology Co.,Ltd (E6CUH72B23)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hangzhou Chance Network Technology Co.,Ltd (E6CUH72B23)";
-				DEVELOPMENT_TEAM = E6CUH72B23;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: HangZhou XiaoHu Health Technology CO.,LTD (YU23UTVY74)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: HangZhou XiaoHu Health Technology CO.,LTD (YU23UTVY74)";
+				DEVELOPMENT_TEAM = YU23UTVY74;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6387,10 +6387,10 @@
 					"$(PROJECT_DIR)/nurseService/ThirdPartySDK/JPushSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.channce.nurseService;
+				PRODUCT_BUNDLE_IDENTIFIER = com.axh.nurseService;
 				PRODUCT_NAME = "护士端";
-				PROVISIONING_PROFILE = "60c1e0b8-42a8-441c-82a8-01bf377ce4c3";
-				PROVISIONING_PROFILE_SPECIFIER = 20161230_nurseService_Distribution;
+				PROVISIONING_PROFILE = "8f042432-b35e-4822-9985-57656f6d4d53";
+				PROVISIONING_PROFILE_SPECIFIER = 20170419_nurseService_Distribution;
 			};
 			name = Distribution;
 		};
