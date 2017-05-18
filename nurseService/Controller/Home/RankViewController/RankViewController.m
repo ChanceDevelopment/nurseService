@@ -107,7 +107,11 @@
     [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
 
-
+/*
+ @brief 积分排行榜数据
+ @prama url:积分排行榜的地址
+ @return
+ */
 - (void)getNurseRankDataWithUrl:(NSString *)url{
 
     NSDictionary * params  = @{@"pageNum": [NSNumber numberWithInteger:currentPage]};

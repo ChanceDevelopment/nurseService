@@ -60,7 +60,7 @@
     NSString *capitalStr = [[NSString stringWithFormat:@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:THREEINFOKEY] valueForKey:@"nurseBalance"]] isEqualToString:@""] ? @"0" : [NSString stringWithFormat:@"%@",[[[NSUserDefaults standardUserDefaults] objectForKey:THREEINFOKEY] valueForKey:@"nurseBalance"]];
     crashTextField.placeholder = [NSString stringWithFormat:@"本次最多可提现%@元",capitalStr];
 }
-
+//确定
 - (IBAction)okAction:(id)sender {
     if ([crashTextField.text isEqualToString:@""]) {
         [self.view makeToast:@"请输入提现金额" duration:1.2 position:@"center"];
@@ -75,7 +75,7 @@
         [self showPasswordView];
     }
 }
-
+//输入支付密码弹窗
 - (void)showPasswordView{
     windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
     windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
@@ -148,8 +148,7 @@
     [addBgView addSubview:okBt];
     
 }
-
-
+//确定提现，提交数据
 - (void)clickBtAction:(UIButton *)sender{
     NSLog(@"tag:%ld",sender.tag);
     if (sender.tag == 1) {

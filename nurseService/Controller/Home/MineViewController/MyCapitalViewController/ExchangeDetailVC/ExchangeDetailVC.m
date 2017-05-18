@@ -105,7 +105,7 @@
 
 }
 
-
+//获取交易明细数据
 - (void)getData{
     
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];

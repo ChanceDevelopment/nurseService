@@ -53,9 +53,7 @@
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
     
 }
-
-
-
+//提交数据
 - (IBAction)okAction:(id)sender {
     if ([passwordTextField.text isEqualToString:@""] || (passwordTextField.text.length < 6) || (passwordTextField.text.length > 16)) {
         [self showHint:@"请输入正确密码"];

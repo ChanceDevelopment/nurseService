@@ -127,18 +127,6 @@
         [locationButton addTarget:self action:@selector(goToLocationView) forControlEvents:UIControlEventTouchUpInside];
         [timeAddressView addSubview:locationButton];
         
-//        UIImageView *locationImageView = [[UIImageView alloc] initWithFrame:CGRectMake(SCREENWIDTH - 50, CGRectGetMaxY(stopTimeL.frame), 20, 20)];
-//        [locationImageView setBackgroundColor:[UIColor clearColor]];
-//        locationImageView.userInteractionEnabled = YES;
-//        locationImageView.image = [UIImage imageNamed:@"icon_address"];
-//        [timeAddressView addSubview:locationImageView];
-//        
-//        UITapGestureRecognizer *locationTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(goToLocationView)];
-//        locationTap.numberOfTapsRequired = 1;
-//        locationTap.numberOfTapsRequired = 1;
-//        timeAddressView.userInteractionEnabled = YES;
-//        [timeAddressView addGestureRecognizer:locationTap];
-        
         UILabel *line1 = [[UILabel alloc] initWithFrame:CGRectMake(5, CGRectGetMaxY(timeAddressView.frame)+10, bgView_W-10, 1)];
         [bgView addSubview:line1];
         line1.backgroundColor = [UIColor colorWithWhite:237.0 / 255.0 alpha:1.0];
@@ -167,16 +155,6 @@
         userInfoL1.font = [UIFont systemFontOfSize:12.0];
         userInfoL1.backgroundColor = [UIColor clearColor];
         [bgView addSubview:userInfoL1];
-        
-//        UIImageView *rightV1 = [[UIImageView alloc] initWithFrame:CGRectMake(bgView_W-20, 101, 10, 10)];
-//        rightV1.backgroundColor = [UIColor clearColor];
-//        rightV1.image = [UIImage imageNamed:@"icon_into_right"];
-//        rightV1.userInteractionEnabled = YES;
-//        [bgView addSubview:rightV1];
-//        
-//        UITapGestureRecognizer *userInfoTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showUserInfo)];
-//        [userInfoL addGestureRecognizer:userInfoTap];
-
         
         
         UILabel *remarkTip = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(userInfoL1.frame)-15, 30, 30)];

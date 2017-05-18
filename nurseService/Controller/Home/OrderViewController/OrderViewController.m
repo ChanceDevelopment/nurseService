@@ -87,7 +87,6 @@
     if (!_placeholderLabel) {
         _placeholderLabel = [[UILabel alloc]init];
         _placeholderLabel.hidden = YES;
-        //        NSString *judge = [[Tool judge] isEqualToString:@"0"] ? @"车主" : @"用户";
         _placeholderLabel.text = @"暂无新动态";
         _placeholderLabel.font = [UIFont systemFontOfSize:28];
         _placeholderLabel.textColor = [UIColor colorWithWhite:0.5 alpha:1];
@@ -95,7 +94,7 @@
     }
     return _placeholderLabel;
 }
-
+//初始化导航栏状态
 -(DLNavigationTabBar *)navigationTabBar
 {
     if (!_navigationTabBar) {
@@ -128,7 +127,7 @@
     }
     return _navigationTabBar;
 }
-
+//初始化导航栏显示数据
 - (void)setBadgeTextWith:(NSInteger)value{
     badge.text = (value >= 99 ?
                   [NSString stringWithFormat:@"%@+", @(99)] :
@@ -143,8 +142,6 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [self getReceiveOrderSwitchState];
-    
-//    [self getBadgeNums];
 }
 
 - (void)viewDidLoad {
@@ -153,8 +150,6 @@
     [self initializaiton];
     [self initView];
     [self getDataWithUrl:ORDERLOOKRECEIVER];
-    
-    
 }
 
 - (void)initializaiton
@@ -195,14 +190,6 @@
     
     UITapGestureRecognizer *clickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickReloadOrderList)];
     [noDataView addGestureRecognizer:clickTap];
-//    noDataViewY = CGRectGetMaxY(noDataView.frame);
-//    noDataTip = [[UILabel alloc] init];
-//    noDataTip.frame = CGRectMake(noDataViewX, noDataViewY, noDataViewW, 20);
-//    [noDataTip setBackgroundColor:[UIColor clearColor]];
-//    [self.view addSubview:noDataTip];
-//    noDataTip.text = @"暂无数据";
-//    noDataTip.textAlignment = NSTextAlignmentCenter;
-//    
     
     myTableView = [[UITableView alloc] init];
     myTableView.frame = CGRectMake(0, tableViewY, SCREENWIDTH, tableViewH);
@@ -254,11 +241,8 @@
     }];
     
     [self initHeadViewAndFootView];
-    
-
-    
 }
-
+//初始化上拉下拉控件
 - (void)initHeadViewAndFootView{
     self.myTableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         // 进入刷新状态后会自动调用这个block,刷新
@@ -273,18 +257,11 @@
         [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
     }];
 }
-
+//移除上拉下拉控件
 - (void)removeHeadViewAndFootView{
-//    if (self.myTableView.footer) {
-//        [self.myTableView.footer removeFromSuperview];
-//    }
-//    if (self.myTableView.header) {
-//        [self.myTableView.header removeFromSuperview];
-//    }
-    
+
     self.myTableView.footer.hidden = YES;
     self.myTableView.header.hidden = YES;
-
 }
 
 - (void)initFooterView{
@@ -292,131 +269,9 @@
     CGFloat selectViewH = 44;
     CGFloat footerViewY = selectViewH + 340;
     CGFloat footerViewH = self.view.frame.size.height-footerViewY;//120;
-    
-//    footerView = [[UIView alloc] init];
-//    footerView.frame = CGRectMake(0, footerViewY, SCREENWIDTH, footerViewH);
-//    [self.view addSubview:footerView];
-//    footerView.backgroundColor = self.view.backgroundColor;
-    
-//    CGFloat buttonH = 35;
-//    CGFloat buttonW = 70;
-//    CGFloat buttonX = (SCREENWIDTH/2.0-buttonW)/2.0;
-//    CGFloat buttonY = footerViewH-100;//30;
-//
-//    
-//    UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
-//    cancelButton.backgroundColor = [UIColor blackColor];
-//    cancelButton.tag = 0;
-//    [cancelButton setTitle:@"忽略" forState:UIControlStateNormal];
-//    cancelButton.layer.cornerRadius = 4.0;
-//    [cancelButton.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
-//    [cancelButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [footerView addSubview:cancelButton];
-//    
-//    buttonX = SCREENWIDTH/2.0 + buttonX;
-//    UIButton *receiveButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
-//    receiveButton.backgroundColor = APPDEFAULTTITLECOLOR;
-//    receiveButton.layer.cornerRadius = 4.0;
-//    //    [receiveButton setTitleColor:APPDEFAULTORANGE forState:UIControlStateNormal];
-//    receiveButton.tag = 1;
-//    [receiveButton setTitle:@"接单" forState:UIControlStateNormal];
-//    [receiveButton.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
-//    [receiveButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [footerView addSubview:receiveButton];
-    
-    
-    /*
-    CGFloat timeLabelX = 0;
-    CGFloat timeLabelY = CGRectGetMaxY(receiveButton.frame) + 5;
-    CGFloat timeLabelH = 30;
-    CGFloat timeLabelW = SCREENWIDTH;
-    
-    UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(timeLabelX, timeLabelY, timeLabelW, timeLabelH)];
-    timeLabel.backgroundColor = [UIColor clearColor];
-    timeLabel.font = [UIFont systemFontOfSize:18.0];
-    timeLabel.textColor = [UIColor grayColor];
-    timeLabel.textAlignment = NSTextAlignmentCenter;
-    [footerView addSubview:timeLabel];
-    
-    timer3 = [[MZTimerLabel alloc] initWithLabel:timeLabel andTimerType:MZTimerLabelTypeTimer];
-    timer3.timeFormat = @"mm:ss";
-    [timer3 setCountDownTime:60 * 5];
-    timer3.resetTimerAfterFinish = YES;
-    [timer3 start];
-    */
 
-    /*
-    CGFloat receiveIconW = 60;
-    CGFloat receiveIconH = 60;
-    CGFloat receiveIconX = (SCREENWIDTH - receiveIconW) / 2.0;
-    CGFloat receiveIconY = 20;
-    
-    UIImageView *receiveIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_takeorder_violet"]];
-    receiveIcon.frame = CGRectMake(receiveIconX, receiveIconY, receiveIconW, receiveIconH);
-    [footerView addSubview:receiveIcon];
-    
-    UIImageView *leftArrowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_rightarrow_violet"]];
-    
-    CGFloat leftArrowImageW = 60;
-    CGFloat leftArrowImageH = leftArrowImage.image.size.height / leftArrowImage.image.size.width * leftArrowImageW;
-    CGFloat leftArrowImageX = CGRectGetMinX(receiveIcon.frame) - leftArrowImageW - 5;
-    CGFloat leftArrowImageY = 0;
-    leftArrowImage.frame = CGRectMake(leftArrowImageX, leftArrowImageY, leftArrowImageW, leftArrowImageH);
-    CGPoint centerPoint = receiveIcon.center;
-    centerPoint.x = leftArrowImage.center.x;
-    leftArrowImage.center = centerPoint;
-    [footerView addSubview:leftArrowImage];
-    
-    leftArrowImageY = CGRectGetMinY(leftArrowImage.frame);
-    leftArrowImageX = CGRectGetMaxX(receiveIcon.frame) + 5;
-//    UIImageView *rightArrowImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_leftarrow_violet"]];
-//    rightArrowImage.frame = CGRectMake(leftArrowImageX, leftArrowImageY, leftArrowImageW, leftArrowImageH);
-//    [footerView addSubview:rightArrowImage];
-    
-    CGFloat buttonH = receiveIconH;
-    CGFloat buttonW = 50;
-    CGFloat buttonX = CGRectGetMinX(leftArrowImage.frame) - buttonW - 5;
-    CGFloat buttonY = receiveIconY;
-    
-    UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
-    cancelButton.backgroundColor = APPDEFAULTORANGE;
-//    [cancelButton setTitleColor: forState:UIControlStateNormal];
-    cancelButton.tag = 0;
-    [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
-    [cancelButton.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
-    [cancelButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [footerView addSubview:cancelButton];
-    
-    buttonX = CGRectGetMaxX(rightArrowImage.frame) + 5;
-    UIButton *receiveButton = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
-    receiveButton.backgroundColor = APPDEFAULTORANGE;
-//    [receiveButton setTitleColor:APPDEFAULTORANGE forState:UIControlStateNormal];
-    receiveButton.tag = 1;
-    [receiveButton setTitle:@"接单" forState:UIControlStateNormal];
-    [receiveButton.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
-    [receiveButton addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [footerView addSubview:receiveButton];
-    
-    
-    
-    CGFloat timeLabelX = 0;
-    CGFloat timeLabelY = CGRectGetMaxY(receiveButton.frame) + 5;
-    CGFloat timeLabelH = 30;
-    CGFloat timeLabelW = SCREENWIDTH;
-    
-    UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(timeLabelX, timeLabelY, timeLabelW, timeLabelH)];
-    timeLabel.backgroundColor = [UIColor clearColor];
-    timeLabel.font = [UIFont systemFontOfSize:18.0];
-    timeLabel.textColor = [UIColor grayColor];
-    timeLabel.textAlignment = NSTextAlignmentCenter;
-    [footerView addSubview:timeLabel];
-    
-    MZTimerLabel *timer3 = [[MZTimerLabel alloc] initWithLabel:timeLabel andTimerType:MZTimerLabelTypeTimer];
-    timer3.timeFormat = @"mm:ss";
-    [timer3 setCountDownTime:60 * 5];
-    [timer3 start];*/
 }
-
+//订单数据更新通知
 - (void)updateOrder:(NSNotification *)notification
 {
     [self navigationDidSelectedControllerIndex:currentType];
@@ -427,11 +282,10 @@
     if (button.tag == 0) {
         NSLog(@"取消");
         [self cancleOrderAction];
-//        [self cancleExclusiveOrder]
     }
     else if (button.tag == 1){
         NSLog(@"接单");
-//        [self updateOrderStateWithOrderState:0];
+
         [self receiveTheOrder];
     }
 }
@@ -450,7 +304,7 @@
     
     [self loadMoreData];
 }
-
+//切换接单按钮状态
 - (void)receiveOrderSwitchChangeValue:(UIButton *)mySwitch
 {
 
@@ -493,7 +347,7 @@
     }];
 
 }
-
+//重新设置接单按钮状态
 - (void)resetSetSwitchBtState{
     NSString *nurseDistrict = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseDistrict"];
     BOOL isDistrict = [nurseDistrict isEqualToString:@"1"] ? NO : YES;
@@ -510,7 +364,7 @@
     switchBt.selected = isReceive;
     NSLog(@"###########%@",switchBt.selected?@"接单中" : @"关闭接单");
 }
-
+//无数据提示
 - (void)showNodataView:(BOOL)isShow{
     if (isShow) {
         if (currentType == 0) {
@@ -526,7 +380,11 @@
     }
 }
 
-
+/*
+ @brief 订单数据
+ @prama url:订单请求地址
+ @return
+ */
 - (void)getDataWithUrl:(NSString *)url{
     
     NSLog(@"currentpage: %ld",currentPage);
@@ -561,13 +419,8 @@
             }
             
             if ([[respondDict valueForKey:@"json"] isMemberOfClass:[NSNull class]] || [respondDict valueForKey:@"json"] == nil) {
-//                [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
 
-//                if (currentType != 2) {
-//                    [self showNodataView:YES];
-//                }
                 [self showNodataView:YES];
-
                 return ;
             }else{
                 id jsonArray = [respondDict valueForKey:@"json"];
@@ -584,9 +437,6 @@
                         CGFloat tableViewH = self.view.frame.size.height-44-48+80;
                         myTableView.frame = CGRectMake(0, tableViewY, SCREENWIDTH, tableViewH);
                         if (tempArr.count >0){
-//                            if (footerView == nil) {
-//                                [self initFooterView];
-//                            }
                             [self showNodataView:NO];
                             [self removeHeadViewAndFootView];
                         }
@@ -594,17 +444,11 @@
                         break;
                     case 1:
                     {
-                        
                         CGFloat tableViewY = 44;
                         CGFloat tableViewH = self.view.frame.size.height-44-48+80;
                         myTableView.frame = CGRectMake(0, tableViewY, SCREENWIDTH, tableViewH);
-//                        if (footerView) {
-//                            [footerView removeFromSuperview];
-//                            footerView = nil;
-//                        }
                         if (tempArr.count > 0){
                             [self showNodataView:NO];
-
                         }
                     }
                         break;
@@ -642,18 +486,18 @@
             [self showNodataView:YES];
 
             NSLog(@"faile");
-//            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         }
     } failure:^(NSError* err){
         [self hideHud];
         [self showNodataView:YES];
-//        myTableView.hidden = YES;
-//        noDataView .hidden = NO;
         NSLog(@"err:%@",err);
-//        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
 }
-//取消订单
+/*
+ @brief 取消订单
+ @prama orderId:订单id
+ @return
+ */
 - (void)sendCancleOrderWithOrderId:(NSString *)orderId{
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     //订单ID
@@ -664,7 +508,6 @@
         NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
         NSLog(@"respondString:%@",respondString);
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
-//        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
             [self reloadOrderData];
@@ -688,21 +531,12 @@
         NSLog(@"respondString:%@",respondString);
         NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
         
-//        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:2.0 position:@"center"];
-        
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
-//            [self reloadOrderData];
             [dataArr removeObjectAtIndex:0];
             [myTableView reloadData];
             if (dataArr.count == 0) {
-//                if (footerView) {
-//                    [footerView removeFromSuperview];
-//                    footerView = nil;
-//                }
                 noDataView.hidden = NO;
                 myTableView.hidden = YES;
-            }else{
-//                [timer3 reset];
             }
             NSLog(@"success");
         }else{
@@ -715,7 +549,7 @@
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
 }
-
+//接受订单
 - (void)receiveTheOrder{
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     NSString *orderSendId = [currentDic valueForKey:@"orderSendId"];
@@ -730,8 +564,7 @@
         
         if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
             NSLog(@"success");
-//            [self reloadOrderData];
-//            [timer3 reset];
+
         }else{
             NSLog(@"faile");
             [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
@@ -772,8 +605,7 @@
     }
     
 }
-
-
+//刷新数据
 - (void)loadMoreData {
     if (dataArr && dataArr.count%5 != 0) {
         return;
@@ -798,7 +630,11 @@
             break;
     }
 }
-
+/*
+ @brief 订单信息详情
+ @prama orderDict:订单的信息
+ @return
+ */
 - (void)showOrderDetailWithOrder:(NSDictionary *)orderDict
 {
     HeOrderDetailVC *orderDetailVC = [[HeOrderDetailVC alloc] init];
@@ -806,7 +642,11 @@
     orderDetailVC.orderId = [orderDict valueForKey:@"orderSendId"];
     [self.navigationController pushViewController:orderDetailVC animated:YES];
 }
-
+/*
+ @brief 地图显示位置
+ @prama locationDict:选中的订单信息
+ @return
+ */
 - (void)goLocationWithLocation:(NSDictionary *)locationDict
 {
     if ([[_mapDcit allKeys] count] == 0) {
@@ -819,22 +659,11 @@
             [_mapDcit setObject:@"百度地图" forKey:@"baiduMap"];
         }
     }
-    
-    //地图
-//    NSString *address = [NSString stringWithFormat:@"%@",[infoDic valueForKey:@"orderSendAddree"]];
-//    NSArray *addArr = [address componentsSeparatedByString:@","];
     //经度
     NSString *zoneLocationX = locationDict[@"zoneLocationX"];
     //纬度
     NSString *zoneLocationY = locationDict[@"zoneLocationY"];;
-//    @try {
-//        zoneLocationX = addArr[0];
-//        zoneLocationY = addArr[1];
-//    } @catch (NSException *exception) {
-//        
-//    } @finally {
-//        
-//    }
+
     NSDictionary *userLocationDic = @{@"zoneLocationY":zoneLocationY,@"zoneLocationX":zoneLocationX};
     
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
@@ -895,21 +724,14 @@
     [alertVC addAction:cancelaction];
     [self presentViewController:alertVC animated:YES completion:nil];
     
-//    HeUserLocatiVC *userLocationVC = [[HeUserLocatiVC alloc] init];
-//    userLocationVC.userLocationDict = [[NSDictionary alloc] initWithDictionary:locationDict];
-//    userLocationVC.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:userLocationVC animated:YES];
 }
 
 #pragma mark - TableView Delegate
-
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (currentType == 0 && dataArr.count > 0) {
-//        tableView.scrollEnabled = NO;
         return 1;
     }
-//    tableView.scrollEnabled = YES;
     return dataArr.count;
 }
 
@@ -1199,13 +1021,7 @@
         
         NSString *sex = [[dict valueForKey:@"orderSendSex"] integerValue] == 1 ? @"男" : @"女";
         NSString *nameStr = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendUsername"]];
-//        NSArray *nameArr = [nameStr componentsSeparatedByString:@","];
-        @try {
-//            nameStr = nameArr[1];
-        } @catch (NSException *exception) {
-        } @finally {
-            
-        }
+
         NSString *userInfoStr = [NSString stringWithFormat:@"为%@(%@,%@,%@岁)预约",[dict valueForKey:@"protectedPersonNexus"],nameStr,sex,[dict valueForKey:@"orderSendAge"]];
         
         NSString *protectedPersonHeight = [NSString stringWithFormat:@"%@",[dict valueForKey:@"protectedPersonHeight"]];
@@ -1229,69 +1045,6 @@
         cell.userInfoL.text = [NSString stringWithFormat:@"%@ %@",[dict valueForKey:@"userNickNew"],[dict valueForKey:@"userNameNew"]];
         cell.userInfoL1.text = userInfoStr;
         
-        
-        /*
-         
-        NSString *address = [NSString stringWithFormat:@"%@",[dict valueForKey:@"orderSendAddree"]];
-        NSArray *addArr = [address componentsSeparatedByString:@","];
-        NSString *addressStr = nil;
-        //经度
-        NSString *zoneLocationX = nil;
-        //纬度
-        NSString *zoneLocationY = nil;
-        @try {
-            zoneLocationX = addArr[0];
-            zoneLocationY = addArr[1];
-            addressStr = [addArr objectAtIndex:2];
-        } @catch (NSException *exception) {
-            
-        } @finally {
-            
-        }
-        cell.addressL.text = [NSString stringWithFormat:@"%@",addressStr];
-
-        NSArray  *orderStateStr = @[@"联系客户",@"出发",@"开始服务",@"填写报告"];
-        NSInteger orderIndex = [[dict valueForKey:@"orderReceivestate"] integerValue];
-    
-        @try {
-//            cell.oderStateL.text = [NSString stringWithFormat:@"(%@)",orderStateStr[orderIndex]];
-        } @catch (NSException *exception) {
-            
-        } @finally {
-            
-        }
-
-    
-        __weak typeof(self) weakSelf = self;
-        
-        cell.showOrderDetailBlock = ^(){
-            NSLog(@"showOrderDetail");
-            [weakSelf showOrderDetailWithOrder:dict];
-        };
-        cell.cancleRequstBlock = ^(){
-            NSLog(@"cancleRequstBlock");
-            currentDic = dict;
-            [weakSelf showCancleAlertView:row];
-        };
-        cell.nextStepBlock = ^(){
-            NSLog(@"nextStepBlock");
-            currentDic = dict;
-            [weakSelf showAlertViewWithTag:orderIndex];
-        };
-        cell.locationBlock = ^(){
-            NSLog(@"locationBlock");
-            NSDictionary *userLocationDic = @{@"zoneLocationY":zoneLocationY,@"zoneLocationX":zoneLocationX};
-            [weakSelf goLocationWithLocation:userLocationDic];
-        };
-        cell.showUserInfoBlock = ^(){
-            NSLog(@"showUserInfoBlock");
-            HePaitentInfoVC *paitentInfoVC = [[HePaitentInfoVC alloc] init];
-            paitentInfoVC.userInfoDict = [[NSDictionary alloc] initWithDictionary:dict];
-            paitentInfoVC.isFromNowOrder = YES;
-            paitentInfoVC.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:paitentInfoVC animated:YES];
-        };
-        */
         return  cell;
     }else if(currentType == 2){
         
@@ -1580,6 +1333,7 @@
     }
     return nil;
 }
+//报告
 - (void)reportAction:(UIButton *)sender{
     NSLog(@"报告");
     NSInteger index = sender.tag;
@@ -1589,11 +1343,10 @@
     NurseReportVC *nurseReportVC = [[NurseReportVC alloc] init];
     nurseReportVC.hidesBottomBarWhenPushed = YES;
     nurseReportVC.infoData = dict;
-//    nurseReportVC.isDetail = YES;
     nurseReportVC.reportType = 0;
     [self.navigationController pushViewController:nurseReportVC animated:YES];
 }
-
+//评价
 - (void)evaluateAction:(UIButton *)sender{
     NSLog(@"评价");
     NSInteger index = sender.tag;
@@ -1704,8 +1457,7 @@
     }
     
 }
-
-
+//账单
 - (void)goToCheck{
     NSLog(@"goToCheck");
     CheckDetailVC *checkDetailVC = [[CheckDetailVC alloc] init];
@@ -1716,7 +1468,11 @@
 - (void)searchAction{
     NSLog(@"searchAction");
 }
-
+/*
+ @brief 取消订单
+ @prama index:
+ @return
+ */
 - (void)showCancleAlertView:(NSInteger)index{
     
     windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
@@ -1782,7 +1538,11 @@
     
     
 }
-
+/*
+ @brief 下一步
+ @prama tag:当前执行的状态
+ @return
+ */
 - (void)showAlertViewWithTag:(NSInteger)tag{
     
     windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
@@ -1851,19 +1611,12 @@
             //专属订单
             [self cancleExclusiveOrderAlertView];
         }else{
-//            [dataArr addObject:dataArr[0]];
             [dataArr removeObjectAtIndex:0];
             if (dataArr.count == 0) {
-//                if (footerView) {
-//                    [footerView removeFromSuperview];
-//                    footerView = nil;
-//                }
+
                 [self showNodataView:YES];
             }
             [myTableView reloadData];
-//            [timer3 reset];
-
-//            [self sendCancleOrderWithOrderId:[dataArr[0] valueForKey:@"orderSendId"]];
         }
     }
 }
@@ -1877,21 +1630,9 @@
         [windowView removeFromSuperview];
     }
 }
-
+//下一步
 - (void)clickBtAction:(UIButton *)sender{
     NSLog(@"tag:%ld",sender.tag);
-//    if (sender.tag == 100) {
-//
-//        [self sendCancleOrderWithOrderId:[dataArr[0] valueForKey:@"orderSendId"]];
-//
-//        if (dataArr.count > 0) {
-//            if ([[dataArr[0] valueForKey:@"orderSendType"] isEqualToString:@"1"]) {
-//                [self cancleExclusiveOrder];
-//            }else{
-//                [self sendCancleOrderWithOrderId:[dataArr[0] valueForKey:@"orderSendId"]];
-//            }
-//        }
-//    }else
     if(sender.tag == 0){
         [self updateOrderStateWithOrderState:sender.tag];
 // "执行下一步：联系客户";
@@ -1942,7 +1683,7 @@
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
 }
-
+//刷新数据
 - (void)reloadOrderData{
     currentPage = 0;
     if (dataArr && dataArr.count > 0) {
@@ -1952,13 +1693,11 @@
         case 0:
         {
             [self getDataWithUrl:ORDERLOOKRECEIVER];
-//            [self getBadgeNums];
         }
             break;
         case 1:
         {
             [self getDataWithUrl:ORDERSTATENOW];
-//            [self getBadgeNums];
         }
             break;
         case 2:
@@ -2004,25 +1743,11 @@
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
 }
-
-//- (NSString *)getTimeWith:(id)value{
-//    NSString *time = @"";
-//    
-//    id zoneCreatetimeObj = value;
-//    if ([zoneCreatetimeObj isMemberOfClass:[NSNull class]] || zoneCreatetimeObj == nil) {
-//        NSTimeInterval  timeInterval = [[NSDate date] timeIntervalSince1970];
-//        zoneCreatetimeObj = [NSString stringWithFormat:@"%.0f000",timeInterval];
-//    }
-//    long long timestamp = [zoneCreatetimeObj longLongValue];
-//    NSString *zoneCreatetime = [NSString stringWithFormat:@"%lld",timestamp];
-//    if ([zoneCreatetime length] > 3) {
-//        //时间戳
-//        zoneCreatetime = [zoneCreatetime substringToIndex:[zoneCreatetime length] - 3];
-//    }
-//    time = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"yyyy/MM/dd HH:mm:SS"];
-//    return time;
-//}
-
+/*
+ @brief 修正要显示的时间数据
+ @prama info:选中订单的信息
+ @return 显示的时间数据
+ */
 - (NSString *)getSenderTimeStrWith:(id)info{
     NSString *stopTimeStr = @"";
     id zoneCreatetimeObj = info;
@@ -2039,7 +1764,7 @@
     stopTimeStr = [Tool convertTimespToString:[zoneCreatetime longLongValue] dateFormate:@"yyyy-MM-dd HH:mm"];
     return stopTimeStr;
 }
-
+//获取订单数量
 - (void)getBadgeNums{
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     NSDictionary *params= @{@"nurseId" : userAccount,@"pageNow" : @"0"};
@@ -2083,7 +1808,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+//请求取消订单弹窗
 - (void)cancleExclusiveOrderAlertView{
     
     windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];

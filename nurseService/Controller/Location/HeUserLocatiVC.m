@@ -4,7 +4,7 @@
 //
 //  Created by Danertu on 16/10/29.
 //  Copyright © 2016年 iMac. All rights reserved.
-//
+//未用到
 
 #import "HeUserLocatiVC.h"
 #import <BaiduMapAPI_Utils/BMKUtilsComponent.h>
@@ -106,7 +106,7 @@ _mapView.mapScaleBarPosition = CGPointMake(60, _mapView.frame.size.height *2 /3 
     _locService = [[BMKLocationService alloc]init];
     _geocodesearch = [[BMKGeoCodeSearch alloc]init];
 }
-
+//初始化视图
 - (void)initView
 {
     [super initView];

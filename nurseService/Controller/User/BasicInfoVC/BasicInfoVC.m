@@ -61,23 +61,6 @@
         [label sizeToFit];
         self.title = @"基本信息";
         self.navigationItem.titleView.backgroundColor = [UIColor clearColor];
-        
-//        NSMutableArray *buttons = [[NSMutableArray alloc] init];
-//        UIButton *saveBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 25)];
-//        saveBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
-//        [saveBt setTitleColor:APPDEFAULTORANGE forState:UIControlStateNormal];
-//        [saveBt setTitle:@"保存" forState:UIControlStateNormal];
-//        saveBt.layer.cornerRadius = 4.0;//2.0是圆角的弧度，根据需求自己更改
-//        saveBt.layer.borderWidth = 1.0f;
-//        saveBt.layer.borderColor = [[UIColor colorWithRed:152.0 / 255.0 green:67.0 / 255.0 blue:141.0 / 255.0 alpha:1.0] CGColor];
-//        [saveBt addTarget:self action:@selector(saveAction) forControlEvents:UIControlEventTouchUpInside];
-//        saveBt.backgroundColor = [UIColor clearColor];
-//        
-//        UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithCustomView:saveBt];
-//        [buttons addObject:searchItem];
-//        self.navigationItem.rightBarButtonItems = buttons;
-        
-        
     }
     return self;
 }
@@ -153,7 +136,7 @@
 - (void)backItemClick:(id)sender{
     [self showCancleAlertView];
 }
-
+//弹窗 取消认证
 - (void)showCancleAlertView{
     
     windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
@@ -230,16 +213,13 @@
     }
 }
 
-
+//保存信息
 - (void)saveAction{
     NSLog(@"saveAction");
-//    [self nextStepAction];
     [self goToProfessionInfoVC];
 }
-
+//提交数据
 - (void)nextStepAction{
-
-    
     NSString *nurseTruename = nameTextField.text;
     NSString *nurseCard = idCardTextField.text;
     NSString *nursePhone = phoneTextField.text;
@@ -284,7 +264,7 @@
     }];
     
 }
-
+//初始化认证状态
 - (void)addStatueViewWithStatus:(NSInteger)statusType
 {
     CGFloat statusLabelX = 5;
@@ -476,53 +456,7 @@
             nameTextField.text = [postDic valueForKey:@"nurseTruename"];
             break;
         }
-//        case 2:
-//        {
-//            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-//            tipLabel.backgroundColor = [UIColor clearColor];
-//            tipLabel.text = @"性别";
-//            tipLabel.font = [UIFont systemFontOfSize:15.0];
-//            tipLabel.textColor = [UIColor grayColor];
-//            [cell addSubview:tipLabel];
-//            
-//            CGFloat imageW = 10;
-//            CGFloat imageX = SCREENWIDTH-150;
-//            manSelectBt = [[UIButton alloc] initWithFrame:CGRectMake(imageX, 17, imageW, imageW)];
-//            [cell addSubview:manSelectBt];
-//            manSelectBt.backgroundColor = [UIColor clearColor];
-//            manSelectBt.userInteractionEnabled = YES;
-//            [manSelectBt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_select"] forState:UIControlStateSelected];
-//            manSelectBt.tag = 1;
-//            manSelectBt.selected = YES;
-//            [manSelectBt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_unselect"] forState:UIControlStateNormal];
-//            [manSelectBt addTarget:self action:@selector(changeSexChoose:) forControlEvents:UIControlEventTouchUpInside];
-//            
-//            womanSelectBt = [[UIButton alloc] initWithFrame:CGRectMake(imageX+70, 17, imageW, imageW)];
-//            [cell addSubview:womanSelectBt];
-//            womanSelectBt.backgroundColor = [UIColor clearColor];
-//            womanSelectBt.userInteractionEnabled  = YES;
-//            [womanSelectBt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_unselect"] forState:UIControlStateNormal];
-//            [womanSelectBt setBackgroundImage:[UIImage imageNamed:@"icon_dot_violet_select"] forState:UIControlStateSelected];
-//            womanSelectBt.tag = 2;
-//            womanSelectBt.selected = NO;
-//            [womanSelectBt addTarget:self action:@selector(changeSexChoose:) forControlEvents:UIControlEventTouchUpInside];
-//            
-//            UILabel *tipManLabel = [[UILabel alloc] initWithFrame:CGRectMake(imageX+20, 0, 30, cellSize.height)];
-//            tipManLabel.backgroundColor = [UIColor clearColor];
-//            tipManLabel.text = @"男";
-//            tipManLabel.font = [UIFont systemFontOfSize:15.0];
-//            tipManLabel.textColor = [UIColor grayColor];
-//            [cell addSubview:tipManLabel];
-//
-//            UILabel *tipWomanLabel = [[UILabel alloc] initWithFrame:CGRectMake(imageX+90, 0, 30, cellSize.height)];
-//            tipWomanLabel.backgroundColor = [UIColor clearColor];
-//            tipWomanLabel.text = @"女";
-//            tipWomanLabel.font = [UIFont systemFontOfSize:15.0];
-//            tipWomanLabel.textColor = [UIColor grayColor];
-//            [cell addSubview:tipWomanLabel];
-//            
-//            break;
-//        }
+
         case 2:
         {
             UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
@@ -551,78 +485,6 @@
             idCardTextField.text = [postDic valueForKey:@"NurseCard"];
             break;
         }
-//        case 4:
-//        {
-//            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-//            tipLabel.backgroundColor = [UIColor clearColor];
-//            tipLabel.text = @"联系电话";
-//            tipLabel.font = [UIFont systemFontOfSize:15.0];
-//            tipLabel.textColor = [UIColor grayColor];
-//            [cell addSubview:tipLabel];
-//            
-//            CGFloat nameTextFieldX = SCREENWIDTH-210;
-//            CGFloat nameTextFieldW = 200;
-//            
-//            phoneTextField = [[UITextField alloc] initWithFrame:CGRectMake(nameTextFieldX, 0, nameTextFieldW, cellSize.height)];
-//            phoneTextField.font = [UIFont systemFontOfSize:15.0];
-//            phoneTextField.textAlignment = NSTextAlignmentRight;
-//            phoneTextField.textColor = [UIColor blackColor];
-//            phoneTextField.backgroundColor = [UIColor clearColor];
-//            phoneTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-//            phoneTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-//            phoneTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-//            phoneTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-//            [cell addSubview:phoneTextField];
-//            break;
-//        }
-//        case 5:
-//        {
-//            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-//            tipLabel.backgroundColor = [UIColor clearColor];
-//            tipLabel.text = @"常住地址";
-//            tipLabel.font = [UIFont systemFontOfSize:15.0];
-//            tipLabel.textColor = [UIColor grayColor];
-//            [cell addSubview:tipLabel];
-//            
-//            CGFloat nameTextFieldX = SCREENWIDTH-210;
-//            CGFloat nameTextFieldW = 200;
-//            
-//            addressTextField = [[UITextField alloc] initWithFrame:CGRectMake(nameTextFieldX, 0, nameTextFieldW, cellSize.height)];
-//            addressTextField.font = [UIFont systemFontOfSize:15.0];
-//            addressTextField.textAlignment = NSTextAlignmentRight;
-//            addressTextField.textColor = [UIColor blackColor];
-//            addressTextField.backgroundColor = [UIColor clearColor];
-//            addressTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-//            addressTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-//            addressTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-//            addressTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-//            [cell addSubview:addressTextField];
-//            break;
-//        }
-//        case 6:
-//        {
-//            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-//            tipLabel.backgroundColor = [UIColor clearColor];
-//            tipLabel.text = @"邮箱";
-//            tipLabel.font = [UIFont systemFontOfSize:15.0];
-//            tipLabel.textColor = [UIColor grayColor];
-//            [cell addSubview:tipLabel];
-//            
-//            CGFloat nameTextFieldX = SCREENWIDTH-210;
-//            CGFloat nameTextFieldW = 200;
-//            
-//            mailTextField = [[UITextField alloc] initWithFrame:CGRectMake(nameTextFieldX, 0, nameTextFieldW, cellSize.height)];
-//            mailTextField.font = [UIFont systemFontOfSize:15.0];
-//            mailTextField.textAlignment = NSTextAlignmentRight;
-//            mailTextField.textColor = [UIColor blackColor];
-//            mailTextField.backgroundColor = [UIColor clearColor];
-//            mailTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-//            mailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-//            mailTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-//            mailTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-//            [cell addSubview:mailTextField];
-//            break;
-//        }
         case 3:
         {
             CGFloat headImageW = 130;
@@ -957,22 +819,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)changeSexChoose:(UIButton *)sender
-{
-    if (sender.selected == YES) {
-        return;
-    }
-    manSelectBt.selected = !manSelectBt.isSelected;
-    womanSelectBt.selected = !womanSelectBt.isSelected;
-    if (manSelectBt.selected) {
-        NSLog(@"男");
-        [postDic setValue:@"1" forKey:@"NurseSex"];
-    }else{
-        [postDic setValue:@"2" forKey:@"NurseSex"];
-        NSLog(@"女");
-    }
-}
-
+//跳转到专业信息认证页面
 - (void)goToProfessionInfoVC{
     
     if ([[postDic valueForKey:@"nurseTruename"] isEqualToString:@""] ||
@@ -992,15 +839,13 @@
             return;
         }
     }
-    
-
 
     ProfessionInfoVC *professionInfoVC = [[ProfessionInfoVC alloc] init];
     professionInfoVC.hidesBottomBarWhenPushed = YES;
     professionInfoVC.basicInfo = postDic;
     [self.navigationController pushViewController:professionInfoVC animated:YES];
 }
-
+//提示框
 - (void)showAlertView{
     
     windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
@@ -1042,15 +887,6 @@
     NSInteger cancleBt_Y = CGRectGetMaxY(infoTip.frame);
     NSInteger cancleBt_W = 40;
     NSInteger cancleBt_H = 20;
-    
-//    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
-//    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
-//    cancleBt.backgroundColor = [UIColor clearColor];
-//    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
-//    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-//    cancleBt.tag = 0;
-//    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
-//    [addBgView addSubview:cancleBt];
     
     UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
     [okBt setTitle:@"确认" forState:UIControlStateNormal];

@@ -102,6 +102,7 @@
     [self getFansData];
 
 }
+//获取我的粉丝数据
 - (void)getFansData{
 
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
@@ -236,17 +237,6 @@
     noteL.text = noteStr;
     noteL.lineBreakMode = NSLineBreakByTruncatingMiddle;
     [cell addSubview:noteL];
-
-//    itemX = SCREENWIDTH -30;
-//    itemY = 25;
-//    itemW = 20;
-//    UIImageView *rightV = [[UIImageView alloc] initWithFrame:CGRectMake(itemX, itemY, itemW, itemW)];
-//    rightV.backgroundColor = [UIColor clearColor];
-//    rightV.image = [UIImage imageNamed:@"icon_into_right"];
-//    rightV.userInteractionEnabled = YES;
-//    [cell addSubview:rightV];
-    
-    
     
     return cell;
 }

@@ -124,6 +124,11 @@
         [self performSelector:@selector(endRefreshing) withObject:nil afterDelay:1.0];
     }];
 }
+/*
+ @brief 我的评价数据
+ @prama type:数据类型
+ @return
+ */
 - (void)getDataWithType:(NSInteger)type{
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
 
@@ -151,9 +156,6 @@
                     return ;
                 }
             }
-            
-
-
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
             myTableView.hidden = YES;

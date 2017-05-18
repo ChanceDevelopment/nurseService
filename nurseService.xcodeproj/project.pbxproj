@@ -2320,7 +2320,6 @@
 		AD13A6691E2B8D99002ADE2B /* MyFansVC */ = {
 			isa = PBXGroup;
 			children = (
-				ADCAF4361E31A9940081E944 /* NurseInfoVC */,
 				AD13A66A1E2B8DAD002ADE2B /* MyFansVC.h */,
 				AD13A66B1E2B8DAD002ADE2B /* MyFansVC.m */,
 				AD13A66C1E2B8DAD002ADE2B /* MyFansVC.xib */,
@@ -2724,13 +2723,6 @@
 				ADB4CFF81E2DE929004ED2E3 /* AddPaswordVC.xib */,
 			);
 			path = AddPaswordVC;
-			sourceTree = "<group>";
-		};
-		ADCAF4361E31A9940081E944 /* NurseInfoVC */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = NurseInfoVC;
 			sourceTree = "<group>";
 		};
 		ADCD25A21E0C0E5700FBCF26 /* MyEvaluateViewController */ = {

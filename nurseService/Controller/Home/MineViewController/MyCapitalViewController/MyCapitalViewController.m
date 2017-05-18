@@ -107,7 +107,7 @@
     
    
 }
-
+//获取余额数据
 - (void)getData{
     NSString *nurseId = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY]];
 
@@ -237,7 +237,7 @@
     }
     return 10;
 }
-
+//绑定支付宝弹窗
 - (void)showAddView{
     windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
     windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
@@ -312,6 +312,7 @@
     int val;
     return[scan scanInt:&val] && [scan isAtEnd];
 }
+//绑定支付宝账号
 - (void)clickBtAction:(UIButton *)sender{
     if (windowView) {
         [windowView removeFromSuperview];

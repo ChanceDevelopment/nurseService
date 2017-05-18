@@ -74,7 +74,7 @@
     
     [tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 }
-
+//获取服务介绍数据
 - (void)getData{
     
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:ALLSERVICEINFO params:nil success:^(AFHTTPRequestOperation* operation,id response){

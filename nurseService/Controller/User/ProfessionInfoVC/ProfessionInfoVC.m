@@ -145,13 +145,17 @@
     serviceListVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:serviceListVC animated:YES];
 }
+//保存信息
 - (void)saveAction{
     NSLog(@"saveAction");
 //    [self getAllServiceInfo];
     [self postProfessionInfo];
 }
-
-- (void)addStatueViewWithStatus:(NSInteger)statusType
+/*
+ @brief 初始化认证进度
+ @prama orderDict:当前认证进度
+ @return
+ */- (void)addStatueViewWithStatus:(NSInteger)statusType
 {
     CGFloat statusLabelX = 5;
     CGFloat statusLabelY = 10;
@@ -254,7 +258,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     if (tableView.tag == 500) {
-        
+
         UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, SCREENWIDTH-20, cellSize.height)];
         tipLabel.backgroundColor = [UIColor clearColor];
         tipLabel.text = serviceArr[row];
@@ -350,25 +354,6 @@
 
     
     switch (row) {
-//        case 0:
-//        {
-//            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-//            tipLabel.backgroundColor = [UIColor clearColor];
-//            tipLabel.text = @"擅长语言";
-//            tipLabel.font = [UIFont systemFontOfSize:15.0];
-//            tipLabel.textColor = [UIColor grayColor];
-//            [cell addSubview:tipLabel];
-//            
-//            CGFloat btX = SCREENWIDTH-30;
-//            CGFloat btW = 20;
-//            
-//            intoImageBt = [[UIButton alloc] initWithFrame:CGRectMake(btX, 11, btW, btW)];
-//            [intoImageBt setBackgroundImage:[UIImage imageNamed:@"icon_into_right"] forState:UIControlStateNormal];
-//            [intoImageBt setBackgroundImage:[UIImage imageNamed:@"icon_into_down"] forState:UIControlStateSelected];
-//            [cell addSubview:intoImageBt];
-//            [intoImageBt addTarget:self action:@selector(showLanguageView:) forControlEvents:UIControlEventTouchUpInside];
-//            break;
-//        }
         case 0:
         {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -661,408 +646,6 @@
         default:
             break;
     }
-    
-    
-    
-    
-    
-    
-    
-    /*
-    if (isShowLanguage) {
-        switch (row) {
-            case 0:
-            {
-                UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-                tipLabel.backgroundColor = [UIColor clearColor];
-                tipLabel.text = @"擅长语言";
-                tipLabel.font = [UIFont systemFontOfSize:15.0];
-                tipLabel.textColor = [UIColor grayColor];
-                [cell addSubview:tipLabel];
-                
-                CGFloat btX = SCREENWIDTH-30;
-                CGFloat btW = 20;
-                
-                intoImageBt = [[UIButton alloc] initWithFrame:CGRectMake(btX, 11, btW, btW)];
-                [intoImageBt setBackgroundImage:[UIImage imageNamed:@"icon_into_down"] forState:UIControlStateNormal];
-//                [intoImageBt setBackgroundImage:[UIImage imageNamed:@"icon_into_right"] forState:UIControlStateSelected];
-                [cell addSubview:intoImageBt];
-                [intoImageBt addTarget:self action:@selector(showLanguageView:) forControlEvents:UIControlEventTouchUpInside];
-                break;
-            }
-            case 1:
-            {
-                
-                CGFloat buttonW = 50;
-                CGFloat buttonH = 20;
-                CGFloat buttonX = 5;//(SCREENWIDTH/5.0-buttonW)/2.0;
-                CGFloat buttonY = 12;
-                NSArray *itemsArr = @[@"汉语",@"英语",@"日语",@"韩语",@"法语"];
-                for (int i = 0; i<itemsArr.count; i++) {
-                    int j = 5;  //每行个数
-                    if (i<j) {
-                        
-                        UIButton *languageBtn = [[UIButton alloc] initWithFrame:CGRectMake(5+60*i, buttonY, buttonW, buttonH)];
-                        languageBtn.backgroundColor = [UIColor clearColor];
-                        [languageBtn setTitleColor:APPDEFAULTTITLECOLOR forState:UIControlStateSelected];
-                        [languageBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-                        languageBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
-                        languageBtn.layer.cornerRadius = 4.0;//2.0是圆角的弧度，根据需求自己更改
-                        languageBtn.layer.borderWidth = 1.0f;//设置边框颜色
-                        
-                        languageBtn.layer.borderColor = [[UIColor grayColor] CGColor];
-                        
-                        [languageBtn setTitle:itemsArr[i] forState:UIControlStateNormal];
-                        languageBtn.tag = 100 + i;
-                        [languageBtn addTarget:self action:@selector(changeLanguageBtnCorlor:) forControlEvents:UIControlEventTouchUpInside];
-                        [cell addSubview:languageBtn];
-                    }
-                }
-                break;
-            }
-            case 2:
-            {
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
-                UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-                tipLabel.backgroundColor = [UIColor clearColor];
-                tipLabel.text = @"工作单位";
-                tipLabel.font = [UIFont systemFontOfSize:15.0];
-                tipLabel.textColor = [UIColor grayColor];
-                [cell addSubview:tipLabel];
-                
-                CGFloat fieldX = SCREENWIDTH-230;
-                CGFloat fieldW = 200;
-                
-                workPlaceLable = [[UILabel alloc] initWithFrame:CGRectMake(fieldX, 0, fieldW, cellSize.height)];
-                workPlaceLable.font = [UIFont systemFontOfSize:15.0];
-                workPlaceLable.textAlignment = NSTextAlignmentRight;
-                workPlaceLable.textColor = [UIColor blackColor];
-                workPlaceLable.backgroundColor = [UIColor clearColor];
-                workPlaceLable.text = @"该护士未选定医院";
-                [cell addSubview:workPlaceLable];
-                break;
-            }
-            case 3:
-            {
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
-                UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-                tipLabel.backgroundColor = [UIColor clearColor];
-                tipLabel.text = @"科室";
-                tipLabel.font = [UIFont systemFontOfSize:15.0];
-                tipLabel.textColor = [UIColor grayColor];
-                [cell addSubview:tipLabel];
-                
-                CGFloat fieldX = SCREENWIDTH-230;
-                CGFloat fieldW = 200;
-                
-                officeLable = [[UILabel alloc] initWithFrame:CGRectMake(fieldX, 0, fieldW, cellSize.height)];
-                officeLable.font = [UIFont systemFontOfSize:15.0];
-                officeLable.textAlignment = NSTextAlignmentRight;
-                officeLable.textColor = [UIColor blackColor];
-                officeLable.backgroundColor = [UIColor clearColor];
-                officeLable.text = @"该护士未选定专业";
-                [cell addSubview:officeLable];
-                break;
-            }
-            case 4:
-            {
-                UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-                tipLabel.backgroundColor = [UIColor clearColor];
-                tipLabel.text = @"护士注册号";
-                tipLabel.font = [UIFont systemFontOfSize:15.0];
-                tipLabel.textColor = [UIColor grayColor];
-                [cell addSubview:tipLabel];
-                
-                CGFloat fieldX = SCREENWIDTH-210;
-                CGFloat fieldW = 200;
-                
-                nurseNumberField = [[UITextField alloc] initWithFrame:CGRectMake(fieldX, 0, fieldW, cellSize.height)];
-                nurseNumberField.font = [UIFont systemFontOfSize:15.0];
-                nurseNumberField.textAlignment = NSTextAlignmentRight;
-                nurseNumberField.textColor = [UIColor blackColor];
-                nurseNumberField.backgroundColor = [UIColor clearColor];
-                nurseNumberField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-                nurseNumberField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-                nurseNumberField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-                nurseNumberField.clearButtonMode = UITextFieldViewModeWhileEditing;
-                [cell addSubview:nurseNumberField];
-                
-                break;
-            }
-            case 5:
-            {
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
-                UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-                tipLabel.backgroundColor = [UIColor clearColor];
-                tipLabel.text = @"可提供服务";
-                tipLabel.font = [UIFont systemFontOfSize:15.0];
-                tipLabel.textColor = [UIColor grayColor];
-                [cell addSubview:tipLabel];
-                
-                
-//                CGFloat fieldX = SCREENWIDTH-230;
-//                CGFloat fieldW = 200;
-//                
-//                UILabel *serviceLable = [[UILabel alloc] initWithFrame:CGRectMake(fieldX, 0, fieldW, cellSize.height)];
-//                serviceLable.font = [UIFont systemFontOfSize:15.0];
-//                serviceLable.textAlignment = NSTextAlignmentRight;
-//                serviceLable.textColor = [UIColor blackColor];
-//                serviceLable.backgroundColor = [UIColor clearColor];
-//                serviceLable.text = @"1111";
-//                [cell addSubview:serviceLable];
-                
-                break;
-            }
-            case 6:
-            {
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
-                UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-                tipLabel.backgroundColor = [UIColor clearColor];
-                tipLabel.text = @"个人优势";
-                tipLabel.font = [UIFont systemFontOfSize:15.0];
-                tipLabel.textColor = [UIColor grayColor];
-                [cell addSubview:tipLabel];
-                
-//                CGFloat fieldX = SCREENWIDTH-210;
-//                CGFloat fieldW = 200;
-//                
-//                UITextField *advTextField = [[UITextField alloc] initWithFrame:CGRectMake(fieldX, 0, fieldW, cellSize.height)];
-//                advTextField.font = [UIFont systemFontOfSize:15.0];
-//                advTextField.textAlignment = NSTextAlignmentRight;
-//                advTextField.textColor = [UIColor blackColor];
-//                advTextField.backgroundColor = [UIColor clearColor];
-//                advTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-//                advTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-//                advTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-//                advTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-//                [cell addSubview:advTextField];
-                break;
-            }
-            case 7:
-            {
-                CGFloat photoW = 60;
-                photoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, photoW, photoW)];
-                [cell addSubview:photoImageView];
-                photoImageView.userInteractionEnabled = YES;
-                photoImageView.backgroundColor = [UIColor grayColor];
-                photoImageView.image = [UIImage imageNamed:@"icon_add_photo_violet"];
-                
-                UITapGestureRecognizer *clickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPhotoImageAction)];
-                [photoImageView addGestureRecognizer:clickTap];
-                
-                CGFloat tipLabelX = 20+photoW;
-                CGFloat tipLabelY = 10+photoW/2.0-22;
-                UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(tipLabelX, tipLabelY, 150, 44)];
-                tipLabel.backgroundColor = [UIColor clearColor];
-                tipLabel.text = @"请上传相关照片";
-                tipLabel.font = [UIFont systemFontOfSize:15.0];
-                tipLabel.textColor = [UIColor blackColor];
-                [cell addSubview:tipLabel];
-                
-                break;
-            }
-            case 8:
-            {
-                UILabel *nextStepLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, cellSize.height)];
-                nextStepLabel.backgroundColor = APPDEFAULTTITLECOLOR;
-                nextStepLabel.text = @"完成";
-                nextStepLabel.textAlignment = NSTextAlignmentCenter;
-                nextStepLabel.font = [UIFont systemFontOfSize:15.0];
-                nextStepLabel.textColor = [UIColor whiteColor];
-                [cell addSubview:nextStepLabel];
-                break;
-            }
-                
-            default:
-                break;
-        }
-    }else{
-        switch (row) {
-            case 0:
-            {
-                UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-                tipLabel.backgroundColor = [UIColor clearColor];
-                tipLabel.text = @"擅长语言";
-                tipLabel.font = [UIFont systemFontOfSize:15.0];
-                tipLabel.textColor = [UIColor grayColor];
-                [cell addSubview:tipLabel];
-                
-                CGFloat btX = SCREENWIDTH-30;
-                CGFloat btW = 20;
-                
-                intoImageBt = [[UIButton alloc] initWithFrame:CGRectMake(btX, 11, btW, btW)];
-                [intoImageBt setBackgroundImage:[UIImage imageNamed:@"icon_into_right"] forState:UIControlStateNormal];
-                [intoImageBt setBackgroundImage:[UIImage imageNamed:@"icon_into_down"] forState:UIControlStateSelected];
-                [cell addSubview:intoImageBt];
-                [intoImageBt addTarget:self action:@selector(showLanguageView:) forControlEvents:UIControlEventTouchUpInside];
-                break;
-            }
-            case 1:
-            {
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                
-                UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-                tipLabel.backgroundColor = [UIColor clearColor];
-                tipLabel.text = @"工作单位";
-                tipLabel.font = [UIFont systemFontOfSize:15.0];
-                tipLabel.textColor = [UIColor grayColor];
-                [cell addSubview:tipLabel];
-                
-                CGFloat fieldX = SCREENWIDTH-230;
-                CGFloat fieldW = 200;
-                
-                workPlaceLable = [[UILabel alloc] initWithFrame:CGRectMake(fieldX, 0, fieldW, cellSize.height)];
-                workPlaceLable.font = [UIFont systemFontOfSize:15.0];
-                workPlaceLable.textAlignment = NSTextAlignmentRight;
-                workPlaceLable.textColor = [UIColor blackColor];
-                workPlaceLable.backgroundColor = [UIColor clearColor];
-                workPlaceLable.text = @"该护士未选定医院";
-                [cell addSubview:workPlaceLable];
-                break;
-            }
-            case 2:
-            {
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                
-                UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-                tipLabel.backgroundColor = [UIColor clearColor];
-                tipLabel.text = @"科室";
-                tipLabel.font = [UIFont systemFontOfSize:15.0];
-                tipLabel.textColor = [UIColor grayColor];
-                [cell addSubview:tipLabel];
-                
-                CGFloat fieldX = SCREENWIDTH-230;
-                CGFloat fieldW = 200;
-                
-                officeLable = [[UILabel alloc] initWithFrame:CGRectMake(fieldX, 0, fieldW, cellSize.height)];
-                officeLable.font = [UIFont systemFontOfSize:15.0];
-                officeLable.textAlignment = NSTextAlignmentRight;
-                officeLable.textColor = [UIColor blackColor];
-                officeLable.backgroundColor = [UIColor clearColor];
-                officeLable.text = @"该护士未选定专业";
-                [cell addSubview:officeLable];
-                break;
-            }
-            case 3:
-            {
-                UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-                tipLabel.backgroundColor = [UIColor clearColor];
-                tipLabel.text = @"护士注册号";
-                tipLabel.font = [UIFont systemFontOfSize:15.0];
-                tipLabel.textColor = [UIColor grayColor];
-                [cell addSubview:tipLabel];
-                
-                CGFloat fieldX = SCREENWIDTH-210;
-                CGFloat fieldW = 200;
-                
-                nurseNumberField = [[UITextField alloc] initWithFrame:CGRectMake(fieldX, 0, fieldW, cellSize.height)];
-                nurseNumberField.font = [UIFont systemFontOfSize:15.0];
-                nurseNumberField.textAlignment = NSTextAlignmentRight;
-                nurseNumberField.textColor = [UIColor blackColor];
-                nurseNumberField.backgroundColor = [UIColor clearColor];
-                nurseNumberField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-                nurseNumberField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-                nurseNumberField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-                nurseNumberField.clearButtonMode = UITextFieldViewModeWhileEditing;
-                [cell addSubview:nurseNumberField];
-                
-                break;
-            }
-            case 4:
-            {
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                
-                UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-                tipLabel.backgroundColor = [UIColor clearColor];
-                tipLabel.text = @"可提供服务";
-                tipLabel.font = [UIFont systemFontOfSize:15.0];
-                tipLabel.textColor = [UIColor grayColor];
-                [cell addSubview:tipLabel];
-                
-                
-                //                CGFloat fieldX = SCREENWIDTH-230;
-                //                CGFloat fieldW = 200;
-                //
-                //                UILabel *serviceLable = [[UILabel alloc] initWithFrame:CGRectMake(fieldX, 0, fieldW, cellSize.height)];
-                //                serviceLable.font = [UIFont systemFontOfSize:15.0];
-                //                serviceLable.textAlignment = NSTextAlignmentRight;
-                //                serviceLable.textColor = [UIColor blackColor];
-                //                serviceLable.backgroundColor = [UIColor clearColor];
-                //                serviceLable.text = @"1111";
-                //                [cell addSubview:serviceLable];
-                
-                break;
-            }
-            case 5:
-            {
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-
-                UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 80, cellSize.height)];
-                tipLabel.backgroundColor = [UIColor clearColor];
-                tipLabel.text = @"个人优势";
-                tipLabel.font = [UIFont systemFontOfSize:15.0];
-                tipLabel.textColor = [UIColor grayColor];
-                [cell addSubview:tipLabel];
-                
-                //                CGFloat fieldX = SCREENWIDTH-210;
-                //                CGFloat fieldW = 200;
-                //
-                //                UITextField *advTextField = [[UITextField alloc] initWithFrame:CGRectMake(fieldX, 0, fieldW, cellSize.height)];
-                //                advTextField.font = [UIFont systemFontOfSize:15.0];
-                //                advTextField.textAlignment = NSTextAlignmentRight;
-                //                advTextField.textColor = [UIColor blackColor];
-                //                advTextField.backgroundColor = [UIColor clearColor];
-                //                advTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-                //                advTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-                //                advTextField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-                //                advTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-                //                [cell addSubview:advTextField];
-                break;
-            }
-            case 6:
-            {
-                CGFloat photoW = 60;
-                photoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, photoW, photoW)];
-                [cell addSubview:photoImageView];
-                photoImageView.userInteractionEnabled = YES;
-                photoImageView.backgroundColor = [UIColor grayColor];
-                photoImageView.image = [UIImage imageNamed:@"icon_add_photo_violet"];
-                
-                UITapGestureRecognizer *clickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickPhotoImageAction)];
-                [photoImageView addGestureRecognizer:clickTap];
-                
-                CGFloat tipLabelX = 20+photoW;
-                CGFloat tipLabelY = 10+photoW/2.0-22;
-                UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(tipLabelX, tipLabelY, 150, 44)];
-                tipLabel.backgroundColor = [UIColor clearColor];
-                tipLabel.text = @"请上传相关照片";
-                tipLabel.font = [UIFont systemFontOfSize:15.0];
-                tipLabel.textColor = [UIColor blackColor];
-                [cell addSubview:tipLabel];
-                
-                break;
-            }
-            case 7:
-            {
-                UILabel *nextStepLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, cellSize.height)];
-                nextStepLabel.backgroundColor = APPDEFAULTTITLECOLOR;
-                nextStepLabel.text = @"完成";
-                nextStepLabel.textAlignment = NSTextAlignmentCenter;
-                nextStepLabel.font = [UIFont systemFontOfSize:15.0];
-                nextStepLabel.textColor = [UIColor whiteColor];
-                [cell addSubview:nextStepLabel];
-                break;
-            }
-                
-            default:
-                break;
-        }
-    }
-    */
     return cell;
 }
 
@@ -1095,25 +678,11 @@
             break;
         case 6:
             return 44;
-
-//            if (isShowLanguage) {
-//                return 40;
-//            }else{
-//                return 140;
-//            }
             break;
         case 7:
             return 110*3+10;
             break;
-//            if (isShowLanguage) {
-//                return 140;
-//            }else{
-//                return 40;
-//            }
         case 8:
-//            if (isShowLanguage) {
-//                return 40;
-//            }
             return 44;
             break;
         default:
@@ -1227,7 +796,6 @@
             break;
         case 6:
         {
-//            [self showNurseNoteAlertView];
         }
             break;
         case 7:
@@ -1245,114 +813,8 @@
             break;
     }
     
-//    if (isShowLanguage) {
-//        switch (row) {
-//            case 0:
-//            {
-//                [self showWorkAlertView];
-//            }
-//                break;
-//            case 1:
-//            {
-//                if (![[NSString stringWithFormat:@"%@",[postDic objectForKey:@"NurseworkuUnit"]] isEqualToString:@""]) {
-//                    [self showOfficeAlertView];
-//                }else{
-//                    [self.view makeToast:@"请先选择工作单位" duration:1.2 position:@"center"];
-//                }
-//            }
-//                break;
-//            case 2:
-//            {
-//            }
-//                break;
-//            case 3:
-//            {
-//                
-//            }
-//                break;
-//            case 4:
-//            {
-//            }
-//                break;
-//            case 5:
-//            {
-//                [self showServiceAlertView];
-//            }
-//                break;
-//            case 6:
-//            {
-//                [self showNurseNoteAlertView];
-//            }
-//                break;
-//            case 7:
-//            {
-//            }
-//                break;
-//            case 8:
-//            {
-//                [self postProfessionInfo];
-//                
-//            }
-//                break;
-//                
-//            default:
-//                break;
-//        }
-//    }else{
-    
-//        switch (row) {
-//            case 0:
-//            {
-//            }
-//                break;
-//            case 1:
-//            {
-//                [self showWorkAlertView];
-//            }
-//                break;
-//            case 2:
-//            {
-//                if (![[NSString stringWithFormat:@"%@",[postDic objectForKey:@"NurseworkuUnit"]] isEqualToString:@""]) {
-//                    [self showOfficeAlertView];
-//                }else{
-//                    [self.view makeToast:@"请先选择工作单位" duration:1.2 position:@"center"];
-//                }
-//            }
-//                break;
-//            case 3:
-//            {
-//            }
-//                break;
-//            case 4:
-//            {
-//                [self showServiceAlertView];
-//            }
-//                break;
-//            case 5:
-//            {
-//                [self showNurseNoteAlertView];
-//            }
-//                break;
-//            case 6:
-//            {
-//            }
-//                break;
-//            case 7:
-//            {
-//                [self postProfessionInfo];
-//            }
-//                break;
-//            case 8:
-//            {
-//            }
-//                break;
-//                
-//            default:
-//                break;
-//        }
-//    }
 }
-
+//提交数据
 - (void)postProfessionInfo{
     
     if ([[postDic valueForKey:@"NurseNurseLicensepic"] isEqualToString:@""] ||
@@ -1417,13 +879,6 @@
         [self showAlertView];
         return;
     }
-//        NSString *NurseLanguage = [postDic objectForKey:@"NurseLanguage"];
-//        if (!NurseLanguage) {
-//            NurseLanguage = @"";
-//        }
-
-    
-    
     
     NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
     NSDictionary * params  = @{@"NurseId" : userAccount,
@@ -1468,16 +923,9 @@
     }];
 }
 
+//返回上级页面
 - (void)goToHomeView{
     [[NSNotificationCenter defaultCenter] postNotificationName:KNOTIFICATION_JUSTTOROOTVIEW object:nil];
-}
-
-- (void)showLanguageView:(UIButton *)sender{
-    
-    intoImageBt.selected = !sender.selected;
-//    sender.selected = !sender.selected;
-    isShowLanguage = !isShowLanguage;
-    [myTableView reloadData];
 }
 
 //职业证书
@@ -1652,35 +1100,7 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-- (void)changeLanguageBtnCorlor:(UIButton *)sender{
-    if (!sender.isSelected) {
-        sender.layer.borderColor = [APPDEFAULTTITLECOLOR CGColor];
-    }else{
-        sender.layer.borderColor = [[UIColor grayColor] CGColor];
-    }
-    sender.selected = !sender.selected;
-    
-    NSLog(@"%ld",sender.tag);
-    NSString *keyValue = [NSString stringWithFormat:@"langeage_%ld",sender.tag];
-    NSArray *itemsArr = @[@"汉语",@"英语",@"日语",@"韩语",@"法语"];
-    if (sender.selected) {
-        [languageDic setObject:itemsArr[sender.tag-100] forKey:keyValue];
-    }else{
-        [languageDic removeObjectForKey:keyValue];
-    }
-    NSString *languageStr = @"";
-    for (NSString *value in [languageDic allValues]) {
-        languageStr = [languageStr stringByAppendingFormat:@",%@",value];;
-    }
-    
-    if (languageStr.length > 0) {
-        languageStr = [languageStr substringFromIndex:1];
-    }
-    [postDic setObject:languageStr forKey:@"NurseLanguage"];
-
-}
-
+//弹窗个人优势
 - (void)showNurseNoteAlertView{
     
     windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
@@ -1738,7 +1158,7 @@
     
     
 }
-
+//弹窗服务类型
 - (void)showServiceAlertView{
     
     //serviceArr
@@ -1869,14 +1289,6 @@
     }
 }
 
-
-//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-//{
-//    if ([touch.view isDescendantOfView:addBgView]) //forgotPasswordView等为不想响应手势的subview
-//        return NO;
-//    else
-//        return YES;
-//}
 - (void)clickBtAction:(UIButton *)sender{
     NSLog(@"%ld",sender.tag);
     if (sender.tag == 100) {
@@ -2058,15 +1470,6 @@
     NSInteger cancleBt_W = 40;
     NSInteger cancleBt_H = 20;
     
-    //    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
-    //    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
-    //    cancleBt.backgroundColor = [UIColor clearColor];
-    //    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
-    //    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    //    cancleBt.tag = 0;
-    //    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
-    //    [addBgView addSubview:cancleBt];
-    
     UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
     [okBt setTitle:@"确认" forState:UIControlStateNormal];
     okBt.backgroundColor = [UIColor clearColor];
@@ -2133,7 +1536,7 @@
     [addBgView addSubview:okBt];
     
 }
-
+//弹窗选择职称
 - (void)ShowNurserJobAlertView{
     //serviceArr
     windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];

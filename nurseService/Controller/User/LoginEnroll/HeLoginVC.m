@@ -65,7 +65,7 @@
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
     securirtyButton.selected = YES;
 }
-
+//提交数据
 - (IBAction)loginButtonClick:(id)sender
 {
     if ([accountField isFirstResponder]) {
@@ -135,7 +135,7 @@
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
 }
-
+//注册账号
 - (IBAction)enrollButtonClick:(id)sender
 {
     HeEnrollVC *enrollVC = [[HeEnrollVC alloc] init];

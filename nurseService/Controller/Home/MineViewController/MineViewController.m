@@ -89,8 +89,7 @@
 {
     [super viewWillAppear:YES];
     self.navigationController.navigationBarHidden = YES;
-    [self getSignInState];
-//    [self getNurseData];
+//    [self getSignInState];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -104,15 +103,13 @@
 {
     [[UINavigationBar appearance] setTintColor:APPDEFAULTORANGE];
     [super initializaiton];
-//    iconArr = @[@[@"icon_mycollection",@"icon_publish",@"icon_mycomment"],@[@"icon_patient",@"icon_follow",@"icon_fans"],@[@"icon_schedule",@"icon_service",@"icon_myadd"],@[@"icon_invite",@"icon_set",@"icon_set"]];
     iconArr = @[@"icon_mycomment",@"icon_fans",@"icon_red_packets",@"icon_schedule",@"icon_patient",@"icon_invite",@"icon_mycollection",@"icon_set"];
-//    tableItemArr = @[@[@"        我的收藏",@"        我的发表",@"        我的评论"],@[@"        我的患者",@"        我的关注",@"        我的粉丝"],@[@"        我的排班表",@"        我的服务",@"        我的常用地址"],@[@"        邀请好友",@"        我的二维码",@"        设置"]];
     tableItemArr =@[@"        我的评论",@"        我的粉丝",@"        我的红包",@"        我的服务",@"        服务介绍",@"        邀好友",@"        关于我们",@"        设置"];
     serviceArr = [[NSMutableArray alloc] initWithCapacity:0];  //可提供服务
     serviceSelectArr = [[NSMutableArray alloc] initWithCapacity:0];
     serviceIdDic = [[NSMutableDictionary alloc] initWithCapacity:0];  //可提供服务
 }
-
+//刷新界面数据
 - (void)reloadViewData{
     NSString *userHeader = [NSString stringWithFormat:@"%@%@",PIC_URL,[[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseHeader"]];
     [portrait sd_setImageWithURL:[NSURL URLWithString:userHeader] placeholderImage:[UIImage imageNamed:@"defalut_icon"]];
@@ -153,22 +150,6 @@
     
     myTableView.tableHeaderView = headerView;
 
-    
-    //签到按钮
-//    CGFloat buttonW = 50;
-//    CGFloat buttonH = 20;
-//    CGFloat buttonX = SCREENWIDTH-60;
-//    CGFloat buttonY = 20;
-//    signBtn = [[UIButton alloc] initWithFrame:CGRectMake(buttonX, buttonY, buttonW, buttonH)];
-//    signBtn.backgroundColor = [UIColor clearColor];
-//    signBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
-//    signBtn.layer.cornerRadius = 4.0;//2.0是圆角的弧度，根据需求自己更改
-//    signBtn.layer.borderWidth = 1.0f;//设置边框颜色
-//    signBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
-//    [signBtn setTitle:@"签到" forState:UIControlStateNormal];
-//    [signBtn addTarget:self action:@selector(toSignInView) forControlEvents:UIControlEventTouchUpInside];
-//    [headerView addSubview:signBtn];
-    
     UIImage *messageImage = [UIImage imageNamed:@"icon_infromation"];
     CGFloat messageButtonW = 25;
     CGFloat messageButtonH = messageImage.size.height / messageImage.size.width * messageButtonW;
@@ -357,63 +338,63 @@
     }
 }
 
-- (void)toSignInView{
-    NSLog(@"toSignInView");
-    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+//- (void)toSignInView{
+//    NSLog(@"toSignInView");
+//    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+//
+//    NSDictionary * params  = @{@"nurseId": userAccount};
+//    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:TOSIGNIN params:params success:^(AFHTTPRequestOperation* operation,id response){
+//        
+//        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+//        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+//        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+//            NSLog(@"success");
+//            if ([[respondDict valueForKey:@"json"] boolValue]) {
+//                [signBtn setTitle:@"已签" forState:UIControlStateNormal];
+//                [signBtn setEnabled:NO];
+//            }
+//        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+//            NSLog(@"faile");
+//        }
+//        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+//    } failure:^(NSError* err){
+//        NSLog(@"err:%@",err);
+//        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+//    }];
+//}
 
-    NSDictionary * params  = @{@"nurseId": userAccount};
-    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:TOSIGNIN params:params success:^(AFHTTPRequestOperation* operation,id response){
-        
-        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
-        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
-        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
-            NSLog(@"success");
-            if ([[respondDict valueForKey:@"json"] boolValue]) {
-                [signBtn setTitle:@"已签" forState:UIControlStateNormal];
-                [signBtn setEnabled:NO];
-            }
-        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
-            NSLog(@"faile");
-        }
-        [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
-    } failure:^(NSError* err){
-        NSLog(@"err:%@",err);
-        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
-    }];
-}
-
-- (void)getSignInState{
-    NSLog(@"toSignInView");
-    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
-
-    NSDictionary * params  = @{@"nurseId": userAccount};
-    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:SIGNINSTATE params:params success:^(AFHTTPRequestOperation* operation,id response){
-        
-        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
-        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
-        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
-            NSLog(@"success");
-            if ([[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"json"]] isEqualToString:@"no"]) {
-                if (signBtn) {
-                    [signBtn setTitle:@"签到" forState:UIControlStateNormal];
-                    [signBtn setEnabled:YES];
-                }
-            }else{
-                if (signBtn) {
-                    [signBtn setTitle:@"已签" forState:UIControlStateNormal];
-                    [signBtn setEnabled:NO];
-                }
-            }
-        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
-            NSLog(@"faile");
-            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
-        }
-        
-    } failure:^(NSError* err){
-        NSLog(@"err:%@",err);
-        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
-    }];
-}
+//- (void)getSignInState{
+//    NSLog(@"toSignInView");
+//    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
+//
+//    NSDictionary * params  = @{@"nurseId": userAccount};
+//    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:SIGNINSTATE params:params success:^(AFHTTPRequestOperation* operation,id response){
+//        
+//        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
+//        NSMutableDictionary *respondDict = [NSMutableDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
+//        if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"200"]) {
+//            NSLog(@"success");
+//            if ([[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"json"]] isEqualToString:@"no"]) {
+//                if (signBtn) {
+//                    [signBtn setTitle:@"签到" forState:UIControlStateNormal];
+//                    [signBtn setEnabled:YES];
+//                }
+//            }else{
+//                if (signBtn) {
+//                    [signBtn setTitle:@"已签" forState:UIControlStateNormal];
+//                    [signBtn setEnabled:NO];
+//                }
+//            }
+//        }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
+//            NSLog(@"faile");
+//            [self.view makeToast:[NSString stringWithFormat:@"%@",[respondDict valueForKey:@"data"]] duration:1.2 position:@"center"];
+//        }
+//        
+//    } failure:^(NSError* err){
+//        NSLog(@"err:%@",err);
+//        [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
+//    }];
+//}
 
 #pragma mark UITableViewdDataSource UITableViewDelegate
 
@@ -631,13 +612,13 @@
     return 10;
 }
 
-
+//个人资料
 - (void)goToMineInfoView{
     MainInfoViewController *mainInfoViewController = [[MainInfoViewController alloc] init];
     mainInfoViewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:mainInfoViewController animated:YES];
 }
-
+//我的报告
 - (void)goToMyReportListView{
     MyReportListVC *myReportListVC = [[MyReportListVC alloc] init];
     myReportListVC.hidesBottomBarWhenPushed = YES;
@@ -657,7 +638,7 @@
     aboutViewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:aboutViewController animated:YES];
 }
-
+//分享
 - (void)inviteFriend
 {
     //商品的分享
@@ -738,7 +719,7 @@
     }
 }
 
-
+//获取账号数据
 - (void)getNurseData{
     NSString *account = [[NSUserDefaults standardUserDefaults] objectForKey:NURSEACCOUNTKEY];
     NSString *password = [[NSUserDefaults standardUserDefaults] objectForKey:USERPASSWORDKEY];
@@ -782,33 +763,8 @@
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
     }];
-
-//    NSString *latitude = [[HeSysbsModel getSysModel].userLocationDict objectForKey:@"longitude"];
-//    if (!latitude) {
-//        latitude = @"";
-//    }
-//    NSString *longitude = [[HeSysbsModel getSysModel].userLocationDict objectForKey:@"latitude"];
-//    if (!longitude) {
-//        longitude = @"";
-//    }
-//    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
-//
-//    NSDictionary * params  = @{@"nurseid":userAccount,@"latitude": latitude,@"longitude":longitude};
-//    
-//    [AFHttpTool requestWihtMethod:RequestMethodTypePost url:SELECTBURSEBYID params:params success:^(AFHTTPRequestOperation* operation,id response){
-//        NSString *respondString = [[NSString alloc] initWithData:operation.responseData encoding:NSUTF8StringEncoding];
-//        
-//        NSDictionary *respondDict = [NSDictionary dictionaryWithDictionary:[respondString objectFromJSONString]];
-//        if ([[respondDict valueForKey:@"errorCode"] integerValue] == REQUESTCODE_SUCCEED){
-//            NSLog(@"update Location Succeed!");
-//            
-//        }
-//    } failure:^(NSError* err){
-//        
-//    }];
-
 }
-
+//提示弹窗
 - (void)showRebackAlertView{
     windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
     windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
@@ -848,15 +804,6 @@
     NSInteger cancleBt_Y = addTextField_Y+44+30;
     NSInteger cancleBt_W = 40;
     NSInteger cancleBt_H = 20;
-    
-//    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
-//    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
-//    cancleBt.backgroundColor = [UIColor clearColor];
-//    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
-//    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-//    cancleBt.tag = 0;
-//    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
-//    [addBgView addSubview:cancleBt];
     
     UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
     [okBt setTitle:@"确认" forState:UIControlStateNormal];
@@ -919,67 +866,6 @@
         NSLog(@"err:%@",err);
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
-    
-   
-    /*
-    windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
-    windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
-    [[[UIApplication sharedApplication] keyWindow] addSubview:windowView];
-    
-    NSInteger addBgView_W = SCREENWIDTH -20;
-    NSInteger addBgView_H = 160;
-    NSInteger addBgView_Y = SCREENHEIGH/2.0-addBgView_H/2.0-40;
-    UIView *addBgView = [[UIView alloc] initWithFrame:CGRectMake(10, addBgView_Y, addBgView_W, addBgView_H)];
-    addBgView.backgroundColor = [UIColor whiteColor];
-    [addBgView.layer setMasksToBounds:YES];
-    [addBgView.layer setCornerRadius:4];
-    addBgView.alpha = 1.0;
-    [windowView addSubview:addBgView];
-    
-    
-    UILabel *titleL = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 100, 40)];
-    titleL.textColor = [UIColor blackColor];
-    titleL.textAlignment = NSTextAlignmentLeft;
-    titleL.font = [UIFont systemFontOfSize:18.0];
-    titleL.backgroundColor = [UIColor clearColor];
-    [addBgView addSubview:titleL];
-    titleL.text = @"提示";
-    
-    NSInteger addTextField_H = 44;
-    NSInteger addTextField_Y = 50;
-    NSInteger addTextField_W =SCREENWIDTH-40;
-    
-    UILabel *tipLable = [[UILabel alloc] initWithFrame:CGRectMake(10, addTextField_Y, addTextField_W, addTextField_H)];//高度--44
-    tipLable.font = [UIFont systemFontOfSize:15.0];
-    tipLable.backgroundColor = [UIColor clearColor];
-    tipLable.numberOfLines = 0;
-    tipLable.text = @"提交新的服务认证需要重新审核，未审核通过前无法接单，是否确认";
-    [addBgView addSubview:tipLable];
-
-    NSInteger cancleBt_X = SCREENWIDTH-20-10-90;
-    NSInteger cancleBt_Y = addTextField_Y+44+30;
-    NSInteger cancleBt_W = 40;
-    NSInteger cancleBt_H = 20;
-    
-    UIButton *cancleBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X, cancleBt_Y, cancleBt_W, cancleBt_H)];
-    [cancleBt setTitle:@"取消" forState:UIControlStateNormal];
-    cancleBt.backgroundColor = [UIColor clearColor];
-    cancleBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
-    [cancleBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    cancleBt.tag = 0;
-    [cancleBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
-    [addBgView addSubview:cancleBt];
-    
-    UIButton *okBt = [[UIButton alloc] initWithFrame:CGRectMake(cancleBt_X+50, cancleBt_Y, cancleBt_W, cancleBt_H)];
-    [okBt setTitle:@"确认" forState:UIControlStateNormal];
-    okBt.backgroundColor = [UIColor clearColor];
-    okBt.titleLabel.font = [UIFont systemFontOfSize:15.0];
-    [okBt setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    okBt.tag = 1;
-    [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
-    [addBgView addSubview:okBt];
-     
-     */
 }
 
 - (void)clickBtAction:(UIButton *)sender{
@@ -1030,7 +916,7 @@
     }
     NSLog(@"tag:%ld",sender.tag);
 }
-
+//我的服务
 - (void)showServiceAlertView{
     
     //serviceArr
@@ -1130,14 +1016,14 @@
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
 }
-
+//站内信
 - (void)messageButtonClick:(UIButton *)button
 {
     HeMessageVC *messageVC = [[HeMessageVC alloc] init];
     messageVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:messageVC animated:YES];
 }
-
+//修正用户显示信息格式
 - (NSString *)getNameInfo{
     NSString *nurseNick = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseNick"];
     if ([nurseNick isMemberOfClass:[NSNull class]] || nurseNick == nil) {

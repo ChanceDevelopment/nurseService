@@ -69,7 +69,7 @@
     getCodeButton.layer.borderWidth = 0.5;
     getCodeButton.layer.borderColor = APPDEFAULTORANGE.CGColor;
 }
-
+//获取验证码
 - (IBAction)getCodeButtonClick:(UIButton *)sender
 {
     if ([accountField isFirstResponder]) {
@@ -118,7 +118,7 @@
         [self showHint:ERRORREQUESTTIP];
     }];
 }
-
+//重置密码
 - (IBAction)resetButtonClick:(UIButton *)sender
 {
     if ([accountField isFirstResponder]) {
@@ -177,7 +177,7 @@
         [self showHint:ERRORREQUESTTIP];
     }];
 }
-
+//再次确认密码
 - (IBAction)commitButtonClick:(id)sender
 {
     if ([passwordField isFirstResponder]) {

@@ -69,7 +69,7 @@
     tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     
 }
-
+//获取病人信息
 - (void)getPaitentInfo
 {
     [self showHudInView:tableview hint:@"获取中..."];

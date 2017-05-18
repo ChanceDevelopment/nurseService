@@ -99,7 +99,7 @@
     }];
     
 }
-
+//获取护理报告界面数据
 - (void)getData{
     
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
@@ -258,7 +258,11 @@
         
     }
 }
-
+/*
+ @brief 处理护理时间信息
+ @prama info:护理的信息
+ @return 正确的时间信息
+ */
 - (NSString *)getSenderTimeStrWith:(id)info{
     NSString *stopTimeStr = @"";
     id zoneCreatetimeObj = info;

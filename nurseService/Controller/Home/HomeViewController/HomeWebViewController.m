@@ -145,7 +145,7 @@
 //    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:htmlstr]]];
 //    [self.webView loadHTMLString:htmlstr baseURL:[NSURL URLWithString:self.urlString]];
 }
-
+//初始化分享内容
 - (void)shareAction{
     //商品的分享
     NSString *titleStr = @"专业护士上门";

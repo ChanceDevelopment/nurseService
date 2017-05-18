@@ -96,7 +96,7 @@
     }];
     
 }
-
+//获取红包数据
 - (void)getData{
     
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
@@ -288,13 +288,7 @@
     @try {
         dict = [NSDictionary dictionaryWithDictionary:dataArr[row]];
         
-        NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithDictionary:[Tool deleteNullFromDic:dict]];
-//        NurseReportVC *nurseReportVC = [[NurseReportVC alloc] init];
-//        nurseReportVC.hidesBottomBarWhenPushed = YES;
-//        nurseReportVC.infoData = tempDict;
-//        //        nurseReportVC.isDetail = YES;
-//        nurseReportVC.reportType = 1;
-//        [self.navigationController pushViewController:nurseReportVC animated:YES];
+//        NSMutableDictionary *tempDict = [NSMutableDictionary dictionaryWithDictionary:[Tool deleteNullFromDic:dict]];
     } @catch (NSException *exception) {
         
     } @finally {

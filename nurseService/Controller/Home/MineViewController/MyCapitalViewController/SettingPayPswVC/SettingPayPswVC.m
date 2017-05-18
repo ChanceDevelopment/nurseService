@@ -59,13 +59,6 @@ return self;
     
     self.view.backgroundColor = [UIColor colorWithWhite:237.0 /255.0 alpha:1.0];
     
-//    codeBt.layer.borderWidth = 1.0;
-//    codeBt.layer.cornerRadius = 5.0;
-////    codeBt.layer.backgroundColor = APPDEFAULTORANGE.CGColor;
-//    codeBt.layer.masksToBounds = YES;
-//    [codeBt setBackgroundImage:[Tool buttonImageFromColor:APPDEFAULTORANGE withImageSize:codeBt.frame.size] forState:UIControlStateNormal];
-//    codeBt.layer.borderColor = [UIColor clearColor].CGColor;
-//    
     codeBt.layer.masksToBounds = YES;
     codeBt.layer.cornerRadius = 5.0;
     codeBt.layer.borderWidth = 0.5;
@@ -79,9 +72,8 @@ return self;
     
 }
 
+//获取验证码
 - (IBAction)getCodeClick:(id)sender {
-
-    
     [sender startWithTime:60 title:@"获取验证码" countDownTitle:@"s" mainColor:[UIColor whiteColor] countColor:[UIColor whiteColor]];
     
     //获取注册手机号的验证码
@@ -100,14 +92,13 @@ return self;
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
         }
-        
-        
     } failure:^(NSError* err){
         NSLog(@"err:%@",err);
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
 
 }
+//提交数据
 - (IBAction)finishedClick:(id)sender {
     if ([codeTextField.text isEqualToString:@""]) {
         [self showHint:@"请输入验证码"];

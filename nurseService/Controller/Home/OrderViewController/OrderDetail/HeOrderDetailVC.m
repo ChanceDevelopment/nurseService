@@ -1104,13 +1104,13 @@
     [self.navigationController pushViewController:paitentInfoVC animated:YES];
 }
 
-- (void)goLocationWithLocation:(NSDictionary *)locationDict
-{
-    HeUserLocatiVC *userLocationVC = [[HeUserLocatiVC alloc] init];
-    userLocationVC.userLocationDict = [[NSDictionary alloc] initWithDictionary:locationDict];
-    userLocationVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:userLocationVC animated:YES];
-}
+//- (void)goLocationWithLocation:(NSDictionary *)locationDict
+//{
+//    HeUserLocatiVC *userLocationVC = [[HeUserLocatiVC alloc] init];
+//    userLocationVC.userLocationDict = [[NSDictionary alloc] initWithDictionary:locationDict];
+//    userLocationVC.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:userLocationVC animated:YES];
+//}
 
 
 - (void)showAlertViewWithTag:(UIButton *)sender{

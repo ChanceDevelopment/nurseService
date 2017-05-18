@@ -57,7 +57,6 @@
     // Do any additional setup after loading the view from its nib.
     [self initializaiton];
     [self initView];
-//    [self getAllServiceInfo];
     [[NSNotificationCenter defaultCenter] addObserver:self  selector:@selector(changeValue:)   name:@"changeValue"  object:nil];
 
 }
@@ -76,10 +75,6 @@
 {
     [super initView];
     NSDictionary *userInfoDic = [NSDictionary dictionaryWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY]];
-//    NSString* temp = [NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseGoodservice"]];
-//    NSArray *arr = [temp componentsSeparatedByString:@","];
-//    NSString *t = [Tool convertHexStrToString:arr[0]];
-    
     dataSourceDic = [NSMutableDictionary dictionaryWithCapacity:8];
     [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseHeader"]] forKey:@"nurseHeader"];
     [dataSourceDic setValue:[NSString stringWithFormat:@"%@",[userInfoDic valueForKey:@"nurseNick"]] forKey:@"nurseNick"];
@@ -124,6 +119,7 @@
     NSString *string = [[NSString alloc]initWithData:hexData encoding:NSUTF8StringEncoding];
     return string;
 }
+//保存修改数据
 - (IBAction)saveAction:(UIButton *)sender {
     
     if ([[dataSourceDic valueForKey:@"nurseNick"] isEqualToString:@""]) {
@@ -132,7 +128,7 @@
     }
     [self sendDataToServe];
 }
-
+//保存修改数据
 - (void)sendDataToServe{
     NSString *headerStr = @"";
     NSString *sexStr = @"1";
@@ -412,7 +408,7 @@
             break;
     }
 }
-
+//选择性别弹窗
 - (void)showChooseSexView{
     windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
     windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
@@ -463,21 +459,14 @@
     [girlBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio"] forState:UIControlStateNormal];
     girlBt.tag = 2;
     [girlBt addTarget:self action:@selector(chooseSexAction:) forControlEvents:UIControlEventTouchUpInside];
-//    girlBt.enabled = YES;
     [addBgView addSubview:girlBt];
-    
-//    NSString *nurseDistrict = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseSex"];
     BOOL isBoy = [[dataSourceDic valueForKey:@"nurseSex"] isEqualToString:@"女"] ? NO : YES;
     if (isBoy) {
         boyBt.selected = YES;
-//        boyBt.enabled = NO;
         girlBt.selected = NO;
-//        girlBt.enabled = YES;
     }else{
         boyBt.selected = NO;
         girlBt.selected = YES;
-//        boyBt.enabled = YES;
-//        girlBt.enabled = NO;
     }
 
     
@@ -511,7 +500,7 @@
     [addBgView addSubview:okBt];
     
 }
-
+//修改选中状态
 - (void )chooseSexAction:(UIButton *)sender{
     
     if (sender.selected == YES) {
@@ -521,32 +510,11 @@
     girlBt.selected = !girlBt.isSelected;
     if (boyBt.selected) {
         NSLog(@"男");
-//        [postDic setValue:@"1" forKey:@"NurseSex"];
     }else{
-//        [postDic setValue:@"2" forKey:@"NurseSex"];
         NSLog(@"女");
     }
-    /*
-    if (sender.tag == 1) {
-        if ([boyBt isEnabled]) {
-            [boyBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio_on"] forState:UIControlStateNormal];
-            [girlBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio"] forState:UIControlStateNormal];
-            boyBt.enabled = NO;
-            girlBt.enabled = YES;
-            
-        }
-    }else if (sender.tag == 2){
-        if ([girlBt isEnabled]) {
-            [girlBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio_on"] forState:UIControlStateNormal];
-            [boyBt setBackgroundImage:[UIImage imageNamed:@"abc_btn_radio"] forState:UIControlStateNormal];
-            girlBt.enabled = NO;
-            boyBt.enabled = YES;
-            
-        }
-    }
-     */
 }
-
+//弹窗 修改昵称、手机号、身份证号等
 - (void)showAddView{
     windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];
         windowView.backgroundColor = [UIColor colorWithWhite:0.f alpha:0.5];;
@@ -645,7 +613,7 @@
     
     
 }
-
+//确定修改信息
 - (void)clickBtAction:(UIButton *)sender{
     if (currentRow == 1 && sender.tag == 1) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:@"changeValue" object:nil];
@@ -921,7 +889,7 @@
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
 }
-
+//弹窗 医护信息
 - (void)ShowNurserInfo{
     //serviceArr
     windowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREENWIDTH, SCREENHEIGH)];

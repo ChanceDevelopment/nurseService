@@ -138,13 +138,7 @@
     NSString *code = codeField.text;
     NSString *password = passwordField.text;
     NSString *inviteCode = inviteCodeField.text;
-    
-//    NSString *nick = nickField.text;
-    
-//    if ((userPhone == nil || [userPhone isEqualToString:@""])) {
-//        [self showHint:@"请输入手机号"];
-//        return;
-//    }
+
     if (userPhone == nil || ![Tool isMobileNumber:userPhone]) {
         [self showHint:@"请输入正确的手机号"];
         return;
@@ -158,33 +152,13 @@
         return;
     }
 
-//    if (password == nil || [password isEqualToString:@""]) {
-//        [self showHint:@"请输入密码"];
-//        return;
-//    }
     if (inviteCode == nil) {
         inviteCode = @"";
     }
-//    if (nick == nil || [nick isEqualToString:@""]) {
-//        [self showHint:@"请输入昵称"];
-//        return;
-//    }
-    
     if (agreeButton.selected == NO) {
         [self showHint:@"请阅读《安心护免责条款》"]; //安心护免责条款
         return;
     }
-    
-    
-//    if (userImage == nil) {
-//        [self showHint:@"请设置头像"];
-//        return;
-//    }
-    
-//    NSString *headImageStr = @"";
-//    if (userImage != nil) {
-//        headImageStr = encodedImageStr;
-//    }
     
     NSDictionary * params  = @{@"NurseName": userPhone,
                                @"NursePwd" : password,
@@ -260,11 +234,6 @@
         [inviteCodeField resignFirstResponder];
     }
 }
-
-
-
-
-
 
 //选择上传头像
 - (IBAction)uploadButtonClick:(id)sender
@@ -405,6 +374,7 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+//安心护免责界面
 - (IBAction)tipAction:(id)sender {
     EnrollTipVC *enrollTipVC = [[EnrollTipVC alloc] init];
     enrollTipVC.hidesBottomBarWhenPushed = YES;

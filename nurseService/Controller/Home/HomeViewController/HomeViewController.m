@@ -70,26 +70,10 @@
         self.title = @"首页";
         self.navigationItem.titleView.backgroundColor = [UIColor clearColor];
         
-        
-//        NSMutableArray *buttons = [[NSMutableArray alloc] init];
-//        UIButton *scanBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
-//        [scanBt setBackgroundImage:[UIImage imageNamed:@"icon_scan"] forState:UIControlStateNormal];
-//        [scanBt addTarget:self action:@selector(scanAction) forControlEvents:UIControlEventTouchUpInside];
-//        scanBt.backgroundColor = [UIColor clearColor];
-//        UIBarButtonItem *scanItem = [[UIBarButtonItem alloc] initWithCustomView:scanBt];
-//        [buttons addObject:scanItem];
-//        UIButton *searchBt = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
-//        [searchBt setBackgroundImage:[UIImage imageNamed:@"icon_search"] forState:UIControlStateNormal];
-//        [searchBt addTarget:self action:@selector(searchAction) forControlEvents:UIControlEventTouchUpInside];
-//        searchBt.backgroundColor = [UIColor clearColor];
-//        UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithCustomView:searchBt];
-//        [buttons addObject:searchItem];
-//        self.navigationItem.rightBarButtonItems = buttons;
-        
     }
     return self;
 }
-
+//初始化导航条
 -(DLNavigationTabBar *)navigationTabBar
 {
     if (!_navigationTabBar) {
@@ -132,7 +116,7 @@
     currentDic = [[NSDictionary alloc] init];
     [super initializaiton];
 }
-
+//根据当前选中的导航条类型请求数据
 - (void)navigationDidSelectedControllerIndex:(NSInteger)index {
     NSLog(@"index = %ld",index);
     currentType = index;
@@ -146,22 +130,13 @@
             [self getDataWithUrl:ESSENCEARTICLE];
             break;
         }
-//        case 1:
-//        {
-//            noDataView.hidden = NO;
-//            tableview.hidden = YES;
-//            [dataArr removeAllObjects];
-//            [tableview reloadData];
-//            [self showHint:@"问题贴暂未开通"];
-//        }
-//            break;
         default:
             [self getDataWithUrl:kThreeLevelDetails];
             break;
     }
 
 }
-
+//根绝url类型请求数据
 - (void)reloadData{
     currentPage = 0;
     if (dataArr && dataArr.count > 0) {
@@ -187,7 +162,7 @@
             break;
     }
 }
-
+//所有的导航条类型
 - (void)getAllTag
 {
 
@@ -234,12 +209,6 @@
                 NSArray *tempArr = [NSArray arrayWithArray:[respondDict valueForKey:@"json"]];
                 NSMutableArray *arrName = @[].mutableCopy;
                 [arrName addObject:@"精华"];
-//                if ([arrName count] > 1) {
-//                    [arrName insertObject:@"问题" atIndex:1];
-//                }
-//                else{
-//                    [arrName addObject:@"问题"];
-//                }
                 self.nurseFocusArr = tempArr;
                 for (NSDictionary *dic in tempArr) {
                     NSString *postTwoLevelName = dic[@"postTwoLevelName"];
@@ -259,12 +228,6 @@
             NSArray *tempArr = [NSArray array];
             NSMutableArray *arrName = @[].mutableCopy;
             [arrName addObject:@"精华"];
-//            if ([arrName count] > 1) {
-//                [arrName insertObject:@"问题" atIndex:1];
-//            }
-//            else{
-//                [arrName addObject:@"问题"];
-//            }
             self.nurseFocusArr = tempArr;
             for (NSDictionary *dic in tempArr) {
                 NSString *postTwoLevelName = dic[@"postTwoLevelName"];
@@ -289,7 +252,7 @@
     }];
 }
 
-
+//获取滚动图片数据
 - (void)getRollPic
 {
     NSDictionary * params;
@@ -320,12 +283,8 @@
         [self.view makeToast:ERRORREQUESTTIP duration:2.0 position:@"center"];
     }];
 }
-
+//获取滚动图片下方数据
 - (void)getDataWithUrl:(NSString *)url{
-
-//    NSString *userAccount = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];
-
-
     NSDictionary * params;
     if (currentType == 0) {
         params= @{@"pageNum" : [NSString stringWithFormat:@"%d",(int)currentPage]};

@@ -160,7 +160,11 @@
     
     [self loadMessageWithType:currentType];
 }
-
+/*
+ @brief 请求信息数据
+ @prama type:信息类型
+ @return
+ */
 - (void)loadMessageWithType:(NSInteger)type
 {
     
@@ -328,7 +332,7 @@
     CGSize size = [MLLabel getViewSizeByString:standInnerLetterContent maxWidth:contentLabelW font:textFont lineHeight:1.2f lines:0];
     return 25.0+size.height;
 }
-
+//清空数据
 - (void)cleanAction{
     
     NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:USERIDKEY];

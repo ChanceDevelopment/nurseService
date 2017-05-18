@@ -70,7 +70,11 @@
         [self getDataWithNameArr:nameArr];
     }
 }
-
+/*
+ @brief 获取服务项目详情
+ @prama nameArr:服务项目
+ @return
+ */
 - (void)getDataWithNameArr:(NSArray *)nameArr{
     [AFHttpTool requestWihtMethod:RequestMethodTypePost url:ALLSERVICEINFO params:nil success:^(AFHTTPRequestOperation* operation,id response){
         
@@ -105,11 +109,6 @@
                         [tableview reloadData];
                     }
                 }
-//                else{
-//                    tableview.hidden = YES;
-//                    noDataView.hidden = NO;
-//                    return ;
-//                }
             }
         }else if ([[[respondDict valueForKey:@"errorCode"] stringValue] isEqualToString:@"400"]){
             NSLog(@"faile");
@@ -154,7 +153,7 @@
     [tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     
 }
-
+//选择服务项目
 - (void)changeServiceAction{
 
     NSString *nurseDistrict = [[[NSUserDefaults standardUserDefaults] objectForKey:USERACCOUNTKEY] valueForKey:@"nurseDistrict"];
@@ -226,7 +225,7 @@
      [okBt addTarget:self action:@selector(clickBtAction:) forControlEvents:UIControlEventTouchUpInside];
      [addBgView addSubview:okBt];
 }
-
+//提交选中的服务项目
 - (void)clickBtAction:(UIButton *)sender{
     
     if (sender.tag == 1) {
