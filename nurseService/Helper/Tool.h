@@ -15,7 +15,7 @@
 + (void)setExtraCellLineHidden: (UITableView *)tableView;
 
 + (CGSize)sizeWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize;
-
++ (BOOL)checkTelephoneNumber:(NSString *)telephoneNumber;
 //获取openUUID
 + (NSString *)getDeviceUUid;
 

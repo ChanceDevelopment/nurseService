@@ -11,7 +11,7 @@
 #import "HeSysbsModel.h"
 #import "AppDelegate.h"
 #import "JPUSHService.h"
-
+const static NSString *telePattern = @"^1+[34578]+\\d{9}";
 @implementation Tool
 
 + (void)setExtraCellLineHidden: (UITableView *)tableView
@@ -1045,6 +1045,13 @@
     }else{
         return NO;
     }
+}
+
++ (BOOL)checkTelephoneNumber:(NSString *)telephoneNumber
+{
+    NSString *phoneRegex = [NSString stringWithFormat:@"%@", telePattern];
+    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", phoneRegex];
+    return [phoneTest evaluateWithObject:telephoneNumber];
 }
 
 + (BOOL)isMobileNumber:(NSString *)mobileNum

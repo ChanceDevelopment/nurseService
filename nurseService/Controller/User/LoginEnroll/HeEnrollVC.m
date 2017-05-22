@@ -93,7 +93,7 @@
 {
     [self cancelInputTap:nil];
     NSString *userPhone = accountField.text;
-    if (userPhone == nil || ![Tool isMobileNumber:userPhone]) {
+    if (userPhone == nil || ![Tool checkTelephoneNumber:userPhone]) {
         [self showHint:@"请输入正确的手机号"];
         return;
     }
